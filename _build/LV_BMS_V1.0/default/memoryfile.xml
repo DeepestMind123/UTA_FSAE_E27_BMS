@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <executable name="C:\Users\notwe\MPLABProjects\LV_BMS_V1.0\out\LV_BMS_V1.0\default.hex">
+    <memory name="program">
+      <units>bytes</units>
+      <length>65536</length>
+      <used>107</used>
+      <free>65429</free>
+    </memory>
+    <memory name="data">
+      <units>bytes</units>
+      <length>4096</length>
+      <used>30</used>
+      <free>4066</free>
+    </memory>
+  </executable>
+</project>

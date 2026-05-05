@@ -1,0 +1,46 @@
+{
+    "version": "1.9",
+    "configurations": [
+        {
+            "name": "default",
+            "id": "",
+            "device": "PIC18LF26K83",
+            "imagePath": "./out/LV_BMS_V1.0/default.elf",
+            "packs": [
+                {
+                    "name": "PIC18F-K_DFP",
+                    "vendor": "Microchip",
+                    "version": "1.16.308"
+                }
+            ],
+            "fileSet": "default",
+            "toolchain": "toolchain XC8 3.10"
+        }
+    ],
+    "propertyGroups": [
+        {
+            "name": "toolchain XC8 3.10",
+            "extend": "",
+            "type": "toolchain",
+            "provider": "microchip.toolchains:xc8@3.10",
+            "properties": {}
+        },
+        {
+            "name": "default-XC8",
+            "type": "toolchain",
+            "provider": "microchip.toolchains:xc8@3.10",
+            "properties": {}
+        }
+    ],
+    "fileSets": [
+        {
+            "name": "default",
+            "files": [
+                {
+                    "include": "**/*",
+                    "exclude": "**/(_build|out|cmake|.vscode)/**/*"
+                }
+            ]
+        }
+    ]
+}

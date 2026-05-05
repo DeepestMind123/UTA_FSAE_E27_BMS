@@ -1,0 +1,38 @@
+[
+{
+  "directory": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.10\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18LF26K83__ -c -mcpu=18LF26K83 -mdfp=C:/Users/notwe/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\\C_\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\bms_drivers\\current_manager.c.p1 -c C:\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\bms_drivers\\current_manager.c",
+  "file": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/bms_drivers/current_manager.c",
+  "output": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default/CMakeFiles/LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir/C_/Users/notwe/MPLABProjects/LV_BMS_V1.0/bms_drivers/current_manager.c.p1"
+},
+{
+  "directory": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.10\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18LF26K83__ -c -mcpu=18LF26K83 -mdfp=C:/Users/notwe/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\\C_\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\bms_drivers\\sys_manager.c.p1 -c C:\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\bms_drivers\\sys_manager.c",
+  "file": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/bms_drivers/sys_manager.c",
+  "output": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default/CMakeFiles/LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir/C_/Users/notwe/MPLABProjects/LV_BMS_V1.0/bms_drivers/sys_manager.c.p1"
+},
+{
+  "directory": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.10\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18LF26K83__ -c -mcpu=18LF26K83 -mdfp=C:/Users/notwe/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\\C_\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\main.c.p1 -c C:\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\main.c",
+  "file": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/main.c",
+  "output": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default/CMakeFiles/LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir/C_/Users/notwe/MPLABProjects/LV_BMS_V1.0/main.c.p1"
+},
+{
+  "directory": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.10\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18LF26K83__ -c -mcpu=18LF26K83 -mdfp=C:/Users/notwe/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\\C_\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\system_config\\adc_manager.c.p1 -c C:\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\system_config\\adc_manager.c",
+  "file": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/system_config/adc_manager.c",
+  "output": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default/CMakeFiles/LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir/C_/Users/notwe/MPLABProjects/LV_BMS_V1.0/system_config/adc_manager.c.p1"
+},
+{
+  "directory": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.10\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18LF26K83__ -c -mcpu=18LF26K83 -mdfp=C:/Users/notwe/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\\C_\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\system_config\\battery_config.c.p1 -c C:\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\system_config\\battery_config.c",
+  "file": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/system_config/battery_config.c",
+  "output": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default/CMakeFiles/LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir/C_/Users/notwe/MPLABProjects/LV_BMS_V1.0/system_config/battery_config.c.p1"
+},
+{
+  "directory": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.10\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18LF26K83__ -c -mcpu=18LF26K83 -mdfp=C:/Users/notwe/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\\C_\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\system_config\\sys_time.c.p1 -c C:\\Users\\notwe\\MPLABProjects\\LV_BMS_V1.0\\system_config\\sys_time.c",
+  "file": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/system_config/sys_time.c",
+  "output": "C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/_build/LV_BMS_V1.0/default/CMakeFiles/LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir/C_/Users/notwe/MPLABProjects/LV_BMS_V1.0/system_config/sys_time.c.p1"
+}
+]
