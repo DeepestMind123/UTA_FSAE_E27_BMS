@@ -1,5 +1,5 @@
 /**
- * @file main.c
+ * @file sys_time.c
  * @author notwe
  * @date 2026-05-03
  * @brief system time source

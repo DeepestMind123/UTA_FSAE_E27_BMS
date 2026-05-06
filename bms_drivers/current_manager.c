@@ -1,5 +1,5 @@
 /**
- * @file main.c
+ * @file current_manager.h
  * @author notwe
  * @date 2026-05-03
  * @brief current sensor manager source
