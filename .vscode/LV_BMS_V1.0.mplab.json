@@ -6,6 +6,8 @@
             "id": "",
             "device": "PIC18LF26K83",
             "imagePath": "./out/LV_BMS_V1.0/default.elf",
+            "toolProperties": "default-tool-base",
+            "tool": "Simulator",
             "packs": [
                 {
                     "name": "PIC18F-K_DFP",
@@ -23,12 +25,22 @@
             "extend": "",
             "type": "toolchain",
             "provider": "microchip.toolchains:xc8@3.10",
-            "properties": {}
+            "properties": {
+                "HI-TECH-COMP.extra-include-directories": [
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/system_config",
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/bms_drivers"
+                ]
+            }
         },
         {
             "name": "default-XC8",
             "type": "toolchain",
             "provider": "microchip.toolchains:xc8@3.10",
+            "properties": {}
+        },
+        {
+            "name": "default-tool-base",
+            "type": "tool",
             "properties": {}
         }
     ],

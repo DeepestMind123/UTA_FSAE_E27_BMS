@@ -38,8 +38,8 @@ typedef struct
 
 } sys_manager_cfg_t;
 
-void sys_manager_init(sys_manager_t *p_sys, sys_manager_cfg_t *p_sys_cfg);   // intialize system manager with relevant constants and functions
+void sys_manager_init(sys_manager_t *p_sys, sys_manager_cfg_t *p_sys_cfg);    // intialize system manager with relevant constants and functions, also initializes sub-modules
 
-void sys_manager_task(sys_manager_t *p_sys);                              // state switch function
+void sys_manager_task(sys_manager_t *p_sys);                                  // state switch function
 
 #endif

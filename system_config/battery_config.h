@@ -22,6 +22,7 @@ typedef struct
     uint16_t uv_lim_mV;         // under-voltage limit
     uint16_t ov_lim_mV;         // over-voltage limit
     uint16_t ot_lim_C;          // over-temperature limit
+    uint32_t oc_lim_mA;         // over-charge current limit
 
     // capacity
     uint32_t capacity_mAh;      // nominal capacity in mAh

@@ -6,62 +6,57 @@
  */
 
 #include "current_manager.h"
+#include <stdint.h>
+
+#define MV_TO_V 1000L
 
 static current_manager_t cur;
 static current_manager_cfg_t cur_cfg;
 
-void current_manager_init(current_manager_t *p_cur, current_manager_cfg_t *p_cur_cfg)
+void current_manager_init(current_manager_t *p_inst, current_manager_cfg_t *p_cfg, adc_manager_t *p_adc_inst)
 {
-    //alias pointers
-    cur = *p_cur;
-    cur_cfg = *p_cur_cfg;
+    p_inst->cfg = p_cfg;
 
-    cur.state = CURRENT_IDLE;
-
+    p_inst->elapsed = 0;
 }
 
-void current_manager_task(current_manager_t *p_cur)
+
+void current_manager_task(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
 {
-    switch(cur.state)
+    if(get_tick() - p_inst->elapsed >= p_inst->cfg->wait_ms)
     {
-        case CURRENT_IDLE:
-
-        break;
-
-        case CURRENT_START:
-
-        cur_cfg.set_pin();
-
-        cur_cfg.ADC_start();
-
-        cur.state = CURRENT_WAIT;
-
-        break;
-
-        case CURRENT_WAIT:
-
-        if(cur_cfg.ADC_done())
+        if(adc_manager_check(p_adc_inst))
         {
-            cur.state = CURRENT_GET;
+            adc_manager_task(p_adc_inst);
         }
-
-        break;
-
-        case CURRENT_GET:
-
-        cur.raw = cur_cfg.ADC_get_result();
-
-
-
-        break;
     }
 }
 
-int32_t process_current(current_manager_t *p_cur, uint32_t raw)
+int32_t current_manager_get_val(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
 {
+    int32_t current_mA = 0; // initialize at safe value;
 
-    uint32_t meas = raw * 1; // fix this later
+    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_adc_inst != NULL))
+    {
+        const uint32_t raw = adc_manager_get_val(p_adc_inst);
 
-    
-    return 0;
+        const uint16_t vref = adc_manager_get_vref(p_adc_inst);
+
+        const uint16_t scale = adc_manager_get_scale(p_adc_inst);
+
+        const int32_t offset = adc_manager_get_offset(p_adc_inst);
+
+        const int32_t gain_uV = p_inst->cfg->sensor_gain_uV;
+
+        if((scale > 0U) && (gain_uV != 0))
+        {
+            uint32_t voltage_mV = (raw * vref) / scale;
+
+            int32_t delta_mV = (int32_t)voltage_mV - offset;
+
+            current_mA = (delta_mV * MV_TO_V) / gain_uV;
+        }
+    }
+
+    return current_mA;
 }

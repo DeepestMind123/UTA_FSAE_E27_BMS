@@ -3,7 +3,7 @@ set(CMAKE_HOST_SYSTEM_NAME "Windows")
 set(CMAKE_HOST_SYSTEM_VERSION "10.0.26200")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "")
 
-include("C:/Users/notwe/MPLABProjects/LV_BMS_V1.0/cmake/LV_BMS_V1.0/default/.generated/toolchain.cmake")
+include("C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/cmake/LV_BMS_V1.0/default/.generated/toolchain.cmake")
 
 set(CMAKE_SYSTEM "Generic")
 set(CMAKE_SYSTEM_NAME "Generic")

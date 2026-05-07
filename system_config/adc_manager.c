@@ -55,19 +55,53 @@ void adc_manager_task(adc_manager_t *p_inst)
 
 uint8_t adc_manager_check(adc_manager_t *p_inst)
 {
-    if(p_inst->state == ADC_READY)
+    if((p_inst != NULL) && (p_inst->cfg != NULL)) 
     {
-        p_inst->state = ADC_START;
-        return 1;
+        if(p_inst->state == ADC_READY)
+        {
+            p_inst->state = ADC_START;
+            return 1;
+        }
+        return 0;
     }
-    
-    return 0;
+    return 0; // returns safe value, indicates adc isn't read if null pointer
 }
 
 uint32_t adc_manager_get_val(adc_manager_t *p_inst)
 {
-    // stores adc measurement in temp value accessible by external functions
-    uint32_t val = p_inst->last_raw;
+    if((p_inst != NULL) && (p_inst->cfg != NULL)) 
+    {
+        // stores adc measurement in temp value accessible by external functions
+        uint32_t val = p_inst->last_raw;
 
-    return val;
+        return val;
+    }
+    return 0; // return safe value
+}
+
+uint16_t adc_manager_get_scale(adc_manager_t *p_inst)
+{
+    if((p_inst != NULL) && (p_inst->cfg != NULL)) 
+    {
+        return p_inst->cfg->adc_vref_mV;
+    }
+    return 0; // returns safe value
+}
+
+uint16_t adc_manager_get_offset(adc_manager_t *p_inst)
+{
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
+    {
+        return p_inst->cfg->adc_vref_mV;
+    } 
+    return 0; // returns safe value  
+}
+
+uint16_t adc_manager_get_vref(adc_manager_t *p_inst)
+{
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
+    {
+        return p_inst->cfg->adc_vref_mV;
+    }
+    return 0; // returns safe value
 }

@@ -9,6 +9,7 @@
 #define ADC_MANAGER_H
 
 #include <stdint.h>
+#include <stddef.h>
 
 typedef enum
 {
@@ -36,7 +37,6 @@ typedef struct
 typedef struct
 {
     adc_state_t state;
-
     uint32_t last_raw;                  // store last value so other modules can read
 
     const adc_manager_cfg_t *cfg;
@@ -50,5 +50,11 @@ void adc_manager_task(adc_manager_t *p_inst);
 uint8_t adc_manager_check(adc_manager_t *p_inst);
 
 uint32_t adc_manager_get_val(adc_manager_t *p_inst);
+
+uint16_t adc_manager_get_scale(adc_manager_t *p_inst);
+
+uint16_t adc_manager_get_offset(adc_manager_t *p_inst);
+
+uint16_t adc_manager_get_vref(adc_manager_t *p_inst);
 
 #endif
