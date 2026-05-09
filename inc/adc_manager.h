@@ -37,7 +37,9 @@ typedef struct
 typedef struct
 {
     adc_state_t state;
-    uint32_t last_raw;                  // store last value so other modules can read
+    uint32_t last_raw;                      // store last value so other modules can read
+    uint8_t data_ready_flag;                // data ready flag
+    int16_t set_offset;
 
     const adc_manager_cfg_t *cfg;
 
@@ -49,11 +51,15 @@ void adc_manager_task(adc_manager_t *p_inst);
 
 uint8_t adc_manager_check(adc_manager_t *p_inst);
 
+uint8_t adc_manager_get_flag(adc_manager_t *p_inst);
+
 uint32_t adc_manager_get_val(adc_manager_t *p_inst);
 
 uint16_t adc_manager_get_scale(adc_manager_t *p_inst);
 
 uint16_t adc_manager_get_offset(adc_manager_t *p_inst);
+
+void adc_manager_set_offset(adc_manager_t *p_inst, int16_t new_val);
 
 uint16_t adc_manager_get_vref(adc_manager_t *p_inst);
 

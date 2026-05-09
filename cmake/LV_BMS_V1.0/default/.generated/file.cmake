@@ -18,10 +18,11 @@ endforeach()
 set(LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_compile
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../bms_drivers/current_manager.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../bms_drivers/sys_manager.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../main.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../system_config/adc_manager.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../system_config/battery_config.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../system_config/sys_time.c")
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/adc_manager.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/battery_config.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/misc.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/sys_time.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../main.c")
 set_source_files_properties(${LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_compile} PROPERTIES LANGUAGE C)
 set(LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_link)
 set(LV_BMS_V1_0_default_image_name "default.elf")

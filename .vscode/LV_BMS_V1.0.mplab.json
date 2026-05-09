@@ -27,8 +27,11 @@
             "provider": "microchip.toolchains:xc8@3.10",
             "properties": {
                 "HI-TECH-COMP.extra-include-directories": [
-                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/system_config",
-                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/bms_drivers"
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/bms_drivers",
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc"
+                ],
+                "HI-TECH-LINK.extra-lib-directories": [
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc"
                 ]
             }
         },

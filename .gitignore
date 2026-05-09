@@ -1,4 +1,5 @@
 build/
+_build/
 dist/
 nbproject/private/
 nbproject/Makefile-*
@@ -25,4 +26,5 @@ _build/
 !cmake/**/user.cmake
 cmake/**/.generated/*
 cmake/**/CMake*
+cmake/
 out/

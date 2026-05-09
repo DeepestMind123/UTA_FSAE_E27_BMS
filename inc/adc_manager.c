@@ -10,6 +10,8 @@
 void adc_manager_init(adc_manager_t *p_inst, adc_manager_cfg_t *p_cfg)
 {
     p_inst->state = ADC_READY;
+    p_inst->data_ready_flag = 0;
+    p_inst->set_offset = p_inst->cfg->adc_offset;
     p_inst->cfg = p_cfg;
 }
 
@@ -47,6 +49,8 @@ void adc_manager_task(adc_manager_t *p_inst)
         // stores measurement
         p_inst->last_raw = p_inst->cfg->ADC_get_result();
 
+        p_inst->data_ready_flag = 1;
+
         p_inst->state = ADC_READY;
 
         break;
@@ -67,12 +71,23 @@ uint8_t adc_manager_check(adc_manager_t *p_inst)
     return 0; // returns safe value, indicates adc isn't read if null pointer
 }
 
+uint8_t adc_manager_get_flag(adc_manager_t *p_inst)
+{
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
+    {
+        return p_inst->data_ready_flag;
+    }
+    return 0; // return safe value
+}
+
 uint32_t adc_manager_get_val(adc_manager_t *p_inst)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL)) 
     {
         // stores adc measurement in temp value accessible by external functions
         uint32_t val = p_inst->last_raw;
+
+        p_inst->data_ready_flag = 0;
 
         return val;
     }
@@ -92,9 +107,17 @@ uint16_t adc_manager_get_offset(adc_manager_t *p_inst)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        return p_inst->cfg->adc_vref_mV;
+        return p_inst->set_offset;
     } 
     return 0; // returns safe value  
+}
+
+void adc_manager_set_offset(adc_manager_t *p_inst, int16_t new_val)
+{
+    if(p_inst != NULL)
+    {
+        p_inst->set_offset = new_val;
+    }
 }
 
 uint16_t adc_manager_get_vref(adc_manager_t *p_inst)
