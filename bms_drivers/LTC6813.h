@@ -6,7 +6,7 @@
 #include <stddef.h>
 #include <stdarg.h>
 
-#include "ADI.h"
+
 
 const uint16_t MD_SHIFT = 7;
 const uint16_t PUP_SHIFT = 6;
@@ -70,12 +70,6 @@ const uint8_t CLRSCTRL = 0x18; // clear S control reg group
 const uint8_t MUTE = 0x28; // mute discharge
 const uint8_t UNMUTE = 0x29; // unmute discharge
 
-
-typedef struct
-{
-
-} LTC6813_t;
-
 uint16_t LTC6813_get_ADCV(uint8_t MD, bool DCP, uint8_t CH);
 
 uint16_t LTC6813_get_ADOW(uint8_t MD, bool PUP, bool DCP, uint8_t CH);
@@ -101,5 +95,7 @@ uint16_t LTC6813_get_STATST(uint8_t MD, uint8_t ST);
 uint16_t LTC6813_get_ADCVAX(uint8_t MD, bool DCP);
 
 uint16_t LTC6813_get_ADCVSC(uint8_t MD, bool DCP);
+
+
 
 #endif

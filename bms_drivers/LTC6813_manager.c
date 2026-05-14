@@ -1,4 +1,7 @@
 #include "LTC6813_manager.h"
+#include "ADI.h"
+#include "LTC6813.h"
+#include "spi_hal.h"
 
 void LTC6813_manager_init(LTC6813_manager_t *p_inst, LTC6813_manager_cfg_t *p_cfg)
 {
@@ -33,6 +36,16 @@ void LTC6813_manager_init(LTC6813_manager_t *p_inst, LTC6813_manager_cfg_t *p_cf
         p_inst->pwmr[6] = 0;
         p_inst->psr[6] = 0;
 
+        p_inst->command_packet[4] = 0;
+        p_inst->len = 0;
+
+        p_inst->command_buffer = 0;
+        p_inst->cv_buffer[18] = 0;
+        p_inst->aux_buffer[12] = 0;
+
+        p_inst->busy_flag = 0;
+        p_inst->ready_flag = 0;
+
         p_inst->state = LTC6813_STATE_IDLE;
         p_inst->cmd = LTC6813_CMD_NONE;
     }
@@ -40,6 +53,8 @@ void LTC6813_manager_init(LTC6813_manager_t *p_inst, LTC6813_manager_cfg_t *p_cf
     {
         // error handler
     }
+
+    init_PEC15_Table();
 }
 
 void LTC6813_manager_task(LTC6813_manager_t *p_inst)
@@ -100,8 +115,74 @@ bool LTC6813_manager_cmd_request(LTC6813_manager_t *p_inst, LTC6813_cmd_t cmd)
 
 void LTC6813_manager_poll_cells(LTC6813_manager_t *p_inst)
 {
-    switch(p_inst->state)
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        
+        switch(p_inst->state)
+        {
+            case LTC6813_STATE_IDLE:
+
+            if(p_inst->command_buffer == LTC6813_CMD_POLL_CELLS)
+            {
+                p_inst->state = LTC6813_STATE_START;
+            }
+
+            break;
+
+            case LTC6813_STATE_START:
+
+            uint16_t command = LTC6813_get_ADAX(p_inst->md, p_inst->chg);
+
+            p_inst->len = 1U;
+
+            uint16_t pec = pec15(&command, p_inst->len);
+
+            LTC6813_manager_get_command_packet(&p_inst, command, pec);
+
+            spi_transfer_sentence(p_inst->cfg->cs_pin, 
+                                p_inst->command_packet, 
+                                p_inst->command_packet, 
+                                p_inst->len);
+
+            uint16_t rx_pec;
+
+            if(rx_pec == pec)
+            {
+                p_inst->state = LTC6813_STATE_WAIT;
+            }
+
+            break;
+
+            case LTC6813_STATE_WAIT:
+
+            break;
+
+            case LTC6813_STATE_GET:
+
+            break;
+
+            case LTC6813_STATE_READY:
+
+            break;
+        }
+    }
+    else 
+    {
+        // error handler
+    }
+}
+
+void LTC6813_manager_get_command_packet(LTC6813_manager_t *p_inst, uint16_t val1, uint16_t val2)
+{
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
+    {
+        p_inst->command_packet[4] = 0U;
+
+        // msb command bit packing
+        p_inst->command_packet[0] = (uint8_t)(val1 >> 8U);
+        p_inst->command_packet[1] = (uint8_t)(val1 & 0x00FFU);
+        p_inst->command_packet[2] = (uint8_t)(val2 >> 8U);
+        p_inst->command_packet[3] = (uint8_t)(val2 & 0x00FFU);
+
+        p_inst->len = 4U;
     }
 }

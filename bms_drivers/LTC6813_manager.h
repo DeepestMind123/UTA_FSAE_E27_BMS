@@ -7,6 +7,9 @@
 #include <stdbool.h>
 
 #include "LTC6813.h"
+#include "spi_hal.h"
+#include "ADI.h"
+#include "sys_time.h"
 
 typedef enum
 {
@@ -29,11 +32,11 @@ typedef enum
 
 typedef struct
 {
-    void(*LTC6813_cs_high)(void);
+    uint8_t cs_pin;
 
-    void(*LTC6813_cs_low)(void);
+    uint8_t ic_num; // number of daisy-chained devices]
+    uint8_t cell_num; // number of cells connected to device
 
-    // need a spi exchange function here too, gonna have to build that soon
 
 } LTC6813_manager_cfg_t;
 
@@ -66,7 +69,10 @@ typedef struct
     uint8_t pwmr[6];   // PWM control reg
     uint8_t psr[6];    // PWM/S control reg (why does this exist?) (there's already a PWM and an S pin control register)
 
-    uint16_t command_buffer; // stores next command
+    uint8_t command_packet[4];
+    uint8_t len;
+
+    uint8_t command_buffer; // stores next command
     uint16_t cv_buffer[18]; // stores the last polled cell voltages
     uint16_t aux_buffer[12]; // stores the last polled gpio values
 
@@ -87,6 +93,8 @@ void LTC6813_manager_task(LTC6813_manager_t *p_inst);
 bool LTC6813_manager_cmd_request(LTC6813_manager_t *p_inst, LTC6813_cmd_t cmd);
 
 void LTC6813_manager_poll_cells(LTC6813_manager_t *p_inst);
+
+void LTC6813_manager_get_command_packet(LTC6813_manager_t *p_inst, uint16_t val1, uint16_t val2);
 
 
 #endif

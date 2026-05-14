@@ -30,7 +30,10 @@ function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemble_rule target)
         PRIVATE "XPRJ_default=default")
     target_include_directories(${target}
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/bms_drivers"
-        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc")
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/inc"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/bms_drivers")
 endfunction()
 function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemblePreprocess_rule target)
     set(options
@@ -62,7 +65,10 @@ function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemblePreprocess_rule target)
         PRIVATE "XPRJ_default=default")
     target_include_directories(${target}
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/bms_drivers"
-        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc")
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/inc"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/bms_drivers")
 endfunction()
 function(LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_rule target)
     set(options
@@ -92,7 +98,10 @@ function(LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_rule target)
         PRIVATE "XPRJ_default=default")
     target_include_directories(${target}
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/bms_drivers"
-        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc")
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/inc"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/bms_drivers")
 endfunction()
 function(LV_BMS_V1_0_default_link_rule target)
     set(options
@@ -122,5 +131,8 @@ function(LV_BMS_V1_0_default_link_rule target)
     target_compile_definitions(${target} PRIVATE "XPRJ_default=default")
     target_include_directories(${target}
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/bms_drivers"
-        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc")
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/inc"
+        PRIVATE "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/bms_drivers")
 endfunction()

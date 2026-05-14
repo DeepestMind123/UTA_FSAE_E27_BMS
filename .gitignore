@@ -33,3 +33,9 @@ out/
 *.json
 *.json
 *.cmake
+*.json
+*.ninja
+*.json
+*.json
+*.cmake
+*.cmake

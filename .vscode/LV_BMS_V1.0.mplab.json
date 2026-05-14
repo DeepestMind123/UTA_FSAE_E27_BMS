@@ -28,7 +28,10 @@
             "properties": {
                 "HI-TECH-COMP.extra-include-directories": [
                     "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/bms_drivers",
-                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc"
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc",
+                    "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1",
+                    "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/inc",
+                    "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/bms_drivers"
                 ],
                 "HI-TECH-LINK.extra-lib-directories": [
                     "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc"

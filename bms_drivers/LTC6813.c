@@ -1,5 +1,4 @@
 #include "LTC6813.h"
-#include <stdint.h>
 
 uint16_t LTC6813_get_ADCV(uint8_t MD, bool DCP, uint8_t CH)
 {

@@ -44,35 +44,35 @@ cmake_ninja_workdir = C$:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\_bui
 
 build cmake_object_order_depends_target_LV_BMS_V1_0_default_toolchain_XC8_3_10_compile: phony || .
 
-build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\ADI.c.p1: C_COMPILER__LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_unscanned_ C$:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\ADI.c || cmake_object_order_depends_target_LV_BMS_V1_0_default_toolchain_XC8_3_10_compile
+build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\ADI.c.p1: C_COMPILER__LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_unscanned_ C$:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\ADI.c || cmake_object_order_depends_target_LV_BMS_V1_0_default_toolchain_XC8_3_10_compile
   DEFINES = -DXPRJ_default=default -D__18LF26K83__
-  DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\ADI.c.p1.d
+  DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\ADI.c.p1.d
   FLAGS = -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto
-  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc
+  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1 -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   OBJECT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
-  OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1
+  OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   TARGET_COMPILE_PDB = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\
   TARGET_PDB = ""
   TARGET_SUPPORT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
 
-build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\LTC6813.c.p1: C_COMPILER__LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_unscanned_ C$:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\LTC6813.c || cmake_object_order_depends_target_LV_BMS_V1_0_default_toolchain_XC8_3_10_compile
+build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\LTC6813.c.p1: C_COMPILER__LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_unscanned_ C$:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\LTC6813.c || cmake_object_order_depends_target_LV_BMS_V1_0_default_toolchain_XC8_3_10_compile
   DEFINES = -DXPRJ_default=default -D__18LF26K83__
-  DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\LTC6813.c.p1.d
+  DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\LTC6813.c.p1.d
   FLAGS = -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto
-  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc
+  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1 -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   OBJECT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
-  OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1
+  OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   TARGET_COMPILE_PDB = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\
   TARGET_PDB = ""
   TARGET_SUPPORT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
 
-build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\LTC6813_manager.c.p1: C_COMPILER__LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_unscanned_ C$:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\LTC6813_manager.c || cmake_object_order_depends_target_LV_BMS_V1_0_default_toolchain_XC8_3_10_compile
+build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\LTC6813_manager.c.p1: C_COMPILER__LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_unscanned_ C$:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\LTC6813_manager.c || cmake_object_order_depends_target_LV_BMS_V1_0_default_toolchain_XC8_3_10_compile
   DEFINES = -DXPRJ_default=default -D__18LF26K83__
-  DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\LTC6813_manager.c.p1.d
+  DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\LTC6813_manager.c.p1.d
   FLAGS = -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto
-  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc
+  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1 -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   OBJECT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
-  OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1
+  OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   TARGET_COMPILE_PDB = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\
   TARGET_PDB = ""
   TARGET_SUPPORT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
@@ -81,7 +81,7 @@ build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\med
   DEFINES = -DXPRJ_default=default -D__18LF26K83__
   DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\current_manager.c.p1.d
   FLAGS = -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto
-  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc
+  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1 -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   OBJECT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
   OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   TARGET_COMPILE_PDB = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\
@@ -92,7 +92,7 @@ build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\med
   DEFINES = -DXPRJ_default=default -D__18LF26K83__
   DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\sys_manager.c.p1.d
   FLAGS = -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto
-  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc
+  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1 -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   OBJECT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
   OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   TARGET_COMPILE_PDB = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\
@@ -103,7 +103,7 @@ build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\med
   DEFINES = -DXPRJ_default=default -D__18LF26K83__
   DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\adc_manager.c.p1.d
   FLAGS = -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto
-  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc
+  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1 -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   OBJECT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
   OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc
   TARGET_COMPILE_PDB = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\
@@ -114,7 +114,7 @@ build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\med
   DEFINES = -DXPRJ_default=default -D__18LF26K83__
   DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\battery_config.c.p1.d
   FLAGS = -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto
-  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc
+  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1 -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   OBJECT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
   OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc
   TARGET_COMPILE_PDB = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\
@@ -125,7 +125,7 @@ build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\med
   DEFINES = -DXPRJ_default=default -D__18LF26K83__
   DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\sys_time.c.p1.d
   FLAGS = -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto
-  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc
+  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1 -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   OBJECT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
   OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc
   TARGET_COMPILE_PDB = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\
@@ -136,7 +136,7 @@ build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\med
   DEFINES = -DXPRJ_default=default -D__18LF26K83__
   DEP_FILE = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\main.c.p1.d
   FLAGS = -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto
-  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc
+  INCLUDES = -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\bms_drivers -Ic:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1 -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc -Ic:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers
   OBJECT_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir
   OBJECT_FILE_DIR = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1
   TARGET_COMPILE_PDB = CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\
@@ -148,7 +148,7 @@ build CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\med
 #############################################
 # Object library LV_BMS_V1_0_default_toolchain_XC8_3_10_compile
 
-build LV_BMS_V1_0_default_toolchain_XC8_3_10_compile: phony CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\ADI.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\LTC6813.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\LTC6813_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\current_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\sys_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\adc_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\battery_config.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\sys_time.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\main.c.p1
+build LV_BMS_V1_0_default_toolchain_XC8_3_10_compile: phony CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\ADI.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\LTC6813.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\LTC6813_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\current_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\sys_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\adc_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\battery_config.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\sys_time.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\main.c.p1
 
 # =============================================================================
 # Object build statements for EXECUTABLE target LV_BMS_V1_0_default_image_bXySFoyn
@@ -167,7 +167,7 @@ build cmake_object_order_depends_target_LV_BMS_V1_0_default_image_bXySFoyn: phon
 #############################################
 # Link the executable C:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.elf
 
-build C$:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.elf: C_EXECUTABLE_LINKER__LV_BMS_V1_0_default_image_bXySFoyn_ CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\ADI.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\LTC6813.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\LTC6813_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\current_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\sys_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\adc_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\battery_config.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\sys_time.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\main.c.p1 || LV_BMS_V1_0_default_toolchain_XC8_3_10_compile
+build C$:\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.elf: C_EXECUTABLE_LINKER__LV_BMS_V1_0_default_image_bXySFoyn_ CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\ADI.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\LTC6813.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\LTC6813_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\current_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\bms_drivers\sys_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\adc_manager.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\battery_config.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\inc\sys_time.c.p1 CMakeFiles\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\C_\Users\mediocre\Documents\GitHub\uta_fsae_bms_v1.1\main.c.p1 || LV_BMS_V1_0_default_toolchain_XC8_3_10_compile
   LINK_FLAGS = -Wl,-Map=mem.map -mcpu=18LF26K83 -Wl,--defsym=__MPLAB_BUILD=1 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -Wl,--memorysummary,memoryfile.xml
   OBJECT_DIR = CMakeFiles\LV_BMS_V1_0_default_image_bXySFoyn.dir
   POST_BUILD = cd .
