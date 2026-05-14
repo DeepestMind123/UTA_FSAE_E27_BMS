@@ -28,3 +28,8 @@ cmake/**/.generated/*
 cmake/**/CMake*
 cmake/
 out/
+*.ninja
+*.yaml
+*.json
+*.json
+*.cmake

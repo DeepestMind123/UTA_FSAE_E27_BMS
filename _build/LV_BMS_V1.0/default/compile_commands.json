@@ -13,6 +13,12 @@
 },
 {
   "directory": "C:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/_build/LV_BMS_V1.0/default",
+  "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.10\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18LF26K83__ -Ic:\\Users\\notwe\\MPLABProjects\\uta_fsae_bms_v1.1\\bms_drivers -Ic:\\Users\\notwe\\MPLABProjects\\uta_fsae_bms_v1.1\\inc -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\\C_\\Users\\mediocre\\Documents\\GitHub\\uta_fsae_bms_v1.1\\LTC6813_manager.c.p1 -c C:\\Users\\mediocre\\Documents\\GitHub\\uta_fsae_bms_v1.1\\LTC6813_manager.c",
+  "file": "C:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/LTC6813_manager.c",
+  "output": "C:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/_build/LV_BMS_V1.0/default/CMakeFiles/LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir/C_/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/LTC6813_manager.c.p1"
+},
+{
+  "directory": "C:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/_build/LV_BMS_V1.0/default",
   "command": "c:\\PROGRA~1\\MICROC~1\\xc8\\v3.10\\bin\\xc8-cc.exe -DXPRJ_default=default -D__18LF26K83__ -Ic:\\Users\\notwe\\MPLABProjects\\uta_fsae_bms_v1.1\\bms_drivers -Ic:\\Users\\notwe\\MPLABProjects\\uta_fsae_bms_v1.1\\inc -c -mcpu=18LF26K83 -mdfp=C:/Users/mediocre/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8 -fno-short-double -fno-short-float -memi=wordwrite -O0 -maddrqual=ignore -mwarn=-3 -msummary=-psect,-class,+mem,-hex,-file -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mno-default-config-bits -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto -o CMakeFiles\\LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir\\C_\\Users\\mediocre\\Documents\\GitHub\\uta_fsae_bms_v1.1\\bms_drivers\\current_manager.c.p1 -c C:\\Users\\mediocre\\Documents\\GitHub\\uta_fsae_bms_v1.1\\bms_drivers\\current_manager.c",
   "file": "C:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/bms_drivers/current_manager.c",
   "output": "C:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/_build/LV_BMS_V1.0/default/CMakeFiles/LV_BMS_V1_0_default_toolchain_XC8_3_10_compile.dir/C_/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/bms_drivers/current_manager.c.p1"
