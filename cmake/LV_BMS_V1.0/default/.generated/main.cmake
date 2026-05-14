@@ -29,16 +29,16 @@ endif()
 
 
 # Main target for this project
-add_executable(LV_BMS_V1_0_default_image_a8J8o8Vi ${LV_BMS_V1_0_default_library_list})
+add_executable(LV_BMS_V1_0_default_image_bXySFoyn ${LV_BMS_V1_0_default_library_list})
 
-set_target_properties(LV_BMS_V1_0_default_image_a8J8o8Vi PROPERTIES
+set_target_properties(LV_BMS_V1_0_default_image_bXySFoyn PROPERTIES
     OUTPUT_NAME "default"
     SUFFIX ".elf"
     ADDITIONAL_CLEAN_FILES "${output_extensions}"
     RUNTIME_OUTPUT_DIRECTORY "${LV_BMS_V1_0_default_output_dir}")
-target_link_libraries(LV_BMS_V1_0_default_image_a8J8o8Vi PRIVATE ${LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_link})
+target_link_libraries(LV_BMS_V1_0_default_image_bXySFoyn PRIVATE ${LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_link})
 
 # Add the link options from the rule file.
-LV_BMS_V1_0_default_link_rule( LV_BMS_V1_0_default_image_a8J8o8Vi)
+LV_BMS_V1_0_default_link_rule( LV_BMS_V1_0_default_image_bXySFoyn)
 
 
