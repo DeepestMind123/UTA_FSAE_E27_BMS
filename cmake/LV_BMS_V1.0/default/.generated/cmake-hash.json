@@ -1,6 +1,7 @@
 {
-    "hashFileVersion": "1.0.0",
+    "hashFileVersion": "1.1.0",
     "projectFileHash": "81b9e5fb4deb6981f8f860585dc704c5a5d63cb31aa4a488e60c33d1455e13e6",
-    "cmakeFilesHash": "9d80471f24e9eaa0163e93494136dcc616d1fcae36e9e1bd93131af5f7edbcb6",
-    "cmakerVersion": "4.2.1"
+    "cmakeFilesHash": "cce49420ba80f859b30d3fdaef0a884bf7f1e617153ef94cb637376dcd02f23c",
+    "cmakerVersion": "4.2.2",
+    "workspacePath": "c:/users/notwe/mplabprojects/uta_fsae_bms_v1.1"
 }

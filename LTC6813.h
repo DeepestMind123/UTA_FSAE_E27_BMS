@@ -4,6 +4,75 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdarg.h>
+
+#include "ADI.h"
+
+const enum uint16_t
+{
+    MD_SHIFT = 7,
+    PUP_SHIFT = 6,
+    ST_SHIFT = 5,
+    DCP_SHIFT = 4,
+    CH_SHIFT = 0,
+    CHG_SHIFT = 0,
+    CHST_SHIFT = 0,
+
+    //variable commands to basic (0s where variables are)
+    ADCV = 0x0260, // start cell voltage ADC conversion and poll status 
+    ADOW = 0x0214, // start open wrie ADC conversion and poll status
+    CVST = 0x0207, // start self test cell voltage conversion and poll status
+    ADOL = 0x0201, // start overlap meas of cell 7 and cell 13 voltages
+    ADAX = 0x0460, // start GPIOs adc conversion and poll status
+    ADAXD = 0x0400, // start GPIOs adc conversion with digital redund and poll status
+    AXOW = 0x0410, // start GPIOs open wrie ad conversion and poll status
+    AXST = 0x0407, // start self test GPIOs converion and poll status
+    ADSTAT = 0x0468, // start status group adc conversion and poll status
+    ADSTATD = 0x0408, // start status group ADC converion and digital redundancy and poll status
+    STATST = 0x040F, // start self test status group conversion and poll status
+    ADCVAX = 0x046F, // start combined cell voltage and GPIO1,2 conversion and poll status
+    ADCVSC = 0x0467, // "6 7" *hand gesture* start combined cell voltage and SC conversion and poll status
+
+    //'s the rest of the 16 bit commands
+    CLRCELL = 0x0711, // clear cell voltage reg group
+    CLRAUX = 0x0712, // clear auxillary reg group
+    CLRSTAT = 0x0713, // clear status reg
+    PLADC = 0x0714, // poll adc conversion status
+    DIAGN = 0x0715, // diagnose MUX and poll status
+    WRCOMM = 0x0721, // write comm reg group
+    RDCOMM = 0x0722, // read comm reg group
+    STCOMM = 0x0723, // start I2C/SPI comm
+};
+
+const enum uint8_t
+{
+    WRCFGA = 0x01, // write config reg A
+    WRCFGB = 0x24, // write config reg B
+    RDCFGA = 0x02, // read config reg A
+    RDCFGB = 0x26, // read config reg B
+    RDCVA = 0x04, // read cell voltage reg A
+    RDCVB = 0x06, // read cell voltage reg B
+    RDCVC = 0x08, // read cell voltage reg C
+    RDCVD = 0x0A, // read cell voltage reg D
+    RDCVE = 0x09, // read cell voltage reg E
+    RDCVF = 0x0B, // read cell voltage reg F
+    RDAUXA = 0x0C, // read aux reg A
+    RDAUXB = 0x0E, // read aux reg B
+    RDAUXC = 0x0D, // read aux reg C
+    RDAUXD = 0x0F, // read aux reg D
+    RDSTATA = 0x10, // read status reg A
+    RDSTATB = 0x12, // read status reg B
+    WRSCTRL = 0x14, // write S control reg group
+    WRPWM = 0x20, // write PWM control reg group
+    WRPSB = 0x1C, // write PWM/S control reg group
+    RDSCTRL = 0x16, // read S control reg group
+    RDPWM = 0x22, // read PWM control reg group
+    RDPSB = 0x1E, // read PWM/S control reg group B
+    STSCTRL = 0x19, // start S control pulsing and poll status
+    CLRSCTRL = 0x18, // clear S control reg group
+    MUTE = 0x28, // mute discharge
+    UNMUTE = 0x29, // unmute discharge
+};
 
 typedef enum
 {
@@ -21,53 +90,11 @@ typedef enum
 
 typedef struct
 {
-    uint8_t WRCFGA;    // write config reg A
-    uint8_t WRCFGB;    // write config reg B
-    uint8_t RDCFGA;    // read config reg A
-    uint8_t RDCFGB;    // read config reg B
-    uint8_t RDCVA;     // read cell voltage reg A
-    uint8_t RDCVB;     // read cell voltage reg B
-    uint8_t RDCVC;     // read cell voltage reg C
-    uint8_t RDCVD;     // read cell voltage reg D
-    uint8_t RDCVE;     // read cell voltage reg E
-    uint8_t RDCVF;     // read cell voltage reg F
-    uint8_t RDAUXA;    // read aux reg A
-    uint8_t RDAUXB;    // read aux reg B
-    uint8_t RDAUXC;    // read aux reg C
-    uint8_t RDAUXD;    // read aux reg D
-    uint8_t RDSTATA;   // read status reg A
-    uint8_t RDSTATB;   // read status reg B
-    uint8_t WRSCTRL;   // write S control reg group
-    uint8_t WRPWM;     // write PWM control reg group
-    uint8_t WRPSB;     // write PWM/S control reg group
-    uint8_t RDSCTRL;   // read S control reg group
-    uint8_t RDPWM;     // read PWM control reg group
-    uint8_t RDPSB;     // read PWM/S control reg group B
-    uint8_t STSCTRL;   // start S control pulsing and poll status
-    uint8_t CLRSCTRL;  // clear S control reg group
-    uint16_t ADCV;     // start cell voltage ADC conversion and poll status
-    uint16_t ADOW;     // start open wrie ADC conversion and poll status
-    uint16_t CVST;     // start self test cell voltage conversion and poll status
-    uint16_t ADOL;     // start overlap meas of cell 7 and cell 13 voltages
-    uint16_t ADAX;     // start GPIOs adc conversion and poll status
-    uint16_t ADAXD;    // start GPIOs adc conversion with digital redund and poll status
-    uint16_t AXOW;     // start GPIOs open wrie ad conversion and poll status
-    uint16_t AXST;     // start self test GPIOs converion and poll status
-    uint16_t AXSTAT;   // start status group adc conversion and poll status
-    uint16_t ADSTATD;  // start status group ADC converion and digital redundancy and poll status
-    uint16_t STATST;   // start self test status group conversion and poll status
-    uint16_t ADCVAX;   // start combined cell voltage and GPIO1,2 conversion and poll status
-    uint16_t ADCVSC;   // start combined cell voltage and SC conversion and poll status
-    uint16_t CLRCELL;  // clear cell voltage reg group
-    uint16_t CLRAUX;   // clear auxillary reg group
-    uint16_t CLRSTAT;  // clear status reg
-    uint16_t PLADC;    // poll adc conversion status
-    uint16_t DIAGN;    // diagnose MUX and poll status
-    uint16_t WRCOMM;   // write comm reg group
-    uint16_t RDCOMM;   // read comm reg group
-    uint16_t STCOMM;   // start I2C/SPI comm
-    uint8_t MUTE;      // mute discharge
-    uint8_t UNMUTE;    // unmute discharge
+    void(*LTC6813_cs_high)(void);
+
+    void(*LTC6813_cs_low)(void);
+
+    
 } LTC6813_cfg_t;
 
 typedef struct
@@ -75,10 +102,10 @@ typedef struct
     uint8_t MD;        // adc mode (0 - slow, 1 - fast, 2 - normal, 3 - filtered)
     bool DCP;          // discarge permitted
     uint8_t CH;        // cell selection for adc conversion
-    bool PUP;          // pull-up (1)/pull-down(0) current for open wire conversion
+    bool PUP;          // pull-up(1)/pull-down(0) current for open wire conversion
     uint8_t ST;        // self test mode select
     uint8_t CHG;       // GPIO select for ADC conversion
-    uint8_t CHS;       // status group select
+    uint8_t CHST;       // status group select
 
     uint8_t CFGAR[6];  // cfg reg A
     uint8_t CFGBR[6];  // cfg reg B
@@ -100,8 +127,38 @@ typedef struct
     uint8_t PSR[6];    // PWM/S control reg (why does this exist?)
 
     LTC6813_state_t state;
-    const LTC6813_cfg_t *cfg;
+    LTC6813_cfg_t *cfg;
 
 } LTC6813_t;
+
+void LTC6813_init(LTC6813_t *p_inst, LTC6813_cfg_t *p_cfg);
+
+uint16_t LTC6813_task(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_ADCV(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_ADOW(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_CVST(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_ADOL(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_ADAX(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_ADAXD(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_AXOW(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_AXST(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_ADSTAT(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_ADSTATD(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_STATST(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_ADCVAX(LTC6813_t *p_inst);
+
+uint16_t LTC6813_get_ADCVSC(LTC6813_t *p_inst);
 
 #endif

@@ -16,6 +16,7 @@ foreach(source_file ${LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_assembleP
 endforeach()
 
 set(LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_compile
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../ADI.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../LTC6813.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../bms_drivers/current_manager.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../bms_drivers/sys_manager.c"
