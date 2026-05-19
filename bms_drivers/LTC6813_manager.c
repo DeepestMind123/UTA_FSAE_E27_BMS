@@ -75,6 +75,16 @@ void LTC6813_manager_task(LTC6813_manager_t *p_inst)
 
                 case LTC6813_CMD_POLL_CELLS:
 
+                if(!p_inst->busy_flag)
+                {
+                    LTC6813_manager_poll_cells(p_inst);
+                }
+
+                if(p_inst->ready_flag)
+                {
+                    p_inst->cmd = LTC6813_CMD_NONE;
+                }
+
                 break;
 
                 case LTC6813_CMD_POLL_GPIOS:
@@ -97,8 +107,6 @@ bool LTC6813_manager_cmd_request(LTC6813_manager_t *p_inst, LTC6813_cmd_t cmd)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        p_inst->busy_flag = 0;
-
         if(p_inst->state == LTC6813_STATE_IDLE)
         {
             p_inst->busy_flag = 1;
@@ -115,11 +123,14 @@ bool LTC6813_manager_cmd_request(LTC6813_manager_t *p_inst, LTC6813_cmd_t cmd)
 
 void LTC6813_manager_poll_cells(LTC6813_manager_t *p_inst)
 {
+
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
         switch(p_inst->state)
         {
             case LTC6813_STATE_IDLE:
+
+            p_inst->busy_flag = 0;
 
             if(p_inst->command_buffer == LTC6813_CMD_POLL_CELLS)
             {
@@ -130,37 +141,38 @@ void LTC6813_manager_poll_cells(LTC6813_manager_t *p_inst)
 
             case LTC6813_STATE_START:
 
-            uint16_t command = LTC6813_get_ADAX(p_inst->md, p_inst->chg);
+            p_inst->ready_flag = 0;
 
-            p_inst->len = 1U;
+            // need a send function but again, don't have spi figured out
 
-            uint16_t pec = pec15(&command, p_inst->len);
+            p_inst->delay_ms = 0U; // zero delay for safety
 
-            LTC6813_manager_get_command_packet(&p_inst, command, pec);
+            p_inst->delay_ms = LTC6813_get_delay_ms(p_inst->md, p_inst->cfg->cell_num);
 
-            spi_transfer_sentence(p_inst->cfg->cs_pin, 
-                                p_inst->command_packet, 
-                                p_inst->command_packet, 
-                                p_inst->len);
-
-            uint16_t rx_pec;
-
-            if(rx_pec == pec)
-            {
-                p_inst->state = LTC6813_STATE_WAIT;
-            }
+            uint32_t start_time = get_tick();
 
             break;
 
             case LTC6813_STATE_WAIT:
 
+            if(get_tick() - start_time >= p_inst->delay_ms)
+            {
+                p_inst->state = LTC6813_STATE_GET;
+            }
+
             break;
 
             case LTC6813_STATE_GET:
 
+            // need a getter function or smth. this part sucks because i still don't have the spi shit figured out
+
             break;
 
             case LTC6813_STATE_READY:
+
+            p_inst->ready_flag = 1;
+
+            p_inst->state = LTC6813_STATE_IDLE;
 
             break;
         }

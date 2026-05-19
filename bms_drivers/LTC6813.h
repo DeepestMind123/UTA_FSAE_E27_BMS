@@ -6,7 +6,9 @@
 #include <stddef.h>
 #include <stdarg.h>
 
+#define MD_MAX 4
 
+const uint16_t US_TO_MS = 1000;
 
 const uint16_t MD_SHIFT = 7;
 const uint16_t PUP_SHIFT = 6;
@@ -69,6 +71,16 @@ const uint8_t STSCTRL = 0x19; // start S control pulsing and poll status
 const uint8_t CLRSCTRL = 0x18; // clear S control reg group
 const uint8_t MUTE = 0x28; // mute discharge
 const uint8_t UNMUTE = 0x29; // unmute discharge
+
+static const uint16_t cell_meas_time_us[MD_MAX] =
+{
+    2152U, // 422Hz (md = 0)
+    203U, // 27kHz (md = 1)
+    407U, // 7kHz  (md = 2)
+    33570U // 26Hz  (md = 3)
+};
+
+uint32_t LTC6813_get_delay_ms(uint8_t md, uint8_t cell_num);
 
 uint16_t LTC6813_get_ADCV(uint8_t MD, bool DCP, uint8_t CH);
 

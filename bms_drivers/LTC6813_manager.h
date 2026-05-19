@@ -79,6 +79,9 @@ typedef struct
     bool busy_flag; // true if command is currently being excecuted
     bool ready_flag; // true if buffer is full
 
+    uint32_t delay_ms;
+    uint32_t elapsed_ms;
+
     LTC6813_manager_cfg_t *cfg;
 
     LTC6813_state_t state;

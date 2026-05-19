@@ -1,5 +1,27 @@
 #include "LTC6813.h"
 
+
+
+uint32_t LTC6813_get_delay_ms(uint8_t md, uint8_t cell_num)
+{
+    uint16_t cell_delay_ms = 0U;
+
+    if(md < MD_MAX)
+    {
+        cell_delay_ms = cell_meas_time_us[md] * US_TO_MS;
+    }
+    else
+    {
+        cell_delay_ms = cell_meas_time_us[MD_MAX - 1] * US_TO_MS;
+    }
+
+    uint32_t total_delay_ms = 0U;
+
+    total_delay_ms = cell_delay_ms * cell_num;
+
+    return total_delay_ms;
+}
+
 uint16_t LTC6813_get_ADCV(uint8_t MD, bool DCP, uint8_t CH)
 {
     uint16_t command = 0U;
