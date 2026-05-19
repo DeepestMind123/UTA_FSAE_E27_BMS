@@ -9,8 +9,13 @@
 #define CURRENT_MANAGER_H
 
 #include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
+
 #include "adc_manager.h"
 #include "sys_time.h"
+
+const uint16_t MV_TO_UV = 1000;
 
 typedef struct
 {
@@ -27,6 +32,11 @@ typedef struct
     uint32_t cal_count;
     uint32_t raw_offset;                // calibrated offset value
 
+    int32_t val_buffer;
+
+    bool busy_flag;
+    bool ready_flag;
+
     adc_manager_t *adc_inst;
 
     const current_manager_cfg_t *cfg;
@@ -37,16 +47,20 @@ void current_manager_init(current_manager_t *p_inst, current_manager_cfg_t *p_cf
 
 void current_manager_task(current_manager_t *p_inst, adc_manager_t *p_adc_inst);    // state switch function
 
-uint8_t current_manager_ready(current_manager_t *p_inst, adc_manager_t *p_adc_inst);
+bool current_manager_val_ready(current_manager_t *p_inst, adc_manager_t *p_adc_inst);
 
-uint8_t current_manager_calibrate(current_manager_t *p_inst, adc_manager_t *p_adc_inst);
+bool current_manager_calibrate(current_manager_t *p_inst, adc_manager_t *p_adc_inst);
 
-int32_t current_manager_get_val(current_manager_t *p_inst, adc_manager_t *p_adc_inst);      // process raw current value to get current in mA
+void current_manager_process_raw(current_manager_t *p_inst, adc_manager_t *p_adc_inst);      // process raw current value to get current in mA
 
 uint32_t current_manager_get_wait(current_manager_t *p_isnt);
 
 int32_t current_manager_get_gain(current_manager_t *p_inst);
 
 uint32_t current_manager_get_raw(current_manager_t *p_inst, adc_manager_t *p_adc_inst);
+
+int32_t current_manager_get_val(current_manager_t *p_isnt);
+
+bool current_manager_get_ready(current_manager_t *p_inst);
 
 #endif

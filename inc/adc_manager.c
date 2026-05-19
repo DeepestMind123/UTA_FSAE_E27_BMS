@@ -9,107 +9,182 @@
 
 void adc_manager_init(adc_manager_t *p_inst, adc_manager_cfg_t *p_cfg)
 {
-    p_inst->state = ADC_READY;
-    p_inst->data_ready_flag = 0;
-    p_inst->set_offset = p_inst->cfg->adc_offset;
-    p_inst->cfg = p_cfg;
+    if((p_inst != NULL) && (p_cfg != NULL))
+    {
+        p_inst->cfg = p_cfg;
+
+        p_inst->state = ADC_READY;
+        p_inst->data_ready_flag = false;
+        p_inst->set_offset = p_inst->cfg->adc_offset;
+    }
+    else
+    {
+        // error handler
+    }
+    
 }
 
 void adc_manager_task(adc_manager_t *p_inst)
 {
-    switch(p_inst->state)
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        case ADC_READY:
-
-        // indicates that the adc is not busy
-
-        break;
-
-        case ADC_START:
-
-        // select adc channel (defined in instance configuration in main.c)
-        p_inst->cfg->ADC_channel_select(p_inst->cfg->channel_id);
-
-        // start adc measurement on selected channel
-        p_inst->cfg->ADC_start();
-
-        p_inst->state = ADC_WAIT;
-
-        break;
-
-        case ADC_WAIT:
-
-        // wait for adc to finish measurement, comment out if selected mcu does not have support for this
-        if(p_inst->cfg->ADC_done) p_inst->state = ADC_GET;
-
-        break;
-
-        case ADC_GET:
-
-        // stores measurement
-        p_inst->last_raw = p_inst->cfg->ADC_get_result();
-
-        p_inst->data_ready_flag = 1;
-
-        p_inst->state = ADC_READY;
-
-        break;
-    }
-}
-
-uint8_t adc_manager_check(adc_manager_t *p_inst)
-{
-    if((p_inst != NULL) && (p_inst->cfg != NULL)) 
-    {
-        if(p_inst->state == ADC_READY)
+        switch(p_inst->state)
         {
-            p_inst->state = ADC_START;
-            return 1;
+            case ADC_STATE_IDLE:
+
+            // indicates that the adc is not busy
+
+            break;
+
+            case ADC_STATE_START:
+
+            p_inst->data_ready_flag = false;
+
+            // select adc channel (defined in instance configuration in main.c)
+            p_inst->cfg->ADC_channel_select(p_inst->cfg->channel_id);
+
+            // start adc measurement on selected channel
+            p_inst->cfg->ADC_start();
+
+            uint32_t adc_start_time = get_tick();
+
+            p_inst->state = ADC_STATE_WAIT;
+
+            break;
+
+            case ADC_STATE_WAIT:
+
+            if(get_tick() - adc_start_time <= p_inst->cfg->adc_timeout)
+            {
+                // wait for adc to finish measurement, comment out if selected mcu does not have support for this
+                if(p_inst->cfg->ADC_done()) 
+                {
+                    p_inst->state = ADC_STATE_GET;
+                }
+            }
+            else
+            {
+                // error handler (adc timeout)
+
+                p_inst->state = ADC_STATE_IDLE;
+            }
+
+            break;
+
+            case ADC_STATE_GET:
+
+            // stores measurement
+            p_inst->last_raw = p_inst->cfg->ADC_get_result();
+
+            p_inst->state = ADC_STATE_READY;
+
+            break;
+
+            case ADC_STATE_READY:
+
+            p_inst->data_ready_flag = true;
+
+            p_inst->state = ADC_STATE_IDLE;
+
+            break;
         }
-        return 0;
     }
-    return 0; // returns safe value, indicates adc isn't read if null pointer
+    else
+    {
+        // error handler
+    }
 }
 
-uint8_t adc_manager_get_flag(adc_manager_t *p_inst)
+void adc_manager_start(adc_manager_t *p_inst)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        return p_inst->data_ready_flag;
+        p_inst->state = ADC_STATE_START;
     }
-    return 0; // return safe value
+}
+
+bool adc_manager_check(adc_manager_t *p_inst)
+{
+    bool is_busy = true;
+
+    if((p_inst != NULL) && (p_inst->cfg != NULL)) 
+    {
+        if(p_inst->state == ADC_STATE_READY)
+        {   
+            is_busy = false;
+        }
+    }
+    else
+    {
+        // insert error handler
+    }
+
+    return is_busy; // single return point for safety
+}
+
+bool adc_manager_get_flag(adc_manager_t *p_inst)
+{
+    bool is_ready = false;
+
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
+    {
+        is_ready = p_inst->data_ready_flag;
+    }
+    else
+    {
+        // error handler
+    }
+
+    return is_ready;
 }
 
 uint32_t adc_manager_get_val(adc_manager_t *p_inst)
 {
+    uint32_t val = 0U;
+
     if((p_inst != NULL) && (p_inst->cfg != NULL)) 
     {
         // stores adc measurement in temp value accessible by external functions
-        uint32_t val = p_inst->last_raw;
-
-        p_inst->data_ready_flag = 0;
-
-        return val;
+        val = p_inst->last_raw;
     }
-    return 0; // return safe value
+    else
+    {
+        // error handler
+    }
+
+    return val;
 }
 
 uint16_t adc_manager_get_scale(adc_manager_t *p_inst)
 {
+    uint16_t scale = 0U;
+
     if((p_inst != NULL) && (p_inst->cfg != NULL)) 
     {
-        return p_inst->cfg->adc_vref_mV;
+        scale = p_inst->cfg->adc_scale;
     }
-    return 0; // returns safe value
+    else
+    {
+        // error handler
+    }
+
+    return scale;
 }
 
 uint16_t adc_manager_get_offset(adc_manager_t *p_inst)
 {
+    uint16_t offset = 0U;
+
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        return p_inst->set_offset;
+        offset = p_inst->set_offset;
     } 
-    return 0; // returns safe value  
+    else
+    {
+        // error handler
+    }
+
+    return offset;  
 }
 
 void adc_manager_set_offset(adc_manager_t *p_inst, int16_t new_val)
@@ -122,9 +197,16 @@ void adc_manager_set_offset(adc_manager_t *p_inst, int16_t new_val)
 
 uint16_t adc_manager_get_vref(adc_manager_t *p_inst)
 {
+    uint16_t vref = 0U;
+
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        return p_inst->cfg->adc_vref_mV;
+        vref = p_inst->cfg->adc_vref_mV;
     }
-    return 0; // returns safe value
+    else
+    {
+        //error handler
+    }
+
+    return vref;
 }

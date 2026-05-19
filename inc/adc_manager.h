@@ -10,19 +10,25 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
+
+#include "sys_time.h"
 
 typedef enum
 {
-    ADC_READY = 0,   // adc not taking data
-    ADC_START,      // start adc if necessary
-    ADC_WAIT,       // wait for adc conversion
-    ADC_GET        // get measurement and stop adc if necessary; process current
+    ADC_STATE_IDLE = 0,   // adc not taking data
+    ADC_STATE_START,      // start adc if necessary
+    ADC_STATE_WAIT,       // wait for adc conversion
+    ADC_STATE_GET,        // get measurement and stop adc if necessary; process current
+    ADC_STATE_READY
 } adc_state_t;
 
 typedef struct
 {
+    uint32_t adc_timeout;                       // max time allowed before adc timeout;
+
     uint16_t adc_scale;
-    uint16_t adc_offset;
+    int16_t adc_offset;
     uint16_t adc_vref_mV;                       // reference voltage
     uint8_t channel_id;                         // if using multiple sensors
     
@@ -36,10 +42,10 @@ typedef struct
 
 typedef struct
 {
-    adc_state_t state;
+    adc_state_t state;                      // stores instanced state
     uint32_t last_raw;                      // store last value so other modules can read
-    uint8_t data_ready_flag;                // data ready flag
-    int16_t set_offset;
+    bool data_ready_flag;                // data ready flag
+    int16_t set_offset;                     // basically just the calibrated value of offset
 
     const adc_manager_cfg_t *cfg;
 
@@ -49,9 +55,11 @@ void adc_manager_init(adc_manager_t *p_inst, adc_manager_cfg_t *p_cfg);
 
 void adc_manager_task(adc_manager_t *p_inst);
 
-uint8_t adc_manager_check(adc_manager_t *p_inst);
+void adc_manager_start(adc_manager_t *p_inst);
 
-uint8_t adc_manager_get_flag(adc_manager_t *p_inst);
+bool adc_manager_check(adc_manager_t *p_inst);
+
+bool adc_manager_get_flag(adc_manager_t *p_inst);
 
 uint32_t adc_manager_get_val(adc_manager_t *p_inst);
 

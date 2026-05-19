@@ -6,10 +6,6 @@
  */
 
 #include "current_manager.h"
-#include "adc_manager.h"
-#include <stdint.h>
-
-#define MV_TO_UV 1000L
 
 void current_manager_init(current_manager_t *p_inst, current_manager_cfg_t *p_cfg, adc_manager_t *p_adc_inst)
 {
@@ -26,26 +22,34 @@ void current_manager_init(current_manager_t *p_inst, current_manager_cfg_t *p_cf
 
 void current_manager_task(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
 {
-    if(get_tick() - p_inst->elapsed >= p_inst->cfg->wait_ms)
+    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_adc_inst != NULL))
     {
-        if(adc_manager_check(p_adc_inst))
+        if(get_tick() - p_inst->elapsed >= p_inst->cfg->wait_ms)
         {
-            adc_manager_task(p_adc_inst);
+            if(!adc_manager_check(p_adc_inst))
+            {
+                adc_manager_start(p_adc_inst);
+            }
         }
+        else
+        {
+            // insert error handler (current manager timeout)
+        }
+
+        if(adc_manager_ready())
+        {
+            adc_manager_process_raw(p_inst, p_adc_inst);
+        }
+
+        adc_manager_task(p_adc_inst);
+    }
+    else
+    {
+        // insert error handler 
     }
 }
 
-uint8_t current_manager_ready(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
-{
-    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_adc_inst != NULL))
-    {
-        if(p_adc_inst->data_ready_flag)
-        {
-            return 1;
-        }
-    }
-    return 0; // return safe value
-}
+bool current_manager_val_ready
 
 uint8_t current_manager_calibrate(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
 {
@@ -83,7 +87,7 @@ uint8_t current_manager_calibrate(current_manager_t *p_inst, adc_manager_t *p_ad
     return 0; 
 }
 
-int32_t current_manager_get_val(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
+void current_manager_process_raw(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
 {
     int32_t current_mA = 0; // initialize at safe value;
 
@@ -109,7 +113,7 @@ int32_t current_manager_get_val(current_manager_t *p_inst, adc_manager_t *p_adc_
         }
     }
 
-    return current_mA;
+    p_inst->val_buffer = current_mA;
 }
 
 uint32_t current_manager_get_wait(current_manager_t *p_inst)
@@ -132,18 +136,41 @@ int32_t current_manager_get_gain(current_manager_t *p_inst)
 
 uint32_t current_manager_get_raw(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
 {
+    int64_t raw = 0; // large unsigned integer (long long) so as to not lose accuracy
+
     if((p_inst != NULL) && (p_adc_inst != NULL))
     {
-        int64_t raw = (int64_t)adc_manager_get_val(p_adc_inst);
+        raw = (int64_t)adc_manager_get_val(p_adc_inst);
 
         raw -= p_inst->raw_offset; 
 
         if(raw < 0)
         {
-            raw = 0;
+            raw = 0; // value clamping;
         }
-
-        return (uint32_t)raw;
     }
-    return 0;
+    else
+    {
+        // insert error handler
+    }
+    return (uint32_t)raw;
 }
+
+int32_t current_manager_process_raw(current_manager_t *p_inst);
+
+int32_t current_manager_get_val(current_manager_t *p_inst)
+{
+    int32_t val = 0U;
+
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
+    {
+        val = p_inst->val_buffer;
+    }
+    else
+    {
+        // insert error handler (i really gotta get around to making this sucker)
+    }
+
+    return val;
+}
+
