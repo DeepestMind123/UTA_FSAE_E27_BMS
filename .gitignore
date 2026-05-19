@@ -39,3 +39,13 @@ out/
 *.json
 *.cmake
 *.cmake
+/_build
+/_build
+*.ninja
+*.cmake
+/_build/LV_BMS_V1.0
+/_build/LV_BMS_V1.0/default
+*.cmake
+/cmake/LV_BMS_V1.0/default/.generated
+/cmake/LV_BMS_V1.0/default
+/cmake/LV_BMS_V1.0

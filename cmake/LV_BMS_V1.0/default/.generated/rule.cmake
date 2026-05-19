@@ -1,6 +1,6 @@
 # The following functions contains all the flags passed to the different build stages.
 
-set(PACK_REPO_PATH "C:/Users/mediocre/.mchp_packs" CACHE PATH "Path to the root of a pack repository.")
+set(PACK_REPO_PATH "C:/Users/notwe/.mchp_packs" CACHE PATH "Path to the root of a pack repository.")
 
 function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemble_rule target)
     set(options

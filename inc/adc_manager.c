@@ -13,7 +13,7 @@ void adc_manager_init(adc_manager_t *p_inst, adc_manager_cfg_t *p_cfg)
     {
         p_inst->cfg = p_cfg;
 
-        p_inst->state = ADC_READY;
+        p_inst->state = ADC_STATE_READY;
         p_inst->data_ready_flag = false;
         p_inst->set_offset = p_inst->cfg->adc_offset;
     }

@@ -51,7 +51,7 @@ void LTC6813_manager_init(LTC6813_manager_t *p_inst, LTC6813_manager_cfg_t *p_cf
     }
     else
     {
-        // error handler
+        // insert fault update function
     }
 
     init_PEC15_Table();

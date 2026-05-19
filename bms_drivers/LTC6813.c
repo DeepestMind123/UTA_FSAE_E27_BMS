@@ -1,7 +1,5 @@
 #include "LTC6813.h"
 
-
-
 uint32_t LTC6813_get_delay_ms(uint8_t md, uint8_t cell_num)
 {
     uint16_t cell_delay_ms = 0U;

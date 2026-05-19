@@ -6,7 +6,7 @@
 #include <stddef.h>
 #include <stdarg.h>
 
-#define MD_MAX 4
+#define MD_MAX 4 // it makes me so mad i have to do this. compile time arg vs run-time and all that
 
 const uint16_t US_TO_MS = 1000;
 

@@ -18,6 +18,10 @@ void current_manager_init(current_manager_t *p_inst, current_manager_cfg_t *p_cf
         p_inst->cal_count = 0;
         p_inst->raw_offset = 0;
     }
+    else
+    {
+        // insert error handler
+    }
 }
 
 void current_manager_task(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
@@ -29,6 +33,8 @@ void current_manager_task(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
             if(!adc_manager_check(p_adc_inst))
             {
                 adc_manager_start(p_adc_inst);
+
+                p_inst->ready_flag = false;
             }
         }
         else
@@ -36,9 +42,11 @@ void current_manager_task(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
             // insert error handler (current manager timeout)
         }
 
-        if(adc_manager_ready())
+        if(adc_manager_check(p_adc_inst))
         {
-            adc_manager_process_raw(p_inst, p_adc_inst);
+            current_manager_process_raw(p_inst, p_adc_inst);
+
+            p_inst->ready_flag = true;
         }
 
         adc_manager_task(p_adc_inst);
@@ -49,18 +57,16 @@ void current_manager_task(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
     }
 }
 
-bool current_manager_val_ready
-
-uint8_t current_manager_calibrate(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
+bool current_manager_calibrate(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
 {
 
-    uint32_t out = 0;
+    uint32_t out = false;
 
     if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_adc_inst != NULL))
     {
         if(p_inst->cal_count < 32)
         {
-            if(current_manager_ready(p_inst, p_adc_inst))
+            if(adc_manager_check(p_adc_inst))
             {
                 out = adc_manager_get_val(p_adc_inst);
 
@@ -156,8 +162,6 @@ uint32_t current_manager_get_raw(current_manager_t *p_inst, adc_manager_t *p_adc
     return (uint32_t)raw;
 }
 
-int32_t current_manager_process_raw(current_manager_t *p_inst);
-
 int32_t current_manager_get_val(current_manager_t *p_inst)
 {
     int32_t val = 0U;
@@ -172,5 +176,21 @@ int32_t current_manager_get_val(current_manager_t *p_inst)
     }
 
     return val;
+}
+
+bool current_manager_get_ready(current_manager_t *p_inst)
+{
+    bool is_ready = false;
+
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
+    {
+        is_ready = p_inst->ready_flag;
+    }
+    else
+    {
+        // insert error handler
+    }
+
+    return is_ready;
 }
 
