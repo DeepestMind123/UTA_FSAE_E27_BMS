@@ -5,7 +5,7 @@
  * @brief current sensor device driver source
  */
 
-#include "DEV_current.h"
+#include "dev_current.h"
 #include "io_adc.h"
 
 void DEV_Current_Init(dev_current_t *p_inst, dev_current_cfg_t *p_cfg, io_adc_t *p_adc_inst)

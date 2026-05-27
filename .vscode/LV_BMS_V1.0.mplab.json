@@ -16,10 +16,16 @@
                 }
             ],
             "fileSet": "default",
-            "toolchain": "toolchain XC8 3.10"
+            "toolchain": "toolchain XC8 3.10",
+            "userVariables": "default-uservariables"
         }
     ],
     "propertyGroups": [
+        {
+            "name": "default-uservariables",
+            "type": "uservariables",
+            "properties": {}
+        },
         {
             "name": "toolchain XC8 3.10",
             "extend": "",
@@ -31,7 +37,12 @@
                     "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc",
                     "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1",
                     "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/inc",
-                    "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/bms_drivers"
+                    "c:/Users/mediocre/Documents/GitHub/uta_fsae_bms_v1.1/bms_drivers",
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms",
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices",
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io",
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/system",
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/utils"
                 ],
                 "HI-TECH-LINK.extra-lib-directories": [
                     "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc"

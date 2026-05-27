@@ -45,7 +45,7 @@ bms_fault_status_t BMS_Fault_Get_Status(bms_fault_id_t id)
     return status;
 }
 
-bool BMS_Fault_Is_Fault(void)
+bool BMS_Is_Fault(void)
 {
     bool is_fault = false;
 

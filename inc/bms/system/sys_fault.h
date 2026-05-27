@@ -46,6 +46,6 @@ void BMS_Fault_Update(bms_fault_id_t id, bool is_error);
 
 bms_fault_status_t BMS_Fault_Get_Status(bms_fault_id_t id);
 
-bool BMS_Fault_Is_Fault(void);
+bool BMS_Is_Fault(void);
 
 #endif

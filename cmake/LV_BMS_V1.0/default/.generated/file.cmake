@@ -16,14 +16,14 @@ foreach(source_file ${LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_assembleP
 endforeach()
 
 set(LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_compile
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/ADI.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/LTC6813.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms_manager.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/dev_current.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/dev_ltc6813.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/io_adc.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/sys_fault.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/util_time.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/current sensor/dev_current.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/ADI.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/LTC6813.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/dev_ltc6813.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/adc io/io_adc.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/bms_manager.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/sys_fault.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/utils/util_time.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../main.c")
 set_source_files_properties(${LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_compile} PROPERTIES LANGUAGE C)
 set(LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_link)
