@@ -1,17 +1,19 @@
 /**
- * @file current_manager.h
+ * @file DEV_current.h
  * @author notwe
  * @date 2026-05-03
- * @brief current sensor manager source
+ * @brief current sensor device driver source
  */
 
-#include "current_manager.h"
+#include "DEV_current.h"
+#include "io_adc.h"
 
-void current_manager_init(current_manager_t *p_inst, current_manager_cfg_t *p_cfg, adc_manager_t *p_adc_inst)
+void DEV_Current_Init(dev_current_t *p_inst, dev_current_cfg_t *p_cfg, io_adc_t *p_adc_inst)
 {
     if((p_inst != NULL) && (p_cfg != NULL) && (p_adc_inst != NULL))
     {
         p_inst->cfg = p_cfg;
+        p_inst->adc_inst = p_adc_inst;
 
         p_inst->elapsed = 0;
         p_inst->cal_acc = 0;
@@ -24,15 +26,15 @@ void current_manager_init(current_manager_t *p_inst, current_manager_cfg_t *p_cf
     }
 }
 
-void current_manager_task(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
+void DEV_Current_Task(dev_current_t *p_inst)
 {
-    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_adc_inst != NULL))
+    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_inst->adc_inst != NULL))
     {
-        if(get_tick() - p_inst->elapsed >= p_inst->cfg->wait_ms)
+        if(UTIL_Time_Get_Tick() - p_inst->elapsed >= p_inst->cfg->wait_ms)
         {
-            if(!adc_manager_check(p_adc_inst))
+            if(!IO_ADC_Check(p_inst->adc_inst))
             {
-                adc_manager_start(p_adc_inst);
+                IO_ADC_Start(p_inst->adc_inst);
 
                 p_inst->ready_flag = false;
             }
@@ -42,14 +44,14 @@ void current_manager_task(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
             // insert error handler (current manager timeout)
         }
 
-        if(adc_manager_check(p_adc_inst))
+        if(IO_ADC_Check(p_inst->adc_inst))
         {
-            current_manager_process_raw(p_inst, p_adc_inst);
+            DEV_Current_Process_Raw(p_inst);
 
             p_inst->ready_flag = true;
         }
 
-        adc_manager_task(p_adc_inst);
+        IO_ADC_Task(p_inst->adc_inst);
     }
     else
     {
@@ -57,18 +59,18 @@ void current_manager_task(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
     }
 }
 
-bool current_manager_calibrate(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
+bool DEV_Current_Cal(dev_current_t *p_inst)
 {
 
     uint32_t out = false;
 
-    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_adc_inst != NULL))
+    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_inst->adc_inst != NULL))
     {
         if(p_inst->cal_count < 32)
         {
-            if(adc_manager_check(p_adc_inst))
+            if(IO_ADC_Check(p_inst->adc_inst))
             {
-                out = adc_manager_get_val(p_adc_inst);
+                out = IO_ADC_Get_Val(p_inst->adc_inst);
 
                 if(out <= p_inst->cfg->raw_cutoff)
                 {
@@ -77,9 +79,9 @@ bool current_manager_calibrate(current_manager_t *p_inst, adc_manager_t *p_adc_i
                     p_inst->cal_count++;
                 }
             }
-            else if(adc_manager_check(p_adc_inst))
+            else if(IO_ADC_Check(p_inst->adc_inst))
             {
-                current_manager_task(p_inst, p_adc_inst);
+                DEV_Current_Task(p_inst);
             }
         }
 
@@ -93,19 +95,19 @@ bool current_manager_calibrate(current_manager_t *p_inst, adc_manager_t *p_adc_i
     return 0; 
 }
 
-void current_manager_process_raw(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
+void DEV_Current_Process_Raw(dev_current_t *p_inst)
 {
     int32_t current_mA = 0; // initialize at safe value;
 
-    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_adc_inst != NULL))
+    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_inst->adc_inst != NULL))
     {
-        const uint32_t raw = current_manager_get_raw(p_inst, p_adc_inst);
+        const uint32_t raw = DEV_Current_Get_Raw(p_inst);
 
-        const uint16_t vref = adc_manager_get_vref(p_adc_inst);
+        const uint16_t vref = IO_ADC_Get_Vref(p_inst->adc_inst);
 
-        const uint16_t scale = adc_manager_get_scale(p_adc_inst);
+        const uint16_t scale = IO_ADC_Get_Scale(p_inst->adc_inst);
 
-        const int32_t offset = adc_manager_get_offset(p_adc_inst);
+        const int32_t offset = IO_ADC_Get_Offset(p_inst->adc_inst);
 
         const int32_t gain_uV = p_inst->cfg->sensor_gain_uV;
 
@@ -122,7 +124,7 @@ void current_manager_process_raw(current_manager_t *p_inst, adc_manager_t *p_adc
     p_inst->val_buffer = current_mA;
 }
 
-uint32_t current_manager_get_wait(current_manager_t *p_inst)
+uint32_t DEV_Current_Get_Wait(dev_current_t *p_inst)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
@@ -131,7 +133,7 @@ uint32_t current_manager_get_wait(current_manager_t *p_inst)
     return 0;
 }
 
-int32_t current_manager_get_gain(current_manager_t *p_inst)
+int32_t DEV_Current_Get_Gain(dev_current_t *p_inst)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
@@ -140,13 +142,13 @@ int32_t current_manager_get_gain(current_manager_t *p_inst)
     return 0;
 }
 
-uint32_t current_manager_get_raw(current_manager_t *p_inst, adc_manager_t *p_adc_inst)
+uint32_t DEV_Current_Get_Raw(dev_current_t *p_inst)
 {
     int64_t raw = 0; // large unsigned integer (long long) so as to not lose accuracy
 
-    if((p_inst != NULL) && (p_adc_inst != NULL))
+    if((p_inst != NULL) && (p_inst->adc_inst != NULL))
     {
-        raw = (int64_t)adc_manager_get_val(p_adc_inst);
+        raw = (int64_t)IO_ADC_Get_Val(p_inst->adc_inst);
 
         raw -= p_inst->raw_offset; 
 
@@ -162,7 +164,7 @@ uint32_t current_manager_get_raw(current_manager_t *p_inst, adc_manager_t *p_adc
     return (uint32_t)raw;
 }
 
-int32_t current_manager_get_val(current_manager_t *p_inst)
+int32_t DEV_Current_Get_Val(dev_current_t *p_inst)
 {
     int32_t val = 0U;
 
@@ -178,7 +180,7 @@ int32_t current_manager_get_val(current_manager_t *p_inst)
     return val;
 }
 
-bool current_manager_get_ready(current_manager_t *p_inst)
+bool DEV_Current_Get_Ready(dev_current_t *p_inst)
 {
     bool is_ready = false;
 

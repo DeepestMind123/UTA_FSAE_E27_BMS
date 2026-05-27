@@ -3,8 +3,59 @@
 [d edition pro ]
 [d chip 18LF26K83 ]
 [d frameptr 16353 ]
-"10 C:\Users\notwe\MPLABProjects\LV_BMS_V1.0\sys_manager.c
-[e E22908 . `uc
+"6 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\LTC6813_manager.c
+[e E183 . `uc
+LTC6813_STATE_IDLE 0
+LTC6813_STATE_START 1
+LTC6813_STATE_WAIT 2
+LTC6813_STATE_GET 3
+LTC6813_STATE_READY 4
+]
+[e E190 . `uc
+LTC6813_CMD_NONE 0
+LTC6813_CMD_WRITE_CFG 1
+LTC6813_CMD_POLL_CELLS 2
+LTC6813_CMD_POLL_GPIOS 3
+LTC6813_CMD_BALANCE 4
+]
+"11 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\current_manager.c
+[e E49 . `uc
+ADC_STATE_IDLE 0
+ADC_STATE_START 1
+ADC_STATE_WAIT 2
+ADC_STATE_GET 3
+ADC_STATE_READY 4
+]
+"10 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\io_adc.c
+[e E49 . `uc
+ADC_STATE_IDLE 0
+ADC_STATE_START 1
+ADC_STATE_WAIT 2
+ADC_STATE_GET 3
+ADC_STATE_READY 4
+]
+"42 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc/sys_fault.h
+[e E62 . `uc
+FAULT_STATUS_CLEAR 0
+FAULT_STATUS_PENDING 1
+FAULT_STATUS_ACTIVE 2
+]
+"3 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\sys_fault.c
+[e E49 . `uc
+FAULT_NONE 0
+FAULT_NULL_POINTER 1
+FAULT_ADC_TIMEOUT 2
+FAULT_CELL_OVERVOLTAGE 3
+FAULT_CELL_UNDERVOLTAGE 4
+FAULT_OVERCURRENT 5
+FAULT_MODULE_OVERTEMP 6
+FAULT_SPI_OFF 7
+FAULT_CAN_OFF 8
+FAULT_I2C_OFF 9
+FAULT_MAX 10
+]
+"10 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\sys_manager.c
+[e E36 . `uc
 SYS_IDLE 0
 SYS_DISCHARGE 1
 SYS_CHARGE 2
@@ -71,21 +122,56 @@ SYS_FAULT 4
 [v ___lmul __lmul `(ul  1 e 4 0 ]
 "91 c:\PROGRA~1\MICROC~1\xc8\v3.10\pic\sources\c99\common\Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"10 C:\Users\notwe\MPLABProjects\LV_BMS_V1.0\battery_config.c
-[v _battery_config_init battery_config_init `(v  1 e 1 0 ]
-"14 C:\Users\notwe\MPLABProjects\LV_BMS_V1.0\main.c
+"15 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\ADI.c
+[v _init_PEC15_Table init_PEC15_Table `(v  1 e 1 0 ]
+"29 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\current_manager.c
+[v _current_manager_task current_manager_task `(v  1 e 1 0 ]
+"98
+[v _current_manager_process_raw current_manager_process_raw `(v  1 e 1 0 ]
+"145
+[v _current_manager_get_raw current_manager_get_raw `(ul  1 e 4 0 ]
+"27 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\io_adc.c
+[v _IO_ADC_Task IO_ADC_Task `(v  1 e 1 0 ]
+"98
+[v _IO_ADC_Start IO_ADC_Start `(v  1 e 1 0 ]
+"106
+[v _IO_ADC_Check IO_ADC_Check `(a  1 e 1 0 ]
+"141
+[v _IO_ADC_Get_Val IO_ADC_Get_Val `(ul  1 e 4 0 ]
+"158
+[v _IO_ADC_Get_Scale IO_ADC_Get_Scale `(us  1 e 2 0 ]
+"174
+[v _IO_ADC_Get_Offset IO_ADC_Get_Offset `(us  1 e 2 0 ]
+"198
+[v _IO_ADC_Get_Vref IO_ADC_Get_Vref `(us  1 e 2 0 ]
+"3 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\LTC6813.c
+[v _LTC6813_get_delay_ms LTC6813_get_delay_ms `(ul  1 e 4 0 ]
+"124 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\LTC6813_manager.c
+[v _LTC6813_manager_poll_cells LTC6813_manager_poll_cells `(v  1 e 1 0 ]
+"26 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\sys_time.c
+[v _get_tick get_tick `(ul  1 e 4 0 ]
+"14 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\main.c
 [v _main main `(i  1 e 2 0 ]
+"17 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc/ADI.h
+[v _pec15Table pec15Table `[256]us  1 e 512 0 ]
+"75 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc/LTC6813.h
+[v _cell_meas_time_us cell_meas_time_us `C[4]us  1 s 8 cell_meas_time_us ]
+[s S933 . 13 `us 1 counter 2 0 `us 1 threshold 2 2 `ul 1 start_time 4 4 `ul 1 max_time 4 8 `E62 1 status 1 12 ]
+"42 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc/sys_fault.h
+[v _fault_table fault_table `[10]S933  1 s 130 fault_table ]
+[s S970 . 1 `E36 1 state 1 0 ]
+"10 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\sys_manager.c
+[v _sys sys `S970  1 s 1 sys ]
+[s S973 . 2 `*.37(ul 1 sys_tick 2 0 ]
+"11
+[v _sys_cfg sys_cfg `S973  1 s 2 sys_cfg ]
+"10 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\inc\sys_time.c
+[v _tick tick `VEul  1 s 4 tick ]
+[s S986 . 4 `*.37(v 1 disable_interrupts 2 0 `*.37(v 1 enable_interrupts 2 2 ]
+"11
+[v _cfg@sys_time$F990 cfg `S986  1 s 4 cfg ]
+"14 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\main.c
 [v _main main `(i  1 e 2 0 ]
 {
 "28
-} 0
-"10 C:\Users\notwe\MPLABProjects\LV_BMS_V1.0\battery_config.c
-[v _battery_config_init battery_config_init `(v  1 e 1 0 ]
-{
-[s S24 . 15 `uc 1 cell_count 1 0 `uc 1 balance_ic_count 1 1 `uc 1 temp_count 1 2 `us 1 uv_lim_mV 2 3 `us 1 ov_lim_mV 2 5 `us 1 ot_lim_C 2 7 `ul 1 capacity_mAh 4 9 `us 1 idle_current_mA 2 13 ]
-"12
-[v battery_config_init@cfg cfg `S24  1 a 15 0 ]
-"11
-[v battery_config_init@F22921 F22921 `S24  1 s 15 F22921 ]
-"25
 } 0

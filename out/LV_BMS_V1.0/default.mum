@@ -1,7 +1,7 @@
 
 18LF26K83 Memory Summary:
-    Program space        used    6Bh (   107) of 10000h bytes   (  0.2%)
-    Data space           used    1Eh (    30) of  1000h bytes   (  0.7%)
+    Program space        used    C8h (   200) of 10000h bytes   (  0.3%)
+    Data space           used   295h (   661) of  1000h bytes   ( 16.1%)
     Configuration bits   used     0h (     0) of     5h words   (  0.0%)
     EEPROM space         used     0h (     0) of   400h bytes   (  0.0%)
     ID Location space    used     0h (     0) of    10h bytes   (  0.0%)

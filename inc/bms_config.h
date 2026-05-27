@@ -1,12 +1,12 @@
 /**
- * @file battery_config.h
+ * @file bms_config.h
  * @author notwe
  * @date 2026-05-03
  * @brief battery configuration header
  */
 
-#ifndef BATTERY_CONFIG_H
-#define BATTERY_CONFIG_H
+#ifndef BMS_CONFIG_H
+#define BMS_CONFIG_H
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -28,13 +28,6 @@ typedef struct
     uint32_t capacity_mAh;      // nominal capacity in mAh
     uint16_t idle_current_mA;   // idle current of any onboard electronics (bms)
 
-} battery_cfg_t;
-
-typedef struct
-{
-    const battery_cfg_t *cfg;
-} battery_t;
-
-void battery_config_init(battery_t *p_inst, const battery_cfg_t *p_cfg);
+} bms_config_t;
 
 #endif

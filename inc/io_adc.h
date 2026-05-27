@@ -1,18 +1,18 @@
 /**
- * @file adc_manager.c
+ * @file io_adc.h
  * @author notwe
  * @date 2026-05-03
- * @brief adc manager header
+ * @brief abstract adc i/o header
  */
 
-#ifndef ADC_MANAGER_H
-#define ADC_MANAGER_H
+#ifndef IO_ADC_H
+#define IO_ADC_H
 
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
 
-#include "sys_time.h"
+#include "util_time.h"
 
 typedef enum
 {
@@ -38,7 +38,7 @@ typedef struct
     uint32_t(*ADC_get_result)(void);            // function for getting adc result
     void(*ADC_stop)(void);                      // function for stopping adc
 
-} adc_manager_cfg_t;
+} io_adc_cfg_t;
 
 typedef struct
 {
@@ -47,28 +47,28 @@ typedef struct
     bool data_ready_flag;                // data ready flag
     int16_t set_offset;                     // basically just the calibrated value of offset
 
-    const adc_manager_cfg_t *cfg;
+    const io_adc_cfg_t *cfg;
 
-} adc_manager_t;
+} io_adc_t;
 
-void adc_manager_init(adc_manager_t *p_inst, adc_manager_cfg_t *p_cfg);
+void IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg);
 
-void adc_manager_task(adc_manager_t *p_inst);
+void IO_ADC_Task(io_adc_t *p_inst);
 
-void adc_manager_start(adc_manager_t *p_inst);
+void IO_ADC_Start(io_adc_t *p_inst);
 
-bool adc_manager_check(adc_manager_t *p_inst);
+bool IO_ADC_Check(io_adc_t *p_inst);
 
-bool adc_manager_get_flag(adc_manager_t *p_inst);
+bool IO_ADC_Get_Flag(io_adc_t *p_inst);
 
-uint32_t adc_manager_get_val(adc_manager_t *p_inst);
+uint32_t IO_ADC_Get_Val(io_adc_t *p_inst);
 
-uint16_t adc_manager_get_scale(adc_manager_t *p_inst);
+uint16_t IO_ADC_Get_Scale(io_adc_t *p_inst);
 
-uint16_t adc_manager_get_offset(adc_manager_t *p_inst);
+uint16_t IO_ADC_Get_Offset(io_adc_t *p_inst);
 
-void adc_manager_set_offset(adc_manager_t *p_inst, int16_t new_val);
+void IO_ADC_Set_Offset(io_adc_t *p_inst, int16_t new_val);
 
-uint16_t adc_manager_get_vref(adc_manager_t *p_inst);
+uint16_t IO_ADC_Get_Vref(io_adc_t *p_inst);
 
 #endif

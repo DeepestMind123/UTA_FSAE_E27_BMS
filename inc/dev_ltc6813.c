@@ -1,9 +1,6 @@
-#include "LTC6813_manager.h"
-#include "ADI.h"
-#include "LTC6813.h"
-#include "spi_hal.h"
+#include "dev_ltc6813.h"
 
-void LTC6813_manager_init(LTC6813_manager_t *p_inst, LTC6813_manager_cfg_t *p_cfg)
+void DEV_LTC6813_Init(dev_ltc6813_t *p_inst, dev_ltc6813_cfg_t *p_cfg)
 {
     if((p_inst != NULL) && (p_cfg != NULL))
     {
@@ -36,10 +33,10 @@ void LTC6813_manager_init(LTC6813_manager_t *p_inst, LTC6813_manager_cfg_t *p_cf
         p_inst->pwmr[6] = 0;
         p_inst->psr[6] = 0;
 
-        p_inst->command_packet[4] = 0;
+        p_inst->cmd_packet[4] = 0;
         p_inst->len = 0;
 
-        p_inst->command_buffer = 0;
+        p_inst->cmd_buffer = 0;
         p_inst->cv_buffer[18] = 0;
         p_inst->aux_buffer[12] = 0;
 
@@ -57,7 +54,7 @@ void LTC6813_manager_init(LTC6813_manager_t *p_inst, LTC6813_manager_cfg_t *p_cf
     init_PEC15_Table();
 }
 
-void LTC6813_manager_task(LTC6813_manager_t *p_inst)
+void DEV_LTC6813_Task(dev_ltc6813_t *p_inst)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
@@ -77,7 +74,7 @@ void LTC6813_manager_task(LTC6813_manager_t *p_inst)
 
                 if(!p_inst->busy_flag)
                 {
-                    LTC6813_manager_poll_cells(p_inst);
+                    DEV_LTC6813_Poll_Cells(p_inst);
                 }
 
                 if(p_inst->ready_flag)
@@ -103,7 +100,7 @@ void LTC6813_manager_task(LTC6813_manager_t *p_inst)
     } 
 }
 
-bool LTC6813_manager_cmd_request(LTC6813_manager_t *p_inst, LTC6813_cmd_t cmd)
+bool DEV_LTC6813_CMD_Request(dev_ltc6813_t *p_inst, dev_ltc6813_cmd_t cmd)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
@@ -121,7 +118,7 @@ bool LTC6813_manager_cmd_request(LTC6813_manager_t *p_inst, LTC6813_cmd_t cmd)
     
 }
 
-void LTC6813_manager_poll_cells(LTC6813_manager_t *p_inst)
+void DEV_LTC6813_Poll_Cells(dev_ltc6813_t *p_inst)
 {
 
     if((p_inst != NULL) && (p_inst->cfg != NULL))
@@ -132,7 +129,7 @@ void LTC6813_manager_poll_cells(LTC6813_manager_t *p_inst)
 
             p_inst->busy_flag = 0;
 
-            if(p_inst->command_buffer == LTC6813_CMD_POLL_CELLS)
+            if(p_inst->cmd_buffer == LTC6813_CMD_POLL_CELLS)
             {
                 p_inst->state = LTC6813_STATE_START;
             }
@@ -149,13 +146,13 @@ void LTC6813_manager_poll_cells(LTC6813_manager_t *p_inst)
 
             p_inst->delay_ms = LTC6813_get_delay_ms(p_inst->md, p_inst->cfg->cell_num);
 
-            uint32_t start_time = get_tick();
+            uint32_t start_time = UTIL_Time_Get_Tick();
 
             break;
 
             case LTC6813_STATE_WAIT:
 
-            if(get_tick() - start_time >= p_inst->delay_ms)
+            if(UTIL_Time_Get_Tick() - start_time >= p_inst->delay_ms)
             {
                 p_inst->state = LTC6813_STATE_GET;
             }
@@ -183,17 +180,17 @@ void LTC6813_manager_poll_cells(LTC6813_manager_t *p_inst)
     }
 }
 
-void LTC6813_manager_get_command_packet(LTC6813_manager_t *p_inst, uint16_t val1, uint16_t val2)
+void DEV_LTC6813_Get_CMD_Packet(dev_ltc6813_t *p_inst, uint16_t val1, uint16_t val2)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        p_inst->command_packet[4] = 0U;
+        p_inst->cmd_packet[4] = 0U;
 
         // msb command bit packing
-        p_inst->command_packet[0] = (uint8_t)(val1 >> 8U);
-        p_inst->command_packet[1] = (uint8_t)(val1 & 0x00FFU);
-        p_inst->command_packet[2] = (uint8_t)(val2 >> 8U);
-        p_inst->command_packet[3] = (uint8_t)(val2 & 0x00FFU);
+        p_inst->cmd_packet[0] = (uint8_t)(val1 >> 8U);
+        p_inst->cmd_packet[1] = (uint8_t)(val1 & 0x00FFU);
+        p_inst->cmd_packet[2] = (uint8_t)(val2 >> 8U);
+        p_inst->cmd_packet[3] = (uint8_t)(val2 & 0x00FFU);
 
         p_inst->len = 4U;
     }

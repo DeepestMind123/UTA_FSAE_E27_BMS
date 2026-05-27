@@ -1,13 +1,13 @@
 /**
- * @file adc_manager.c
+ * @file io_adc.c
  * @author notwe
  * @date 2026-05-03
- * @brief adc manager source
+ * @brief abstract adc i/o source
  */
 
-#include "adc_manager.h"
+#include "io_adc.h"
 
-void adc_manager_init(adc_manager_t *p_inst, adc_manager_cfg_t *p_cfg)
+void IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg)
 {
     if((p_inst != NULL) && (p_cfg != NULL))
     {
@@ -24,7 +24,7 @@ void adc_manager_init(adc_manager_t *p_inst, adc_manager_cfg_t *p_cfg)
     
 }
 
-void adc_manager_task(adc_manager_t *p_inst)
+void IO_ADC_Task(io_adc_t *p_inst)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
@@ -46,7 +46,7 @@ void adc_manager_task(adc_manager_t *p_inst)
             // start adc measurement on selected channel
             p_inst->cfg->ADC_start();
 
-            uint32_t adc_start_time = get_tick();
+            uint32_t adc_start_time = UTIL_Time_Get_Tick();
 
             p_inst->state = ADC_STATE_WAIT;
 
@@ -54,7 +54,7 @@ void adc_manager_task(adc_manager_t *p_inst)
 
             case ADC_STATE_WAIT:
 
-            if(get_tick() - adc_start_time <= p_inst->cfg->adc_timeout)
+            if(UTIL_Time_Get_Tick() - adc_start_time <= p_inst->cfg->adc_timeout)
             {
                 // wait for adc to finish measurement, comment out if selected mcu does not have support for this
                 if(p_inst->cfg->ADC_done()) 
@@ -95,7 +95,7 @@ void adc_manager_task(adc_manager_t *p_inst)
     }
 }
 
-void adc_manager_start(adc_manager_t *p_inst)
+void IO_ADC_Start(io_adc_t *p_inst)
 {
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
@@ -103,7 +103,7 @@ void adc_manager_start(adc_manager_t *p_inst)
     }
 }
 
-bool adc_manager_check(adc_manager_t *p_inst)
+bool IO_ADC_Check(io_adc_t *p_inst)
 {
     bool is_busy = true;
 
@@ -122,7 +122,7 @@ bool adc_manager_check(adc_manager_t *p_inst)
     return is_busy; // single return point for safety
 }
 
-bool adc_manager_get_flag(adc_manager_t *p_inst)
+bool IO_ADC_Get_Flag(io_adc_t *p_inst)
 {
     bool is_ready = false;
 
@@ -138,7 +138,7 @@ bool adc_manager_get_flag(adc_manager_t *p_inst)
     return is_ready;
 }
 
-uint32_t adc_manager_get_val(adc_manager_t *p_inst)
+uint32_t IO_ADC_Get_Val(io_adc_t *p_inst)
 {
     uint32_t val = 0U;
 
@@ -155,7 +155,7 @@ uint32_t adc_manager_get_val(adc_manager_t *p_inst)
     return val;
 }
 
-uint16_t adc_manager_get_scale(adc_manager_t *p_inst)
+uint16_t IO_ADC_Get_Scale(io_adc_t *p_inst)
 {
     uint16_t scale = 0U;
 
@@ -171,7 +171,7 @@ uint16_t adc_manager_get_scale(adc_manager_t *p_inst)
     return scale;
 }
 
-uint16_t adc_manager_get_offset(adc_manager_t *p_inst)
+uint16_t IO_ADC_Get_Offset(io_adc_t *p_inst)
 {
     uint16_t offset = 0U;
 
@@ -187,7 +187,7 @@ uint16_t adc_manager_get_offset(adc_manager_t *p_inst)
     return offset;  
 }
 
-void adc_manager_set_offset(adc_manager_t *p_inst, int16_t new_val)
+void IO_ADC_Set_Offset(io_adc_t *p_inst, int16_t new_val)
 {
     if(p_inst != NULL)
     {
@@ -195,7 +195,7 @@ void adc_manager_set_offset(adc_manager_t *p_inst, int16_t new_val)
     }
 }
 
-uint16_t adc_manager_get_vref(adc_manager_t *p_inst)
+uint16_t IO_ADC_Get_Vref(io_adc_t *p_inst)
 {
     uint16_t vref = 0U;
 
