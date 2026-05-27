@@ -21,6 +21,7 @@ set(LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_compile
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/LTC6813.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/dev_ltc6813.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/adc io/io_adc.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/spi io/io_spi.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/bms_manager.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/sys_fault.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/utils/util_time.c"

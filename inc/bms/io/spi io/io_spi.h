@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#include "sys_fault.h"
+
 typedef struct
 {
     void(*spi_cs_high)(uint8_t cs_pin);
