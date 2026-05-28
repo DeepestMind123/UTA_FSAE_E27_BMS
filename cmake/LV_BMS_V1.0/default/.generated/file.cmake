@@ -16,12 +16,14 @@ foreach(source_file ${LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_assembleP
 endforeach()
 
 set(LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_compile
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/current sensor/dev_current.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/current_sensor/dev_current.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/ADI.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/LTC6813.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/dev_ltc6813.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/adc io/io_adc.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/spi io/io_spi.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/adc_io/io_adc.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/pwm_io/io_pwm.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/spi_io/io_spi.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/bms_fan_ctrl.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/bms_manager.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/sys_fault.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/utils/util_time.c"

@@ -1,6 +1,6 @@
 # The following functions contains all the flags passed to the different build stages.
 
-set(PACK_REPO_PATH "C:/Users/mediocre/.mchp_packs" CACHE PATH "Path to the root of a pack repository.")
+set(PACK_REPO_PATH "C:/Users/notwe/.mchp_packs" CACHE PATH "Path to the root of a pack repository.")
 
 function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemble_rule target)
     set(options
@@ -38,7 +38,11 @@ function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemble_rule target)
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/system"
-        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/utils")
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/utils"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices/current sensor"
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc_io"
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io")
 endfunction()
 function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemblePreprocess_rule target)
     set(options
@@ -78,7 +82,11 @@ function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemblePreprocess_rule target)
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/system"
-        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/utils")
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/utils"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices/current sensor"
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc_io"
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io")
 endfunction()
 function(LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_rule target)
     set(options
@@ -116,7 +124,11 @@ function(LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_rule target)
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/system"
-        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/utils")
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/utils"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices/current sensor"
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc_io"
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io")
 endfunction()
 function(LV_BMS_V1_0_default_link_rule target)
     set(options
@@ -154,5 +166,9 @@ function(LV_BMS_V1_0_default_link_rule target)
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/system"
-        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/utils")
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/utils"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices/current sensor"
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc_io"
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io")
 endfunction()

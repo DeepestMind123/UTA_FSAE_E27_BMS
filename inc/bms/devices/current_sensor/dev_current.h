@@ -12,12 +12,12 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-#include "io_adc.h"
 #include "util_time.h"
+#include "io_adc.h"
 
 const uint16_t MV_TO_UV = 1000;
 
-typedef struct
+typedef const struct
 {
     uint32_t wait_ms;                   // timer in ms between current sensor checks
     int32_t sensor_gain_uV;             // gain of sensor in uV / A
@@ -39,7 +39,7 @@ typedef struct
 
     io_adc_t *adc_inst;
 
-    const dev_current_cfg_t *cfg;
+    dev_current_cfg_t *cfg;
 
 } dev_current_t;
 

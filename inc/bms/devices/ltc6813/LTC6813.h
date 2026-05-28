@@ -108,6 +108,4 @@ uint16_t LTC6813_get_ADCVAX(uint8_t MD, bool DCP);
 
 uint16_t LTC6813_get_ADCVSC(uint8_t MD, bool DCP);
 
-
-
 #endif

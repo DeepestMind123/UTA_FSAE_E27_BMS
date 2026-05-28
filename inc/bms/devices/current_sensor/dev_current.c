@@ -7,6 +7,7 @@
 
 #include "dev_current.h"
 #include "io_adc.h"
+#include "sys_fault.h"
 
 void DEV_Current_Init(dev_current_t *p_inst, dev_current_cfg_t *p_cfg, io_adc_t *p_adc_inst)
 {
@@ -22,7 +23,7 @@ void DEV_Current_Init(dev_current_t *p_inst, dev_current_cfg_t *p_cfg, io_adc_t 
     }
     else
     {
-        // insert error handler
+        BMS_Fault_Update(BMS_FAULT_NULL_POINTER, false);
     }
 }
 

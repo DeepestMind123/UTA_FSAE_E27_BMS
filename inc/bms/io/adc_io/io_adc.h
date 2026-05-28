@@ -20,7 +20,8 @@ typedef enum
     ADC_STATE_START,      // start adc if necessary
     ADC_STATE_WAIT,       // wait for adc conversion
     ADC_STATE_GET,        // get measurement and stop adc if necessary; process current
-    ADC_STATE_READY
+    ADC_STATE_READY,
+    ADC_STATE_ERROR
 } adc_state_t;
 
 typedef struct
