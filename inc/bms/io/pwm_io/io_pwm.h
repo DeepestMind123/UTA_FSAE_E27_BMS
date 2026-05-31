@@ -11,12 +11,12 @@
 
 #include "sys_fault.h"
 
-#ifndef PWM_IO_H
-#define PWM_IO_H
+#ifndef IO_PWM_H
+#define IO_PWM_H
 
 typedef enum
 {
-    PWM_STATUS_NONE = 0,
+    PWM_STATUS_IDLE = 0,
     PWM_STATUS_ERROR
 } pwm_status_t;
 

@@ -9,8 +9,19 @@
 
 #include "io_pwm.h"
 #include "sys_fault.h"
+#include "util_time.h"
 // needs access to a temperature device
 // like, yeah that is going to be the ltc6813 but it isnt done (yikes)
+// also need to make a schedule controller that defines time limits;
+
+const float K_P = 10.0f;
+const float K_I = 1.0f;
+const float INTEGRAL_MAX = 100.0f;
+const float INTEGRAL_MIN = 0.0f;
+const float PWM_MAX = 100.0f;
+const float PWM_MIN = 0.0f;
+
+const uint16_t PWM_MAX_INT = 65535;
 
 typedef enum
 {
@@ -21,16 +32,18 @@ typedef enum
 
 typedef const struct
 {
-    int16_t setpoint;
+    float setpoint;
 
 } bms_fan_cfg_t;
 
 typedef struct
 {
-    int16_t now_module_temp;
-    int16_t last_module_temp;
-    uint16_t now_duty_value;
-    uint16_t last_duty_value;
+    float now_temp_C;
+    uint16_t duty_value;
+    uint32_t now_time_ms;
+    uint32_t last_time_ms;
+
+    float error;
 
     bool is_init;
 
@@ -42,7 +55,7 @@ typedef struct
 
 } bms_fan_t;
 
-fan_status_t BMS_Fan_Init(bms_fan_t *p_inst, bms_fan_cfg_t *p_cfg);
+fan_status_t BMS_Fan_Init(bms_fan_t *p_inst, bms_fan_cfg_t *p_cfg, io_pwm_t *p_pwm_inst);
 
 fan_status_t BMS_Fan_Task(bms_fan_t *p_inst);
 

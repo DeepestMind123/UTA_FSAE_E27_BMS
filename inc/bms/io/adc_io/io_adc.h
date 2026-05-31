@@ -16,6 +16,14 @@
 
 typedef enum
 {
+    ADC_STATUS_OK = 0,
+    ADC_STATUS_ERROR_NULL_POINTER,
+    ADC_STATUS_ERROR_NOT_INIT,
+    ADC_STATUS_ERROR_ADC_TIMEOUT
+} adc_status_t;
+
+typedef enum
+{
     ADC_STATE_IDLE = 0,   // adc not taking data
     ADC_STATE_START,      // start adc if necessary
     ADC_STATE_WAIT,       // wait for adc conversion
@@ -43,24 +51,23 @@ typedef struct
 
 typedef struct
 {
-    adc_state_t state;                      // stores instanced state
     uint32_t last_raw;                      // store last value so other modules can read
-    bool data_ready_flag;                // data ready flag
     int16_t set_offset;                     // basically just the calibrated value of offset
+    uint32_t start_time;
 
+    bool is_init;
+
+    adc_state_t state;                      // stores instanced state
+    
     const io_adc_cfg_t *cfg;
 
 } io_adc_t;
 
-void IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg);
+adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg);
 
-void IO_ADC_Task(io_adc_t *p_inst);
+adc_status_t IO_ADC_Task(io_adc_t *p_inst);
 
-void IO_ADC_Start(io_adc_t *p_inst);
-
-bool IO_ADC_Check(io_adc_t *p_inst);
-
-bool IO_ADC_Get_Flag(io_adc_t *p_inst);
+adc_status_t IO_ADC_Start(io_adc_t *p_inst);
 
 uint32_t IO_ADC_Get_Val(io_adc_t *p_inst);
 
@@ -68,8 +75,10 @@ uint16_t IO_ADC_Get_Scale(io_adc_t *p_inst);
 
 uint16_t IO_ADC_Get_Offset(io_adc_t *p_inst);
 
-void IO_ADC_Set_Offset(io_adc_t *p_inst, int16_t new_val);
+adc_status_t IO_ADC_Set_Offset(io_adc_t *p_inst, int16_t new_val);
 
 uint16_t IO_ADC_Get_Vref(io_adc_t *p_inst);
+
+adc_state_t IO_ADC_Get_State(io_adc_t *p_inst);
 
 #endif

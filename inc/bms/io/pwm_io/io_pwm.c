@@ -21,21 +21,17 @@ pwm_status_t IO_PWM_Init(io_pwm_t *p_inst, io_pwm_cfg_t *p_cfg)
 
         if((p_inst->cfg->Load_Duty_Cycle != NULL))
         {
-            status = PWM_STATUS_NONE;
+            status = PWM_STATUS_IDLE;
 
             p_inst->is_init = true;
         }
         else
         {
-            p_inst->is_init = false;
-
             BMS_Fault_Update(BMS_FAULT_NULL_POINTER, true);
         }
     }
     else
     {
-        p_inst->is_init = false;
-
         BMS_Fault_Update(BMS_FAULT_NULL_POINTER, true);
     }
 
@@ -54,7 +50,7 @@ pwm_status_t IO_PWM_Set_Duty_Cycle(io_pwm_t *p_inst, uint16_t duty_value)
 
             p_inst->last_duty_value = duty_value;
 
-            status = PWM_STATUS_NONE;
+            status = PWM_STATUS_IDLE;
         }
         else 
         {
