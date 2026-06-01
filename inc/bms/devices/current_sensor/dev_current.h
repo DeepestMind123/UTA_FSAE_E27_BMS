@@ -14,7 +14,6 @@
 
 #include "util_time.h"
 #include "io_adc.h"
-#include "sys_fault.h"
 
 #define MV_TO_UV 1000
 
@@ -25,6 +24,8 @@ typedef enum
     CURRENT_STATUS_ERROR_NOT_INIT,
     CURRENT_STATUS_ERROR_TIMEOUT,
     CURRENT_STATUS_ERROR_ADC_ERROR,
+    CURRENT_STATUS_ERROR_UNDEFINED_STATE,
+    CURRENT_STATUS_ERROR_RACE
 } current_status_t;
 
 typedef enum
@@ -34,13 +35,13 @@ typedef enum
     CURRENT_STATE_WAIT,
     CURRENT_STATE_GET,
     CURRENT_STATE_READY,
-    CURRENT_STATE_ERROR
+    CURRENT_STATE_ERROR,
+    CURRENT_STATE_UNDEFINED
 } current_state_t;
 
 typedef struct
 {
     uint32_t current_wait_ms;                   // timer in ms between current sensor checks
-    uint32_t current_timeout;
     int32_t current_gain_uV;             // gain of sensor in uV / A
     uint16_t current_raw_cutoff;                // clamp value for sensor calibration
 
@@ -51,6 +52,7 @@ typedef struct
     uint32_t cal_acc;
     uint32_t cal_count;
     uint32_t raw_offset;                // calibrated offset value
+    uint32_t adc_timeout_ms;     // time in ms before current wait times out
 
     int32_t last_val;
 
@@ -73,14 +75,14 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst);    // state switch fun
 
 current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst);      // process raw current value to get current in mA
 
-uint32_t DEV_Current_Get_Wait(dev_current_t *p_inst);
+current_status_t DEV_Current_Get_Wait(dev_current_t *p_inst, uint32_t *p_out);
 
-int32_t DEV_Current_Get_Gain(dev_current_t *p_inst);
+current_status_t DEV_Current_Get_Gain(dev_current_t *p_inst, int32_t *p_out);
 
-uint32_t DEV_Current_Get_Raw(dev_current_t *p_inst);
+current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint32_t *p_out);
 
-int32_t DEV_Current_Get_Val(dev_current_t *p_inst);
+current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int32_t *p_out);
 
-current_state_t DEV_Current_Get_State(dev_current_t *p_inst);
+current_status_t DEV_Current_Get_State(dev_current_t *p_inst, current_state_t *p_out);
 
 #endif 

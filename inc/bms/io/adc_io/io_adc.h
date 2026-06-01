@@ -19,8 +19,9 @@ typedef enum
     ADC_STATUS_OK = 0,
     ADC_STATUS_ERROR_NULL_POINTER,
     ADC_STATUS_ERROR_NOT_INIT,
-    ADC_STATUS_ERROR_ADC_TIMEOUT,
-    ADC_STATUS_ERROR_ADC_BUSY
+    ADC_STATUS_ERROR_TIMEOUT,
+    ADC_STATUS_ERROR_ADC_BUSY,
+    ADC_STATUS_ERROR_UNDEFINED_STATE
 } adc_status_t;
 
 typedef enum
@@ -30,7 +31,8 @@ typedef enum
     ADC_STATE_WAIT,       // wait for adc conversion
     ADC_STATE_GET,        // get measurement and stop adc if necessary; process current
     ADC_STATE_READY,
-    ADC_STATE_ERROR
+    ADC_STATE_ERROR,
+    ADC_STATE_UNDEFINED
 } adc_state_t;
 
 typedef struct
@@ -70,16 +72,18 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst);
 
 adc_status_t IO_ADC_Start(io_adc_t *p_inst);
 
-uint32_t IO_ADC_Get_Val(io_adc_t *p_inst);
+adc_status_t IO_ADC_Get_Val(io_adc_t *p_inst, uint32_t *p_out);
 
-uint16_t IO_ADC_Get_Scale(io_adc_t *p_inst);
+adc_status_t IO_ADC_Get_Scale(io_adc_t *p_inst, uint16_t *p_out);
 
-uint16_t IO_ADC_Get_Offset(io_adc_t *p_inst);
+adc_status_t IO_ADC_Get_Offset(io_adc_t *p_inst, int16_t *p_out);
 
 adc_status_t IO_ADC_Set_Offset(io_adc_t *p_inst, int16_t new_val);
 
-uint16_t IO_ADC_Get_Vref(io_adc_t *p_inst);
+adc_status_t IO_ADC_Get_Vref(io_adc_t *p_inst, uint16_t *p_out);
 
-adc_state_t IO_ADC_Get_State(io_adc_t *p_inst);
+adc_status_t IO_ADC_Get_State(io_adc_t *p_inst, adc_state_t *p_out);
+
+adc_status_t IO_ADC_Get_Timeout(io_adc_t *p_inst, uint32_t *p_out);
 
 #endif
