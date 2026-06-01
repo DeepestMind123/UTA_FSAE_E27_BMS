@@ -283,3 +283,26 @@ uint16_t IO_ADC_Get_Vref(io_adc_t *p_inst)
 
     return vref;
 }
+
+adc_state_t IO_ADC_Get_State(io_adc_t *p_inst)
+{
+    adc_state_t state;
+
+    if(p_inst != NULL)
+    {
+        if(p_inst->is_init)
+        {
+            state = p_inst->state;
+        }
+        else 
+        {
+            BMS_Fault_Update(BMS_FAULT_NOT_INIT, true);
+        }
+    }
+    else 
+    {
+        BMS_Fault_Update(BMS_FAULT_NULL_POINTER, true);
+    }
+
+    return state;
+}

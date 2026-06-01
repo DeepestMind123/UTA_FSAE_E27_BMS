@@ -14,53 +14,73 @@
 
 #include "util_time.h"
 #include "io_adc.h"
+#include "sys_fault.h"
 
-const uint16_t MV_TO_UV = 1000;
+#define MV_TO_UV 1000
 
-typedef const struct
+typedef enum
 {
-    uint32_t wait_ms;                   // timer in ms between current sensor checks
-    int32_t sensor_gain_uV;             // gain of sensor in uV / A
-    uint16_t raw_cutoff;                // clamp value for sensor calibration
+    CURRENT_STATUS_OK = 0,
+    CURRENT_STATUS_ERROR_NULL_POINTER,
+    CURRENT_STATUS_ERROR_NOT_INIT,
+    CURRENT_STATUS_ERROR_TIMEOUT,
+    CURRENT_STATUS_ERROR_ADC_ERROR,
+} current_status_t;
+
+typedef enum
+{
+    CURRENT_STATE_IDLE = 0,
+    CURRENT_STATE_START,
+    CURRENT_STATE_WAIT,
+    CURRENT_STATE_GET,
+    CURRENT_STATE_READY,
+    CURRENT_STATE_ERROR
+} current_state_t;
+
+typedef struct
+{
+    uint32_t current_wait_ms;                   // timer in ms between current sensor checks
+    uint32_t current_timeout;
+    int32_t current_gain_uV;             // gain of sensor in uV / A
+    uint16_t current_raw_cutoff;                // clamp value for sensor calibration
 
 } dev_current_cfg_t;
 
 typedef struct
 {
-    uint32_t elapsed;                   // time in ms since last current measurement
     uint32_t cal_acc;
     uint32_t cal_count;
     uint32_t raw_offset;                // calibrated offset value
 
-    int32_t val_buffer;
+    int32_t last_val;
 
-    bool busy_flag;
-    bool ready_flag;
+    bool is_init;
+
+    uint32_t start_time;
 
     io_adc_t *adc_inst;
 
-    dev_current_cfg_t *cfg;
+    current_status_t status;
+    current_state_t state;
+
+    const dev_current_cfg_t *cfg;
 
 } dev_current_t;
 
-void DEV_Current_Init(dev_current_t *p_inst, dev_current_cfg_t *p_cfg, io_adc_t *p_adc_inst);
+current_status_t DEV_Current_Init(dev_current_t *p_inst, dev_current_cfg_t *p_cfg, io_adc_t *p_adc_inst);
 
-void DEV_Current_Task(dev_current_t *p_inst);    // state switch function
+current_status_t DEV_Current_Task(dev_current_t *p_inst);    // state switch function
 
-bool DEV_Current_Val_Ready(dev_current_t *p_inst);
+current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst);      // process raw current value to get current in mA
 
-bool DEV_Current_Cal(dev_current_t *p_inst);
-
-void DEV_Current_Process_Raw(dev_current_t *p_inst);      // process raw current value to get current in mA
-
-uint32_t DEV_Current_Get_Wait(dev_current_t *p_isnt);
+uint32_t DEV_Current_Get_Wait(dev_current_t *p_inst);
 
 int32_t DEV_Current_Get_Gain(dev_current_t *p_inst);
 
 uint32_t DEV_Current_Get_Raw(dev_current_t *p_inst);
 
-int32_t DEV_Current_Get_Val(dev_current_t *p_isnt);
+int32_t DEV_Current_Get_Val(dev_current_t *p_inst);
 
-bool DEV_Current_Get_Ready(dev_current_t *p_inst);
+current_state_t DEV_Current_Get_State(dev_current_t *p_inst);
 
 #endif 
