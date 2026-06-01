@@ -22,11 +22,20 @@ void UTIL_Time_Tick_Up(void)
 
 uint32_t UTIL_Time_Get_Tick(void)
 {
-    uint32_t interrupt_state = UTIL_IRQ_Enter_Critical(util_irq);
-    
-    uint32_t t = tick;
+    uint32_t interrupt_state = 0U;
 
-    UTIL_IRQ_Exit_Critical(util_irq, interrupt_state);
+    irq_status_t irq_status;
+
+    uint32_t t = 0U;
+    
+    irq_status = UTIL_IRQ_Enter_Critical(util_irq, &interrupt_state);
+    
+    if(irq_status == IRQ_STATUS_OK)
+    {
+        t = tick;
+    }
+
+    irq_status = UTIL_IRQ_Exit_Critical(util_irq, interrupt_state);
 
     return t;
 }

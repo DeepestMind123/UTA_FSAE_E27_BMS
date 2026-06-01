@@ -6,12 +6,10 @@
  */
 
 #include "io_pwm.h"
-#include "sys_fault.h"
 
 pwm_status_t IO_PWM_Init(io_pwm_t *p_inst, io_pwm_cfg_t *p_cfg)
 {
-
-    pwm_status_t status = PWM_STATUS_ERROR;
+    pwm_status_t status = PWM_STATUS_ERROR_NOT_INIT;
 
     if((p_inst != NULL) && (p_cfg != NULL))
     {
@@ -21,18 +19,18 @@ pwm_status_t IO_PWM_Init(io_pwm_t *p_inst, io_pwm_cfg_t *p_cfg)
 
         if((p_inst->cfg->Load_Duty_Cycle != NULL))
         {
-            status = PWM_STATUS_IDLE;
-
             p_inst->is_init = true;
+
+            status = PWM_STATUS_OK;
         }
         else
         {
-            BMS_Fault_Update(BMS_FAULT_NULL_POINTER, true);
+            status = PWM_STATUS_ERROR_NULL_POINTER;
         }
     }
     else
     {
-        BMS_Fault_Update(BMS_FAULT_NULL_POINTER, true);
+        status = PWM_STATUS_ERROR_NULL_POINTER;
     }
 
     return status;
@@ -40,7 +38,7 @@ pwm_status_t IO_PWM_Init(io_pwm_t *p_inst, io_pwm_cfg_t *p_cfg)
 
 pwm_status_t IO_PWM_Set_Duty_Cycle(io_pwm_t *p_inst, uint16_t duty_value)
 {
-    pwm_status_t status = PWM_STATUS_ERROR;
+    pwm_status_t status = PWM_STATUS_OK;
 
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
@@ -49,34 +47,43 @@ pwm_status_t IO_PWM_Set_Duty_Cycle(io_pwm_t *p_inst, uint16_t duty_value)
             p_inst->cfg->Load_Duty_Cycle(duty_value);
 
             p_inst->last_duty_value = duty_value;
-
-            status = PWM_STATUS_IDLE;
         }
         else 
         {
-            BMS_Fault_Update(BMS_FAULT_NOT_INIT, true);
+            status = PWM_STATUS_ERROR_NOT_INIT;
         }
     }
     else 
     {
-        BMS_Fault_Update(BMS_FAULT_NULL_POINTER, true);
+        status = PWM_STATUS_ERROR_NULL_POINTER;
     }
 
     return status;
 }
 
-uint16_t IO_PWM_Get_Duty_Cycle(io_pwm_t *p_inst)
+pwm_status_t IO_PWM_Get_Duty_Cycle(io_pwm_t *p_inst, uint16_t *p_out)
 {
+    pwm_status_t status = PWM_STATUS_OK;
+
     uint16_t duty_value = 0U;
 
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        duty_value = p_inst->last_duty_value;
+        if(p_inst->is_init)
+        {
+            duty_value = p_inst->last_duty_value;
+        }
+        else 
+        {
+            status = PWM_STATUS_ERROR_NOT_INIT;
+        }
+
+        *p_out = duty_value;
     }
     else 
     {
-        BMS_Fault_Update(BMS_FAULT_NULL_POINTER, true);
+        status = PWM_STATUS_ERROR_NULL_POINTER;
     }
 
-    return duty_value;
+    return status;
 }

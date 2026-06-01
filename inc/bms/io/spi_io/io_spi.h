@@ -5,15 +5,13 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-#include "sys_fault.h"
-
 const uint8_t DUMMY_BYTE = 0xFFU;
 
 typedef enum
 {
-    SPI_STATUS_NONE = 0,
-    SPI_STATUS_WAITING,
-    SPI_STATUS_ERROR
+    SPI_STATUS_OK = 0,
+    SPI_STATUS_ERROR_NULL_POINTER,
+    SPI_STATUS_ERROR_NOT_INIT
 } spi_status_t;
 
 typedef const struct

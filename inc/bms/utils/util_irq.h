@@ -12,6 +12,13 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+typedef enum
+{
+    IRQ_STATUS_OK = 0,
+    IRQ_STATUS_ERROR_NOT_INIT,
+    IRQ_STATUS_ERROR_NULL_POINTER
+} irq_status_t;
+
 typedef struct
 {
     void(*Disable)(void);
@@ -24,40 +31,74 @@ typedef struct
 
 } util_irq_cfg_t;
 
-static inline void UTIL_IRQ_Init(util_irq_cfg_t *p_cfg)
+bool is_init;
+
+static inline irq_status_t UTIL_IRQ_Init(util_irq_cfg_t *p_cfg)
 {
+    irq_status_t status = IRQ_STATUS_ERROR_NOT_INIT;
+
     if(p_cfg == NULL)
     {
-        while(1);
+        status = IRQ_STATUS_ERROR_NULL_POINTER;
     }
+    else
+    {
+        is_init = true;
+
+        status = IRQ_STATUS_OK;
+    }
+
+    return status;
 }
 
-static inline uint32_t UTIL_IRQ_Enter_Critical(util_irq_cfg_t *p_cfg)
+static inline irq_status_t UTIL_IRQ_Enter_Critical(util_irq_cfg_t *p_cfg, uint32_t *p_out)
 {
-    if(p_cfg != NULL)
-    {
-        uint32_t last_state = p_cfg->Get_State(); // fetch current intterupt state
+    irq_status_t status = IRQ_STATUS_OK;
 
-        p_cfg->Disable(); // disable interrupts
+    if((p_cfg != NULL) && (p_out != NULL))
+    {
+        if(is_init)
+        {
+            uint32_t last_state = p_cfg->Get_State(); // fetch current intterupt state
+
+            p_cfg->Disable(); // disable interrupts
+        }
+        else 
+        {
+            status = IRQ_STATUS_ERROR_NOT_INIT;
+        }
     }
     else 
     {
-        while(1); // freeze cpu
+        status = IRQ_STATUS_ERROR_NULL_POINTER;
     }
+
+    return status;
 }
 
-static inline void UTIL_IRQ_Exit_Critical(util_irq_cfg_t *p_cfg, uint32_t state)
+static inline irq_status_t UTIL_IRQ_Exit_Critical(util_irq_cfg_t *p_cfg, uint32_t state)
 {
+    irq_status_t status = IRQ_STATUS_OK;
+
     if(p_cfg != NULL)
     {
-         p_cfg->Set_State(state); // set interrupt state to saved state
+        if(is_init)
+        {
+            p_cfg->Set_State(state); // set interrupt state to saved state
 
-        p_cfg->Enable(); // enable interrupts
+            p_cfg->Enable(); // enable interrupts
+        }
+        else 
+        {
+            status = IRQ_STATUS_ERROR_NOT_INIT;
+        }
     }
     else 
     {
-        while(1); // freeze cpu
+        status = IRQ_STATUS_ERROR_NULL_POINTER;
     }
+
+    return status;
 }
 
 #endif

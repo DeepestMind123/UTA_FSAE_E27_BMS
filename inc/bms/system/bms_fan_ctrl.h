@@ -25,9 +25,9 @@ const uint16_t PWM_MAX_INT = 65535;
 
 typedef enum
 {
-    FAN_STATUS_IDLE = 0,
-    FAN_STATUS_ON,
-    FAN_STATUS_ERROR
+    FAN_STATUS_OK = 0,
+    FAN_STATUS_ERROR_NOT_INIT,
+    FAN_STATUS_ERROR_NULL_POINTER
 } fan_status_t;
 
 typedef const struct

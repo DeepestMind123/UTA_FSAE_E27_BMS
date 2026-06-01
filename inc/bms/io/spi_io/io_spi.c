@@ -1,9 +1,8 @@
 #include "io_spi.h"
-#include "sys_fault.h"
 
 spi_status_t IO_SPI_Init(io_spi_t *p_inst, io_spi_cfg_t *p_cfg)
 {
-    spi_status_t status = SPI_STATUS_ERROR;
+    spi_status_t status = SPI_STATUS_ERROR_NOT_INIT;
 
     if((p_inst != NULL) && (p_cfg != NULL))
     {
@@ -14,19 +13,18 @@ spi_status_t IO_SPI_Init(io_spi_t *p_inst, io_spi_cfg_t *p_cfg)
             (p_inst->cfg->spi_cs_low != NULL) &&
             (p_inst->cfg->spi_byte_exchange != NULL))
         {
-            status = SPI_STATUS_NONE;
             p_inst->is_init = true;
+
+            status = SPI_STATUS_OK;
         }
         else 
         {
-            status = SPI_STATUS_ERROR;
-            BMS_Fault_Update(BMS_FAULT_NOT_INIT, true);
+            status = SPI_STATUS_ERROR_NULL_POINTER;
         }
     }
     else 
     {
-        status = SPI_STATUS_ERROR;
-        BMS_Fault_Update(BMS_FAULT_NULL_POINTER, false);
+        status = SPI_STATUS_ERROR_NULL_POINTER;
     }
 
     return status;
@@ -34,15 +32,15 @@ spi_status_t IO_SPI_Init(io_spi_t *p_inst, io_spi_cfg_t *p_cfg)
 
 spi_status_t IO_SPI_Transfer_Word(io_spi_t *p_inst, uint8_t cs_pin, uint8_t *tx, uint8_t *rx)
 {
-    spi_status_t status = SPI_STATUS_ERROR;
+    spi_status_t status = SPI_STATUS_OK;
 
     uint8_t rx_data = 0U;
 
     uint8_t tx_data = DUMMY_BYTE;
 
-    if(p_inst->is_init)
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        if((p_inst != NULL))
+        if(p_inst->is_init)
         {
             if(tx != NULL)
             {
@@ -59,21 +57,15 @@ spi_status_t IO_SPI_Transfer_Word(io_spi_t *p_inst, uint8_t cs_pin, uint8_t *tx,
             {
                 *rx = rx_data;
             }
-
-            status = SPI_STATUS_NONE;
         }
         else 
         {
-            status = SPI_STATUS_ERROR;
-
-            BMS_Fault_Update(BMS_FAULT_NULL_POINTER, true);
+            status = SPI_STATUS_ERROR_NOT_INIT;
         }
     }
     else 
     {
-        status = SPI_STATUS_ERROR;
-
-        BMS_Fault_Update(BMS_FAULT_NOT_INIT, true);
+        status = SPI_STATUS_ERROR_NULL_POINTER;
     }
 
     return status;
@@ -81,7 +73,7 @@ spi_status_t IO_SPI_Transfer_Word(io_spi_t *p_inst, uint8_t cs_pin, uint8_t *tx,
 
 spi_status_t IO_SPI_Transfer_Sentence(io_spi_t *p_inst, uint8_t cs_pin, uint8_t *tx, uint8_t *rx, uint8_t len)
 {
-    spi_status_t status = SPI_STATUS_ERROR;
+    spi_status_t status = SPI_STATUS_OK;
 
     uint8_t rx_data = 0U;
 
@@ -89,9 +81,9 @@ spi_status_t IO_SPI_Transfer_Sentence(io_spi_t *p_inst, uint8_t cs_pin, uint8_t 
 
     uint8_t i = 0U;
 
-    if(p_inst->is_init)
+    if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
-        if(p_inst != NULL)
+        if(p_inst->is_init)
         {
             if(len > 0)
             {
@@ -114,21 +106,15 @@ spi_status_t IO_SPI_Transfer_Sentence(io_spi_t *p_inst, uint8_t cs_pin, uint8_t 
 
                 p_inst->cfg->spi_cs_high(cs_pin);
             }
-            
-            status = SPI_STATUS_NONE;
         }
         else 
         {
-            status = SPI_STATUS_ERROR;
-
-            BMS_Fault_Update(BMS_FAULT_NULL_POINTER, true);
+            status = SPI_STATUS_ERROR_NOT_INIT;
         }
     }
     else 
     {
-        status = SPI_STATUS_ERROR;
-
-        BMS_Fault_Update(BMS_FAULT_NOT_INIT, true);
+        status = SPI_STATUS_ERROR_NULL_POINTER;
     }
 
     return status;
