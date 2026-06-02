@@ -198,24 +198,24 @@ adc_status_t IO_ADC_Get_Val(io_adc_t *p_inst, uint32_t *p_out)
     return status;
 }
 
-adc_status_t IO_ADC_Get_Scale(io_adc_t *p_inst, uint16_t *p_out)
+adc_status_t IO_ADC_Get_Resolution(io_adc_t *p_inst, uint16_t *p_out)
 {
     adc_status_t status = ADC_STATUS_OK;
 
-    uint16_t scale = 0U;
+    uint16_t resolution = 0U;
 
     if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_out != NULL)) 
     {
         if(p_inst->is_init)
         {
-            scale = p_inst->cfg->adc_scale;
+            resolution = p_inst->cfg->adc_resolution;
         }
         else 
         {
             status = ADC_STATUS_ERROR_NOT_INIT;
         }
 
-        *p_out = scale;
+        *p_out = resolution;
     }
     else
     {
