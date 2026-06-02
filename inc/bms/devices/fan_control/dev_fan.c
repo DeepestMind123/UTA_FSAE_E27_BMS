@@ -1,8 +1,7 @@
 
-#include "bms_fan_ctrl.h"
-#include "sys_fault.h"
+#include "dev_fan.h"
 
-fan_status_t BMS_Fan_Init(bms_fan_t *p_inst, bms_fan_cfg_t *p_cfg, io_pwm_t *p_pwm_inst)
+fan_status_t DEV_Fan_Init(dev_fan_t *p_inst, dev_fan_cfg_t *p_cfg, io_pwm_t *p_pwm_inst)
 {
     fan_status_t status = FAN_STATUS_ERROR_NOT_INIT;
 
@@ -25,7 +24,7 @@ fan_status_t BMS_Fan_Init(bms_fan_t *p_inst, bms_fan_cfg_t *p_cfg, io_pwm_t *p_p
     return status;
 }
 
-fan_status_t BMS_Fan_Task(bms_fan_t *p_inst)
+fan_status_t DEV_Fan_Task(dev_fan_t *p_inst)
 {
     fan_status_t status = FAN_STATUS_OK;
 
