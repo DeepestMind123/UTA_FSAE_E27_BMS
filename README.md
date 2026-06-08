@@ -30,3 +30,8 @@ The following formatting guidelines are required for all layers of the overall s
         -ALLCAPS for constants and macros
 
 # Resources
+The current version of the BMS hardware (E27 Module V0) requires the use of the Teensy 4.1 board. In order to access this hardware in Arduino IDE, paste the following link in "File">"Preferences">"Additional boards manager URLs":
+https://www.pjrc.com/teensy/package_teensy_index.json
+
+# External Libraries
+FlexCAN_T4: CAN library for Teensy 4.1

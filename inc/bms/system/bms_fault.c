@@ -1,4 +1,4 @@
-#include "sys_fault.h"
+#include "bms_fault.h"
 
 void BMS_Fault_Update(bms_fault_id_t id, bool is_error)
 {
