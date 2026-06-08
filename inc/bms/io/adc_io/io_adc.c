@@ -6,7 +6,6 @@
  */
 
 #include "io_adc.h"
-#include "adc_io/io_adc.h"
 
 adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg)
 {
