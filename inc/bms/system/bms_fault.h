@@ -8,13 +8,8 @@
 #include "util_time.h"
 #include "util_irq.h"
 
-#include "dev_fan.h"
-
 #include "io_adc.h"
 #include "io_pwm.h"
-#include "io_spi.h"
-
-#include "dev_current.h"
 
 typedef enum
 {
