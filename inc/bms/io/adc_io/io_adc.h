@@ -39,7 +39,7 @@ typedef struct
 {
     uint32_t adc_timeout;                       // max time allowed before adc timeout;
 
-    uint16_t adc_scale;
+    uint16_t adc_resolution;
     int16_t adc_offset;
     uint16_t adc_vref_mV;                       // reference voltage
     uint8_t channel_id;                         // if using multiple sensors
@@ -74,7 +74,7 @@ adc_status_t IO_ADC_Start(io_adc_t *p_inst);
 
 adc_status_t IO_ADC_Get_Val(io_adc_t *p_inst, uint32_t *p_out);
 
-adc_status_t IO_ADC_Get_Scale(io_adc_t *p_inst, uint16_t *p_out);
+adc_status_t IO_ADC_Get_Resolution(io_adc_t *p_inst, uint16_t *p_out);
 
 adc_status_t IO_ADC_Get_Offset(io_adc_t *p_inst, int16_t *p_out);
 

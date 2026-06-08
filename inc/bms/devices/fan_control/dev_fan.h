@@ -8,7 +8,6 @@
 #include <stdint.h>
 
 #include "io_pwm.h"
-#include "sys_fault.h"
 #include "util_time.h"
 // needs access to a temperature device
 // like, yeah that is going to be the ltc6813 but it isnt done (yikes)
@@ -34,7 +33,7 @@ typedef const struct
 {
     float setpoint;
 
-} bms_fan_cfg_t;
+} dev_fan_cfg_t;
 
 typedef struct
 {
@@ -51,13 +50,13 @@ typedef struct
 
     fan_status_t status;
 
-    bms_fan_cfg_t *cfg;
+    dev_fan_cfg_t *cfg;
 
-} bms_fan_t;
+} dev_fan_t;
 
-fan_status_t BMS_Fan_Init(bms_fan_t *p_inst, bms_fan_cfg_t *p_cfg, io_pwm_t *p_pwm_inst);
+fan_status_t DEV_Fan_Init(dev_fan_t *p_inst, dev_fan_cfg_t *p_cfg, io_pwm_t *p_pwm_inst);
 
-fan_status_t BMS_Fan_Task(bms_fan_t *p_inst);
+fan_status_t DEV_Fan_Task(dev_fan_t *p_inst);
 
 
 #endif

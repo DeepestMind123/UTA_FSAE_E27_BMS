@@ -225,7 +225,7 @@ current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst)
 
             uint16_t vref = 0U;
 
-            uint16_t scale = 0U;
+            uint16_t resolution = 0U;
 
             int16_t offset = 0;
 
@@ -240,7 +240,7 @@ current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst)
                 status = CURRENT_STATUS_ERROR_ADC_ERROR;
             }
 
-            adc_status = IO_ADC_Get_Scale(p_inst->adc_inst, &scale);
+            adc_status = IO_ADC_Get_Resolution(p_inst->adc_inst, &resolution);
 
             if(adc_status != ADC_STATUS_OK)
             {
@@ -256,9 +256,9 @@ current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst)
 
             status = DEV_Current_Get_Gain(p_inst, &gain_uV);
 
-            if((scale > 0U) && (gain_uV != 0))
+            if((resolution > 0U) && (gain_uV != 0))
             {
-                uint32_t voltage_mV = (raw * vref) / scale;
+                uint32_t voltage_mV = (raw * vref) / resolution;
 
                 int32_t delta_mV = (int32_t)voltage_mV - (int32_t)offset;
 
