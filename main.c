@@ -6,12 +6,15 @@
  */
 
 #include <xc.h>
-#include <stdint.h>
 #include <stdbool.h>
+
+#include "demo_tester.h"
 
 
 // main function
-int main(){
+int main() {
+
+    demo_tester();
 
     // MCU system initializations
 
