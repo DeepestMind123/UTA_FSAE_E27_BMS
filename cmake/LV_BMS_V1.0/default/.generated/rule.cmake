@@ -42,7 +42,8 @@ function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemble_rule target)
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices/current sensor"
         PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc_io"
-        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io")
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/spi_io")
 endfunction()
 function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemblePreprocess_rule target)
     set(options
@@ -86,7 +87,8 @@ function(LV_BMS_V1_0_default_toolchain_XC8_3_10_assemblePreprocess_rule target)
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices/current sensor"
         PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc_io"
-        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io")
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/spi_io")
 endfunction()
 function(LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_rule target)
     set(options
@@ -128,7 +130,8 @@ function(LV_BMS_V1_0_default_toolchain_XC8_3_10_compile_rule target)
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices/current sensor"
         PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc_io"
-        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io")
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/spi_io")
 endfunction()
 function(LV_BMS_V1_0_default_link_rule target)
     set(options
@@ -170,5 +173,6 @@ function(LV_BMS_V1_0_default_link_rule target)
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc"
         PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices/current sensor"
         PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc_io"
-        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io")
+        PRIVATE "C:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/pwm_io"
+        PRIVATE "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/spi_io")
 endfunction()

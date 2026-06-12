@@ -10,8 +10,21 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdarg.h>
 
-#include "sys_fault.h"
+#include "bms_fault.h"
+#include "util_time.h"
+#include "bms_config.h"
+
+typedef enum
+{
+   BMS_STATUS_OK = 0,
+   BMS_STATUS_ERROR_NOT_INIT,
+   BMS_STATUS_ERROR_FAULT,
+   BMS_STATUS_ERROR_UNDEFINED_STATE,
+   BMS_STATUS_MAX
+} bms_status_t;
 
 typedef enum
 {
@@ -19,29 +32,13 @@ typedef enum
    BMS_STATE_DISCHARGE,   // battery discharging; bms actively checking current draw, cell voltage, thermistors, and updating soc
    BMS_STATE_CHARGE,      // battery charging; bms balancing cells and confirming CC-CV scheme
    BMS_STATE_BALANCE,     // battery balancing; bms switching between targeted and general balancing
-   BMS_STATE_FAULT        // battery fault occured; bms attempts to diagnosis and fix or fails the pack
+   BMS_STATE_UNDEFINED,
+   BMS_STATE_FAULT         // battery fault occured; bms attempts to diagnosis and fix or fails the pack
 
 } bms_state_t;
 
-typedef struct
-{
-   bms_state_t state; // define state variable
+bms_status_t BMS_Manager_Init(void);    // intialize system manager with relevant constants and functions, also initializes sub-modules
 
-   //variables
-
-
-    
-} bms_manager_t;
-
-typedef struct
-{
-   // external function pointers
-   uint32_t(*sys_tick)(void);
-
-} bms_manager_cfg_t;
-
-void BMS_Manager_Init(bms_manager_t *p_mgr, bms_manager_cfg_t *p_mgr_cfg);    // intialize system manager with relevant constants and functions, also initializes sub-modules
-
-void BMS_Manager_Task(bms_manager_t *p_mgr);                                  // state switch function
+bms_status_t BMS_Manager_Task(void);                                  // state switch function
 
 #endif

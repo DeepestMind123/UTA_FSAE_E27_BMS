@@ -2,5 +2,11 @@
     "mplab.clangd.compileCommandsDir": "${workspaceFolder}\\_build\\LV_BMS_V1.0\\default",
     "mplab.clangd.path": "c:\\Program Files\\Microchip\\xc8\\v3.10\\bin\\xc8-clangd.exe",
     "C_Cpp.default.compilerPath": "c:\\Program Files\\Microchip\\xc8\\v3.10\\bin\\xc8-cc.exe",
-    "C_Cpp.intelliSenseEngine": "disabled"
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "memory-inspector.debugTypes": [
+        "arm-debugger",
+        "embedded-debug",
+        "gdb",
+        "mplab-core-da"
+    ]
 }
