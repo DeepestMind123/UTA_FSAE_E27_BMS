@@ -10,52 +10,95 @@
 #include "bms_manager.h"
 #include "bms_fault.h"
 
-static bms_manager_t mgr;
-static bms_manager_cfg_t cfg;
+bms_state_t state;
+bool is_init;
 
-void BMS_Manager_Init(bms_manager_t *p_mgr, const bms_manager_cfg_t *p_mgr_cfg)
+bms_status_t BMS_Manager_Init(void)
 {
-    if((p_mgr != NULL) && (p_mgr_cfg != NULL))
-    {
-        // alias pointers
-        mgr = *p_mgr;
-        cfg = *p_mgr_cfg;
+    bms_status_t status = BMS_STATUS_OK;
 
-        mgr.state = BMS_STATE_IDLE;
+    /*
+        put configs for bms here
+    */
+
+    is_init = true;
+
+    return status;
+}
+
+bms_status_t BMS_Manager_Task(void)
+{
+    bms_status_t status = BMS_STATUS_OK;
+
+    if(is_init)
+    {
+        if(BMS_Is_Fault())
+        {
+            state = BMS_STATE_FAULT;
+
+            status = BMS_STATUS_ERROR_FAULT;
+        }
+
+        switch(state)
+        {
+            case BMS_STATE_IDLE:
+            {
+                break;
+            }
+
+            /*
+            need to change sensor waits to idle time
+            */
+
+            case BMS_STATE_CHARGE:
+            {
+                break;
+            }
+
+            /*
+            current/volt/temp measurement periods are same for discharge
+            */
+
+            case BMS_STATE_DISCHARGE:
+            {
+                break;
+            }
+
+            case BMS_STATE_BALANCE:
+            {
+                break;
+            }
+
+            /*
+            current measurements don't matter as much here
+            its mostly working off of the data from cell voltage measurements
+            so there should probably be a new wait period for this
+            */
+
+            case BMS_STATE_UNDEFINED:
+            {
+                status = BMS_STATUS_ERROR_UNDEFINED_STATE;
+
+                state = BMS_STATE_FAULT;
+
+                break;
+            }
+
+            case BMS_STATE_FAULT:
+            {
+                break;
+            }
+
+            /*
+            measurements still need to happen while battery is latched
+            so period will be the same as charge/discharge
+            */
+        }
     }
     else 
     {
-        while(1); // deadlock cpu
-    }
-}
-
-void BMS_Manager_Task(bms_manager_t *p_mgr)
-{
-    if(BMS_Is_Fault())
-    {
-        mgr.state = BMS_STATE_FAULT;
+        status = BMS_STATUS_ERROR_NOT_INIT;
     }
 
-    switch(mgr.state)
-    {
-        case BMS_STATE_IDLE:
-
-        break;
-
-        case BMS_STATE_CHARGE:
-
-        break;
-
-        case BMS_STATE_DISCHARGE:
-
-        break;
-
-        case BMS_STATE_BALANCE:
-
-        break;
-
-        case BMS_STATE_FAULT:
-
-        break;
-    }   
+    return status;
 }

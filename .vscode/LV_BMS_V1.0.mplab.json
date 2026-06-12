@@ -46,7 +46,8 @@
                     "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/adc",
                     "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/devices/current sensor",
                     "C:\\Users\\notwe\\MPLABProjects\\uta_fsae_bms_v1.1\\inc\\bms\\io\\adc_io",
-                    "C:\\Users\\notwe\\MPLABProjects\\uta_fsae_bms_v1.1\\inc\\bms\\io\\pwm_io"
+                    "C:\\Users\\notwe\\MPLABProjects\\uta_fsae_bms_v1.1\\inc\\bms\\io\\pwm_io",
+                    "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc/bms/io/spi_io"
                 ],
                 "HI-TECH-LINK.extra-lib-directories": [
                     "c:/Users/notwe/MPLABProjects/uta_fsae_bms_v1.1/inc"
