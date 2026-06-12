@@ -9,7 +9,6 @@
 #define DEV_CURRENT_H
 
 #include <stdint.h>
-#include <stddef.h>
 #include <stdbool.h>
 
 #include "util_time.h"
@@ -67,7 +66,7 @@ typedef struct
 
 } dev_current_t;
 
-current_status_t DEV_Current_Init(dev_current_t *p_inst, dev_current_cfg_t *p_cfg, io_adc_t *p_adc_inst);
+current_status_t DEV_Current_Init(dev_current_t *p_inst, const dev_current_cfg_t *p_cfg, const io_adc_t *p_adc_inst);
 
 current_status_t DEV_Current_Task(dev_current_t *p_inst);    // state switch function
 

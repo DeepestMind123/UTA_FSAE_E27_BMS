@@ -7,7 +7,6 @@
  
 #include <stdio.h>
 #include <stddef.h>
-#include <xc.h>
 #include <stdbool.h>
  
  #include "io_adc.h"

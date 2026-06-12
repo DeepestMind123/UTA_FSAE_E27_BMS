@@ -1,6 +1,16 @@
+/**
+ * @file dev_ltc6813.c
+ * @author notwe
+ * @date 2026-06-12
+ * @brief ltc driver source
+ */
+
+#include <stddef.h>
+
+#include "ADI.h"
 #include "dev_ltc6813.h"
 
-dev_ltc6813_status_t DEV_LTC6813_Init(dev_ltc6813_t *p_inst, cell_asic_t *p_cell_asic)
+dev_ltc6813_status_t DEV_LTC6813_Init(dev_ltc6813_t *p_inst, const cell_asic_t *p_cell_asic)
 {
     dev_ltc6813_status_t status = LTC6813_STATUS_ERROR_NOT_INIT;
 

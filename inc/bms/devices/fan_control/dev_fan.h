@@ -1,14 +1,19 @@
-
+/**
+ * @file dev_fan.h
+ * @author notwe
+ * @date 2026-06-12
+ * @brief fan driver header
+ */
 
 #ifndef BMS_FAN_CTRL_H
 #define BMS_FAN_CTRL_H
 
-#include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stddef.h>
 
-#include "io_pwm.h"
 #include "util_time.h"
+#include "io_pwm.h"
 // needs access to a temperature device
 // like, yeah that is going to be the ltc6813 but it isnt done (yikes)
 // also need to make a schedule controller that defines time limits;
@@ -54,7 +59,7 @@ typedef struct
 
 } dev_fan_t;
 
-fan_status_t DEV_Fan_Init(dev_fan_t *p_inst, dev_fan_cfg_t *p_cfg, io_pwm_t *p_pwm_inst);
+fan_status_t DEV_Fan_Init(dev_fan_t *p_inst, const dev_fan_cfg_t *p_cfg, const io_pwm_t *p_pwm_inst);
 
 fan_status_t DEV_Fan_Task(dev_fan_t *p_inst);
 

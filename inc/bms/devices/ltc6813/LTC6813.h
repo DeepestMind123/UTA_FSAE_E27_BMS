@@ -1,10 +1,15 @@
+/**
+ * @file LTC6813.h
+ * @author notwe
+ * @date 2026-06-12
+ * @brief ltc hal header
+ */
+
 #ifndef LTC6813_H
 #define LTC6813_H
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <stddef.h>
-#include <stdarg.h>
 
 #define MD_MAX 4 // it makes me so mad i have to do this. compile time arg vs run-time and all that
 
