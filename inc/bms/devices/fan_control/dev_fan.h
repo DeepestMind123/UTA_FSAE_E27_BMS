@@ -1,14 +1,18 @@
-
+/**
+ * @file dev_fan.h
+ * @author notwe
+ * @date 2026-06-08
+ * @brief fan driver header
+ */
 
 #ifndef BMS_FAN_CTRL_H
 #define BMS_FAN_CTRL_H
 
-#include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>
 
 #include "io_pwm.h"
-#include "util_time.h"
+
 // needs access to a temperature device
 // like, yeah that is going to be the ltc6813 but it isnt done (yikes)
 // also need to make a schedule controller that defines time limits;

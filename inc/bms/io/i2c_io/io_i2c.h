@@ -10,8 +10,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <stdarg.h>
-#include <stddef.h>
 
 typedef enum
 {
@@ -45,7 +43,7 @@ typedef struct
     io_i2c_cfg_t *p_cfg;
 } io_i2c_t;
 
-i2c_status_t IO_I2C_Init(io_i2c_t *p_inst, io_i2c_cfg_t *p_cfg, uint8_t addr);
+i2c_status_t IO_I2C_Init(io_i2c_t *p_inst, const io_i2c_cfg_t *p_cfg, uint8_t addr);
 
 i2c_status_t IO_I2C_Set_Clock(io_i2c_t *p_inst, uint32_t speed);
 

@@ -6,8 +6,9 @@
  */
 
 #include "io_can.h"
+#include <stddef.h>
 
-can_status_t IO_CAN_Init(io_can_t *p_inst, io_can_cfg_t *p_cfg, uint32_t baudrate)
+can_status_t IO_CAN_Init(io_can_t *p_inst, const io_can_cfg_t *p_cfg, uint32_t baudrate)
 {
     can_status_t status = CAN_STATUS_ERROR_NOT_INIT;
 

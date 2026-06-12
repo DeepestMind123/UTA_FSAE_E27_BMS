@@ -6,8 +6,9 @@
  */
 
 #include "io_i2c.h"
+#include <stddef.h>
 
-i2c_status_t IO_I2C_Init(io_i2c_t *p_inst, io_i2c_cfg_t *p_cfg, uint8_t addr)
+i2c_status_t IO_I2C_Init(io_i2c_t *p_inst, const io_i2c_cfg_t *p_cfg, uint8_t addr)
 {
     i2c_status_t status = I2C_STATUS_ERROR_NOT_INIT;
 

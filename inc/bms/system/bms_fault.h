@@ -1,15 +1,15 @@
+/**
+ * @file bms_fault.h
+ * @author notwe
+ * @date 2026-05-03
+ * @brief battery fault header
+ */
+
 #ifndef BMS_FAULT_H
 #define BMS_FAULT_H
 
-#include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
-
-#include "util_time.h"
-#include "util_irq.h"
-
-#include "io_adc.h"
-#include "io_pwm.h"
 
 typedef enum
 {

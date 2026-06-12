@@ -7,7 +7,7 @@
 
 #include "dev_current.h"
 
-current_status_t DEV_Current_Init(dev_current_t *p_inst, dev_current_cfg_t *p_cfg, io_adc_t *p_adc_inst)
+current_status_t DEV_Current_Init(dev_current_t *p_inst, const dev_current_cfg_t *p_cfg, const io_adc_t *p_adc_inst)
 {
     current_status_t status = CURRENT_STATUS_ERROR_NOT_INIT;
 
@@ -24,7 +24,6 @@ current_status_t DEV_Current_Init(dev_current_t *p_inst, dev_current_cfg_t *p_cf
 
         p_inst->adc_timeout_ms = p_inst->adc_inst->cfg->adc_timeout;
 
-        p_inst->val_diff = false;
         p_inst->is_init = true;
 
         status = CURRENT_STATUS_OK;
@@ -56,9 +55,9 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
                 {
                     now_time = UTIL_Time_Get_Tick();
 
-                    if(now_time - p_inst->start_time > p_inst->current_timeout)
+                    if(now_time - p_inst->start_time > p_inst->cfg->current_wait_ms)
                     {
-                        status = CURRENT_STATUS_ERROR_TIMEOUT;
+                        status = ADC_STATUS_ERROR_TIMEOUT;
 
                         p_inst->state = CURRENT_STATE_ERROR;
                     }
@@ -210,30 +209,6 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
     return status;
 }
 
-current_status_t DEV_Current_Start(dev_current_t *p_inst)
-{
-    current_status_t status = CURRENT_STATUS_OK;
-
-    if(p_inst != NULL)
-    {
-        if(p_inst->is_init)
-        {
-            p_inst->state = CURRENT_STATE_START;
-        }
-        else 
-        {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
-        }
-    }
-    else 
-    {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
-    }
-
-    return status;
-}
-
-
 current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst)
 {
     current_status_t status = CURRENT_STATUS_OK;
@@ -290,11 +265,6 @@ current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst)
                 current_mA = (delta_mV * MV_TO_UV) / gain_uV;
             }
 
-            if(current_mA != p_inst->last_val)
-            {
-                p_inst->val_diff = true;
-            }
-
             p_inst->last_val = current_mA;
         }
     }
@@ -316,7 +286,7 @@ current_status_t DEV_Current_Get_Wait(dev_current_t *p_inst, uint32_t *p_out)
     {
         if(p_inst->is_init)
         {
-            wait = p_inst->current_timeout;
+            wait = p_inst->cfg->current_wait_ms;
         }
         else
         {
@@ -454,59 +424,5 @@ current_status_t DEV_Current_Get_State(dev_current_t *p_inst, current_state_t *p
 
     return status;
 }
-
-current_status_t DEV_Current_Get_Data_Diff(dev_current_t *p_inst, bool *p_out)
-{
-    current_status_t status = CURRENT_STATUS_OK;
-
-    bool diff_flag = false;
-
-    if((p_inst != NULL) && (p_out != NULL))
-    {
-        if(p_inst->is_init)
-        {
-            diff_flag = p_inst->val_diff;
-        }
-        else 
-        {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
-        }
-
-        *p_out = diff_flag; 
-    }
-    else 
-    {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
-    }
-
-    return status;
-}
-
-current_status_t DEV_Current_Set_Timeout(dev_current_t *p_inst, uint32_t new_val)
-{
-    current_status_t status = CURRENT_STATUS_OK;
-
-    if(p_inst != NULL)
-    {
-        if(p_inst->is_init)
-        {
-            if(new_val) // checks if delay between samples is valid (not 0)
-            {
-                p_inst->current_timeout = new_val;
-            }
-        }
-        else 
-        {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
-        }
-    }
-    else 
-    {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
-    }
-
-    return status;
-}
-
 
 

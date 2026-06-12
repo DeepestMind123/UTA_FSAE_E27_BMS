@@ -1,6 +1,15 @@
+/**
+ * @file io_spi.c
+ * @author notwe
+ * @date 2026-05-03
+ * @brief spi driver source
+ */
+
+#include <stddef.h>
+
 #include "io_spi.h"
 
-spi_status_t IO_SPI_Init(io_spi_t *p_inst, io_spi_cfg_t *p_cfg)
+spi_status_t IO_SPI_Init(io_spi_t *p_inst, const io_spi_cfg_t *p_cfg)
 {
     spi_status_t status = SPI_STATUS_ERROR_NOT_INIT;
 

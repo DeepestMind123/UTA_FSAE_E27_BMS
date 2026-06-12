@@ -10,7 +10,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <stddef.h>
 
 typedef enum
 {
@@ -33,11 +32,11 @@ typedef struct
 
     pwm_status_t status;
 
-    io_pwm_cfg_t *cfg
+    io_pwm_cfg_t *cfg;
 
 } io_pwm_t;
 
-pwm_status_t IO_PWM_Init(io_pwm_t *p_inst, io_pwm_cfg_t *p_cfg);
+pwm_status_t IO_PWM_Init(io_pwm_t *p_inst, const io_pwm_cfg_t *p_cfg);
 
 pwm_status_t IO_PWM_Set_Duty_Cycle(io_pwm_t *p_inst, uint16_t duty_value);
 

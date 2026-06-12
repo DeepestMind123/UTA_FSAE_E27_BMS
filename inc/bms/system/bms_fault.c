@@ -1,4 +1,12 @@
+/**
+ * @file bms_fault.c
+ * @author notwe
+ * @date 2026-05-03
+ * @brief battery fault source
+ */
+
 #include "bms_fault.h"
+#include "util_time.h"
 
 void BMS_Fault_Update(bms_fault_id_t id, bool is_error)
 {

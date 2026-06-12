@@ -11,8 +11,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "sys_fault.h"
-
 typedef enum
 {
    BMS_STATE_IDLE = 0,    // battery inactive, mcu and peripheral components enter sleep mode
@@ -40,7 +38,7 @@ typedef struct
 
 } bms_manager_cfg_t;
 
-void BMS_Manager_Init(bms_manager_t *p_mgr, bms_manager_cfg_t *p_mgr_cfg);    // intialize system manager with relevant constants and functions, also initializes sub-modules
+void BMS_Manager_Init(bms_manager_t *p_mgr, const bms_manager_cfg_t *p_mgr_cfg);    // intialize system manager with relevant constants and functions, also initializes sub-modules
 
 void BMS_Manager_Task(bms_manager_t *p_mgr);                                  // state switch function
 

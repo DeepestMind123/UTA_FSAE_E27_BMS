@@ -10,8 +10,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <stdarg.h>
-#include <stddef.h>
 
 typedef enum
 {
@@ -45,7 +43,7 @@ typedef struct
     io_can_cfg_t *p_cfg;
 } io_can_t;
 
-can_status_t IO_CAN_Init(io_can_t *p_inst, io_can_cfg_t *p_cfg, uint32_t baudrate);
+can_status_t IO_CAN_Init(io_can_t *p_inst, const io_can_cfg_t *p_cfg, uint32_t baudrate);
 
 can_status_t IO_CAN_Transmit(io_can_t *p_inst, const can_msg_t *p_msg);
 

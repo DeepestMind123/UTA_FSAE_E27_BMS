@@ -2,17 +2,14 @@
  * @file io_adc.h
  * @author notwe
  * @date 2026-05-03
- * @brief abstract adc i/o header
+ * @brief adc driver header
  */
 
 #ifndef IO_ADC_H
 #define IO_ADC_H
 
 #include <stdint.h>
-#include <stddef.h>
 #include <stdbool.h>
-
-#include "util_time.h"
 
 typedef enum
 {
@@ -66,7 +63,7 @@ typedef struct
 
 } io_adc_t;
 
-adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg);
+adc_status_t IO_ADC_Init(io_adc_t *p_inst, const io_adc_cfg_t *p_cfg);
 
 adc_status_t IO_ADC_Task(io_adc_t *p_inst);
 

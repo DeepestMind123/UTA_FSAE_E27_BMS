@@ -9,7 +9,6 @@
 #define UTIL_TIME_H
 
 #include <stdint.h>
-
 #include "util_irq.h"
 
 util_irq_cfg_t *util_irq;

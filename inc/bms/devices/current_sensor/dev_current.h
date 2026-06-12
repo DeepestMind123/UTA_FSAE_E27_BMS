@@ -41,7 +41,8 @@ typedef enum
 
 typedef struct
 {
-    int32_t current_gain_uV;                    // gain of sensor in uV / A
+    uint32_t current_wait_ms;                   // timer in ms between current sensor checks
+    int32_t current_gain_uV;             // gain of sensor in uV / A
     uint16_t current_raw_cutoff;                // clamp value for sensor calibration
 
 } dev_current_cfg_t;
@@ -51,27 +52,26 @@ typedef struct
     uint32_t cal_acc;
     uint32_t cal_count;
     uint32_t raw_offset;                // calibrated offset value
-    uint32_t adc_timeout_ms;            // time in ms before current wait times out
-    uint32_t current_timeout;           // timer in ms between current sensor checks
+    uint32_t adc_timeout_ms;     // time in ms before current wait times out
 
     int32_t last_val;
-    uint32_t start_time;
 
     bool is_init;
-    bool val_diff;
+
+    uint32_t start_time;
 
     io_adc_t *adc_inst;
+
     current_status_t status;
     current_state_t state;
+
     const dev_current_cfg_t *cfg;
 
 } dev_current_t;
 
-current_status_t DEV_Current_Init(dev_current_t *p_inst, dev_current_cfg_t *p_cfg, io_adc_t *p_adc_inst);
+current_status_t DEV_Current_Init(dev_current_t *p_inst, const dev_current_cfg_t *p_cfg, const io_adc_t *p_adc_inst);
 
 current_status_t DEV_Current_Task(dev_current_t *p_inst);    // state switch function
-
-current_status_t DEV_Current_Start(dev_current_t *p_inst);
 
 current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst);      // process raw current value to get current in mA
 
@@ -84,9 +84,5 @@ current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint32_t *p_out);
 current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int32_t *p_out);
 
 current_status_t DEV_Current_Get_State(dev_current_t *p_inst, current_state_t *p_out);
-
-current_status_t DEV_Current_Get_Data_Diff(dev_current_t *p_inst, bool *p_out);
-
-current_status_t DEV_Current_Set_Timeout(dev_current_t *p_inst, uint32_t new_val);
 
 #endif 

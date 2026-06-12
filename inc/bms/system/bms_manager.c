@@ -5,13 +5,15 @@
  * @brief system manager source
  */
 
+#include <stddef.h>
+
 #include "bms_manager.h"
-#include "sys_fault.h"
+#include "bms_fault.h"
 
 static bms_manager_t mgr;
 static bms_manager_cfg_t cfg;
 
-void BMS_Manager_Init(bms_manager_t *p_mgr, bms_manager_cfg_t *p_mgr_cfg)
+void BMS_Manager_Init(bms_manager_t *p_mgr, const bms_manager_cfg_t *p_mgr_cfg)
 {
     if((p_mgr != NULL) && (p_mgr_cfg != NULL))
     {

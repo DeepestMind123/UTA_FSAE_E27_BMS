@@ -1,6 +1,18 @@
-#include "dev_ltc6813.h"
+/**
+ * @file bms_config.c
+ * @author notwe
+ * @date 2026-06-08
+ * @brief idc driver source
+ */
 
-void DEV_LTC6813_Init(dev_ltc6813_t *p_inst, dev_ltc6813_cfg_t *p_cfg)
+#include <stddef.h>
+
+#include "ADI.h"
+#include "LTC6813.h"
+#include "dev_ltc6813.h"
+#include "util_time.h"
+
+void DEV_LTC6813_Init(dev_ltc6813_t *p_inst, const dev_ltc6813_cfg_t *p_cfg)
 {
     if((p_inst != NULL) && (p_cfg != NULL))
     {

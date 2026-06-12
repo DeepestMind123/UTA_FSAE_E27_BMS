@@ -1,8 +1,14 @@
+/**
+ * @file io_spi.h
+ * @author notwe
+ * @date 2026-05-03
+ * @brief spi driver header
+ */
+
 #ifndef IO_SPI_H
 #define IO_SPI_H
 
 #include <stdint.h>
-#include <stddef.h>
 #include <stdbool.h>
 
 const uint8_t DUMMY_BYTE = 0xFFU;
@@ -34,7 +40,7 @@ typedef struct
 
 } io_spi_t;
 
-spi_status_t IO_SPI_Init(io_spi_t *p_inst, io_spi_cfg_t *cfg);
+spi_status_t IO_SPI_Init(io_spi_t *p_inst, const io_spi_cfg_t *cfg);
 
 spi_status_t IO_SPI_Transfer_Word(io_spi_t *p_inst, uint8_t cs_pin, uint8_t *tx, uint8_t *rx);
 

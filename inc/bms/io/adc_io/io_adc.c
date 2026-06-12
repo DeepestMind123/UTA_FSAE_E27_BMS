@@ -2,13 +2,15 @@
  * @file io_adc.c
  * @author notwe
  * @date 2026-05-03
- * @brief abstract adc i/o source
+ * @brief adc driver header
  */
 
-#include "io_adc.h"
-#include "adc_io/io_adc.h"
+#include <stddef.h>
 
-adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg)
+#include "io_adc.h"
+#include "util_time.h"
+
+adc_status_t IO_ADC_Init(io_adc_t *p_inst, const io_adc_cfg_t *p_cfg)
 {
     adc_status_t status = ADC_STATUS_ERROR_NOT_INIT;
 
