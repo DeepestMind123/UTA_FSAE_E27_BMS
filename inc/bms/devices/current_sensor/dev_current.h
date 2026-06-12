@@ -9,10 +9,8 @@
 #define DEV_CURRENT_H
 
 #include <stdint.h>
-#include <stddef.h>
 #include <stdbool.h>
 
-#include "util_time.h"
 #include "io_adc.h"
 
 #define MV_TO_UV 1000

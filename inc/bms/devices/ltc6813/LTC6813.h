@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <stddef.h>
-#include <stdarg.h>
 
 #define MD_MAX 4 // it makes me so mad i have to do this. compile time arg vs run-time and all that
 

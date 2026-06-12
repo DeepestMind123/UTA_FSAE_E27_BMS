@@ -5,6 +5,9 @@
  * @brief current sensor device driver source
  */
 
+#include <stddef.h>
+
+#include "util_time.h"
 #include "dev_current.h"
 
 current_status_t DEV_Current_Init(dev_current_t *p_inst, const dev_current_cfg_t *p_cfg, const io_adc_t *p_adc_inst)
