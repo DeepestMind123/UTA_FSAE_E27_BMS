@@ -11,56 +11,57 @@
 # All addresses and the length are given in unqualified hexadecimal
 # in delta units.  Any other numeric values are decimal.
 %PSECTS
-$C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-cinit CODE 0 1068 1068 5A 1 2
-text0 CODE 0 10C2 10C2 8 1 2
-idataCOMRAM CODE 0 10CA 10CA 2 1 1
-bssBANK0 BANK0 1 60 60 82 1 1
-bssBANK1 BANK1 1 100 100 82 1 1
-smallconst SMALLCONST 0 1000 1000 68 1 2
-dataCOMRAM COMRAM 1 A A 2 1 1
-bssBIGRAM BIGRAM 1 182 182 200 1 1
-bssCOMRAM COMRAM 1 1 1 9 1 1
-$C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
+$C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
 init CODE 0 FFFC FFFC 4 1 2
 reset_vec CODE 0 0 0 4 1 2
+$C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+cinit CODE 0 1082 1082 5A 1 2
+text0 CODE 0 10DC 10DC 8 1 2
+idataCOMRAM CODE 0 10E4 10E4 2 1 1
+bssBANK1 BANK1 1 100 100 D0 1 1
+bssBANK2 BANK2 1 200 200 D0 1 1
+smallconst SMALLCONST 0 1000 1000 82 1 2
+dataCOMRAM COMRAM 1 9 9 2 1 1
+bssBIGRAM BIGRAM 1 2D0 2D0 200 1 1
+bssCOMRAM COMRAM 1 1 1 8 1 1
 # %UNUSED Section
 # This section enumerates the unused ranges of each CLASS. Each entry
 # is described on a single line as follows:
 #    <class name> <range> <delta>
 # Addresses given in the range are in hexadecimal and units of delta.
 %UNUSED
-RAM E2-FF 1
-RAM 382-FFF 1
+RAM 60-FF 1
+RAM 1D0-1FF 1
+RAM 4D0-FFF 1
 SFR 3700-3FFF 1
-BANK0 E2-FF 1
-BANK3 382-3FF 1
-BANK4 400-4FF 1
+BANK0 60-FF 1
+BANK1 1D0-1FF 1
+BANK4 4D0-4FF 1
 BANK5 500-5FF 1
 BANK6 600-6FF 1
 BANK7 700-7FF 1
 BANK8 800-8FF 1
 BANK9 900-9FF 1
 CONST 4-FFF 1
-CONST 10CC-FFFB 1
+CONST 10E6-FFFB 1
 IDLOC 200000-20000F 1
-SMALLCONST 10CC-FFFB 1
+SMALLCONST 10E6-FFFB 1
 CODE 4-FFF 1
-CODE 10CC-FFFB 1
+CODE 10E6-FFFB 1
 BANK10 A00-AFF 1
 BANK11 B00-BFF 1
 BANK12 C00-CFF 1
 BANK13 D00-DFF 1
 BANK14 E00-EFF 1
 BANK15 F00-FFF 1
-BIGRAM C-5F 1
-BIGRAM E2-FF 1
-BIGRAM 382-FFF 1
+BIGRAM B-FF 1
+BIGRAM 1D0-1FF 1
+BIGRAM 4D0-FFF 1
 BIGSFR 3700-3FFF 1
-COMRAM C-5F 1
+COMRAM B-5F 1
 CONFIG 300000-300009 1
 EEDATA 310000-3103FF 1
-MEDIUMCONST 10CC-FFFB 1
+MEDIUMCONST 10E6-FFFB 1
 # %LINETAB Section
 # This section enumerates the file/line to address mappings.
 # The beginning of the section is indicated by %LINETAB.
@@ -75,52 +76,52 @@ MEDIUMCONST 10CC-FFFB 1
 # All other numeric values are in decimal.
 %LINETAB
 $C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-10C2 text0 CODE >14:C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\main.c
-10C2 text0 CODE >21:C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\main.c
-10C2 text0 CODE >24:C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\main.c
-1068 cinit CODE >2613:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1068 cinit CODE >2615:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1068 cinit CODE >2618:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1068 cinit CODE >2661:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-106A cinit CODE >2662:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-106C cinit CODE >2663:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-106E cinit CODE >2664:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1070 cinit CODE >2665:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1072 cinit CODE >2666:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1074 cinit CODE >2667:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1076 cinit CODE >2668:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-107C cinit CODE >2669:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-107E cinit CODE >2670:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1084 cinit CODE >2674:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1088 cinit CODE >2675:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-108C cinit CODE >2676:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-108C cinit CODE >2677:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-108E cinit CODE >2678:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1090 cinit CODE >2679:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1092 cinit CODE >2680:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1094 cinit CODE >2681:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1096 cinit CODE >2682:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-1098 cinit CODE >2685:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-109C cinit CODE >2686:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-109E cinit CODE >2687:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-109E cinit CODE >2688:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10A0 cinit CODE >2689:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10A2 cinit CODE >2690:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10A4 cinit CODE >2693:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10A8 cinit CODE >2694:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10AA cinit CODE >2695:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10AA cinit CODE >2696:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10AC cinit CODE >2697:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10AE cinit CODE >2698:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10B0 cinit CODE >2701:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10B4 cinit CODE >2702:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10B6 cinit CODE >2703:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10B6 cinit CODE >2704:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10B8 cinit CODE >2705:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10BA cinit CODE >2706:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10BC cinit CODE >2712:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10BC cinit CODE >2714:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
-10BE cinit CODE >2715:C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_1.s
+10DC text0 CODE >14:C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\main.c
+10DC text0 CODE >21:C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\main.c
+10DC text0 CODE >24:C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\main.c
+1082 cinit CODE >2668:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+1082 cinit CODE >2670:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+1082 cinit CODE >2673:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+1082 cinit CODE >2718:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+1084 cinit CODE >2719:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+1086 cinit CODE >2720:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+1088 cinit CODE >2721:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+108A cinit CODE >2722:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+108C cinit CODE >2723:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+108E cinit CODE >2724:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+1090 cinit CODE >2725:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+1096 cinit CODE >2726:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+1098 cinit CODE >2727:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+109E cinit CODE >2731:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10A2 cinit CODE >2732:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10A6 cinit CODE >2733:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10A6 cinit CODE >2734:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10A8 cinit CODE >2735:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10AA cinit CODE >2736:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10AC cinit CODE >2737:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10AE cinit CODE >2738:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10B0 cinit CODE >2739:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10B2 cinit CODE >2742:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10B6 cinit CODE >2743:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10B8 cinit CODE >2744:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10B8 cinit CODE >2745:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10BA cinit CODE >2746:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10BC cinit CODE >2747:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10BE cinit CODE >2750:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10C2 cinit CODE >2751:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10C4 cinit CODE >2752:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10C4 cinit CODE >2753:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10C6 cinit CODE >2754:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10C8 cinit CODE >2755:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10CA cinit CODE >2758:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10CE cinit CODE >2759:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10D0 cinit CODE >2760:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10D0 cinit CODE >2761:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10D2 cinit CODE >2762:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10D4 cinit CODE >2763:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10D6 cinit CODE >2769:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10D6 cinit CODE >2771:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
+10D8 cinit CODE >2772:C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_1.s
 # %SYMTAB Section
 # An enumeration of all symbols in the program.
 # The beginning of the section is indicated by %SYMTAB.
@@ -135,83 +136,86 @@ $C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 %SYMTAB
 __Lmediumconst 0 0 MEDIUMCONST 0 mediumconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hspace_0 10000 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__Hspace_1 382 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__Hspace_1 4D0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hspace_2 0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hspace_4 0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_MV_TO_UV 1013 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_util_irq 7 0 COMRAM 1 bssCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_CLRCELL 1021 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_CLRSTAT 101D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_util_irq 5 0 COMRAM 1 bssCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_CLRCELL 1037 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_CLRSTAT 1033 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hibigdata 0 0 CODE 0 ibigdata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __mediumconst 1000 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Heeprom_data 0 0 EEDATA 0 eeprom_data C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __L__absolute__ 0 0 ABS 0 __absolute__ C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lsmallconst 1000 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_MUTE 1034 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-___sp 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-_main 10C2 0 CODE 0 text0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_MUTE 104B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+___sp 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+_main 10DC 0 CODE 0 text0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 _tick 1 0 COMRAM 1 bssCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-___stack_hi 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-___stack_lo 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
+___stack_hi 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+___stack_lo 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
 __HbssBIGRAM 0 0 ABS 0 bssBIGRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-start FFFC 0 CODE 0 init C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
+start FFFC 0 CODE 0 init C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
 __HbssCOMRAM 0 0 ABS 0 bssCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_WRSCTRL 103C 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDAUXA 1043 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDAUXB 1042 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDAUXC 1041 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDAUXD 1040 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDCFGA 104B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDCFGB 104A 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDCOMM 1017 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDSCTRL 103A 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDSTATA 103F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDSTATB 103E 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_WRSCTRL 1053 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDAUXA 105A 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDAUXB 1059 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDAUXC 1058 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDAUXD 1057 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDCFGA 1062 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDCFGB 1061 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDCOMM 102D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDSCTRL 1051 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDSTATA 1056 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDSTATB 1055 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hpowerup 0 0 CODE 0 powerup C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_STATST 1053 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_STCOMM 1015 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_CHST_SHIFT 1025 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_STATST 106A 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_STCOMM 102B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_CHST_SHIFT 103B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __HdataCOMRAM 0 0 ABS 0 dataCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_UNMUTE 1034 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_UNMUTE 104B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __LbssBIGRAM 0 0 ABS 0 bssBIGRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__accesstop 60 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-intlevel0 0 0 CODE 0 text C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-intlevel1 0 0 CODE 0 text C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-intlevel2 0 0 CODE 0 text C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-intlevel3 0 0 CODE 0 text C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
+__accesstop 60 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+intlevel0 0 0 CODE 0 text C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+intlevel1 0 0 CODE 0 text C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+intlevel2 0 0 CODE 0 text C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+intlevel3 0 0 CODE 0 text C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
 __LbssCOMRAM 0 0 ABS 0 bssCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_WRCFGA 104D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_WRCFGB 104C 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_WRCOMM 1019 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_WRCFGA 1064 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_WRCFGB 1063 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_WRCOMM 102F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __LnvFARRAM 0 0 FARRAM 0 nvFARRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_INTEGRAL_MAX 1021 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_INTEGRAL_MIN 101D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hifardata 0 0 CODE 0 ifardata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hclrtext 0 0 ABS 0 clrtext C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__pidataCOMRAM 10CA 0 CODE 0 idataCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-___inthi_sp 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-___intlo_sp 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
+__pidataCOMRAM 10E4 0 CODE 0 idataCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_bms_fault_table 100 0 BANK1 1 bssBANK1 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+___inthi_sp 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+___intlo_sp 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
 __LdataCOMRAM 0 0 ABS 0 dataCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_CLRAUX 101F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_CLRAUX 1035 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lintsave_regs 0 0 BIGRAM 1 intsave_regs C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hmediumconst 0 0 MEDIUMCONST 0 mediumconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __LidataCOMRAM 0 0 ABS 0 idataCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-start_initialization 1068 0 CODE 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+start_initialization 1082 0 CODE 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __HnvFARRAM 0 0 FARRAM 0 nvFARRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __end_of_cell_meas_time_us 1011 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 ___rparam_used 1 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDAUXA 1042 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDAUXB 1041 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDAUXC 1040 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDAUXD 103F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDCFGA 104A 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDCFGB 1049 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDCOMM 1015 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_STCOMM 1013 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_DCP_SHIFT 102B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_UNMUTE 1033 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-isa$xinst 0 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-_WRCFGA 104C 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_WRCFGB 104B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_WRCOMM 1017 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_DUMMY_BYTE 104A 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDAUXA 1059 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDAUXB 1058 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDAUXC 1057 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDAUXD 1056 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDCFGA 1061 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDCFGB 1060 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDCOMM 102B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_STCOMM 1029 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_DCP_SHIFT 1041 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_UNMUTE 104A 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+isa$xinst 0 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+_WRCFGA 1063 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_WRCFGB 1062 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_WRCOMM 102D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hbank0 0 0 ABS 0 bank0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hbank1 0 0 ABS 0 bank1 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hbank2 0 0 ABS 0 bank2 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
@@ -243,7 +247,7 @@ __Hbigsfr 0 0 ABS 0 bigsfr C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV
 __smallconst 1000 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hcomram 0 0 ABS 0 comram C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hconfig 0 0 ABS 0 config C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_bms_fault_table$F1119 60 0 BANK0 1 bssBANK0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_PWM_MAX_INT 1080 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lbank0 0 0 ABS 0 bank0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lbank1 0 0 ABS 0 bank1 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lbank2 0 0 ABS 0 bank2 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
@@ -256,7 +260,7 @@ __Lbank8 0 0 ABS 0 bank8 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_B
 __Lbank9 0 0 ABS 0 bank9 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lcinit 0 0 ABS 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lconst 0 0 CONST 0 const C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_PUP_SHIFT 102F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_PUP_SHIFT 1045 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lidata 0 0 CODE 0 idata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lidloc 0 0 ABS 0 idloc C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lnvbit 0 0 COMRAM 1 nvbit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
@@ -265,9 +269,9 @@ __Lrdata 0 0 COMRAM 1 rdata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\L
 __Lstack 0 0 STACK 2 stack C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Ltext0 0 0 ABS 0 text0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hfarbss 0 0 FARRAM 0 farbss C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDSCTRL 1039 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDSTATA 103E 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDSTATB 103D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDSCTRL 1050 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDSTATA 1055 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDSTATB 1054 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Habs1 0 0 ABS 0 abs1 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hdata 0 0 ABS 0 data C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hheap 0 0 HEAP 7 heap C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
@@ -287,25 +291,25 @@ __Ltext 0 0 ABS 0 text C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS
 __HcstackCOMRAM 0 0 ABS 0 cstackCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hirdata 0 0 CODE 0 irdata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __S0 10000 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__S1 382 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__S1 4D0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __S4 0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __S5 0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_cfg 5 0 COMRAM 1 bssCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_mgr 9 0 COMRAM 1 bssCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_US_TO_MS 1033 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_US_TO_MS 1049 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 _cell_meas_time_us 1009 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __HidataCOMRAM 0 0 ABS 0 idataCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lbigdata 0 0 BIGRAM 1 bigdata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hnvrram 0 0 COMRAM 1 nvrram C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_STSCTRL 1037 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_STSCTRL 104E 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_K_I 1025 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_K_P 1029 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hramtop 1000 0 RAM 0 ramtop C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hrparam 0 0 COMRAM 1 rparam C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_CH_SHIFT 1029 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_CH_SHIFT 103F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __activetblptr 3 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hstruct 0 0 COMRAM 1 struct C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__LbssBANK0 0 0 ABS 0 bssBANK0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __LbssBANK1 0 0 ABS 0 bssBANK1 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_MD_SHIFT 1031 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__LbssBANK2 0 0 ABS 0 bssBANK2 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_MD_SHIFT 1047 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lbank10 0 0 ABS 0 bank10 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lbank11 0 0 ABS 0 bank11 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lbank12 0 0 ABS 0 bank12 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
@@ -315,92 +319,95 @@ __Lbank15 0 0 ABS 0 bank15 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV
 __Lbigbss 0 0 BIGRAM 1 bigbss C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lbigram 0 0 ABS 0 bigram C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lbigsfr 0 0 ABS 0 bigsfr C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_CLRSCTRL 1035 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_CLRSCTRL 104C 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lcomram 0 0 ABS 0 comram C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lconfig 0 0 ABS 0 config C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_CLRCELL 1023 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_CLRSTAT 101F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_CLRCELL 1039 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_CLRSTAT 1035 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lfarbss 0 0 FARRAM 0 farbss C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-___inthi_stack_hi 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-___inthi_stack_lo 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-__end_of_CLRSCTRL 1036 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+___inthi_stack_hi 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+___inthi_stack_lo 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+__end_of_CLRSCTRL 104D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lfardata 0 0 FARRAM 0 fardata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-isa$std 1 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-stackhi 0 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-stacklo 0 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
+isa$std 1 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+__end_of_PWM_MAX 1019 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_PWM_MIN 1015 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+stackhi 0 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+stacklo 0 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
 __Lirdata 0 0 CODE 0 irdata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__pbssBIGRAM 182 0 BIGRAM 1 bssBIGRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__pbssBIGRAM 2D0 0 BIGRAM 1 bssBIGRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lspace_0 0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lspace_1 0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lspace_2 0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lspace_4 0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __pbssCOMRAM 1 0 COMRAM 1 bssCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __LcstackCOMRAM 0 0 ABS 0 cstackCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_WRSCTRL 103D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-end_of_initialization 10BC 0 CODE 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_WRSCTRL 1054 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+end_of_initialization 10D6 0 CODE 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lnvrram 0 0 COMRAM 1 nvrram C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_pec15Table 182 0 BIGRAM 1 bssBIGRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_pec15Table 2D0 0 BIGRAM 1 bssBIGRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hreset_vec 4 0 CODE 0 reset_vec C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__HbssBANK0 0 0 ABS 0 bssBANK0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __HbssBANK1 0 0 ABS 0 bssBANK1 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__HbssBANK2 0 0 ABS 0 bssBANK2 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lramtop 1000 0 RAM 0 ramtop C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lrparam 0 0 COMRAM 1 rparam C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__pcinit 1068 0 CODE 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__ptext0 10C2 0 CODE 0 text0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__pcinit 1082 0 CODE 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__ptext0 10DC 0 CODE 0 text0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lstruct 0 0 COMRAM 1 struct C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__ramtop 1000 0 RAM 0 ramtop C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
+__ramtop 1000 0 RAM 0 ramtop C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
 __Lpowerup 0 0 CODE 0 powerup C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Leeprom_data 0 0 EEDATA 0 eeprom_data C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_is_init 8 0 COMRAM 1 bssCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __H__absolute__ 0 0 ABS 0 __absolute__ C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __psmallconst 1000 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lreset_vec 0 0 CODE 0 reset_vec C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_CHG_SHIFT 1027 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-___heap_hi 0 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-___heap_lo 0 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
+__end_of_CHG_SHIFT 103D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+___heap_hi 0 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+___heap_lo 0 0 ABS 0 - C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
 ___param_bank 0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-___intlo_stack_hi 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
-___intlo_stack_lo 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
+___intlo_stack_hi 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
+___intlo_stack_lo 0 0 STACK 2 stack C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
 __Hbigdata 0 0 BIGRAM 1 bigdata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of__initialization 10BC 0 CODE 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of__initialization 10D6 0 CODE 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Libigdata 0 0 CODE 0 ibigdata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_CRC15_POLY A 0 COMRAM 1 dataCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_CRC15_POLY 9 0 COMRAM 1 dataCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lclrtext 0 0 ABS 0 clrtext C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __pcstackCOMRAM 0 0 COMRAM 1 cstackCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_STSCTRL 1036 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_ADAX 105F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_ADCV 1067 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_ADOL 1061 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_ADOW 1065 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_AXOW 105B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_AXST 1059 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_CVST 1063 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_MUTE 1035 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_main 10CA 0 CODE 0 text0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_ADAXD 105D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_DIAGN 101B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_PLADC 101D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDCVA 1049 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDCVB 1048 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDCVC 1047 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDCVD 1046 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDCVE 1045 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDCVF 1044 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDPSB 1038 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_RDPWM 1039 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_WRPSB 103B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_WRPWM 103C 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_DIAGN 1019 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_PLADC 101B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDCVA 1048 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDCVB 1047 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDCVC 1046 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDCVD 1045 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDCVE 1044 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDCVF 1043 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDPSB 1037 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_RDPWM 1038 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_WRPSB 103A 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-_WRPWM 103B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_STSCTRL 104D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_ADAX 1076 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_ADCV 107E 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_ADOL 1078 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_ADOW 107C 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_AXOW 1072 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_AXST 1070 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_CVST 107A 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_MUTE 104C 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_main 10E4 0 CODE 0 text0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_ADAXD 1074 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_DIAGN 1031 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_PLADC 1033 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDCVA 1060 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDCVB 105F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDCVC 105E 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDCVD 105D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDCVE 105C 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDCVF 105B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDPSB 104F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_RDPWM 1050 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_WRPSB 1052 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_WRPWM 1053 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_DIAGN 102F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_PLADC 1031 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDCVA 105F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDCVB 105E 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDCVC 105D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDCVD 105C 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDCVE 105B 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDCVF 105A 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDPSB 104E 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_RDPWM 104F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_WRPSB 1051 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_WRPWM 1052 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __HRAM 0 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hbss 0 0 RAM 1 bss C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hram 0 0 ABS 0 ram C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
@@ -409,20 +416,21 @@ __LRAM 1 0 ABS 0 - C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.
 __Lbss 0 0 RAM 1 bss C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lram 0 0 ABS 0 ram C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lsfr 0 0 ABS 0 sfr C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_ADCVAX 1051 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_ADCVSC 104F 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_ADSTAT 1057 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_ST_SHIFT 102D 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__initialization 1068 0 CODE 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_cell_meas_time_us$F635 1009 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_CLRAUX 1021 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__pbssBANK0 60 0 BANK0 1 bssBANK0 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+_state 7 0 COMRAM 1 bssCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_ADCVAX 1068 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_ADCVSC 1066 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_ADSTAT 106E 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_ST_SHIFT 1043 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__initialization 1082 0 CODE 0 cinit C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_cell_meas_time_us$F860 1009 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_CLRAUX 1037 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __pbssBANK1 100 0 BANK1 1 bssBANK1 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__pdataCOMRAM A 0 COMRAM 1 dataCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__pbssBANK2 200 0 BANK2 1 bssBANK2 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__pdataCOMRAM 9 0 COMRAM 1 dataCOMRAM C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hfardata 0 0 FARRAM 0 fardata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__Hsmallconst 1068 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__Hsmallconst 1082 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Lifardata 0 0 CODE 0 ifardata C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-__end_of_ADSTATD 1055 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
+__end_of_ADSTATD 106C 0 SMALLCONST 0 smallconst C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 __Hintsave_regs 0 0 BIGRAM 1 intsave_regs C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
 # %SPLITSTAB Section
 # This section enumerates all the psect splits performed by the assembler.
@@ -448,14 +456,14 @@ __Hintsave_regs 0 0 BIGRAM 1 intsave_regs C:\Users\notwe\MPLABProjects\uta_fsae_
 # and size are in units of delta. The file address is in units of bytes.
 # All other numeric quantities are in decimal.
 %SEGMENTS
-cinit 0 1068 1068 64 1
+cinit 0 1082 1082 64 1
 init 0 FFFC FFFC 4 1
 reset_vec 0 0 0 4 1
-bssBANK0 1 60 60 82 1
-bssBANK1 1 100 100 82 1
-smallconst 0 1000 1000 68 1
-bssBIGRAM 1 182 182 200 1
-bssCOMRAM 1 1 1 B 1
+bssBANK1 1 100 100 D0 1
+bssBANK2 1 200 200 D0 1
+smallconst 0 1000 1000 82 1
+bssBIGRAM 1 2D0 2D0 200 1
+bssCOMRAM 1 1 1 A 1
 # %NOTES Section
 # This section contains data of all the note-psects.  The beginning of the section
 # is indicated by %NOTES. The first line indicates the name and decimal

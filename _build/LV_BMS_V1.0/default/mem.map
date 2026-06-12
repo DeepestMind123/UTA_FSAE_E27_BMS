@@ -8,9 +8,9 @@ Linker command line:
   -h+C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.sym \
   --cmf=C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.cmf \
   -z -Q18LF26K83 \
-  -oC:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_3.o \
+  -oC:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_3.o \
   --defsym=__MPLAB_BUILD=1 --fixupoverflow=error -Mmem.map \
-  --md=C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_0.dat -E1 \
+  --md=C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_0.dat -E1 \
   -ver=XC8 Compiler -ACODE=00h-0FFFFh -ACONST=00h-0FFFFh \
   -ASMALLCONST=01000h-010FFhx240 -AMEDIUMCONST=01000h-0FFFFh \
   -ACOMRAM=01h-05Fh -AABS1=00h-0FFFh -ABIGRAM=01h-0FFFh \
@@ -29,7 +29,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM,nvFARRAM=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE -prparam=COMRAM \
-  C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o \
+  C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o \
   C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o 
 
 Object code version is 3.11
@@ -39,53 +39,53 @@ Machine type is 18LF26K83
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\notwe\AppData\Local\Temp\xcBs2h0.1\driver_tmp_9.o
+C:\Users\notwe\AppData\Local\Temp\xcBslag.1\driver_tmp_9.o
                 init                               FFFC     FFFC        4     7FFE       0
                 reset_vec                             0        0        4        0       0
 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\out\LV_BMS_V1.0\default.o
-                smallconst                         1000     1000       68      800       0
-                text0                              10C2     10C2        8      834       0
-                bssBIGRAM                           182      182      200      182       1
-                bssBANK1                            100      100       82      100       1
-                bssBANK0                             60       60       82       60       1
-                dataCOMRAM                            A        A        2        1       1
-                bssCOMRAM                             1        1        9        1       1
-                cinit                              1068     1068       5A      834       0
-                idataCOMRAM                        10CA     10CA        2      834       0
+                smallconst                         1000     1000       82      800       0
+                text0                              10DC     10DC        8      841       0
+                bssBIGRAM                           2D0      2D0      200      2D0       1
+                bssBANK2                            200      200       D0      200       1
+                bssBANK1                            100      100       D0      100       1
+                dataCOMRAM                            9        9        2        1       1
+                bssCOMRAM                             1        1        8        1       1
+                cinit                              1082     1082       5A      841       0
+                idataCOMRAM                        10E4     10E4        2      841       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   CODE           
                 init                               FFFC     FFFC        4         0
                 reset_vec                             0        0        4         0
-                text0                              10C2     10C2        8         0
-                cinit                              1068     1068       5A         0
-                idataCOMRAM                        10CA     10CA        2         0
+                text0                              10DC     10DC        8         0
+                cinit                              1082     1082       5A         0
+                idataCOMRAM                        10E4     10E4        2         0
 
         CLASS   CONST          
 
         CLASS   SMALLCONST     
-                smallconst                         1000     1000       68         0
+                smallconst                         1000     1000       82         0
 
         CLASS   MEDIUMCONST    
 
         CLASS   COMRAM         
-                dataCOMRAM                            A        A        2         1
-                bssCOMRAM                             1        1        9         1
+                dataCOMRAM                            9        9        2         1
+                bssCOMRAM                             1        1        8         1
 
         CLASS   ABS1           
 
         CLASS   BIGRAM         
-                bssBIGRAM                           182      182      200         1
+                bssBIGRAM                           2D0      2D0      200         1
 
         CLASS   RAM            
 
         CLASS   BANK0          
-                bssBANK0                             60       60       82         1
 
         CLASS   BANK1          
-                bssBANK1                            100      100       82         1
+                bssBANK1                            100      100       D0         1
 
         CLASS   BANK2          
+                bssBANK2                            200      200       D0         1
 
         CLASS   BANK3          
 
@@ -134,87 +134,88 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class
 
                 reset_vec                      000000  000004  000004         0       0  CODE    
-                bssCOMRAM                      000001  00000B  00000C         1       1  COMRAM  
-                bssBANK0                       000060  000082  0000E2        60       1  BANK0   
-                bssBANK1                       000100  000082  000182       100       1  BANK1   
-                bssBIGRAM                      000182  000200  000382       182       1  BIGRAM  
-                smallconst                     001000  000068  001068       800       0  SMALLCON
-                cinit                          001068  000064  0010CC       834       0  CODE    
+                bssCOMRAM                      000001  00000A  00000B         1       1  COMRAM  
+                bssBANK1                       000100  0000D0  0001D0       100       1  BANK1   
+                bssBANK2                       000200  0000D0  0002D0       200       1  BANK2   
+                bssBIGRAM                      0002D0  000200  0004D0       2D0       1  BIGRAM  
+                smallconst                     001000  000082  001082       800       0  SMALLCON
+                cinit                          001082  000064  0010E6       841       0  CODE    
                 init                           00FFFC  000004  010000      7FFE       0  CODE    
 
 
 UNUSED ADDRESS RANGES
 
         Name                Unused          Largest block    Delta
-        BANK0            000E2-000FF              1E
+        BANK0            00060-000FF              A0
+        BANK1            001D0-001FF              30
         BANK10           00A00-00AFF             100
         BANK11           00B00-00BFF             100
         BANK12           00C00-00CFF             100
         BANK13           00D00-00DFF             100
         BANK14           00E00-00EFF             100
         BANK15           00F00-00FFF             100
-        BANK3            00382-003FF              7E
-        BANK4            00400-004FF             100
+        BANK4            004D0-004FF              30
         BANK5            00500-005FF             100
         BANK6            00600-006FF             100
         BANK7            00700-007FF             100
         BANK8            00800-008FF             100
         BANK9            00900-009FF             100
-        BIGRAM           0000C-0005F              54
-                         000E2-000FF              1E
-                         00382-00FFF             C7E
+        BIGRAM           0000B-000FF              F5
+                         001D0-001FF              30
+                         004D0-00FFF             B30
         BIGSFR           03700-03FFF             900
         CODE             00004-00FFF             FFC
-                         010CC-0FFFB            EF30
-        COMRAM           0000C-0005F              54
+                         010E6-0FFFB            EF16
+        COMRAM           0000B-0005F              55
         CONFIG           300000-300009               A
         CONST            00004-00FFF             FFC
-                         010CC-0FFFB            EF30
+                         010E6-0FFFB            EF16
         EEDATA           310000-3103FF             400
         IDLOC            200000-20000F              10
-        MEDIUMCONST      010CC-0FFFB            EF30
-        RAM              000E2-000FF              1E
-                         00382-00FFF             100
+        MEDIUMCONST      010E6-0FFFB            EF16
+        RAM              00060-000FF              A0
+                         001D0-001FF              30
+                         004D0-00FFF             100
         SFR              03700-03FFF             100
-        SMALLCONST       010CC-0FFFB             100
+        SMALLCONST       010E6-0FFFB             100
 
                                   Symbol Table
 
-_CLRAUX                         smallconst   0101F
-_CLRCELL                        smallconst   01021
-_CLRSCTRL                       smallconst   01035
-_CLRSTAT                        smallconst   0101D
-_CRC15_POLY                     dataCOMRAM   0000A
-_DIAGN                          smallconst   01019
-_MUTE                           smallconst   01034
-_PLADC                          smallconst   0101B
-_RDAUXA                         smallconst   01042
-_RDAUXB                         smallconst   01041
-_RDAUXC                         smallconst   01040
-_RDAUXD                         smallconst   0103F
-_RDCFGA                         smallconst   0104A
-_RDCFGB                         smallconst   01049
-_RDCOMM                         smallconst   01015
-_RDCVA                          smallconst   01048
-_RDCVB                          smallconst   01047
-_RDCVC                          smallconst   01046
-_RDCVD                          smallconst   01045
-_RDCVE                          smallconst   01044
-_RDCVF                          smallconst   01043
-_RDPSB                          smallconst   01037
-_RDPWM                          smallconst   01038
-_RDSCTRL                        smallconst   01039
-_RDSTATA                        smallconst   0103E
-_RDSTATB                        smallconst   0103D
-_STCOMM                         smallconst   01013
-_STSCTRL                        smallconst   01036
-_UNMUTE                         smallconst   01033
-_WRCFGA                         smallconst   0104C
-_WRCFGB                         smallconst   0104B
-_WRCOMM                         smallconst   01017
-_WRPSB                          smallconst   0103A
-_WRPWM                          smallconst   0103B
-_WRSCTRL                        smallconst   0103C
+_CLRAUX                         smallconst   01035
+_CLRCELL                        smallconst   01037
+_CLRSCTRL                       smallconst   0104C
+_CLRSTAT                        smallconst   01033
+_CRC15_POLY                     dataCOMRAM   00009
+_DIAGN                          smallconst   0102F
+_MUTE                           smallconst   0104B
+_PLADC                          smallconst   01031
+_RDAUXA                         smallconst   01059
+_RDAUXB                         smallconst   01058
+_RDAUXC                         smallconst   01057
+_RDAUXD                         smallconst   01056
+_RDCFGA                         smallconst   01061
+_RDCFGB                         smallconst   01060
+_RDCOMM                         smallconst   0102B
+_RDCVA                          smallconst   0105F
+_RDCVB                          smallconst   0105E
+_RDCVC                          smallconst   0105D
+_RDCVD                          smallconst   0105C
+_RDCVE                          smallconst   0105B
+_RDCVF                          smallconst   0105A
+_RDPSB                          smallconst   0104E
+_RDPWM                          smallconst   0104F
+_RDSCTRL                        smallconst   01050
+_RDSTATA                        smallconst   01055
+_RDSTATB                        smallconst   01054
+_STCOMM                         smallconst   01029
+_STSCTRL                        smallconst   0104D
+_UNMUTE                         smallconst   0104A
+_WRCFGA                         smallconst   01063
+_WRCFGB                         smallconst   01062
+_WRCOMM                         smallconst   0102D
+_WRPSB                          smallconst   01051
+_WRPWM                          smallconst   01052
+_WRSCTRL                        smallconst   01053
 __HRAM                          (abs)        00000
 __H__absolute__                 __absolute__ 00000
 __Habs1                         abs1         00000
@@ -239,8 +240,8 @@ __Hbigdata                      bigdata      00000
 __Hbigram                       bigram       00000
 __Hbigsfr                       bigsfr       00000
 __Hbss                          bss          00000
-__HbssBANK0                     bssBANK0     00000
 __HbssBANK1                     bssBANK1     00000
+__HbssBANK2                     bssBANK2     00000
 __HbssBIGRAM                    bssBIGRAM    00000
 __HbssCOMRAM                    bssCOMRAM    00000
 __Hcinit                        cinit        00000
@@ -277,9 +278,9 @@ __Hrdata                        rdata        00000
 __Hreset_vec                    reset_vec    00004
 __Hrparam                       rparam       00000
 __Hsfr                          sfr          00000
-__Hsmallconst                   smallconst   01068
+__Hsmallconst                   smallconst   01082
 __Hspace_0                      (abs)        10000
-__Hspace_1                      (abs)        00382
+__Hspace_1                      (abs)        004D0
 __Hspace_2                      (abs)        00000
 __Hspace_4                      (abs)        00000
 __Hstack                        stack        00000
@@ -311,8 +312,8 @@ __Lbigdata                      bigdata      00000
 __Lbigram                       bigram       00000
 __Lbigsfr                       bigsfr       00000
 __Lbss                          bss          00000
-__LbssBANK0                     bssBANK0     00000
 __LbssBANK1                     bssBANK1     00000
+__LbssBANK2                     bssBANK2     00000
 __LbssBIGRAM                    bssBIGRAM    00000
 __LbssCOMRAM                    bssCOMRAM    00000
 __Lcinit                        cinit        00000
@@ -360,7 +361,7 @@ __Ltemp                         temp         00000
 __Ltext                         text         00000
 __Ltext0                        text0        00000
 __S0                            (abs)        10000
-__S1                            (abs)        00382
+__S1                            (abs)        004D0
 __S4                            (abs)        00000
 __S5                            (abs)        00000
 ___heap_hi                      (abs)        00000
@@ -378,89 +379,96 @@ ___stack_hi                     stack        00000
 ___stack_lo                     stack        00000
 __accesstop                     (abs)        00060
 __activetblptr                  (abs)        00003
-__end_of_ADAX                   smallconst   0105F
-__end_of_ADAXD                  smallconst   0105D
-__end_of_ADCV                   smallconst   01067
-__end_of_ADCVAX                 smallconst   01051
-__end_of_ADCVSC                 smallconst   0104F
-__end_of_ADOL                   smallconst   01061
-__end_of_ADOW                   smallconst   01065
-__end_of_ADSTAT                 smallconst   01057
-__end_of_ADSTATD                smallconst   01055
-__end_of_AXOW                   smallconst   0105B
-__end_of_AXST                   smallconst   01059
-__end_of_CHG_SHIFT              smallconst   01027
-__end_of_CHST_SHIFT             smallconst   01025
-__end_of_CH_SHIFT               smallconst   01029
-__end_of_CLRAUX                 smallconst   01021
-__end_of_CLRCELL                smallconst   01023
-__end_of_CLRSCTRL               smallconst   01036
-__end_of_CLRSTAT                smallconst   0101F
-__end_of_CVST                   smallconst   01063
-__end_of_DCP_SHIFT              smallconst   0102B
-__end_of_DIAGN                  smallconst   0101B
-__end_of_MD_SHIFT               smallconst   01031
-__end_of_MUTE                   smallconst   01035
-__end_of_MV_TO_UV               smallconst   01013
-__end_of_PLADC                  smallconst   0101D
-__end_of_PUP_SHIFT              smallconst   0102F
-__end_of_RDAUXA                 smallconst   01043
-__end_of_RDAUXB                 smallconst   01042
-__end_of_RDAUXC                 smallconst   01041
-__end_of_RDAUXD                 smallconst   01040
-__end_of_RDCFGA                 smallconst   0104B
-__end_of_RDCFGB                 smallconst   0104A
-__end_of_RDCOMM                 smallconst   01017
-__end_of_RDCVA                  smallconst   01049
-__end_of_RDCVB                  smallconst   01048
-__end_of_RDCVC                  smallconst   01047
-__end_of_RDCVD                  smallconst   01046
-__end_of_RDCVE                  smallconst   01045
-__end_of_RDCVF                  smallconst   01044
-__end_of_RDPSB                  smallconst   01038
-__end_of_RDPWM                  smallconst   01039
-__end_of_RDSCTRL                smallconst   0103A
-__end_of_RDSTATA                smallconst   0103F
-__end_of_RDSTATB                smallconst   0103E
-__end_of_STATST                 smallconst   01053
-__end_of_STCOMM                 smallconst   01015
-__end_of_STSCTRL                smallconst   01037
-__end_of_ST_SHIFT               smallconst   0102D
-__end_of_UNMUTE                 smallconst   01034
-__end_of_US_TO_MS               smallconst   01033
-__end_of_WRCFGA                 smallconst   0104D
-__end_of_WRCFGB                 smallconst   0104C
-__end_of_WRCOMM                 smallconst   01019
-__end_of_WRPSB                  smallconst   0103B
-__end_of_WRPWM                  smallconst   0103C
-__end_of_WRSCTRL                smallconst   0103D
-__end_of__initialization        cinit        010BC
+__end_of_ADAX                   smallconst   01076
+__end_of_ADAXD                  smallconst   01074
+__end_of_ADCV                   smallconst   0107E
+__end_of_ADCVAX                 smallconst   01068
+__end_of_ADCVSC                 smallconst   01066
+__end_of_ADOL                   smallconst   01078
+__end_of_ADOW                   smallconst   0107C
+__end_of_ADSTAT                 smallconst   0106E
+__end_of_ADSTATD                smallconst   0106C
+__end_of_AXOW                   smallconst   01072
+__end_of_AXST                   smallconst   01070
+__end_of_CHG_SHIFT              smallconst   0103D
+__end_of_CHST_SHIFT             smallconst   0103B
+__end_of_CH_SHIFT               smallconst   0103F
+__end_of_CLRAUX                 smallconst   01037
+__end_of_CLRCELL                smallconst   01039
+__end_of_CLRSCTRL               smallconst   0104D
+__end_of_CLRSTAT                smallconst   01035
+__end_of_CVST                   smallconst   0107A
+__end_of_DCP_SHIFT              smallconst   01041
+__end_of_DIAGN                  smallconst   01031
+__end_of_DUMMY_BYTE             smallconst   0104A
+__end_of_INTEGRAL_MAX           smallconst   01021
+__end_of_INTEGRAL_MIN           smallconst   0101D
+__end_of_K_I                    smallconst   01025
+__end_of_K_P                    smallconst   01029
+__end_of_MD_SHIFT               smallconst   01047
+__end_of_MUTE                   smallconst   0104C
+__end_of_PLADC                  smallconst   01033
+__end_of_PUP_SHIFT              smallconst   01045
+__end_of_PWM_MAX                smallconst   01019
+__end_of_PWM_MAX_INT            smallconst   01080
+__end_of_PWM_MIN                smallconst   01015
+__end_of_RDAUXA                 smallconst   0105A
+__end_of_RDAUXB                 smallconst   01059
+__end_of_RDAUXC                 smallconst   01058
+__end_of_RDAUXD                 smallconst   01057
+__end_of_RDCFGA                 smallconst   01062
+__end_of_RDCFGB                 smallconst   01061
+__end_of_RDCOMM                 smallconst   0102D
+__end_of_RDCVA                  smallconst   01060
+__end_of_RDCVB                  smallconst   0105F
+__end_of_RDCVC                  smallconst   0105E
+__end_of_RDCVD                  smallconst   0105D
+__end_of_RDCVE                  smallconst   0105C
+__end_of_RDCVF                  smallconst   0105B
+__end_of_RDPSB                  smallconst   0104F
+__end_of_RDPWM                  smallconst   01050
+__end_of_RDSCTRL                smallconst   01051
+__end_of_RDSTATA                smallconst   01056
+__end_of_RDSTATB                smallconst   01055
+__end_of_STATST                 smallconst   0106A
+__end_of_STCOMM                 smallconst   0102B
+__end_of_STSCTRL                smallconst   0104E
+__end_of_ST_SHIFT               smallconst   01043
+__end_of_UNMUTE                 smallconst   0104B
+__end_of_US_TO_MS               smallconst   01049
+__end_of_WRCFGA                 smallconst   01064
+__end_of_WRCFGB                 smallconst   01063
+__end_of_WRCOMM                 smallconst   0102F
+__end_of_WRPSB                  smallconst   01052
+__end_of_WRPWM                  smallconst   01053
+__end_of_WRSCTRL                smallconst   01054
+__end_of__initialization        cinit        010D6
 __end_of_cell_meas_time_us      smallconst   01011
-__end_of_cell_meas_time_us$F635 smallconst   01009
-__end_of_main                   text0        010CA
-__initialization                cinit        01068
+__end_of_cell_meas_time_us$F860 smallconst   01009
+__end_of_main                   text0        010E4
+__initialization                cinit        01082
 __mediumconst                   smallconst   01000
-__pbssBANK0                     bssBANK0     00060
 __pbssBANK1                     bssBANK1     00100
-__pbssBIGRAM                    bssBIGRAM    00182
+__pbssBANK2                     bssBANK2     00200
+__pbssBIGRAM                    bssBIGRAM    002D0
 __pbssCOMRAM                    bssCOMRAM    00001
-__pcinit                        cinit        01068
+__pcinit                        cinit        01082
 __pcstackCOMRAM                 cstackCOMRAM 00000
-__pdataCOMRAM                   dataCOMRAM   0000A
-__pidataCOMRAM                  idataCOMRAM  010CA
+__pdataCOMRAM                   dataCOMRAM   00009
+__pidataCOMRAM                  idataCOMRAM  010E4
 __psmallconst                   smallconst   01000
-__ptext0                        text0        010C2
+__ptext0                        text0        010DC
 __ramtop                        ramtop       01000
 __smallconst                    smallconst   01000
-_bms_fault_table$F1119          bssBANK0     00060
+_bms_fault_table                bssBANK1     00100
 _cell_meas_time_us              smallconst   01009
-_cfg                            bssCOMRAM    00005
-_main                           text0        010C2
-_mgr                            bssCOMRAM    00009
-_pec15Table                     bssBIGRAM    00182
+_is_init                        bssCOMRAM    00008
+_main                           text0        010DC
+_pec15Table                     bssBIGRAM    002D0
+_state                          bssCOMRAM    00007
 _tick                           bssCOMRAM    00001
-_util_irq                       bssCOMRAM    00007
-end_of_initialization           cinit        010BC
+_util_irq                       bssCOMRAM    00005
+end_of_initialization           cinit        010D6
 intlevel0                       text         00000
 intlevel1                       text         00000
 intlevel2                       text         00000
@@ -470,77 +478,84 @@ isa$xinst                       (abs)        00000
 stackhi                         (abs)        00000
 stacklo                         (abs)        00000
 start                           init         0FFFC
-start_initialization            cinit        01068
+start_initialization            cinit        01082
 
 
 MODULE INFORMATION
 
 Module		Function		Class		Link	Load	Size
 shared
-		_CLRCELL       		SMALLCONST     	1021	0000	2
-		_RDAUXA        		SMALLCONST     	1042	0000	1
-		_STSCTRL       		SMALLCONST     	1036	0000	1
-		_WRSCTRL       		SMALLCONST     	103C	0000	1
-		_RDCVB         		SMALLCONST     	1047	0000	1
-		_RDAUXD        		SMALLCONST     	103F	0000	1
+		_CLRCELL       		SMALLCONST     	1037	0000	2
+		_RDAUXA        		SMALLCONST     	1059	0000	1
+		_STSCTRL       		SMALLCONST     	104D	0000	1
+		_WRSCTRL       		SMALLCONST     	1053	0000	1
+		_RDCVB         		SMALLCONST     	105E	0000	1
+		_RDAUXD        		SMALLCONST     	1056	0000	1
+		_K_I           		SMALLCONST     	0000	0000	0
 		_ADSTAT        		SMALLCONST     	0000	0000	0
 		_ADOW          		SMALLCONST     	0000	0000	0
 		_DCP_SHIFT     		SMALLCONST     	0000	0000	0
 		_ADOL          		SMALLCONST     	0000	0000	0
-		_STCOMM        		SMALLCONST     	1013	0000	2
-		_WRCOMM        		SMALLCONST     	1017	0000	2
-		_RDCVC         		SMALLCONST     	1046	0000	1
+		_STCOMM        		SMALLCONST     	1029	0000	2
+		_WRCOMM        		SMALLCONST     	102D	0000	2
+		_RDCVC         		SMALLCONST     	105D	0000	1
 		_CH_SHIFT      		SMALLCONST     	0000	0000	0
-		_RDCFGB        		SMALLCONST     	1049	0000	1
+		_RDCFGB        		SMALLCONST     	1060	0000	1
 		_MD_SHIFT      		SMALLCONST     	0000	0000	0
-		_WRCFGA        		SMALLCONST     	104C	0000	1
-		_MUTE          		SMALLCONST     	1034	0000	1
+		_WRCFGA        		SMALLCONST     	1063	0000	1
+		_INTEGRAL_MIN  		SMALLCONST     	0000	0000	0
+		_INTEGRAL_MAX  		SMALLCONST     	0000	0000	0
+		_MUTE          		SMALLCONST     	104B	0000	1
 		_ADAXD         		SMALLCONST     	0000	0000	0
+		_PWM_MIN       		SMALLCONST     	0000	0000	0
 		_US_TO_MS      		SMALLCONST     	0000	0000	0
-		_RDPSB         		SMALLCONST     	1037	0000	1
-		_RDAUXB        		SMALLCONST     	1041	0000	1
-		_RDCVD         		SMALLCONST     	1045	0000	1
-		_cell_meas_time_us$F635		SMALLCONST     	0000	0000	0
-		_CLRAUX        		SMALLCONST     	101F	0000	2
+		_RDPSB         		SMALLCONST     	104E	0000	1
+		_cell_meas_time_us$F860		SMALLCONST     	0000	0000	0
+		_RDAUXB        		SMALLCONST     	1058	0000	1
+		_K_P           		SMALLCONST     	0000	0000	0
+		_RDCVD         		SMALLCONST     	105C	0000	1
+		_PWM_MAX       		SMALLCONST     	0000	0000	0
+		_CLRAUX        		SMALLCONST     	1035	0000	2
 		_CVST          		SMALLCONST     	0000	0000	0
+		_PWM_MAX_INT   		SMALLCONST     	0000	0000	0
 		_AXST          		SMALLCONST     	0000	0000	0
-		_UNMUTE        		SMALLCONST     	1033	0000	1
-		__initialization		CODE           	1068	0000	84
+		_UNMUTE        		SMALLCONST     	104A	0000	1
+		__initialization		CODE           	1082	0000	84
 		_ADCV          		SMALLCONST     	0000	0000	0
 		_AXOW          		SMALLCONST     	0000	0000	0
-		_RDCVE         		SMALLCONST     	1044	0000	1
+		_RDCVE         		SMALLCONST     	105B	0000	1
 		_CHST_SHIFT    		SMALLCONST     	0000	0000	0
-		_RDPWM         		SMALLCONST     	1038	0000	1
-		_WRCFGB        		SMALLCONST     	104B	0000	1
+		_RDPWM         		SMALLCONST     	104F	0000	1
+		_WRCFGB        		SMALLCONST     	1062	0000	1
 		_ADAX          		SMALLCONST     	0000	0000	0
 		_PUP_SHIFT     		SMALLCONST     	0000	0000	0
 		_ST_SHIFT      		SMALLCONST     	0000	0000	0
-		_CLRSTAT       		SMALLCONST     	101D	0000	2
-		_RDSCTRL       		SMALLCONST     	1039	0000	1
-		_DIAGN         		SMALLCONST     	1019	0000	2
-		_RDSTATB       		SMALLCONST     	103D	0000	1
-		_WRPSB         		SMALLCONST     	103A	0000	1
-		_RDAUXC        		SMALLCONST     	1040	0000	1
-		_RDCVF         		SMALLCONST     	1043	0000	1
-		_PLADC         		SMALLCONST     	101B	0000	2
-		_MV_TO_UV      		SMALLCONST     	0000	0000	0
-		_RDCOMM        		SMALLCONST     	1015	0000	2
+		_CLRSTAT       		SMALLCONST     	1033	0000	2
+		_RDSCTRL       		SMALLCONST     	1050	0000	1
+		_DIAGN         		SMALLCONST     	102F	0000	2
+		_RDSTATB       		SMALLCONST     	1054	0000	1
+		_WRPSB         		SMALLCONST     	1051	0000	1
+		_RDAUXC        		SMALLCONST     	1057	0000	1
+		_RDCVF         		SMALLCONST     	105A	0000	1
+		_PLADC         		SMALLCONST     	1031	0000	2
+		_RDCOMM        		SMALLCONST     	102B	0000	2
 		_ADCVSC        		SMALLCONST     	0000	0000	0
 		_CHG_SHIFT     		SMALLCONST     	0000	0000	0
-		_RDCVA         		SMALLCONST     	1048	0000	1
+		_RDCVA         		SMALLCONST     	105F	0000	1
 		_ADSTATD       		SMALLCONST     	0000	0000	0
-		_RDCFGA        		SMALLCONST     	104A	0000	1
-		_CLRSCTRL      		SMALLCONST     	1035	0000	1
-		_WRPWM         		SMALLCONST     	103B	0000	1
+		_RDCFGA        		SMALLCONST     	1061	0000	1
+		_CLRSCTRL      		SMALLCONST     	104C	0000	1
+		_WRPWM         		SMALLCONST     	1052	0000	1
 		_cell_meas_time_us		SMALLCONST     	1009	0000	8
 		_STATST        		SMALLCONST     	0000	0000	0
 		_ADCVAX        		SMALLCONST     	0000	0000	0
-		_RDSTATA       		SMALLCONST     	103E	0000	1
+		_DUMMY_BYTE    		SMALLCONST     	0000	0000	0
+		_RDSTATA       		SMALLCONST     	1055	0000	1
 
 shared estimated size: 134
 
 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\main.c
-		_main          		CODE           	10C2	0000	8
+		_main          		CODE           	10DC	0000	8
 
 C:\Users\notwe\MPLABProjects\uta_fsae_bms_v1.1\main.c estimated size: 8
 

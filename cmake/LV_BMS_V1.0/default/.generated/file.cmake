@@ -17,15 +17,17 @@ endforeach()
 
 set(LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_compile
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/current_sensor/dev_current.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/fan_control/dev_fan.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/ADI.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/LTC6813.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/dev_ltc6813.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/adc_io/io_adc.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/can_io/io_can.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/i2c_io/io_i2c.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/pwm_io/io_pwm.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/io/spi_io/io_spi.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/bms_fan_ctrl.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/bms_fault.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/bms_manager.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/system/sys_fault.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/utils/util_time.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../main.c")
 set_source_files_properties(${LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_compile} PROPERTIES LANGUAGE C)
