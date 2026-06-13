@@ -1,15 +1,15 @@
+/**
+ * @file dev_ltc6813.h
+ * @author notwe
+ * @date 2026-06-12
+ * @brief ltc driver header
+ */
+
 #ifndef DEV_LTC6813_H
 #define DEV_LTC6813_H
 
 #include <stdint.h>
-#include <stddef.h>
-#include <stdarg.h>
 #include <stdbool.h>
-
-#include "LTC6813.h"
-#include "ADI.h"
-#include "util_time.h"
-#include "io_spi.h"
 
 typedef enum
 {
@@ -160,7 +160,7 @@ typedef struct
 
 } dev_ltc6813_t;
 
-dev_ltc6813_status_t DEV_LTC6813_Init(dev_ltc6813_t *p_inst, cell_asic_t *p_cell_asic);
+dev_ltc6813_status_t DEV_LTC6813_Init(dev_ltc6813_t *p_inst, const cell_asic_t *p_cell_asic);
 
 dev_ltc6813_status_t DEV_LTC6813_Task(dev_ltc6813_t *p_inst);
 

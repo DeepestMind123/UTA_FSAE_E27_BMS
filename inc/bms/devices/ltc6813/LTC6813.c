@@ -1,3 +1,10 @@
+/**
+ * @file dev_ltc6813.c
+ * @author notwe
+ * @date 2026-06-12
+ * @brief ltc hal source
+ */
+
 #include "LTC6813.h"
 
 uint32_t LTC6813_get_delay_ms(uint8_t md, uint8_t cell_num)

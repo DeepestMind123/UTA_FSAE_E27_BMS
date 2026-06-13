@@ -8,10 +8,6 @@
 #ifndef IO_ADC_H
 #define IO_ADC_H
 
-#include <stdint.h>
-#include <stddef.h>
-#include <stdbool.h>
-
 #include "util_time.h"
 
 typedef enum
