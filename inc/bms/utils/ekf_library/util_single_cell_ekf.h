@@ -37,7 +37,9 @@
 
 #include "rtwtypes.h"
 #include "util_single_cell_ekf_types.h"
+#include "util_single_cell_ekf_private.h"
 #include "rt_nonfinite.h"
+#include "rtGetNaN.h"
 #include "m128d.h"
 #include "rtwtypes.h"
 
