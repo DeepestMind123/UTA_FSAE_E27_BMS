@@ -21,7 +21,6 @@
 #define rt_nonfinite_h_
 
 #include "rtwtypes.h"
-#include <stddef.h>
 #include <math.h>
 
 extern real_T rtInf;
