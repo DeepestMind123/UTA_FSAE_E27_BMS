@@ -24,7 +24,7 @@ const char *adc_func_names[] = {
     "ADC GET OFFSET",
     "ADC GET VREF",
     "ADC GET STATE",
-    "ADC GET TIMEOUT",
+    "ADC GET TIMEOUT"
 };
 const char *adc_states[] = {
     "IDLE",
@@ -33,7 +33,7 @@ const char *adc_states[] = {
     "GET",
     "READY",
     "ERROR",
-    "UNDEFINED",
+    "UNDEFINED"
 };
 const char *adc_status[] = {
     "OK",
@@ -41,24 +41,29 @@ const char *adc_status[] = {
     "NOT_INIT",
     "TIMEOUT",
     "ADC_BUSY",
-    "UNDEFINED_STATE",
+    "UNDEFINED_STATE"
 };
 #endif
 
 // System to log adc data via breakpoints and watches
-static char watch[100]; //watch the 'watch' variable to debug
-void adc_log(const char *p_func_name, const char *p_expected_status_str, int p_status, const io_adc_t *p_adc, const io_adc_cfg_t *p_adc_config, int64_t _val) {
+void adc_log(const char *p_func_name, const char *p_expected_status_str, int p_status,
+        const io_adc_t *p_adc, const io_adc_cfg_t *p_adc_config, int64_t _val) {
+#ifdef DEMO_ADC
     const char *_state_str, *_status_str;
     _status_str = adc_status[p_status];
     _state_str = adc_states[(int)IO_ADC_Get_State(p_adc, p_adc_config)];
-    snprintf(log, sizeof(log), "|Func:%s|Expected Status:%s|Return Status:%s|State:%s|Data Read: %lld|", p_func_name, p_expected_status_str, _status_str, _state_str, _val);
+    snprintf(watch, sizeof(watch), "|Func:%s|Expected Status:%s|Return Status:%s|State:%s|Data Read: %lld|",
+        p_func_name, p_expected_status_str, _status_str, _state_str, _val);
+#endif
 }
 
+
 // Some dummy functions for adc actions
-void dummy_1(void)      { asm("NOP"); }
-void dummy_2(uint8_t _) { asm("NOP"); }
-uint8_t dummy_3(void)   { return 0; }
-uint32_t dummy_4(void)  { return 0; }
+void ADC_channel_select(uint8_t channel)  { asm("NOP"); }
+void ADC_start(void)                      { asm("NOP"); }
+uint8_t ADC_done(void)                    { return 0; }
+uint32_t ADC_get_result(void)             { return 0; }
+void ADC_stop(void)                       { asm("NOP"); }
 // Tests the adc fault system to ensure its accurate
 uint32_t demo_adc_fault() {
 #ifdef DEMO_ADC
@@ -69,15 +74,15 @@ uint32_t demo_adc_fault() {
         .adc_vref_mV = 3300,
         .channel_id = 0,
         
-        .ADC_channel_select = dummy_2,
-        .ADC_start = dummy_1,
-        .ADC_done = dummy_3,
-        .ADC_get_result = dummy_4,
-        .ADC_stop = dummy_1,
+        .ADC_channel_select = ADC_channel_select,
+        .ADC_start = ADC_start,
+        .ADC_done = ADC_done,
+        .ADC_get_result = ADC_get_result,
+        .ADC_stop = ADC_stop
     };
     io_adc_t _adc_1;
     const io_adc_cfg_t *adc_config_NULL = NULL;
-    io_adc_t *_adc_NULL = NULL;
+    io_adc_t *_adc_null = NULL;
     int64_t _out_val = 0;
     int16_t _set_val = 10;
     
@@ -91,7 +96,7 @@ uint32_t demo_adc_fault() {
             0);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Init(_adc_NULL, &_adc_config),
+            (int)IO_ADC_Init(_adc_null, &_adc_config),
             &_adc_1,
             &_adc_config,
             0);
@@ -103,7 +108,7 @@ uint32_t demo_adc_fault() {
             0);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Init(_adc_NULL, adc_config_NULL),
+            (int)IO_ADC_Init(_adc_null, adc_config_NULL),
             &_adc_1,
             &_adc_config,
             0);
@@ -117,7 +122,7 @@ uint32_t demo_adc_fault() {
             0);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Task(_adc_NULL),
+            (int)IO_ADC_Task(_adc_null),
             &_adc_1,
             &_adc_config,
             0);
@@ -131,7 +136,7 @@ uint32_t demo_adc_fault() {
             0);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Start(_adc_NULL),
+            (int)IO_ADC_Start(_adc_null),
             &_adc_1,
             &_adc_config,
             0);
@@ -146,7 +151,7 @@ uint32_t demo_adc_fault() {
             _out_val);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Get_Val(_adc_NULL, &_out_val),
+            (int)IO_ADC_Get_Val(_adc_null, &_out_val),
             &_adc_1,
             &_adc_config,
             _out_val);
@@ -161,7 +166,7 @@ uint32_t demo_adc_fault() {
             _out_val);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Get_Resolution(_adc_NULL, &_out_val),
+            (int)IO_ADC_Get_Resolution(_adc_null, &_out_val),
             &_adc_1,
             &_adc_config,
             _out_val);
@@ -175,7 +180,7 @@ uint32_t demo_adc_fault() {
             _set_val);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Set_Offset(_adc_NULL, _set_val),
+            (int)IO_ADC_Set_Offset(_adc_null, _set_val),
             &_adc_1,
             &_adc_config,
             _set_val);
@@ -189,7 +194,7 @@ uint32_t demo_adc_fault() {
             _out_val);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Get_Offset(_adc_NULL, &_out_val),
+            (int)IO_ADC_Get_Offset(_adc_null, &_out_val),
             &_adc_1,
             &_adc_config,
             _out_val);
@@ -203,7 +208,7 @@ uint32_t demo_adc_fault() {
             _out_val);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Get_Vref(_adc_NULL, &_out_val),
+            (int)IO_ADC_Get_Vref(_adc_null, &_out_val),
             &_adc_1,
             &_adc_config,
             _out_val);
@@ -217,7 +222,7 @@ uint32_t demo_adc_fault() {
             _out_val);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Get_State(_adc_NULL, &_out_val),
+            (int)IO_ADC_Get_State(_adc_null, &_out_val),
             &_adc_1,
             &_adc_config,
             _out_val);
@@ -231,7 +236,7 @@ uint32_t demo_adc_fault() {
             _out_val);
     adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Get_Timeout(_adc_NULL, &_out_val),
+            (int)IO_ADC_Get_Timeout(_adc_null, &_out_val),
             &_adc_1,
             &_adc_config,
             _out_val);
@@ -239,7 +244,8 @@ uint32_t demo_adc_fault() {
 #endif
 }
  
-uint32_t demo_adc_get(uint32_t p_cycles) {   
+uint32_t demo_adc_get(uint32_t p_cycles) {  
+#ifdef DEMO_ADC
 //        IO_ADC_Task(&_adc_1);
 //        snprintf(log, sizeof(log), "|Cycle: %lu|ADC State:%s|Data Read: %lu|", (unsigned long)i, state, (unsigned long)_val);
 //        IO_ADC_Start(&_adc_1);
@@ -253,4 +259,5 @@ uint32_t demo_adc_get(uint32_t p_cycles) {
 //        snprintf(log, sizeof(log), "|Cycle: %lu|ADC State:%s|Data Read: %lu|", (unsigned long)i, state, (unsigned long)_val);
 //        IO_ADC_Start(&_adc1);
 //    }
+#endif
 }
