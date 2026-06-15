@@ -14,6 +14,18 @@
 
 #define DEMO_ADC
 #ifdef DEMO_ADC
+const char *adc_func_names[] = {
+    "ADC INIT",
+    "ADC TASK",
+    "ADC START",
+    "ADC GET VAL",
+    "ADC GET RES",
+    "ADC SET OFFSET",
+    "ADC GET OFFSET",
+    "ADC GET VREF",
+    "ADC GET STATE",
+    "ADC GET TIMEOUT",
+};
 const char *adc_states[] = {
     "IDLE",
     "START",
@@ -33,14 +45,13 @@ const char *adc_status[] = {
 };
 #endif
 
-
 // System to log adc data via breakpoints and watches
-static char log[100];
-void adc_log(const char *p_func_name, const char *p_expected_status_str, int p_status, const io_adc_t *p_adc, const io_adc_cfg_t *p_adc_config, uint32_t _val) {
+static char watch[100]; //watch the 'watch' variable to debug
+void adc_log(const char *p_func_name, const char *p_expected_status_str, int p_status, const io_adc_t *p_adc, const io_adc_cfg_t *p_adc_config, int64_t _val) {
     const char *_state_str, *_status_str;
     _status_str = adc_status[p_status];
     _state_str = adc_states[(int)IO_ADC_Get_State(p_adc, p_adc_config)];
-    snprintf(log, sizeof(log), "|Func:%s|Expected Status:%s|Return Status:%s|State:%s|Data Read: %lu|", p_func_name, p_expected_status_str, _status_str, _state_str, (unsigned long)_val);
+    snprintf(log, sizeof(log), "|Func:%s|Expected Status:%s|Return Status:%s|State:%s|Data Read: %lld|", p_func_name, p_expected_status_str, _status_str, _state_str, _val);
 }
 
 // Some dummy functions for adc actions
@@ -67,71 +78,163 @@ uint32_t demo_adc_fault() {
     io_adc_t _adc_1;
     const io_adc_cfg_t *adc_config_NULL = NULL;
     io_adc_t *_adc_NULL = NULL;
-    uint32_t _val = 0;
+    int64_t _out_val = 0;
+    int16_t _set_val = 10;
     
-    adc_log("ADC INIT",
+    // Action Methods
+    int _test_id = 0;
+    adc_log(adc_func_names[_test_id],
             adc_status[0],
             (int)IO_ADC_Init(&_adc_1, &_adc_config),
             &_adc_1,
             &_adc_config,
             0);
-    adc_log("ADC INIT",
+    adc_log(adc_func_names[_test_id],
             adc_status[1],
             (int)IO_ADC_Init(_adc_NULL, &_adc_config),
             &_adc_1,
             &_adc_config,
             0);
-    adc_log("ADC INIT",
+    adc_log(adc_func_names[_test_id],
             adc_status[1],
             (int)IO_ADC_Init(&_adc_1, adc_config_NULL),
             &_adc_1,
             &_adc_config,
             0);
-    adc_log("ADC INIT",
+    adc_log(adc_func_names[_test_id],
             adc_status[1],
             (int)IO_ADC_Init(_adc_NULL, adc_config_NULL),
             &_adc_1,
             &_adc_config,
             0);
     
-    adc_log("ADC TASK",
+    _test_id++;
+    adc_log(adc_func_names[_test_id],
             adc_status[0],
             (int)IO_ADC_Task(&_adc_1),
             &_adc_1,
             &_adc_config,
             0);
-    adc_log("ADC TASK",
+    adc_log(adc_func_names[_test_id],
             adc_status[1],
             (int)IO_ADC_Task(_adc_NULL),
             &_adc_1,
             &_adc_config,
             0);
     
-    adc_log("ADC START",
+    _test_id++;
+    adc_log(adc_func_names[_test_id],
             adc_status[0],
             (int)IO_ADC_Start(&_adc_1),
             &_adc_1,
             &_adc_config,
             0);
-    adc_log("ADC START",
+    adc_log(adc_func_names[_test_id],
             adc_status[1],
             (int)IO_ADC_Start(_adc_NULL),
             &_adc_1,
             &_adc_config,
             0);
     
-    adc_log("ADC GET VAL",
+    // I/O Methods
+    _test_id++;
+    adc_log(adc_func_names[_test_id],
             adc_status[0],
-            (int)IO_ADC_Get_Val(&_adc_1, &_val),
+            (int)IO_ADC_Get_Val(&_adc_1, &_out_val),
             &_adc_1,
             &_adc_config,
-            _val);
-    adc_log("ADC GET VAL",
+            _out_val);
+    adc_log(adc_func_names[_test_id],
             adc_status[1],
-            (int)IO_ADC_Get_Val(_adc_NULL, &_val),
+            (int)IO_ADC_Get_Val(_adc_NULL, &_out_val),
             &_adc_1,
             &_adc_config,
-            _val);
+            _out_val);
+    
+    
+    _test_id++;
+    adc_log(adc_func_names[_test_id],
+            adc_status[0],
+            (int)IO_ADC_Get_Resolution(&_adc_1, &_out_val),
+            &_adc_1,
+            &_adc_config,
+            _out_val);
+    adc_log(adc_func_names[_test_id],
+            adc_status[1],
+            (int)IO_ADC_Get_Resolution(_adc_NULL, &_out_val),
+            &_adc_1,
+            &_adc_config,
+            _out_val);
+    
+    _test_id++;
+    adc_log(adc_func_names[_test_id],
+            adc_status[0],
+            (int)IO_ADC_Set_Offset(&_adc_1, _set_val),
+            &_adc_1,
+            &_adc_config,
+            _set_val);
+    adc_log(adc_func_names[_test_id],
+            adc_status[1],
+            (int)IO_ADC_Set_Offset(_adc_NULL, _set_val),
+            &_adc_1,
+            &_adc_config,
+            _set_val);
+    
+    _test_id++;
+    adc_log(adc_func_names[_test_id],
+            adc_status[0],
+            (int)IO_ADC_Get_Offset(&_adc_1, &_out_val),
+            &_adc_1,
+            &_adc_config,
+            _out_val);
+    adc_log(adc_func_names[_test_id],
+            adc_status[1],
+            (int)IO_ADC_Get_Offset(_adc_NULL, &_out_val),
+            &_adc_1,
+            &_adc_config,
+            _out_val);
+    
+    _test_id++;
+    adc_log(adc_func_names[_test_id],
+            adc_status[0],
+            (int)IO_ADC_Get_Vref(&_adc_1, &_out_val),
+            &_adc_1,
+            &_adc_config,
+            _out_val);
+    adc_log(adc_func_names[_test_id],
+            adc_status[1],
+            (int)IO_ADC_Get_Vref(_adc_NULL, &_out_val),
+            &_adc_1,
+            &_adc_config,
+            _out_val);
+    
+    _test_id++;
+    adc_log(adc_func_names[_test_id],
+            adc_status[0],
+            (int)IO_ADC_Get_State(&_adc_1, &_out_val),
+            &_adc_1,
+            &_adc_config,
+            _out_val);
+    adc_log(adc_func_names[_test_id],
+            adc_status[1],
+            (int)IO_ADC_Get_State(_adc_NULL, &_out_val),
+            &_adc_1,
+            &_adc_config,
+            _out_val);
+    
+    _test_id++;
+    adc_log(adc_func_names[_test_id],
+            adc_status[0],
+            (int)IO_ADC_Get_Timeout(&_adc_1, &_out_val),
+            &_adc_1,
+            &_adc_config,
+            _out_val);
+    adc_log(adc_func_names[_test_id],
+            adc_status[1],
+            (int)IO_ADC_Get_Timeout(_adc_NULL, &_out_val),
+            &_adc_1,
+            &_adc_config,
+            _out_val);
     return 0;
 #endif
 }
