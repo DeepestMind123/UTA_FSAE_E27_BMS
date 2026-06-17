@@ -1,5 +1,5 @@
 /**
- * @file dev_fan.h
+ * @file util_fan_ctrl.h
  * @author notwe
  * @date 2026-06-12
  * @brief fan driver header
@@ -38,7 +38,7 @@ typedef const struct
 {
     float setpoint;
 
-} dev_fan_cfg_t;
+} util_fan_ctrl_cfg_t;
 
 typedef struct
 {
@@ -55,13 +55,13 @@ typedef struct
 
     fan_status_t status;
 
-    dev_fan_cfg_t *cfg;
+    util_fan_ctrl_cfg_t *cfg;
 
-} dev_fan_t;
+} util_fan_ctrl_t;
 
-fan_status_t DEV_Fan_Init(dev_fan_t *p_inst, const dev_fan_cfg_t *p_cfg, const io_pwm_t *p_pwm_inst);
+fan_status_t UTIL_Fan_Ctrl_Init(util_fan_ctrl_t *p_inst, const util_fan_ctrl_cfg_t *p_cfg, const io_pwm_t *p_pwm_inst);
 
-fan_status_t DEV_Fan_Task(dev_fan_t *p_inst);
+fan_status_t UTIL_Fan_Ctrl_Task(util_fan_ctrl_t *p_inst);
 
 
 #endif
