@@ -1,51 +1,41 @@
-build/
-_build/
-dist/
-nbproject/private/
-nbproject/Makefile-*
-nbproject/Package-*
-
+# ~~~ VSCode ~~~
 .vscode/*
 !.vscode/mplab.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/settings.json
-
 .vscode/ipch/
 .vscode/.browse.vc.db
+
+# ~~~ MPLab Project & Build Files ~~~
+**/nbproject/private/
+**/nbproject/Makefile-*
+**/nbproject/Package-*
+**/build/
+**/out/
+**/dist/
+**/.generated_files/
+Makefile
+Package-*
+
+# ~~~ Compiled Object Outputs ~~~
 *.o
 *.d
 *.elf
 *.hex
-.generated_files/
-nbproject/
-Makefile*
-Package-*
-private/
-_build/
+*.cof
+
+# ~~~ CMake & Ninja ~~~
+cmake/
+cmake/**/CMake*
 !cmake/**/user.cmake
 cmake/**/.generated/*
-cmake/**/CMake*
-cmake/
-out/
+*.cmake
 *.ninja
+
+# ~~~ MISC Files ~~~
 *.yaml
-*.json
-*.json
-*.cmake
-*.json
-*.ninja
-*.json
-*.json
-*.cmake
-*.cmake
-/_build
-/_build
-*.ninja
-*.cmake
-/_build/LV_BMS_V1.0
-/_build/LV_BMS_V1.0/default
-*.cmake
-/cmake/LV_BMS_V1.0/default/.generated
-/cmake/LV_BMS_V1.0/default
-/cmake/LV_BMS_V1.0
+
+# ~~~ OS Specific ~~
+.DS_Store
+Thumbs.db
