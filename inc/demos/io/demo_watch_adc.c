@@ -9,7 +9,7 @@
 #include <stdbool.h>
  
  #include "io_adc.h"
- #include "demo_tester.h"
+ #include "demo_watcher.h"
 
 #ifdef DEMO_ADC
 // Initialization
@@ -33,7 +33,7 @@ static const io_adc_cfg_t *config_null  = NULL;
 static const io_adc_t *inst_null        = NULL;
 
 // Watch strings
-const char *func_str[] = {
+static const char *func_str[] = {
     "ADC INIT",
     "ADC TASK",
     "ADC START",
@@ -47,7 +47,7 @@ const char *func_str[] = {
     //!NOTE! Add func name here
     //"NEW FUNC NAME"
 };
-const char *states_str[] = {
+static const char *states_str[] = {
     "IDLE",
     "START",
     "WAIT",
@@ -58,7 +58,7 @@ const char *states_str[] = {
     //!NOTE! Add state here
     //"NEW STATE"
 };
-const char *status_str[] = {
+static const char *status_str[] = {
     "OK",
     "NULL_POINTER",
     "NOT_INIT",
@@ -90,7 +90,7 @@ int get_func(int p_func_id, bool p_not_inst_null, bool p_not_conf_null) {
     }
     set_val = UINT64_MAX;
 }
-static peripheral_test_interface_t adc_test_interface = {
+static periph_watcher_t adc_test_interface = {
     .func_strings   = func_str,
     .state_strings  = states_str,
     .status_strings = status_str,
@@ -99,8 +99,8 @@ static peripheral_test_interface_t adc_test_interface = {
 };
 
 // General ADC Test Method
-uint32_t demo_adc_fault() {
-    start_peripheral_test(&adc_test_interface);
+uint32_t demo_watch_adc_fault() {
+    init_driver(&adc_test_interface);
     
     // Action Methods
     int _func_id = 0, _status_exp = 0; //!BREAK! Use this as breakpoint
@@ -155,7 +155,7 @@ uint32_t demo_adc_fault() {
 }
  
 // !LATER! Currently unimplemented get value method
-uint32_t demo_adc_get(uint32_t p_cycles) {
+uint32_t demo_watch_adc_get(uint32_t p_cycles) {
 //        IO_ADC_Task(&_adc_1);
 //        snprintf(log, sizeof(log), "|Cycle: %lu|ADC State:%s|Data Read: %lu|", (unsigned long)i, state, (unsigned long)_val);
 //        IO_ADC_Start(&_adc_1);
