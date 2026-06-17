@@ -1,29 +1,29 @@
 /**
- * @file demo_tester.c
+ * @file demo_watcher.c
  * @author MITurley
  * @date 2026-06-03
- * @brief demo tester <SF>
+ * @brief demo watcher <SF>
  */
 
 #include <stdio.h>
 
- #include "demo_tester.h"
+ #include "demo_watcher.h"
 
-uint32_t demo_tester() {
-//    demo_adc_fault();
-    demo_can_fault();
-//    demo_i2c_fault();
-//    demo_pwm_fault();
-//    demo_spi_fault();
+uint32_t demo_watcher() {
+//    demo_watch_adc_fault();
+    demo_watch_can_fault();
+//    demo_watch_i2c_fault();
+//    demo_watch_pwm_fault();
+//    demo_watch_spi_fault();
 }
 
 // Global variables used in demos
 char watch[128];     //watch the 'watch' variable to debug
 uint64_t get_val = UINT64_MAX;
 uint64_t set_val = UINT64_MAX;
-static peripheral_test_interface_t *active_driver = NULL;
+static periph_watcher_t *active_driver = NULL;
 
-void start_peripheral_test(peripheral_test_interface_t *driver) {
+void init_driver(periph_watcher_t *driver) {
     active_driver = driver;
 }
 // Magic watch method

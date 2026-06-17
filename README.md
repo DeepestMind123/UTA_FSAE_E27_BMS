@@ -29,6 +29,9 @@ The following formatting guidelines are required for all layers of the overall s
         -Uppercase_Name() for functions
         -ALLCAPS for constants and macros
 
+# Extra Features
+This project additionally contains demo files which are used to test general state functionality, one off testing, and sample code. Some key regions that are noteably tested includes drivers, peripheral systems, and general utilities. Some of the demo files also have a built-in watch variable system in which you can watch the varaible labeled as 'watch' to do some debugging without any additional hardware.
+
 # Resources
 The current version of the BMS hardware (E27 Module V0) requires the use of the Teensy 4.1 board. In order to access this hardware in Arduino IDE, paste the following link in "File">"Preferences">"Additional boards manager URLs":
 https://www.pjrc.com/teensy/package_teensy_index.json

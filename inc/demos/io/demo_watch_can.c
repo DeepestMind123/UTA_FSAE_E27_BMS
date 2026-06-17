@@ -10,7 +10,7 @@
 #include <stdbool.h>
  
  #include "io_can.h"
- #include "demo_tester.h"
+ #include "demo_watcher.h"
 
 #ifdef DEMO_CAN
 // Initialization
@@ -33,14 +33,15 @@ static io_can_cfg_t config = {
 static io_can_t inst;
 static const io_can_cfg_t *config_null  = NULL;
 static const io_can_t *inst_null        = NULL;
-const char *func_str[] = {
+
+static const char *func_str[] = {
     "CAN INIT",
     "CAN TRANSMIT",
     "CAN RECIEVE"
     //!NOTE! Add func name here
     //"NEW FUNC NAME"
 };
-const char *status_str[] = {
+static const char *status_str[] = {
     "OK",
     "NULL POINTER",
     "NOT INIT",
@@ -65,7 +66,7 @@ int get_func(int p_func_id, bool p_not_inst_null, bool p_not_conf_null) {
     }
     set_val = UINT64_MAX;
 }
-static peripheral_test_interface_t adc_test_interface = {
+static periph_watcher_t adc_test_interface = {
     .func_strings   = func_str,
     .state_strings  = NULL,
     .status_strings = status_str,
@@ -73,12 +74,12 @@ static peripheral_test_interface_t adc_test_interface = {
     .get_state_func_id = -1
 };
 // Tests the can fault system to ensure its accurate
-uint32_t demo_can_fault() {
+uint32_t demo_watch_can_fault() {
     int64_t _out_val = 0;
     int16_t _set_val = 10;
     uint32_t _baudrate = 8000;
     
-    start_peripheral_test(&adc_test_interface);
+    init_driver(&adc_test_interface);
     
     // Action Methods
     int _func_id = 0, _status_exp = 0; //!BREAK! Use this as breakpoint
