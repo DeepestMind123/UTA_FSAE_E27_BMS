@@ -1,4 +1,4 @@
-# LV_BMS_V1.0
+# LV_BMS_V0.2
 
 ## Summary
 This repository contains features for a custom BMS (Battery Management System).
