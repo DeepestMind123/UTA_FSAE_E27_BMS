@@ -1,4 +1,4 @@
-# LV_BMS_V1.0
+# LV_BMS_V0.0
 
 # Objective
 Battery Management Software intended for use by the UTA Racing Team.
