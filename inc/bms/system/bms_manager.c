@@ -36,6 +36,11 @@ bms_status_t BMS_Manager_Task(void)
             status = BMS_STATUS_ERROR_FAULT;
         }
 
+        if(state >= BMS_STATE_MAX)
+        {
+            state = BMS_STATE_UNDEFINED;
+        }
+
         switch(state)
         {
             case BMS_STATE_IDLE:

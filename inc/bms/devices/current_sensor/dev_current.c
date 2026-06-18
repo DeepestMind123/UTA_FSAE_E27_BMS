@@ -13,6 +13,7 @@ current_status_t DEV_Current_Init(dev_current_t *p_inst, const dev_current_cfg_t
 
     if((p_inst != NULL) && (p_cfg != NULL) && (p_adc_inst != NULL))
     {
+        // Initialize instanced variables to safe values
         p_inst->cfg = p_cfg;
         p_inst->adc_inst = p_adc_inst;
 
@@ -27,6 +28,7 @@ current_status_t DEV_Current_Init(dev_current_t *p_inst, const dev_current_cfg_t
         p_inst->val_diff = false;
         p_inst->is_init = true;
 
+        // Exit here if initialization is successful
         status = CURRENT_STATUS_OK;
     }
     else
@@ -50,6 +52,11 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
     {
         if(p_inst->is_init)
         {
+            if(p_inst->state >= CURRENT_STATE_MAX)
+            {
+                p_inst->state = CURRENT_STATE_UNDEFINED;
+            }
+
             switch(p_inst->state)
             {
                 case CURRENT_STATE_IDLE:
@@ -74,6 +81,8 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
                     {
                         if(adc_state == ADC_STATE_IDLE)
                         {
+
+                            // Start ADC and switch states if no error
                             if(IO_ADC_Start(p_inst->adc_inst) == ADC_STATUS_OK)
                             {
                                 p_inst->start_time = UTIL_Time_Get_Tick();
@@ -108,12 +117,14 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
                 {
                     now_time = UTIL_Time_Get_Tick();
 
+                    // Check if time elapsed is less than the ADC timeout 
                     if(now_time - p_inst->start_time <= p_inst->adc_timeout_ms)
                     {
                         adc_status = IO_ADC_Get_State(p_inst->adc_inst, &adc_state);
 
                         if(adc_status == ADC_STATUS_OK)
                         {
+                            // Switches state if ADC returns ready
                             if(adc_state != ADC_STATE_READY)
                             {
                                 if(IO_ADC_Task(p_inst->adc_inst) != ADC_STATUS_OK)
@@ -164,6 +175,7 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
                     }
                     else 
                     {
+                        // ADC timing error has occured since ADC has to return ready to switch into this state
                         status = CURRENT_STATUS_ERROR_ADC_ERROR;
 
                         p_inst->state = CURRENT_STATE_ERROR;
@@ -174,6 +186,7 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
 
                 case CURRENT_STATE_READY:
                 {
+                    // Starts timer and switches state to IDLE
                     p_inst->start_time = UTIL_Time_Get_Tick();
 
                     p_inst->state = CURRENT_STATE_IDLE;
@@ -183,10 +196,11 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
 
                 case CURRENT_STATE_ERROR:
                 {
-                    
+                    // Returns error state
                     break;
                 }
 
+                // Max enum for states required by standards
                 case CURRENT_STATE_UNDEFINED:
                 {
                     status = CURRENT_STATUS_ERROR_UNDEFINED_STATE;
@@ -214,11 +228,26 @@ current_status_t DEV_Current_Start(dev_current_t *p_inst)
 {
     current_status_t status = CURRENT_STATUS_OK;
 
+    current_state_t state;
+
     if(p_inst != NULL)
     {
         if(p_inst->is_init)
         {
-            p_inst->state = CURRENT_STATE_START;
+            // Checks if state is IDLE
+            status = DEV_Current_Get_State( p_inst, &state);
+
+            if(status == CURRENT_STATUS_OK)
+            {
+                if(state == CURRENT_STATE_IDLE)
+                {
+                    p_inst->state = CURRENT_STATE_START;
+                }
+                else 
+                {
+                    status = CURRENT_STATUS_BUSY;
+                }
+            }
         }
         else 
         {

@@ -28,13 +28,13 @@ typedef enum
 
 typedef enum
 {
-   BMS_STATE_IDLE = 0,    // battery inactive, mcu and peripheral components enter sleep mode
+   BMS_STATE_UNDEFINED = 0,
+   BMS_STATE_IDLE,    // battery inactive, mcu and peripheral components enter sleep mode
    BMS_STATE_DISCHARGE,   // battery discharging; bms actively checking current draw, cell voltage, thermistors, and updating soc
    BMS_STATE_CHARGE,      // battery charging; bms balancing cells and confirming CC-CV scheme
    BMS_STATE_BALANCE,     // battery balancing; bms switching between targeted and general balancing
-   BMS_STATE_UNDEFINED,
-   BMS_STATE_FAULT         // battery fault occured; bms attempts to diagnosis and fix or fails the pack
-
+   BMS_STATE_FAULT,         // battery fault occured; bms attempts to diagnosis and fix or fails the pack
+   BMS_STATE_MAX
 } bms_state_t;
 
 bms_status_t BMS_Manager_Init(void);    // intialize system manager with relevant constants and functions, also initializes sub-modules
