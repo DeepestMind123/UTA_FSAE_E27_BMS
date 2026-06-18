@@ -216,6 +216,39 @@ extern void E27_SingleCell_Model_terminate(void);
 /* Real-time Model object */
 extern RT_MODEL_E27_SingleCell_Model_T *const E27_SingleCell_Model_M;
 
+int32_T div_nde_s32_floor(int32_T numerator, int32_T denominator);
+
+static real_T E27_SingleCell_Model_xnrm2_n(int32_T n, const real_T x[27],
+  int32_T ix0);
+
+real_T rt_hypotd_snf(real_T u0, real_T u1);
+
+static void E27_SingleCell_Model_xgemv(int32_T m, int32_T n, const real_T A[27],
+  int32_T ia0, const real_T x[27], int32_T ix0, real_T y[3]);
+
+static void E27_SingleCell_Model_xgerc(int32_T m, int32_T n, real_T alpha1,
+  int32_T ix0, const real_T y[3], real_T A[27], int32_T ia0);
+
+static void E27_SingleCell_Model_qr(const real_T A[27], real_T b_Q[27], real_T R[9]);
+
+static void E27_SingleCell_Model_rotate(real_T x, real_T y, real_T *c, real_T *s, real_T *r);
+
+static real_T E27_SingleCell_Model_xnrm2(int32_T n, const real_T x[7], int32_T ix0);
+
+void E27_SingleCell_Model_step(void);
+
+void E27_SingleCell_Model_initialize(void);
+
+void E27_SingleCell_Model_terminate(void);
+
+void E27_SingleCell_Model_step_with_inputs(real_T current_A,
+                                           real_T cell_voltage_V,
+                                           real_T measured_temperature_K,
+                                           real_T initial_soc_fraction,
+                                           real_T initial_r0_ohm,
+                                           real_T *soc_est_fraction,
+                                           real_T *r0_est_ohm);
+
 /*-
  * These blocks were eliminated from the model due to optimizations:
  *

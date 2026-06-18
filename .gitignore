@@ -12,6 +12,7 @@
 **/nbproject/Makefile-*
 **/nbproject/Package-*
 **/build/
+**/_build/
 **/out/
 **/dist/
 **/.generated_files/
