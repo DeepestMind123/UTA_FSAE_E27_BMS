@@ -14,26 +14,23 @@
 
 #ifdef DEMO_CAN
 // Initialization
-bool init(uint32_t baudrate)            { return 1; }
-bool transmit(const can_msg_t *p_msg)   { return 1; }
-bool receive(can_msg_t *p_msg)          { return 1; }
-static int dummy(void) { return 0; }    // Dummy empty function
-static int dummy2(int _) { return 0; }  // Dummy with a number parameter since it needs a place for that value
+static bool init(uint32_t baudrate)            {}
+static bool transmit(const can_msg_t *p_msg)   {}
+static bool receive(can_msg_t *p_msg)          {}
 static can_msg_t msg = {
-    .id = 1000,
-    .dlc = 4,
-    .data = {0,0,0,0,0,0,0,0},
-    .is_ext = false
+    .id         = 1000,
+    .dlc        = 4,
+    .data       = {0,1,0,1,0,1,1,0},
+    .is_ext     = false
 };
 static io_can_cfg_t config = {
-    .init = init,
-    .transmit = transmit,
-    .receive = receive
+    .init       = init,
+    .transmit   = transmit,
+    .receive    = receive
 };
 static io_can_t inst;
-static const io_can_cfg_t *config_null  = NULL;
-static const io_can_t *inst_null        = NULL;
 
+// Watch strings
 static const char *func_str[] = {
     "CAN INIT",
     "CAN TRANSMIT",
@@ -51,53 +48,67 @@ static const char *status_str[] = {
     //!NOTE! Add status here
     //"NEW STATUS"
 };
+// Helpful For ID Matching
+typedef enum {
+    CAN_INIT = 0,
+    CAN_TRANSMIT,
+    CAN_RECIEVE,
+    //!NOTE! Add func id here
+    //"NEW FUNC ID"
+} func_id;
 // Get func output to compare non-null vs. null
-int get_func(int p_func_id, bool p_not_inst_null, bool p_not_conf_null) {
-    get_val         = UINT64_MAX;
-    io_can_t *_inst    = p_not_inst_null ? &inst : NULL;
-    io_can_cfg_t *_config = p_not_conf_null ? &config : NULL;
+static int get_func(int p_func_id, bool p_not_inst_null, bool p_not_conf_null) {
+    get_val                 = UINT64_MAX;
+    io_can_t *_inst         = p_not_inst_null ? &inst : NULL;
+    io_can_cfg_t *_config   = p_not_conf_null ? &config : NULL;
     
     switch(p_func_id) {
-        case 0: return (uint64_t)IO_CAN_Init(_inst, _config, set_val);   break;
-        case 1: return (uint64_t)IO_CAN_Transmit(_inst, &msg);        break;
-        case 2: return (uint64_t)IO_CAN_Receive(_inst, &msg);         break;
+        case 0: return (uint64_t)IO_CAN_Init(_inst, _config, set_val);  break;
+        case 1: return (uint64_t)IO_CAN_Transmit(_inst, &msg);          break;
+        case 2: return (uint64_t)IO_CAN_Receive(_inst, &msg);           break;
         //!NOTE! Add new functions here
         //case #: return (uint64_t)IO_New_Func(&_inst, &get_val);      break;
     }
     set_val = UINT64_MAX;
 }
-static periph_watcher_t adc_test_interface = {
-    .func_strings   = func_str,
-    .state_strings  = NULL,
-    .status_strings = status_str,
-    .execute_func   = get_func,
-    .get_state_func_id = -1
+static driver_watcher_interface_t drive_watcher = {
+    .func_strings       = func_str,
+    .state_strings      = NULL,
+    .status_strings     = status_str,
+    .execute_func       = get_func,
+    .get_state_func_id  = -1
 };
+
+// Tests all i2c methods
+void demo_watch_can_all() {
+    demo_watch_can_funcs();
+}
 // Tests the can fault system to ensure its accurate
-uint32_t demo_watch_can_fault() {
-    int64_t _out_val = 0;
-    int16_t _set_val = 10;
+void demo_watch_can_funcs() {
     uint32_t _baudrate = 8000;
     
-    init_driver(&adc_test_interface);
+    init_driver_watcher("CAN", 1, &drive_watcher); //!BREAK! Use this as breakpoint
     
     // Action Methods
-    int _func_id = 0, _status_exp = 0; //!BREAK! Use this as breakpoint
-    _func_id = 0;   // CAN INIT
-    watch_inst_conf(_func_id, _status_exp, true, true);
-    watch_inst_conf(_func_id, _status_exp, true, false);
-    watch_inst_conf(_func_id, _status_exp, false, true);
-    watch_inst_conf(_func_id, _status_exp, false, false);
-    
-    _func_id++;     // CAN TRANSMIT
-    watch_inst_conf(_func_id, _status_exp, true, true);
-    watch_inst_conf(_func_id, _status_exp, false, false);
-    
-    _func_id++;     // CAN RECEIVE
-    watch_inst_conf(_func_id, _status_exp, true, true);
-    watch_inst_conf(_func_id, _status_exp, false, false);
+    // [0] CAN INIT
+    watch_inst_conf(CAN_INIT, CAN_STATUS_OK, true, true);
+    watch_inst_conf(CAN_INIT, CAN_STATUS_ERROR_NULL_POINTER, true, false);
+    watch_inst_conf(CAN_INIT, CAN_STATUS_ERROR_NULL_POINTER, false, true);
+    watch_inst_conf(CAN_INIT, CAN_STATUS_ERROR_NULL_POINTER, false, false);
     
     // I/O Methods
-    return 0;
+    // [1] CAN TRANSMIT
+    watch_inst_conf(CAN_TRANSMIT, CAN_STATUS_OK, true, true);
+    watch_inst_conf(CAN_TRANSMIT, CAN_STATUS_ERROR_NULL_POINTER, false, false);
+    
+    // [2] CAN RECEIVE
+    watch_inst_conf(CAN_RECIEVE, CAN_STATUS_OK, true, true);
+    watch_inst_conf(CAN_RECIEVE, CAN_STATUS_ERROR_NULL_POINTER, false, false);
+    
+    //!NOTE! Add new function to track here
+    //// [#] ADC NEW FUNC
+    //track_inst_conf(ADC_FUNC_ID, ADC_STATUS_ID, false, false);
+    
+    asm("NOP"); //!BREAK! Use this as breakpoint
 }
 #endif
