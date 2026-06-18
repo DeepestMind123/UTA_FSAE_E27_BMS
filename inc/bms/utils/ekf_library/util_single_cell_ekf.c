@@ -175,7 +175,7 @@ static real_T E27_SingleCell_Model_xnrm2_n(int32_T n, const real_T x[27],
   y = 0.0;
   if (n >= 1) {
     if (n == 1) {
-      y = fabs(x[ix0 - 1]);
+      y = fabsf(x[ix0 - 1]);
     } else {
       real_T scale;
       int32_T kend;
@@ -183,7 +183,7 @@ static real_T E27_SingleCell_Model_xnrm2_n(int32_T n, const real_T x[27],
       kend = ix0 + n;
       for (k = ix0; k < kend; k++) {
         real_T absxk;
-        absxk = fabs(x[k - 1]);
+        absxk = fabsf(x[k - 1]);
         if (absxk > scale) {
           real_T t;
           t = scale / absxk;
@@ -196,7 +196,7 @@ static real_T E27_SingleCell_Model_xnrm2_n(int32_T n, const real_T x[27],
         }
       }
 
-      y = scale * sqrt(y);
+      y = scale * sqrtf(y);
     }
   }
 
@@ -208,14 +208,14 @@ real_T rt_hypotd_snf(real_T u0, real_T u1)
   real_T a;
   real_T b;
   real_T y;
-  a = fabs(u0);
-  b = fabs(u1);
+  a = fabsf(u0);
+  b = fabsf(u1);
   if (a < b) {
     a /= b;
-    y = sqrt(a * a + 1.0) * b;
+    y = sqrtf(a * a + 1.0) * b;
   } else if (a > b) {
     b /= a;
-    y = sqrt(b * b + 1.0) * a;
+    y = sqrtf(b * b + 1.0) * a;
   } else if (rtIsNaN(b)) {
     y = (rtNaN);
   } else {
@@ -317,7 +317,7 @@ static void E27_SingleCell_Model_qr(const real_T A[27], real_T b_Q[27], real_T
         xnorm = -xnorm;
       }
 
-      if (fabs(xnorm) < 1.0020841800044864E-292) {
+      if (fabsf(xnorm) < 1.0020841800044864E-292) {
         knt = 0;
         d_k = (ii - d_i) + 9;
         do {
@@ -336,7 +336,7 @@ static void E27_SingleCell_Model_qr(const real_T A[27], real_T b_Q[27], real_T
 
           xnorm *= 9.9792015476736E+291;
           atmp *= 9.9792015476736E+291;
-        } while ((fabs(xnorm) < 1.0020841800044864E-292) && (knt < 20));
+        } while ((fabsf(xnorm) < 1.0020841800044864E-292) && (knt < 20));
 
         xnorm = rt_hypotd_snf(atmp, E27_SingleCell_Model_xnrm2_n(8 - d_i, b_A,
           ii + 2));
@@ -524,8 +524,8 @@ static void E27_SingleCell_Model_rotate(real_T x, real_T y, real_T *c, real_T *s
   real_T rho;
   real_T xx;
   real_T yy;
-  absx = fabs(x);
-  absy = fabs(y);
+  absx = fabsf(x);
+  absy = fabsf(y);
   if (absy == 0.0) {
     *c = 1.0;
     *s = 0.0;
@@ -538,8 +538,8 @@ static void E27_SingleCell_Model_rotate(real_T x, real_T y, real_T *c, real_T *s
     absy += absx;
     xx = x / absy;
     yy = y / absy;
-    absx = fabs(xx);
-    rho = rt_hypotd_snf(absx, fabs(yy));
+    absx = fabsf(xx);
+    rho = rt_hypotd_snf(absx, fabsf(yy));
     *c = absx / rho;
     xx /= absx;
     *s = xx * yy / rho;
@@ -556,7 +556,7 @@ static real_T E27_SingleCell_Model_xnrm2(int32_T n, const real_T x[7], int32_T
   y = 0.0;
   if (n >= 1) {
     if (n == 1) {
-      y = fabs(x[ix0 - 1]);
+      y = fabsf(x[ix0 - 1]);
     } else {
       real_T scale;
       int32_T kend;
@@ -564,7 +564,7 @@ static real_T E27_SingleCell_Model_xnrm2(int32_T n, const real_T x[7], int32_T
       kend = ix0 + n;
       for (k = ix0; k < kend; k++) {
         real_T absxk;
-        absxk = fabs(x[k - 1]);
+        absxk = fabsf(x[k - 1]);
         if (absxk > scale) {
           real_T t;
           t = scale / absxk;
@@ -577,7 +577,7 @@ static real_T E27_SingleCell_Model_xnrm2(int32_T n, const real_T x[7], int32_T
         }
       }
 
-      y = scale * sqrt(y);
+      y = scale * sqrtf(y);
     }
   }
 
@@ -888,7 +888,7 @@ void E27_SingleCell_Model_step(void)
     rtb_ImpAsg_InsertedFor_Wm_ixk1_[ForEach_itr_o] =
       E27_SingleCell_Model_B.CoreSubsys[0]
       .ImpAsg_InsertedFor_xk1_at_inpor[ForEach_itr_o] - t;
-    rtb_Y1[i] = sqrt(fabs(E27_SingleCell_Model_ConstP.pooled1[i]));
+    rtb_Y1[i] = sqrtf(fabsf(E27_SingleCell_Model_ConstP.pooled1[i]));
   }
 
   memset(&b[0], 0, 49U * sizeof(real_T));
@@ -1023,15 +1023,15 @@ void E27_SingleCell_Model_step(void)
   for (i = 0; i <= 4; i += 2) {
     tmp_1 = _mm_loadu_pd(&rtb_ImpAsg_InsertedFor_y_at_inp[i]);
     _mm_storeu_pd(&rtb_Y1[i], _mm_sub_pd(tmp_1, _mm_set1_pd(rtb_MathFunction_l)));
-    tmp[0] = fabs(E27_SingleCell_Model_ConstP.pooled1[i]);
-    tmp[1] = fabs(E27_SingleCell_Model_ConstP.pooled1[i + 1]);
+    tmp[0] = fabsf(E27_SingleCell_Model_ConstP.pooled1[i]);
+    tmp[1] = fabsf(E27_SingleCell_Model_ConstP.pooled1[i + 1]);
     tmp_1 = _mm_loadu_pd(&tmp[0]);
-    _mm_storeu_pd(&residual_0[i], _mm_sqrt_pd(tmp_1));
+    _mm_storeu_pd(&residual_0[i], _mm_sqrtf_pd(tmp_1));
   }
 
   for (i = 6; i < 7; i++) {
     rtb_Y1[i] = rtb_ImpAsg_InsertedFor_y_at_inp[i] - rtb_MathFunction_l;
-    residual_0[i] = sqrt(fabs(E27_SingleCell_Model_ConstP.pooled1[i]));
+    residual_0[i] = sqrtf(fabsf(E27_SingleCell_Model_ConstP.pooled1[i]));
   }
 
   memset(&b[0], 0, 49U * sizeof(real_T));
@@ -1063,7 +1063,7 @@ void E27_SingleCell_Model_step(void)
       rtb_C1 = -rtb_C1;
     }
 
-    if (fabs(rtb_C1) < 1.0020841800044864E-292) {
+    if (fabsf(rtb_C1) < 1.0020841800044864E-292) {
       i = 0;
       do {
         i++;
@@ -1076,7 +1076,7 @@ void E27_SingleCell_Model_step(void)
 
         rtb_C1 *= 9.9792015476736E+291;
         t *= 9.9792015476736E+291;
-      } while ((fabs(rtb_C1) < 1.0020841800044864E-292) && (i < 20));
+      } while ((fabsf(rtb_C1) < 1.0020841800044864E-292) && (i < 20));
 
       rtb_C1 = rt_hypotd_snf(t, E27_SingleCell_Model_xnrm2(6,
         rtb_ImpAsg_InsertedFor_y_at_inp, 2));
@@ -1182,7 +1182,7 @@ void E27_SingleCell_Model_step(void)
 
         t /= rtb_Gain_h[ForEach_itr_o + iAcol];
         x[ForEach_itr_o] = t;
-        absxk = fabs(t);
+        absxk = fabsf(t);
         if (absxk > scale) {
           t = scale / absxk;
           rtb_C1 = rtb_C1 * t * t + 1.0;
@@ -1193,10 +1193,10 @@ void E27_SingleCell_Model_step(void)
         }
       }
 
-      rtb_C1 = scale * sqrt(rtb_C1);
+      rtb_C1 = scale * sqrtf(rtb_C1);
       if (!(rtb_C1 >= 1.0)) {
-        rtb_C1 = sqrt(1.0 - rtb_C1 * rtb_C1);
-        scale = fabs(x[2]);
+        rtb_C1 = sqrtf(1.0 - rtb_C1 * rtb_C1);
+        scale = fabsf(x[2]);
         if (scale == 0.0) {
           b_c[2] = 1.0;
           s[2] = 0.0;
@@ -1204,7 +1204,7 @@ void E27_SingleCell_Model_step(void)
           t = rtb_C1 + scale;
           rtb_C1 /= t;
           scale = x[2] / t;
-          absxk = rt_hypotd_snf(rtb_C1, fabs(scale));
+          absxk = rt_hypotd_snf(rtb_C1, fabsf(scale));
           b_c[2] = rtb_C1 / absxk;
           rtb_C1 /= rtb_C1;
           s[2] = rtb_C1 * scale / absxk;
@@ -1212,7 +1212,7 @@ void E27_SingleCell_Model_step(void)
         }
 
         x[2] = 0.0;
-        scale = fabs(x[1]);
+        scale = fabsf(x[1]);
         if (scale == 0.0) {
           b_c[1] = 1.0;
           s[1] = 0.0;
@@ -1224,7 +1224,7 @@ void E27_SingleCell_Model_step(void)
           t = rtb_C1 + scale;
           rtb_C1 /= t;
           scale = x[1] / t;
-          absxk = rt_hypotd_snf(rtb_C1, fabs(scale));
+          absxk = rt_hypotd_snf(rtb_C1, fabsf(scale));
           b_c[1] = rtb_C1 / absxk;
           rtb_C1 /= rtb_C1;
           s[1] = rtb_C1 * scale / absxk;
@@ -1232,8 +1232,8 @@ void E27_SingleCell_Model_step(void)
         }
 
         x[1] = 0.0;
-        t = fabs(rtb_C1);
-        scale = fabs(x[0]);
+        t = fabsf(rtb_C1);
+        scale = fabsf(x[0]);
         if (scale == 0.0) {
           b_c[0] = 1.0;
           s[0] = 0.0;
@@ -1244,8 +1244,8 @@ void E27_SingleCell_Model_step(void)
           t += scale;
           rtb_C1 /= t;
           scale = x[0] / t;
-          t = fabs(rtb_C1);
-          absxk = rt_hypotd_snf(t, fabs(scale));
+          t = fabsf(rtb_C1);
+          absxk = rt_hypotd_snf(t, fabsf(scale));
           b_c[0] = t / absxk;
           s[0] = rtb_C1 / t * scale / absxk;
         }

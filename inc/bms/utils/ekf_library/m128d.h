@@ -64,10 +64,10 @@ static __m128d _mm_sub_pd(__m128d a, __m128d b)
   return r;
 }
 
-static __m128d _mm_sqrt_pd(__m128d a)
+static __m128d _mm_sqrtf_pd(__m128d a)
 {
   __m128d r;
-  r.v[0] = sqrt(a.v[0]);
-  r.v[1] = sqrt(a.v[1]);
+  r.v[0] = sqrtf(a.v[0]);
+  r.v[1] = sqrtf(a.v[1]);
   return r;
 }
