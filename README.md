@@ -1,5 +1,31 @@
 # LV_BMS_V0.0
 
+## Summary
+This repository contains features for a custom BMS (Battery Management System).
+It supports:
+- Passive cell balancing
+  - <Insert Tools & Utilization>
+
+## Notes
+You either need the MPLab software to autogenerate .vscode & cmake or MPLab extension in VSCode.
+
+## Software
+
+| Path                           | Purpose                  |
+|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| mplab-xc8 | [MPLAB® XC8 Compiler](https://www.microchip.com/en-us/tools-resources/develop/mplab-x-ide) |
+| mplab-ide | [MPLAB® XC8 IDE](https://www.microchip.com/en-us/tools-resources/develop/mplab-x-ide) |
+| cmake     | [CMake](https://cmake.org/) files. May be deleted if user.cmake has not been added |
+| .vscode   | See [VSCode](https://code.visualstudio.com/docs/getstarted/settings) |
+
+## Outputs
+
+| Path                           | Purpose                  |
+|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| _build | The [CMake build tree](https://cmake.org/cmake/help/latest/manual/cmake.1.html#introduction-to-cmake-buildsystems), can be deleted. |
+| .vscode\settings.json          | Workspace specific settings |
+| .vscode\LV_BMS_V1.0.mplab.json | The MPLAB project file, should not be deleted |
+| out                            | Final build artifacts |
 # Objective
 Battery Management Software intended for use by the UTA Racing Team.
 
@@ -29,12 +55,10 @@ The following formatting guidelines are required for all layers of the overall s
         -Uppercase_Name() for functions
         -ALLCAPS for constants and macros
 
-# Extra Features
-This project additionally contains demo files which are used to test general state functionality, one off testing, and sample code. Some key regions that are noteably tested includes drivers, peripheral systems, and general utilities. Some of the demo files also have a built-in watch variable system in which you can watch the varaible labeled as 'watch' to do some debugging without any additional hardware.
-
 # Resources
 The current version of the BMS hardware (E27 Module V0) requires the use of the Teensy 4.1 board. In order to access this hardware in Arduino IDE, paste the following link in "File">"Preferences">"Additional boards manager URLs":
 https://www.pjrc.com/teensy/package_teensy_index.json
 
 # External Libraries
-FlexCAN_T4: CAN library for Teensy 4.1
+FlexCAN_T4: CAN library for Teensy 4.1 - https://github.com/tonton81/FlexCAN_T4
+Teensy 4.1 ADC by pedvide - https://github.com/pedvide/ADC
