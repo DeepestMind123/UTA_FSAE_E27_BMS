@@ -13,6 +13,7 @@
 **/nbproject/Package-*
 **/build/
 **/_build/
+_build/**
 **/out/
 **/dist/
 **/.generated_files/
