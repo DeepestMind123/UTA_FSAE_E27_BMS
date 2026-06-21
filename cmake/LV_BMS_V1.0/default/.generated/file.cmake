@@ -17,6 +17,7 @@ endforeach()
 
 set(LV_BMS_V1_0_default_toolchain_XC8_3_10_FILE_TYPE_compile
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/current_sensor/dev_current.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/fan_control/dev_fan.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/ADI.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/LTC6813.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/../../../inc/bms/devices/ltc6813/dev_ltc6813.c"

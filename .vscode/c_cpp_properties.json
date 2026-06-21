@@ -1,22 +1,9 @@
 {
     "configurations": [
         {
-            "name": "Win32",
-            "includePath": [
-                "${workspaceFolder}/**",
-                "C:/Program Files/Microchip/xc8/v3.10/pic/include",
-                "C:/Users/notwe/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8/pic/include"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "compilerPath": "c:\\Program Files\\Microchip\\xc8\\v3.10\\bin\\xc8-cc.exe",
-            "compilerArgs": [
-                "-mcpu=18LF26K83",
-                "-mdfp=C:/Users/notwe/.mchp_packs/Microchip/PIC18F-K_DFP/1.16.308/xc8"
-            ],
+"name": "MPLAB-CMake-Config",
+            "compileCommands": "${workspaceFolder}/build/default/compile_commands.json",
+            "cStandard": "c99",
             "intelliSenseMode": "windows-gcc-x64"
         }
     ],

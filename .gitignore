@@ -39,3 +39,11 @@ cmake/**/.generated/*
 # ~~~ OS Specific ~~
 .DS_Store
 Thumbs.db
+.generated_files/
+build/
+dist/
+nbproject/
+Makefile*
+private/
+_build/
+out/

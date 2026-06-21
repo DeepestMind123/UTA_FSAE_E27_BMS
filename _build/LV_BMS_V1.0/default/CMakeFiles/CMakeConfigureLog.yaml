@@ -4,15 +4,15 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:207 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineSystem.cmake:207 (message)"
       - "CMakeLists.txt:13 (project)"
     message: |
       The target system is: Generic -  - 
-      The host system is: Windows - 10.0.26200 - 
+      The host system is: Windows - 10.0.19045 - 
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeNinjaFindMake.cmake:5 (find_program)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeNinjaFindMake.cmake:5 (find_program)"
       - "CMakeLists.txt:13 (project)"
     mode: "program"
     variable: "CMAKE_MAKE_PROGRAM"
@@ -30,52 +30,70 @@ events:
       - "ninja"
       - "samu"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
       - "C:/Windows/System32/WindowsPowerShell/v1.0/"
       - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files/MATLAB/R2023b/bin/"
       - "C:/Program Files/Git/cmd/"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/notwe/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/"
+>>>>>>> Stashed changes
     searched_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/ninja.com"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/ninja.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/ninja-build"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/ninja.com"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/ninja.exe"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -91,31 +109,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -131,11 +158,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -151,31 +178,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -191,11 +227,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -211,31 +247,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -251,11 +296,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -271,31 +316,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -311,11 +365,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -331,31 +385,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -371,11 +434,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -391,31 +454,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -431,11 +503,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -451,31 +523,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -491,11 +572,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -511,31 +592,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -551,11 +641,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -571,31 +661,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -611,11 +710,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -631,31 +730,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -671,11 +779,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -691,31 +799,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -731,11 +848,11 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:468 (find_file)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:506 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     mode: "file"
     variable: "src_in"
@@ -751,31 +868,40 @@ events:
     names:
       - "CMakeCCompilerId.c.in"
     candidate_directories:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/"
-    found: "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeCCompilerId.c.in"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/"
+    found: "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
@@ -791,9 +917,9 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:86 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:86 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the C compiler is IAR using "" did not match "IAR .+ Compiler":
@@ -801,9 +927,9 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:86 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:86 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:122 (CMAKE_DETERMINE_COMPILER_ID)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the C compiler is IAR using "" did not match "IAR .+ Compiler":
@@ -811,8 +937,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:13 (project)"
     mode: "program"
     variable: "CMAKE_STRIP"
@@ -829,34 +955,43 @@ events:
       - "strip"
     candidate_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
       - "C:/Windows/System32/WindowsPowerShell/v1.0/"
       - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files/MATLAB/R2023b/bin/"
       - "C:/Program Files/Git/cmd/"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/notwe/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/"
+>>>>>>> Stashed changes
     searched_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/strip.com"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/strip.exe"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/strip"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/strip.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/strip.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/strip"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/strip.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/strip.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/strip"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/strip.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/strip.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/strip"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/strip.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/strip.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/strip"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/strip.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/strip.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/strip"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/strip.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/strip.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/strip"
       - "C:/Windows/System32/strip.com"
       - "C:/Windows/System32/strip.exe"
       - "C:/Windows/System32/strip"
@@ -872,18 +1007,16 @@ events:
       - "C:/Windows/System32/OpenSSH/strip.com"
       - "C:/Windows/System32/OpenSSH/strip.exe"
       - "C:/Windows/System32/OpenSSH/strip"
-      - "C:/Program Files/dotnet/strip.com"
-      - "C:/Program Files/dotnet/strip.exe"
-      - "C:/Program Files/dotnet/strip"
-      - "C:/Program Files/MATLAB/R2023b/bin/strip.com"
-      - "C:/Program Files/MATLAB/R2023b/bin/strip.exe"
-      - "C:/Program Files/MATLAB/R2023b/bin/strip"
       - "C:/Program Files/Git/cmd/strip.com"
       - "C:/Program Files/Git/cmd/strip.exe"
       - "C:/Program Files/Git/cmd/strip"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/strip.com"
       - "C:/Users/notwe/.local/bin/strip.exe"
       - "C:/Users/notwe/.local/bin/strip"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/strip.com"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/strip.exe"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/strip"
@@ -893,29 +1026,55 @@ events:
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/strip.com"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/strip.exe"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/strip"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/strip.com"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/strip.exe"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/strip"
+      - "C:/Program Files/dotnet/strip.com"
+      - "C:/Program Files/dotnet/strip.exe"
+      - "C:/Program Files/dotnet/strip"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/strip.com"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/strip.exe"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/strip"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/strip.com"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/strip.exe"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/strip"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/strip.com"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/strip.exe"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/strip"
+>>>>>>> Stashed changes
     found: false
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:13 (project)"
     mode: "program"
     variable: "CMAKE_LINKER"
@@ -932,34 +1091,43 @@ events:
       - "ld"
     candidate_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
       - "C:/Windows/System32/WindowsPowerShell/v1.0/"
       - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files/MATLAB/R2023b/bin/"
       - "C:/Program Files/Git/cmd/"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/notwe/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/"
+>>>>>>> Stashed changes
     searched_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/ld.com"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/ld.exe"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/ld"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/ld.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/ld.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/ld"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/ld.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/ld.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/ld"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ld.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ld.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ld"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/ld.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/ld.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/ld"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/ld.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/ld.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/ld"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ld.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ld.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/ld"
       - "C:/Windows/System32/ld.com"
       - "C:/Windows/System32/ld.exe"
       - "C:/Windows/System32/ld"
@@ -975,18 +1143,16 @@ events:
       - "C:/Windows/System32/OpenSSH/ld.com"
       - "C:/Windows/System32/OpenSSH/ld.exe"
       - "C:/Windows/System32/OpenSSH/ld"
-      - "C:/Program Files/dotnet/ld.com"
-      - "C:/Program Files/dotnet/ld.exe"
-      - "C:/Program Files/dotnet/ld"
-      - "C:/Program Files/MATLAB/R2023b/bin/ld.com"
-      - "C:/Program Files/MATLAB/R2023b/bin/ld.exe"
-      - "C:/Program Files/MATLAB/R2023b/bin/ld"
       - "C:/Program Files/Git/cmd/ld.com"
       - "C:/Program Files/Git/cmd/ld.exe"
       - "C:/Program Files/Git/cmd/ld"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/ld.com"
       - "C:/Users/notwe/.local/bin/ld.exe"
       - "C:/Users/notwe/.local/bin/ld"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/ld.com"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/ld.exe"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/ld"
@@ -996,29 +1162,55 @@ events:
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/ld.com"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/ld.exe"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/ld"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/ld.com"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/ld.exe"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/ld"
+      - "C:/Program Files/dotnet/ld.com"
+      - "C:/Program Files/dotnet/ld.exe"
+      - "C:/Program Files/dotnet/ld"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/ld.com"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/ld.exe"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/ld"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/ld.com"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/ld.exe"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/ld"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/ld.com"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/ld.exe"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/ld"
+>>>>>>> Stashed changes
     found: false
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:13 (project)"
     mode: "program"
     variable: "CMAKE_NM"
@@ -1035,34 +1227,43 @@ events:
       - "nm"
     candidate_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
       - "C:/Windows/System32/WindowsPowerShell/v1.0/"
       - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files/MATLAB/R2023b/bin/"
       - "C:/Program Files/Git/cmd/"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/notwe/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/"
+>>>>>>> Stashed changes
     searched_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/nm.com"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/nm.exe"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/nm"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/nm.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/nm.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/nm"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/nm.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/nm.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/nm"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/nm.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/nm.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/nm"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/nm.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/nm.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/nm"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/nm.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/nm.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/nm"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/nm.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/nm.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/nm"
       - "C:/Windows/System32/nm.com"
       - "C:/Windows/System32/nm.exe"
       - "C:/Windows/System32/nm"
@@ -1078,18 +1279,16 @@ events:
       - "C:/Windows/System32/OpenSSH/nm.com"
       - "C:/Windows/System32/OpenSSH/nm.exe"
       - "C:/Windows/System32/OpenSSH/nm"
-      - "C:/Program Files/dotnet/nm.com"
-      - "C:/Program Files/dotnet/nm.exe"
-      - "C:/Program Files/dotnet/nm"
-      - "C:/Program Files/MATLAB/R2023b/bin/nm.com"
-      - "C:/Program Files/MATLAB/R2023b/bin/nm.exe"
-      - "C:/Program Files/MATLAB/R2023b/bin/nm"
       - "C:/Program Files/Git/cmd/nm.com"
       - "C:/Program Files/Git/cmd/nm.exe"
       - "C:/Program Files/Git/cmd/nm"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/nm.com"
       - "C:/Users/notwe/.local/bin/nm.exe"
       - "C:/Users/notwe/.local/bin/nm"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/nm.com"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/nm.exe"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/nm"
@@ -1099,29 +1298,55 @@ events:
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/nm.com"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/nm.exe"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/nm"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/nm.com"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/nm.exe"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/nm"
+      - "C:/Program Files/dotnet/nm.com"
+      - "C:/Program Files/dotnet/nm.exe"
+      - "C:/Program Files/dotnet/nm"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/nm.com"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/nm.exe"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/nm"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/nm.com"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/nm.exe"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/nm"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/nm.com"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/nm.exe"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/nm"
+>>>>>>> Stashed changes
     found: false
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:13 (project)"
     mode: "program"
     variable: "CMAKE_OBJDUMP"
@@ -1138,34 +1363,43 @@ events:
       - "objdump"
     candidate_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
       - "C:/Windows/System32/WindowsPowerShell/v1.0/"
       - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files/MATLAB/R2023b/bin/"
       - "C:/Program Files/Git/cmd/"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/notwe/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/"
+>>>>>>> Stashed changes
     searched_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/objdump.com"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/objdump.exe"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/objdump"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/objdump.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/objdump.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/objdump"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/objdump.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/objdump.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/objdump"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objdump.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objdump.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objdump"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/objdump.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/objdump.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/objdump"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/objdump.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/objdump.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/objdump"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objdump.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objdump.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objdump"
       - "C:/Windows/System32/objdump.com"
       - "C:/Windows/System32/objdump.exe"
       - "C:/Windows/System32/objdump"
@@ -1181,18 +1415,16 @@ events:
       - "C:/Windows/System32/OpenSSH/objdump.com"
       - "C:/Windows/System32/OpenSSH/objdump.exe"
       - "C:/Windows/System32/OpenSSH/objdump"
-      - "C:/Program Files/dotnet/objdump.com"
-      - "C:/Program Files/dotnet/objdump.exe"
-      - "C:/Program Files/dotnet/objdump"
-      - "C:/Program Files/MATLAB/R2023b/bin/objdump.com"
-      - "C:/Program Files/MATLAB/R2023b/bin/objdump.exe"
-      - "C:/Program Files/MATLAB/R2023b/bin/objdump"
       - "C:/Program Files/Git/cmd/objdump.com"
       - "C:/Program Files/Git/cmd/objdump.exe"
       - "C:/Program Files/Git/cmd/objdump"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/objdump.com"
       - "C:/Users/notwe/.local/bin/objdump.exe"
       - "C:/Users/notwe/.local/bin/objdump"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/objdump.com"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/objdump.exe"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/objdump"
@@ -1202,29 +1434,55 @@ events:
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/objdump.com"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/objdump.exe"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/objdump"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/objdump.com"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/objdump.exe"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/objdump"
+      - "C:/Program Files/dotnet/objdump.com"
+      - "C:/Program Files/dotnet/objdump.exe"
+      - "C:/Program Files/dotnet/objdump"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/objdump.com"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/objdump.exe"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/objdump"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/objdump.com"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/objdump.exe"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/objdump"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/objdump.com"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/objdump.exe"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/objdump"
+>>>>>>> Stashed changes
     found: false
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:13 (project)"
     mode: "program"
     variable: "CMAKE_OBJCOPY"
@@ -1241,34 +1499,43 @@ events:
       - "objcopy"
     candidate_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
       - "C:/Windows/System32/WindowsPowerShell/v1.0/"
       - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files/MATLAB/R2023b/bin/"
       - "C:/Program Files/Git/cmd/"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/notwe/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/"
+>>>>>>> Stashed changes
     searched_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/objcopy.com"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/objcopy.exe"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/objcopy"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/objcopy.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/objcopy.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/objcopy"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/objcopy.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/objcopy.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/objcopy"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objcopy.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objcopy.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objcopy"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/objcopy.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/objcopy.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/objcopy"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/objcopy.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/objcopy.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/objcopy"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objcopy.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objcopy.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/objcopy"
       - "C:/Windows/System32/objcopy.com"
       - "C:/Windows/System32/objcopy.exe"
       - "C:/Windows/System32/objcopy"
@@ -1284,18 +1551,16 @@ events:
       - "C:/Windows/System32/OpenSSH/objcopy.com"
       - "C:/Windows/System32/OpenSSH/objcopy.exe"
       - "C:/Windows/System32/OpenSSH/objcopy"
-      - "C:/Program Files/dotnet/objcopy.com"
-      - "C:/Program Files/dotnet/objcopy.exe"
-      - "C:/Program Files/dotnet/objcopy"
-      - "C:/Program Files/MATLAB/R2023b/bin/objcopy.com"
-      - "C:/Program Files/MATLAB/R2023b/bin/objcopy.exe"
-      - "C:/Program Files/MATLAB/R2023b/bin/objcopy"
       - "C:/Program Files/Git/cmd/objcopy.com"
       - "C:/Program Files/Git/cmd/objcopy.exe"
       - "C:/Program Files/Git/cmd/objcopy"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/objcopy.com"
       - "C:/Users/notwe/.local/bin/objcopy.exe"
       - "C:/Users/notwe/.local/bin/objcopy"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/objcopy.com"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/objcopy.exe"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/objcopy"
@@ -1305,29 +1570,55 @@ events:
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/objcopy.com"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/objcopy.exe"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/objcopy"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/objcopy.com"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/objcopy.exe"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/objcopy"
+      - "C:/Program Files/dotnet/objcopy.com"
+      - "C:/Program Files/dotnet/objcopy.exe"
+      - "C:/Program Files/dotnet/objcopy"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/objcopy.com"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/objcopy.exe"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/objcopy"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/objcopy.com"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/objcopy.exe"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/objcopy"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/objcopy.com"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/objcopy.exe"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/objcopy"
+>>>>>>> Stashed changes
     found: false
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:13 (project)"
     mode: "program"
     variable: "CMAKE_READELF"
@@ -1344,34 +1635,43 @@ events:
       - "readelf"
     candidate_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
       - "C:/Windows/System32/WindowsPowerShell/v1.0/"
       - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files/MATLAB/R2023b/bin/"
       - "C:/Program Files/Git/cmd/"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/notwe/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/"
+>>>>>>> Stashed changes
     searched_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/readelf.com"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/readelf.exe"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/readelf"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/readelf.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/readelf.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/readelf"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/readelf.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/readelf.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/readelf"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/readelf.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/readelf.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/readelf"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/readelf.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/readelf.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/readelf"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/readelf.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/readelf.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/readelf"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/readelf.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/readelf.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/readelf"
       - "C:/Windows/System32/readelf.com"
       - "C:/Windows/System32/readelf.exe"
       - "C:/Windows/System32/readelf"
@@ -1387,18 +1687,16 @@ events:
       - "C:/Windows/System32/OpenSSH/readelf.com"
       - "C:/Windows/System32/OpenSSH/readelf.exe"
       - "C:/Windows/System32/OpenSSH/readelf"
-      - "C:/Program Files/dotnet/readelf.com"
-      - "C:/Program Files/dotnet/readelf.exe"
-      - "C:/Program Files/dotnet/readelf"
-      - "C:/Program Files/MATLAB/R2023b/bin/readelf.com"
-      - "C:/Program Files/MATLAB/R2023b/bin/readelf.exe"
-      - "C:/Program Files/MATLAB/R2023b/bin/readelf"
       - "C:/Program Files/Git/cmd/readelf.com"
       - "C:/Program Files/Git/cmd/readelf.exe"
       - "C:/Program Files/Git/cmd/readelf"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/readelf.com"
       - "C:/Users/notwe/.local/bin/readelf.exe"
       - "C:/Users/notwe/.local/bin/readelf"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/readelf.com"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/readelf.exe"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/readelf"
@@ -1408,29 +1706,55 @@ events:
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/readelf.com"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/readelf.exe"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/readelf"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/readelf.com"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/readelf.exe"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/readelf"
+      - "C:/Program Files/dotnet/readelf.com"
+      - "C:/Program Files/dotnet/readelf.exe"
+      - "C:/Program Files/dotnet/readelf"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/readelf.com"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/readelf.exe"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/readelf"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/readelf.com"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/readelf.exe"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/readelf"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/readelf.com"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/readelf.exe"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/readelf"
+>>>>>>> Stashed changes
     found: false
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:13 (project)"
     mode: "program"
     variable: "CMAKE_DLLTOOL"
@@ -1447,34 +1771,43 @@ events:
       - "dlltool"
     candidate_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
       - "C:/Windows/System32/WindowsPowerShell/v1.0/"
       - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files/MATLAB/R2023b/bin/"
       - "C:/Program Files/Git/cmd/"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/notwe/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/"
+>>>>>>> Stashed changes
     searched_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/dlltool.com"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/dlltool.exe"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/dlltool"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/dlltool.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/dlltool.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/dlltool"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/dlltool.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/dlltool.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/dlltool"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/dlltool.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/dlltool.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/dlltool"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/dlltool.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/dlltool.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/dlltool"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/dlltool.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/dlltool.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/dlltool"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/dlltool.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/dlltool.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/dlltool"
       - "C:/Windows/System32/dlltool.com"
       - "C:/Windows/System32/dlltool.exe"
       - "C:/Windows/System32/dlltool"
@@ -1490,18 +1823,16 @@ events:
       - "C:/Windows/System32/OpenSSH/dlltool.com"
       - "C:/Windows/System32/OpenSSH/dlltool.exe"
       - "C:/Windows/System32/OpenSSH/dlltool"
-      - "C:/Program Files/dotnet/dlltool.com"
-      - "C:/Program Files/dotnet/dlltool.exe"
-      - "C:/Program Files/dotnet/dlltool"
-      - "C:/Program Files/MATLAB/R2023b/bin/dlltool.com"
-      - "C:/Program Files/MATLAB/R2023b/bin/dlltool.exe"
-      - "C:/Program Files/MATLAB/R2023b/bin/dlltool"
       - "C:/Program Files/Git/cmd/dlltool.com"
       - "C:/Program Files/Git/cmd/dlltool.exe"
       - "C:/Program Files/Git/cmd/dlltool"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/dlltool.com"
       - "C:/Users/notwe/.local/bin/dlltool.exe"
       - "C:/Users/notwe/.local/bin/dlltool"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/dlltool.com"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/dlltool.exe"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/dlltool"
@@ -1511,29 +1842,55 @@ events:
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/dlltool.com"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/dlltool.exe"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/dlltool"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/dlltool.com"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/dlltool.exe"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/dlltool"
+      - "C:/Program Files/dotnet/dlltool.com"
+      - "C:/Program Files/dotnet/dlltool.exe"
+      - "C:/Program Files/dotnet/dlltool"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/dlltool.com"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/dlltool.exe"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/dlltool"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/dlltool.com"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/dlltool.exe"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/dlltool"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/dlltool.com"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/dlltool.exe"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/dlltool"
+>>>>>>> Stashed changes
     found: false
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:13 (project)"
     mode: "program"
     variable: "CMAKE_ADDR2LINE"
@@ -1550,34 +1907,43 @@ events:
       - "addr2line"
     candidate_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
       - "C:/Windows/System32/WindowsPowerShell/v1.0/"
       - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files/MATLAB/R2023b/bin/"
       - "C:/Program Files/Git/cmd/"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/notwe/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/"
+>>>>>>> Stashed changes
     searched_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/addr2line.com"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/addr2line.exe"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/addr2line"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/addr2line.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/addr2line.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/addr2line"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/addr2line.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/addr2line.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/addr2line"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/addr2line.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/addr2line.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/addr2line"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/addr2line.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/addr2line.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/addr2line"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/addr2line.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/addr2line.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/addr2line"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/addr2line.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/addr2line.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/addr2line"
       - "C:/Windows/System32/addr2line.com"
       - "C:/Windows/System32/addr2line.exe"
       - "C:/Windows/System32/addr2line"
@@ -1593,18 +1959,16 @@ events:
       - "C:/Windows/System32/OpenSSH/addr2line.com"
       - "C:/Windows/System32/OpenSSH/addr2line.exe"
       - "C:/Windows/System32/OpenSSH/addr2line"
-      - "C:/Program Files/dotnet/addr2line.com"
-      - "C:/Program Files/dotnet/addr2line.exe"
-      - "C:/Program Files/dotnet/addr2line"
-      - "C:/Program Files/MATLAB/R2023b/bin/addr2line.com"
-      - "C:/Program Files/MATLAB/R2023b/bin/addr2line.exe"
-      - "C:/Program Files/MATLAB/R2023b/bin/addr2line"
       - "C:/Program Files/Git/cmd/addr2line.com"
       - "C:/Program Files/Git/cmd/addr2line.exe"
       - "C:/Program Files/Git/cmd/addr2line"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/addr2line.com"
       - "C:/Users/notwe/.local/bin/addr2line.exe"
       - "C:/Users/notwe/.local/bin/addr2line"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/addr2line.com"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/addr2line.exe"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/addr2line"
@@ -1614,29 +1978,55 @@ events:
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/addr2line.com"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/addr2line.exe"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/addr2line"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/addr2line.com"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/addr2line.exe"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/addr2line"
+      - "C:/Program Files/dotnet/addr2line.com"
+      - "C:/Program Files/dotnet/addr2line.exe"
+      - "C:/Program Files/dotnet/addr2line"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/addr2line.com"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/addr2line.exe"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/addr2line"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/addr2line.com"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/addr2line.exe"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/addr2line"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/addr2line.com"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/addr2line.exe"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/addr2line"
+>>>>>>> Stashed changes
     found: false
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "find-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:13 (project)"
     mode: "program"
     variable: "CMAKE_TAPI"
@@ -1653,34 +2043,43 @@ events:
       - "tapi"
     candidate_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/"
       - "C:/Windows/System32/"
       - "C:/Windows/"
       - "C:/Windows/System32/wbem/"
       - "C:/Windows/System32/WindowsPowerShell/v1.0/"
       - "C:/Windows/System32/OpenSSH/"
-      - "C:/Program Files/dotnet/"
-      - "C:/Program Files/MATLAB/R2023b/bin/"
       - "C:/Program Files/Git/cmd/"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/"
       - "C:/Users/notwe/AppData/Local/Programs/Microsoft VS Code/bin/"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/"
+>>>>>>> Stashed changes
     searched_directories:
       - "c:/Program Files/Microchip/xc8/v3.10/bin/tapi.com"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/tapi.exe"
       - "c:/Program Files/Microchip/xc8/v3.10/bin/tapi"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/tapi.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/tapi.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/ninja/v1.13.2/tapi"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/tapi.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/tapi.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/make/v4.4.1/windows/tapi"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/tapi.com"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/tapi.exe"
-      - "C:/Users/notwe/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/tapi"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/tapi.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/tapi.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/ninja/v1.13.2/tapi"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/tapi.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/tapi.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/make/v4.4.1/windows/tapi"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/tapi.com"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/tapi.exe"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/hexmate/v3.00/dist/win/bin/tapi"
       - "C:/Windows/System32/tapi.com"
       - "C:/Windows/System32/tapi.exe"
       - "C:/Windows/System32/tapi"
@@ -1696,18 +2095,16 @@ events:
       - "C:/Windows/System32/OpenSSH/tapi.com"
       - "C:/Windows/System32/OpenSSH/tapi.exe"
       - "C:/Windows/System32/OpenSSH/tapi"
-      - "C:/Program Files/dotnet/tapi.com"
-      - "C:/Program Files/dotnet/tapi.exe"
-      - "C:/Program Files/dotnet/tapi"
-      - "C:/Program Files/MATLAB/R2023b/bin/tapi.com"
-      - "C:/Program Files/MATLAB/R2023b/bin/tapi.exe"
-      - "C:/Program Files/MATLAB/R2023b/bin/tapi"
       - "C:/Program Files/Git/cmd/tapi.com"
       - "C:/Program Files/Git/cmd/tapi.exe"
       - "C:/Program Files/Git/cmd/tapi"
+<<<<<<< Updated upstream
       - "C:/Users/notwe/.local/bin/tapi.com"
       - "C:/Users/notwe/.local/bin/tapi.exe"
       - "C:/Users/notwe/.local/bin/tapi"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/tapi.com"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/tapi.exe"
       - "C:/Users/notwe/AppData/Local/Microsoft/WindowsApps/tapi"
@@ -1717,29 +2114,55 @@ events:
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/tapi.com"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/tapi.exe"
       - "C:/Users/notwe/AppData/Local/GitHubDesktop/bin/tapi"
+=======
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/tapi.com"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/tapi.exe"
+      - "C:/Program Files/Microchip/xc8/v3.10/bin/tapi"
+      - "C:/Program Files/dotnet/tapi.com"
+      - "C:/Program Files/dotnet/tapi.exe"
+      - "C:/Program Files/dotnet/tapi"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/tapi.com"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/tapi.exe"
+      - "C:/Users/mediocre/AppData/Local/Microsoft/WindowsApps/tapi"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/tapi.com"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/tapi.exe"
+      - "C:/Users/mediocre/AppData/Local/Programs/Microsoft VS Code/bin/tapi"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/tapi.com"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/tapi.exe"
+      - "C:/Users/mediocre/AppData/Local/GitHubDesktop/bin/tapi"
+>>>>>>> Stashed changes
     found: false
     search_context:
       ENV{PATH}:
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
-        - "C:\\Users\\notwe\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
-        - "C:\\WINDOWS\\system32"
-        - "C:\\WINDOWS"
-        - "C:\\WINDOWS\\System32\\Wbem"
-        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
-        - "C:\\WINDOWS\\System32\\OpenSSH\\"
-        - "C:\\Program Files\\dotnet\\"
-        - "C:\\Program Files\\MATLAB\\R2023b\\bin"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\ninja\\v1.13.2"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\make\\v4.4.1\\windows"
+        - "C:\\Users\\mediocre\\.mplab\\app-finder\\apps\\hexmate\\v3.00\\dist\\win\\bin"
+        - "C:\\Windows\\system32"
+        - "C:\\Windows"
+        - "C:\\Windows\\System32\\Wbem"
+        - "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\Windows\\System32\\OpenSSH\\"
         - "C:\\Program Files\\Git\\cmd"
+<<<<<<< Updated upstream
         - "C:\\Users\\notwe\\.local\\bin"
+=======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         - "C:\\Users\\notwe\\AppData\\Local\\Microsoft\\WindowsApps"
         - "C:\\Users\\notwe\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
         - "C:\\Users\\notwe\\AppData\\Local\\GitHubDesktop\\bin"
+=======
+        - "C:\\Program Files\\Microchip\\xc8\\v3.10\\bin"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\mediocre\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\mediocre\\AppData\\Local\\GitHubDesktop\\bin"
+>>>>>>> Stashed changes
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is GNU using "--version" did not match "(GNU assembler)|(GCC)|(Free Software Foundation)":
@@ -1749,8 +2172,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is AppleClang using "--version" did not match "(Apple (clang|LLVM) version)":
@@ -1760,8 +2183,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is Clang using "--version" did not match "(clang version)":
@@ -1771,8 +2194,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is ARMClang using "--version" did not match "armclang":
@@ -1782,8 +2205,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is OrangeC using "--version" did not match "occ \\(OrangeC\\) Version":
@@ -1793,8 +2216,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is HP using "-V" did not match "HP C":
@@ -1802,8 +2225,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is Intel using "--version" did not match "(ICC)":
@@ -1813,8 +2236,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is IntelLLVM using "--version" did not match "(Intel[^
@@ -1825,8 +2248,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is SunPro using "-V" did not match "Sun C":
@@ -1834,8 +2257,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is XL using "-qversion" did not match "XL C":
@@ -1843,8 +2266,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is MSVC using "-?" did not match "Microsoft":
@@ -1852,8 +2275,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is TI using "-h" did not match "Texas Instruments":
@@ -1861,8 +2284,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is TIClang using "--version" did not match "(TI (.*) Clang Compiler)":
@@ -1872,8 +2295,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is IAR using "" did not match "IAR Assembler":
@@ -1881,8 +2304,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is Diab using "-V" did not match "Wind River Systems":
@@ -1890,8 +2313,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is ARMCC using "" did not match "(ARM Compiler)|(ARM Assembler)|(Arm Compiler)":
@@ -1899,8 +2322,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is NASM using "-v" did not match "(NASM version)":
@@ -1908,8 +2331,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is YASM using "--version" did not match "(yasm)":
@@ -1919,8 +2342,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is ADSP using "-version" did not match "Analog Devices":
@@ -1928,8 +2351,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is QCC using "-V" did not match "gcc_nto":
@@ -1937,8 +2360,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is Tasking using "--version" did not match "TASKING":
@@ -1948,8 +2371,8 @@ events:
   -
     kind: "message-v1"
     backtrace:
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:1303 (message)"
-      - "C:/Users/notwe/.mplab/app-finder/apps/cmake/v4.2.3/cmake-4.2.3-windows-x86_64/share/cmake-4.2/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineCompilerId.cmake:1309 (message)"
+      - "C:/Users/mediocre/.mplab/app-finder/apps/cmake/v4.3.2/cmake-4.3.2-windows-x86_64/share/cmake-4.3/Modules/CMakeDetermineASMCompiler.cmake:170 (CMAKE_DETERMINE_COMPILER_ID_VENDOR)"
       - "CMakeLists.txt:13 (project)"
     message: |
       Checking whether the ASM compiler is Renesas using "-v" did not match "(RX Family C/C\\+\\+ Compiler)|(RL78 Family Compiler)|(RH850 Family Compiler)":
