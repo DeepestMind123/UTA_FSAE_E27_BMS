@@ -24,6 +24,21 @@ Package-*
 *.elf
 *.hex
 *.cof
+*.slo
+
+# ~~~ Compiled Libraries ~~~
+*.dylib
+*.dll
+*.so
+*.lai
+*.la
+*.a
+*.lib
+
+# ~~~ Executables ~~~
+*.exe
+*.out
+*.app
 
 # ~~~ CMake & Ninja ~~~
 cmake/
