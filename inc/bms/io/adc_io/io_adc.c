@@ -51,13 +51,11 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
     {
         if(p_inst->is_init)
         {
-            if(p_inst->state >= ADC_STATE_MAX)
-                p_inst->state = ADC_STATE_UNDEFINED;
-                
             switch(p_inst->state)
             {
                 case ADC_STATE_IDLE:
                 {
+
                 // indicates that the adc is not busy
 
                 break;
@@ -171,7 +169,7 @@ adc_status_t IO_ADC_Start(io_adc_t *p_inst)
     return status;
 }
 
-adc_status_t IO_ADC_Get_Val(io_adc_t *p_inst, uint32_t *p_out)
+adc_status_t IO_ADC_Get_Val(io_adc_t *p_inst, uint16_t *p_out)
 {
     adc_status_t status = ADC_STATUS_OK;
 
@@ -226,29 +224,6 @@ adc_status_t IO_ADC_Get_Resolution(io_adc_t *p_inst, uint16_t *p_out)
     return status;
 }
 
-adc_status_t IO_ADC_Set_Offset(io_adc_t *p_inst, int16_t new_val)
-{
-    adc_status_t status = ADC_STATUS_OK;
-
-    if(p_inst != NULL)
-    {
-        if(p_inst->is_init)
-        {
-            p_inst->set_offset = new_val;
-        }
-        else 
-        {
-            status = ADC_STATUS_ERROR_NOT_INIT;
-        }
-    }
-    else 
-    {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
-    }
-
-    return status;
-}
-
 adc_status_t IO_ADC_Get_Offset(io_adc_t *p_inst, int16_t *p_out)
 {
     adc_status_t status = ADC_STATUS_OK;
@@ -274,6 +249,29 @@ adc_status_t IO_ADC_Get_Offset(io_adc_t *p_inst, int16_t *p_out)
     }
 
     return status;  
+}
+
+adc_status_t IO_ADC_Set_Offset(io_adc_t *p_inst, int16_t new_val)
+{
+    adc_status_t status = ADC_STATUS_OK;
+
+    if(p_inst != NULL)
+    {
+        if(p_inst->is_init)
+        {
+            p_inst->set_offset = new_val;
+        }
+        else 
+        {
+            status = ADC_STATUS_ERROR_NOT_INIT;
+        }
+    }
+    else 
+    {
+        status = ADC_STATUS_ERROR_NULL_POINTER;
+    }
+
+    return status;
 }
 
 adc_status_t IO_ADC_Get_Vref(io_adc_t *p_inst, uint16_t *p_out)

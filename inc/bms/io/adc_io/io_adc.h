@@ -22,14 +22,13 @@ typedef enum
 
 typedef enum
 {
-    ADC_STATE_UNDEFINED = 0,
-    ADC_STATE_IDLE,   // adc not taking data
+    ADC_STATE_IDLE = 0,   // adc not taking data
     ADC_STATE_START,      // start adc if necessary
     ADC_STATE_WAIT,       // wait for adc conversion
     ADC_STATE_GET,        // get measurement and stop adc if necessary; process current
     ADC_STATE_READY,
     ADC_STATE_ERROR,
-    ADC_STATE_MAX
+    ADC_STATE_UNDEFINED
 } adc_state_t;
 
 typedef struct
@@ -69,13 +68,13 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst);
 
 adc_status_t IO_ADC_Start(io_adc_t *p_inst);
 
-adc_status_t IO_ADC_Get_Val(io_adc_t *p_inst, uint32_t *p_out);
+adc_status_t IO_ADC_Get_Val(io_adc_t *p_inst, uint16_t *p_out);
 
 adc_status_t IO_ADC_Get_Resolution(io_adc_t *p_inst, uint16_t *p_out);
 
-adc_status_t IO_ADC_Set_Offset(io_adc_t *p_inst, int16_t new_val);
-
 adc_status_t IO_ADC_Get_Offset(io_adc_t *p_inst, int16_t *p_out);
+
+adc_status_t IO_ADC_Set_Offset(io_adc_t *p_inst, int16_t new_val);
 
 adc_status_t IO_ADC_Get_Vref(io_adc_t *p_inst, uint16_t *p_out);
 
