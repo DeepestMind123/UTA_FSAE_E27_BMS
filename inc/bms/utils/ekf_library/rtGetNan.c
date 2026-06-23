@@ -18,7 +18,7 @@
  */
 
 #include "rtGetNaN.h"
-
+#include "rt_nonfinite.h"
 
 /* Return rtNaN needed by the generated code. */
 real_T rtGetNaN(void)

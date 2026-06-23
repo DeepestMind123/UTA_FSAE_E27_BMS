@@ -17,9 +17,7 @@ typedef enum
 typedef const struct
 {
     void(*spi_cs_high)(uint8_t cs_pin);
-
     void(*spi_cs_low)(uint8_t cs_pin);
-
     uint8_t(*spi_byte_exchange)(uint8_t data);
 
 } io_spi_cfg_t;
@@ -27,9 +25,7 @@ typedef const struct
 typedef struct
 {
     bool is_init;
-
     spi_status_t status;
-
     io_spi_cfg_t *cfg;
 
 } io_spi_t;

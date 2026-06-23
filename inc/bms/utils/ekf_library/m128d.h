@@ -7,10 +7,10 @@
  * This keeps the merged file buildable on non-x86 targets, although it is not
  * speed-optimized. On an embedded target, benchmark CPU time and stack usage.
  */
-typedef struct { double v[2]; } e27_m128d_T;
+typedef struct { float v[2]; } e27_m128d_T;
 #define __m128d e27_m128d_T
 
-static __m128d _mm_loadu_pd(const double *p)
+static __m128d _mm_loadu_pd(const float *p)
 {
   __m128d r;
   r.v[0] = p[0];
@@ -18,13 +18,13 @@ static __m128d _mm_loadu_pd(const double *p)
   return r;
 }
 
-static void _mm_storeu_pd(double *p, __m128d a)
+static void _mm_storeu_pd(float *p, __m128d a)
 {
   p[0] = a.v[0];
   p[1] = a.v[1];
 }
 
-static __m128d _mm_set1_pd(double x)
+static __m128d _mm_set1_pd(float x)
 {
   __m128d r;
   r.v[0] = x;
@@ -32,7 +32,7 @@ static __m128d _mm_set1_pd(double x)
   return r;
 }
 
-static __m128d _mm_set_pd(double high, double low)
+static __m128d _mm_set_pd(float high, float low)
 {
   __m128d r;
   r.v[0] = low;

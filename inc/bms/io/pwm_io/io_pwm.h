@@ -15,8 +15,8 @@
 typedef enum
 {
     PWM_STATUS_OK = 0,
-    PWM_STATUS_ERROR_NOT_INIT,
-    PWM_STATUS_ERROR_NULL_POINTER
+    PWM_STATUS_ERROR_NULL_POINTER,
+    PWM_STATUS_ERROR_NOT_INIT
 } pwm_status_t;
 
 typedef const struct
@@ -33,7 +33,7 @@ typedef struct
 
     pwm_status_t status;
 
-    io_pwm_cfg_t *cfg
+    io_pwm_cfg_t *cfg;
 
 } io_pwm_t;
 
