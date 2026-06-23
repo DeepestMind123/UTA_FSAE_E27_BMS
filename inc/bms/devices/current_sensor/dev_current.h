@@ -81,9 +81,9 @@ current_status_t DEV_Current_Get_Wait(dev_current_t *p_inst, uint32_t *p_out);
 
 current_status_t DEV_Current_Get_Gain(dev_current_t *p_inst, int32_t *p_out);
 
-current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint32_t *p_out);
+current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint16_t *p_out);
 
-current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int32_t *p_out);
+current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int16_t *p_out);
 
 current_status_t DEV_Current_Get_State(dev_current_t *p_inst, current_state_t *p_out);
 

@@ -1,5 +1,5 @@
 /**
- * @file DEV_current.h
+ * @file DEV_current.c
  * @author notwe
  * @date 2026-05-03
  * @brief current sensor device driver source
@@ -275,7 +275,7 @@ current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst)
     {
         if(p_inst->is_init)
         {
-            uint32_t raw = 0U;
+            uint16_t raw = 0U;
 
             uint16_t vref = 0U;
 
@@ -389,30 +389,34 @@ current_status_t DEV_Current_Get_Gain(dev_current_t *p_inst, int32_t *p_out)
     return status;
 }
 
-current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint32_t *p_out)
+current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint16_t *p_out)
 {
     current_status_t status = CURRENT_STATUS_OK;
 
     adc_status_t adc_status;
 
-    int64_t raw = 0; // large unsigned integer (long long) so as to not lose accuracy
+    uint16_t raw;
+
+    int32_t large_raw = 0; // large unsigned integer (long long) so as to not lose accuracy
 
     if((p_inst != NULL) && (p_inst->adc_inst != NULL))
     {
         if(p_inst->is_init)
         {
-            adc_status = (int64_t)IO_ADC_Get_Val(p_inst->adc_inst, &raw);
+            adc_status = IO_ADC_Get_Val(p_inst->adc_inst, &raw);
 
             if(adc_status != ADC_STATUS_OK)
             {
                 status = CURRENT_STATUS_ERROR_ADC_ERROR;
             }
 
-            raw -= (int64_t)p_inst->raw_offset; 
+            large_raw = (int32_t)raw;
 
-            if(raw < 0)
+            large_raw -= (int32_t)p_inst->raw_offset; 
+
+            if(large_raw < 0)
             {
-                raw = 0; // value clamping;
+                large_raw = 0; // value clamping;
             }
         }
         else 
@@ -425,12 +429,12 @@ current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint32_t *p_out)
         status = CURRENT_STATUS_ERROR_NULL_POINTER;
     }
 
-    *p_out = (uint32_t)raw;
+    *p_out = (uint16_t)large_raw;
 
     return status;
 }
 
-current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int32_t *p_out)
+current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int16_t *p_out)
 {
     current_status_t status = CURRENT_STATUS_OK;
 
