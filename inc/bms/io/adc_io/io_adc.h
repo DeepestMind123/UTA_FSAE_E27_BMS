@@ -55,7 +55,7 @@ typedef struct
     int16_t set_offset;                     // basically just the calibrated value of offset
     uint32_t start_time;
     bool is_init;
-    bool ready_flag;
+    bool is_ready;
     adc_state_t state;                      // stores instanced state
     
     const io_adc_cfg_t *cfg;
@@ -81,5 +81,7 @@ adc_status_t IO_ADC_Get_Vref(io_adc_t *p_inst, uint16_t *p_out);
 adc_status_t IO_ADC_Get_State(io_adc_t *p_inst, adc_state_t *p_out);
 
 adc_status_t IO_ADC_Get_Timeout(io_adc_t *p_inst, uint32_t *p_out);
+
+adc_status_t IO_ADC_Get_Ready_Flag(io_adc_t *p_isnt, bool *p_out);
 
 #endif

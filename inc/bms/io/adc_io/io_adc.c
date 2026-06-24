@@ -25,7 +25,7 @@ adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg)
 
             p_inst->set_offset = p_inst->cfg->adc_offset;
 
-            p_inst->ready_flag = false;
+            p_inst->is_ready = false;
 
             p_inst->is_init = true;
 
@@ -75,7 +75,7 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
                     // start adc measurement on selected channel
                     p_inst->cfg->ADC_start();
 
-                    p_inst->ready_flag = false;
+                    p_inst->is_ready = false;
 
                     p_inst->start_time = UTIL_Time_Get_Tick();
 
@@ -120,7 +120,7 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
 
                 case ADC_STATE_READY:
                 {
-                    p_inst->ready_flag = true;
+                    p_inst->is_ready = true;
 
                     p_inst->state = ADC_STATE_IDLE;
 
@@ -360,6 +360,31 @@ adc_status_t IO_ADC_Get_Timeout(io_adc_t *p_inst, uint32_t *p_out)
         *p_out = timeout;
     }
     else 
+    {
+        status = ADC_STATUS_ERROR_NULL_POINTER;
+    }
+
+    return status;
+}
+
+adc_status_t IO_ADC_Get_Ready_Flag(io_adc_t *p_inst, bool *p_out)
+{
+    adc_status_t status = ADC_STATUS_OK;
+
+    bool flag = false;
+
+    if((p_inst != NULL) && (p_out != NULL))
+    {
+        if(p_inst->is_init)
+        {
+            flag = p_inst->is_ready;
+        }
+        else
+        {
+            status = ADC_STATUS_ERROR_NOT_INIT;
+        }
+    }
+    else
     {
         status = ADC_STATUS_ERROR_NULL_POINTER;
     }
