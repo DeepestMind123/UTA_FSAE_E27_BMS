@@ -61,6 +61,7 @@ typedef struct
 
     bool is_init;
     bool val_diff;
+    bool is_ready;
 
     io_adc_t *adc_inst;
     current_status_t status;
@@ -77,18 +78,20 @@ current_status_t DEV_Current_Start(dev_current_t *p_inst);
 
 current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst);      // process raw current value to get current in mA
 
+current_status_t DEV_Current_Set_Timeout(dev_current_t *p_inst, uint32_t new_val);
+
 current_status_t DEV_Current_Get_Wait(dev_current_t *p_inst, uint32_t *p_out);
 
 current_status_t DEV_Current_Get_Gain(dev_current_t *p_inst, int32_t *p_out);
 
-current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint32_t *p_out);
+current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint16_t *p_out);
 
-current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int32_t *p_out);
+current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int16_t *p_out);
 
 current_status_t DEV_Current_Get_State(dev_current_t *p_inst, current_state_t *p_out);
 
 current_status_t DEV_Current_Get_Data_Diff(dev_current_t *p_inst, bool *p_out);
 
-current_status_t DEV_Current_Set_Timeout(dev_current_t *p_inst, uint32_t new_val);
+current_status_t DEV_Current_Get_Ready_Flag(dev_current_t *p_inst, bool *p_out);
 
 #endif 

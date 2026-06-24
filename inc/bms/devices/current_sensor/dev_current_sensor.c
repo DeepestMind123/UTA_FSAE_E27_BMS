@@ -1,11 +1,11 @@
 /**
- * @file DEV_current.h
+ * @file DEV_current.c
  * @author notwe
  * @date 2026-05-03
  * @brief current sensor device driver source
  */
 
-#include "dev_current.h"
+#include "dev_current_sensor.h"
 
 current_status_t DEV_Current_Init(dev_current_t *p_inst, const dev_current_cfg_t *p_cfg, const io_adc_t *p_adc_inst)
 {
@@ -26,6 +26,7 @@ current_status_t DEV_Current_Init(dev_current_t *p_inst, const dev_current_cfg_t
         p_inst->adc_timeout_ms = p_inst->adc_inst->cfg->adc_timeout;
 
         p_inst->val_diff = false;
+        p_inst->is_ready = false;
         p_inst->is_init = true;
 
         // Exit here if initialization is successful
@@ -45,6 +46,7 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
 
     adc_state_t adc_state;
     adc_status_t adc_status;
+    bool adc_ready;
 
     uint32_t now_time;
 
@@ -52,6 +54,14 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
     {
         if(p_inst->is_init)
         {
+
+            if(IO_ADC_Task(p_inst->adc_inst) != ADC_STATUS_OK)
+            {
+                status = CURRENT_STATUS_ERROR_ADC_ERROR;
+
+                p_inst->state = CURRENT_STATE_ERROR;
+            }
+
             if(p_inst->state >= CURRENT_STATE_MAX)
             {
                 p_inst->state = CURRENT_STATE_UNDEFINED;
@@ -63,7 +73,7 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
                 {
                     now_time = UTIL_Time_Get_Tick();
 
-                    if(now_time - p_inst->start_time > p_inst->current_timeout)
+                    if(now_time - p_inst->start_time >= p_inst->current_timeout)
                     {
                         status = CURRENT_STATUS_ERROR_TIMEOUT;
 
@@ -75,13 +85,14 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
 
                 case CURRENT_STATE_START:
                 {
+                    p_inst->is_ready = false;
+
                     adc_status = IO_ADC_Get_State(p_inst->adc_inst, &adc_state);
 
                     if(adc_status == ADC_STATUS_OK)
                     {
                         if(adc_state == ADC_STATE_IDLE)
                         {
-
                             // Start ADC and switch states if no error
                             if(IO_ADC_Start(p_inst->adc_inst) == ADC_STATUS_OK)
                             {
@@ -120,21 +131,12 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
                     // Check if time elapsed is less than the ADC timeout 
                     if(now_time - p_inst->start_time <= p_inst->adc_timeout_ms)
                     {
-                        adc_status = IO_ADC_Get_State(p_inst->adc_inst, &adc_state);
+                        adc_status = IO_ADC_Get_Ready_Flag(p_inst->adc_inst, &adc_ready);
 
                         if(adc_status == ADC_STATUS_OK)
                         {
                             // Switches state if ADC returns ready
-                            if(adc_state != ADC_STATE_READY)
-                            {
-                                if(IO_ADC_Task(p_inst->adc_inst) != ADC_STATUS_OK)
-                                {
-                                    status = CURRENT_STATUS_ERROR_ADC_ERROR;
-
-                                    p_inst->state = CURRENT_STATE_ERROR;
-                                }
-                            }
-                            else 
+                            if(adc_ready)
                             {
                                 p_inst->state = CURRENT_STATE_GET;
                             }
@@ -158,9 +160,9 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
 
                 case CURRENT_STATE_GET:
                 {
-                    adc_status = IO_ADC_Get_State(p_inst->adc_inst, &adc_state);
+                    adc_status = IO_ADC_Get_Ready_Flag(p_inst->adc_inst, &adc_ready);
 
-                    if(adc_state == ADC_STATE_READY)
+                    if(adc_ready)
                     {
                         status = DEV_Current_Process_Raw(p_inst);
 
@@ -187,6 +189,8 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
                 case CURRENT_STATE_READY:
                 {
                     // Starts timer and switches state to IDLE
+                    p_inst->is_ready = true;
+
                     p_inst->start_time = UTIL_Time_Get_Tick();
 
                     p_inst->state = CURRENT_STATE_IDLE;
@@ -275,7 +279,7 @@ current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst)
     {
         if(p_inst->is_init)
         {
-            uint32_t raw = 0U;
+            uint16_t raw = 0U;
 
             uint16_t vref = 0U;
 
@@ -325,6 +329,32 @@ current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst)
             }
 
             p_inst->last_val = current_mA;
+        }
+    }
+    else 
+    {
+        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+    }
+
+    return status;
+}
+
+current_status_t DEV_Current_Set_Timeout(dev_current_t *p_inst, uint32_t new_val)
+{
+    current_status_t status = CURRENT_STATUS_OK;
+
+    if(p_inst != NULL)
+    {
+        if(p_inst->is_init)
+        {
+            if(new_val) // checks if delay between samples is valid (not 0)
+            {
+                p_inst->current_timeout = new_val;
+            }
+        }
+        else 
+        {
+            status = CURRENT_STATUS_ERROR_NOT_INIT;
         }
     }
     else 
@@ -389,30 +419,34 @@ current_status_t DEV_Current_Get_Gain(dev_current_t *p_inst, int32_t *p_out)
     return status;
 }
 
-current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint32_t *p_out)
+current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint16_t *p_out)
 {
     current_status_t status = CURRENT_STATUS_OK;
 
     adc_status_t adc_status;
 
-    int64_t raw = 0; // large unsigned integer (long long) so as to not lose accuracy
+    uint16_t raw;
+
+    int32_t large_raw = 0; // large unsigned integer (long long) so as to not lose accuracy
 
     if((p_inst != NULL) && (p_inst->adc_inst != NULL))
     {
         if(p_inst->is_init)
         {
-            adc_status = (int64_t)IO_ADC_Get_Val(p_inst->adc_inst, &raw);
+            adc_status = IO_ADC_Get_Val(p_inst->adc_inst, &raw);
 
             if(adc_status != ADC_STATUS_OK)
             {
                 status = CURRENT_STATUS_ERROR_ADC_ERROR;
             }
 
-            raw -= (int64_t)p_inst->raw_offset; 
+            large_raw = (int32_t)raw;
 
-            if(raw < 0)
+            large_raw -= (int32_t)p_inst->raw_offset; 
+
+            if(large_raw < 0)
             {
-                raw = 0; // value clamping;
+                large_raw = 0; // value clamping;
             }
         }
         else 
@@ -425,12 +459,12 @@ current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint32_t *p_out)
         status = CURRENT_STATUS_ERROR_NULL_POINTER;
     }
 
-    *p_out = (uint32_t)raw;
+    *p_out = (uint16_t)large_raw;
 
     return status;
 }
 
-current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int32_t *p_out)
+current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int16_t *p_out)
 {
     current_status_t status = CURRENT_STATUS_OK;
 
@@ -511,31 +545,29 @@ current_status_t DEV_Current_Get_Data_Diff(dev_current_t *p_inst, bool *p_out)
     return status;
 }
 
-current_status_t DEV_Current_Set_Timeout(dev_current_t *p_inst, uint32_t new_val)
+current_status_t DEV_Current_Get_Ready_Flag(dev_current_t *p_inst, bool *p_out)
 {
     current_status_t status = CURRENT_STATUS_OK;
 
-    if(p_inst != NULL)
+    bool flag = false;
+
+    if((p_inst != NULL) && (p_out != NULL))
     {
         if(p_inst->is_init)
         {
-            if(new_val) // checks if delay between samples is valid (not 0)
-            {
-                p_inst->current_timeout = new_val;
-            }
+            flag = p_inst->is_ready;
         }
-        else 
+        else
         {
             status = CURRENT_STATUS_ERROR_NOT_INIT;
         }
     }
-    else 
+    else
     {
         status = CURRENT_STATUS_ERROR_NULL_POINTER;
     }
 
     return status;
 }
-
 
 
