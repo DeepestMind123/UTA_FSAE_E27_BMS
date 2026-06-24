@@ -25,6 +25,8 @@ adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg)
 
             p_inst->set_offset = p_inst->cfg->adc_offset;
 
+            p_inst->ready_flag = false;
+
             p_inst->is_init = true;
 
             status = ADC_STATUS_OK;
@@ -51,6 +53,10 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
     {
         if(p_inst->is_init)
         {
+            if(p_inst->state >= ADC_STATE_MAX)
+            {
+                p_inst->state = ADC_STATE_UNDEFINED;
+            }
             switch(p_inst->state)
             {
                 case ADC_STATE_IDLE:
@@ -69,6 +75,8 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
                     // start adc measurement on selected channel
                     p_inst->cfg->ADC_start();
 
+                    p_inst->ready_flag = false;
+
                     p_inst->start_time = UTIL_Time_Get_Tick();
 
                     p_inst->state = ADC_STATE_WAIT;
@@ -81,10 +89,12 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
                     if(UTIL_Time_Get_Tick() - p_inst->start_time <= p_inst->cfg->adc_timeout)
                     {
                         // wait for adc to finish measurement, comment out if selected mcu does not have support for this
+                        ///*
                         if(p_inst->cfg->ADC_done()) 
                         {
                             p_inst->state = ADC_STATE_GET;
                         }
+                        //*/
                     }
                     else
                     {
@@ -110,6 +120,8 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
 
                 case ADC_STATE_READY:
                 {
+                    p_inst->ready_flag = true;
+
                     p_inst->state = ADC_STATE_IDLE;
 
                     break;

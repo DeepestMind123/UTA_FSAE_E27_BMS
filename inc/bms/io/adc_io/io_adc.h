@@ -22,13 +22,14 @@ typedef enum
 
 typedef enum
 {
-    ADC_STATE_IDLE = 0,   // adc not taking data
-    ADC_STATE_START,      // start adc if necessary
-    ADC_STATE_WAIT,       // wait for adc conversion
-    ADC_STATE_GET,        // get measurement and stop adc if necessary; process current
+    ADC_STATE_UNDEFINED = 0,
+    ADC_STATE_IDLE,             // adc not taking data
+    ADC_STATE_START,            // start adc if necessary
+    ADC_STATE_WAIT,             // wait for adc conversion
+    ADC_STATE_GET,              // get measurement and stop adc if necessary; process current
     ADC_STATE_READY,
     ADC_STATE_ERROR,
-    ADC_STATE_UNDEFINED
+    ADC_STATE_MAX
 } adc_state_t;
 
 typedef struct
@@ -53,9 +54,8 @@ typedef struct
     uint32_t last_raw;                      // store last value so other modules can read
     int16_t set_offset;                     // basically just the calibrated value of offset
     uint32_t start_time;
-
     bool is_init;
-
+    bool ready_flag;
     adc_state_t state;                      // stores instanced state
     
     const io_adc_cfg_t *cfg;
