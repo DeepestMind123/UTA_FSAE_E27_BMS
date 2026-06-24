@@ -5,7 +5,7 @@
  * @brief current sensor device driver source
  */
 
-#include "dev_current.h"
+#include "dev_current_sensor.h"
 
 current_status_t DEV_Current_Init(dev_current_t *p_inst, const dev_current_cfg_t *p_cfg, const io_adc_t *p_adc_inst)
 {
@@ -56,7 +56,7 @@ current_status_t DEV_Current_Task(dev_current_t *p_inst)
             {
                 p_inst->state = CURRENT_STATE_UNDEFINED;
             }
-
+            
             switch(p_inst->state)
             {
                 case CURRENT_STATE_IDLE:
