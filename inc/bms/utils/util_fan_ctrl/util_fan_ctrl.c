@@ -5,7 +5,7 @@
  * @brief fan driver source
  */
 
-#include "dev_fan.h"
+#include "util_fan_ctrl.h"
 
 fan_status_t DEV_Fan_Init(dev_fan_t *p_inst, const dev_fan_cfg_t *p_cfg, const io_pwm_t *p_pwm_inst)
 {
