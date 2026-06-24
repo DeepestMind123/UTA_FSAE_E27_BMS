@@ -25,6 +25,8 @@ adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg)
 
             p_inst->set_offset = p_inst->cfg->adc_offset;
 
+            p_inst->state = ADC_STATE_IDLE;
+
             p_inst->is_ready = false;
 
             p_inst->is_init = true;
@@ -57,6 +59,7 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
             {
                 p_inst->state = ADC_STATE_UNDEFINED;
             }
+
             switch(p_inst->state)
             {
                 case ADC_STATE_IDLE:
