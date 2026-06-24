@@ -12,7 +12,7 @@
 
 #include "util_irq.h"
 
-util_irq_cfg_t *util_irq;
+extern util_irq_cfg_t util_irq;
 
 void UTIL_Time_Init(void);
 

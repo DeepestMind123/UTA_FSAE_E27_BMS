@@ -26,6 +26,21 @@ Package-*
 *.elf
 *.hex
 *.cof
+*.slo
+
+# ~~~ Compiled Libraries ~~~
+*.dylib
+*.dll
+*.so
+*.lai
+*.la
+*.a
+*.lib
+
+# ~~~ Executables ~~~
+*.exe
+*.out
+*.app
 
 # ~~~ CMake & Ninja ~~~
 cmake/
@@ -41,3 +56,11 @@ cmake/**/.generated/*
 # ~~~ OS Specific ~~
 .DS_Store
 Thumbs.db
+.generated_files/
+build/
+dist/
+nbproject/
+Makefile*
+private/
+_build/
+out/
