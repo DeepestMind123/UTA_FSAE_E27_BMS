@@ -1,8 +1,9 @@
 /**
- * @file DEV_current.h
+ * @file DEV_current_sensor.h
  * @author notwe
  * @date 2026-05-03
  * @brief current sensor device driver header
+ * @todo add getter for timeout
  */
 
 #ifndef DEV_CURRENT_H
@@ -24,10 +25,9 @@ typedef enum
     CURRENT_STATUS_ERROR_TIMEOUT,
     CURRENT_STATUS_ERROR_ADC_ERROR,
     CURRENT_STATUS_ERROR_UNDEFINED_STATE,
-    CURRENT_STATUS_ERROR_RACE,
-    CURRENT_STATUS_BUSY,
-    CURRENT_STATUS_MAX
-} current_status_t;
+    CURRENT_STATUS_ERROR_STATE_ALIGNMENT,
+    CURRENT_STATUS_BUSY
+} current_sensor_status_t;
 
 typedef enum
 {
@@ -46,7 +46,7 @@ typedef struct
     int32_t current_gain_uV;                    // gain of sensor in uV / A
     uint16_t current_raw_cutoff;                // clamp value for sensor calibration
 
-} dev_current_cfg_t;
+} dev_current_sensor_cfg_t;
 
 typedef struct
 {
@@ -64,34 +64,34 @@ typedef struct
     bool is_ready;
 
     io_adc_t *adc_inst;
-    current_status_t status;
+    current_sensor_status_t status;
     current_state_t state;
-    const dev_current_cfg_t *cfg;
+    const dev_current_sensor_cfg_t *cfg;
 
-} dev_current_t;
+} dev_current_sensor_t;
 
-current_status_t DEV_Current_Init(dev_current_t *p_inst, const dev_current_cfg_t *p_cfg, const io_adc_t *p_adc_inst);
+current_sensor_status_t DEV_Current_Sensor_Init(dev_current_sensor_t *p_inst, const dev_current_sensor_cfg_t *p_cfg, const io_adc_t *p_adc_inst);
 
-current_status_t DEV_Current_Task(dev_current_t *p_inst);    // state switch function
+current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst);    // state switch function
 
-current_status_t DEV_Current_Start(dev_current_t *p_inst);
+current_sensor_status_t DEV_Current_Sensor_Start(dev_current_sensor_t *p_inst);
 
-current_status_t DEV_Current_Process_Raw(dev_current_t *p_inst);      // process raw current value to get current in mA
+current_sensor_status_t DEV_Current_Sensor_Process_Raw(dev_current_sensor_t *p_inst);      // process raw current value to get current in mA
 
-current_status_t DEV_Current_Set_Timeout(dev_current_t *p_inst, uint32_t new_val);
+current_sensor_status_t DEV_Current_Sensor_Set_Timeout(dev_current_sensor_t *p_inst, uint32_t new_val);
 
-current_status_t DEV_Current_Get_Wait(dev_current_t *p_inst, uint32_t *p_out);
+current_sensor_status_t DEV_Current_Sensor_Get_Wait(dev_current_sensor_t *p_inst, uint32_t *p_out);
 
-current_status_t DEV_Current_Get_Gain(dev_current_t *p_inst, int32_t *p_out);
+current_sensor_status_t DEV_Current_Sensor_Get_Gain(dev_current_sensor_t *p_inst, int32_t *p_out);
 
-current_status_t DEV_Current_Get_Raw(dev_current_t *p_inst, uint16_t *p_out);
+current_sensor_status_t DEV_Current_Sensor_Get_Raw(dev_current_sensor_t *p_inst, uint16_t *p_out);
 
-current_status_t DEV_Current_Get_Val(dev_current_t *p_inst, int16_t *p_out);
+current_sensor_status_t DEV_Current_Sensor_Get_Val(dev_current_sensor_t *p_inst, int16_t *p_out);
 
-current_status_t DEV_Current_Get_State(dev_current_t *p_inst, current_state_t *p_out);
+current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_inst, current_state_t *p_out);
 
-current_status_t DEV_Current_Get_Data_Diff(dev_current_t *p_inst, bool *p_out);
+current_sensor_status_t DEV_Current_Sensor_Get_Data_Diff(dev_current_sensor_t *p_inst, bool *p_out);
 
-current_status_t DEV_Current_Get_Ready_Flag(dev_current_t *p_inst, bool *p_out);
+current_sensor_status_t DEV_Current_Sensor_Get_Ready_Flag(dev_current_sensor_t *p_inst, bool *p_out);
 
 #endif 
