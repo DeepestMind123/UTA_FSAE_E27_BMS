@@ -389,5 +389,7 @@ adc_status_t IO_ADC_Get_Ready_Flag(io_adc_t *p_inst, bool *p_out)
         status = ADC_STATUS_ERROR_NULL_POINTER;
     }
 
+    *p_out = flag;
+
     return status;
 }

@@ -561,6 +561,8 @@ current_status_t DEV_Current_Get_Ready_Flag(dev_current_t *p_inst, bool *p_out)
         {
             status = CURRENT_STATUS_ERROR_NOT_INIT;
         }
+
+        *p_out = flag;
     }
     else
     {
