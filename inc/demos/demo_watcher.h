@@ -8,14 +8,19 @@
 #ifndef DEMO_WATCHER_H
 #define DEMO_WATCHER_H
 
+// IO
 #define DEMO_ADC
 #define DEMO_CAN
 #define DEMO_I2C
 #define DEMO_PWM
 #define DEMO_SPI
 
+// Devies
+#define DEMO_CURRENT_SENSOR
+// #define DEMO_FAN_CONTROL
+// #define DEMO_LTC6813
+
 #include <stdint.h>
-#include <string.h>
 #include <stdbool.h>
 #define ISMAXINT(x) (x == UINT64_MAX || x == UINT32_MAX || x == UINT16_MAX || x == UINT8_MAX)
 
@@ -45,32 +50,42 @@ void watch_inst_conf(int p_func_id, int p_status_exp, bool p_not_inst_null, bool
 
 void demo_watcher();
 
+// IO
 #ifdef DEMO_ADC
-
 void demo_watch_adc_all();
 void demo_watch_adc_funcs();
 void demo_watch_adc_null();
 void demo_watch_adc_task();
 #endif
-
 #ifdef DEMO_CAN
 void demo_watch_can_all();
 void demo_watch_can_funcs();
 #endif
-
 #ifdef DEMO_I2C
 void demo_watch_i2c_all();
 void demo_watch_i2c_funcs();
 #endif
-
 #ifdef DEMO_PWM
 void demo_watch_pwm_all();
 void demo_watch_pwm_funcs();
 #endif
-
 #ifdef DEMO_SPI
 void demo_watch_spi_all();
 void demo_watch_spi_funcs();
+#endif
+
+// Devies
+#ifdef DEMO_CURRENT_SENSOR
+void demo_watch_current_sensor_all();
+void demo_watch_current_sensor_funcs();
+#endif
+#ifdef DEMO_FAN_CONTROL
+void demo_watch_fan_control_all();
+void demo_watch_fan_control_funcs();
+#endif
+#ifdef DEMO_LTC6813
+void demo_watch_ltc6813_all();
+void demo_watch_ltc6813_funcs();
 #endif
 
 #endif
