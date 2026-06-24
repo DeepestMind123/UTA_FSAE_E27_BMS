@@ -14,7 +14,7 @@
 class TEENSY_ADC
 {
     private:
-    inline static ADC *adc;
+    inline static ADC *adc = nullptr;
     inline static uint8_t target_pin;
 
     public:
@@ -54,6 +54,11 @@ class TEENSY_ADC
     static uint16_t Get_Read()
     {
         return (uint16_t)adc->adc0->readSingle();
+    }
+
+    static void Channel_Select()
+    {
+        // Intentionally left blank
     }
 };
 
