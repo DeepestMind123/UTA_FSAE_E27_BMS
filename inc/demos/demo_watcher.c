@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <string.h>
 
  #include "demo_watcher.h"
 
@@ -15,6 +16,10 @@ void demo_watcher() {
     demo_watch_i2c_all();
     demo_watch_pwm_all();
     demo_watch_spi_all();
+    
+    demo_watch_current_sensor_all();
+    // demo_watch_fan_control_all();
+    // demo_watch_ltc6813_all();
 }
 
 // Global variables used in demos
