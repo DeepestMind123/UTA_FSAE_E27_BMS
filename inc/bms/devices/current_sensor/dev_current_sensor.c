@@ -298,7 +298,12 @@ current_sensor_status_t DEV_Current_Sensor_Process_Raw(dev_current_sensor_t *p_i
 
             int32_t gain_uV = 0;
 
-            status = DEV_Current_Sensor_Get_Raw(p_inst, &raw);
+            adc_status = IO_ADC_Get_Val(p_inst->adc_inst, &raw);
+
+            if(adc_status != ADC_STATUS_OK)
+            {
+                status = CURRENT_STATUS_ERROR_ADC_ERROR;
+            }
 
             adc_status = IO_ADC_Get_Vref(p_inst->adc_inst, &vref);
 
@@ -424,51 +429,6 @@ current_sensor_status_t DEV_Current_Sensor_Get_Gain(dev_current_sensor_t *p_inst
     }
 
     *p_out = gain;
-
-    return status;
-}
-
-current_sensor_status_t DEV_Current_Sensor_Get_Raw(dev_current_sensor_t *p_inst, uint16_t *p_out)
-{
-    current_sensor_status_t status = CURRENT_STATUS_OK;
-
-    adc_status_t adc_status;
-
-    uint16_t raw;
-
-    int32_t large_raw = 0; // large unsigned integer (long long) so as to not lose accuracy
-
-    if((p_inst != NULL) && (p_inst->adc_inst != NULL))
-    {
-        if(p_inst->is_init)
-        {
-            adc_status = IO_ADC_Get_Val(p_inst->adc_inst, &raw);
-
-            if(adc_status != ADC_STATUS_OK)
-            {
-                status = CURRENT_STATUS_ERROR_ADC_ERROR;
-            }
-
-            large_raw = (int32_t)raw;
-
-            large_raw -= (int32_t)p_inst->raw_offset; 
-
-            if(large_raw < 0)
-            {
-                large_raw = 0; // value clamping;
-            }
-        }
-        else 
-        {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
-        }
-    }
-    else
-    {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
-    }
-
-    *p_out = (uint16_t)large_raw;
 
     return status;
 }

@@ -31,7 +31,7 @@ typedef struct
 
 } util_irq_cfg_t;
 
-static bool is_init;
+inline bool irq_is_init;
 
 static inline irq_status_t UTIL_IRQ_Init(util_irq_cfg_t *p_cfg)
 {
@@ -43,7 +43,7 @@ static inline irq_status_t UTIL_IRQ_Init(util_irq_cfg_t *p_cfg)
     }
     else
     {
-        is_init = true;
+        irq_is_init = true;
 
         status = IRQ_STATUS_OK;
     }
@@ -55,11 +55,13 @@ static inline irq_status_t UTIL_IRQ_Enter_Critical(util_irq_cfg_t *p_cfg, uint32
 {
     irq_status_t status = IRQ_STATUS_OK;
 
+    uint32_t last_state;
+
     if((p_cfg != NULL) && (p_out != NULL))
     {
-        if(is_init)
+        if(irq_is_init)
         {
-            uint32_t last_state = p_cfg->Get_State(); // fetch current intterupt state
+            last_state = p_cfg->Get_State(); // fetch current intterupt state
 
             p_cfg->Disable(); // disable interrupts
         }
@@ -67,6 +69,8 @@ static inline irq_status_t UTIL_IRQ_Enter_Critical(util_irq_cfg_t *p_cfg, uint32
         {
             status = IRQ_STATUS_ERROR_NOT_INIT;
         }
+
+        *p_out = last_state;
     }
     else 
     {
@@ -82,7 +86,7 @@ static inline irq_status_t UTIL_IRQ_Exit_Critical(util_irq_cfg_t *p_cfg, uint32_
 
     if(p_cfg != NULL)
     {
-        if(is_init)
+        if(irq_is_init)
         {
             p_cfg->Set_State(state); // set interrupt state to saved state
 
