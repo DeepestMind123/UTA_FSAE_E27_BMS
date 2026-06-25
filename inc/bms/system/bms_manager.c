@@ -8,7 +8,7 @@
 #include "bms_manager.h"
 
 bms_state_t state;
-bool is_init;
+static bool is_init;
 
 bms_status_t BMS_Manager_Init(void)
 {
