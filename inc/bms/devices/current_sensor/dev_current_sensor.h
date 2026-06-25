@@ -3,7 +3,7 @@
  * @author notwe
  * @date 2026-05-03
  * @brief current sensor device driver header
- * @todo add getter for timeout
+ * @todo 
  */
 
 #ifndef DEV_CURRENT_H
@@ -84,8 +84,6 @@ current_sensor_status_t DEV_Current_Sensor_Get_Wait(dev_current_sensor_t *p_inst
 
 current_sensor_status_t DEV_Current_Sensor_Get_Gain(dev_current_sensor_t *p_inst, int32_t *p_out);
 
-current_sensor_status_t DEV_Current_Sensor_Get_Raw(dev_current_sensor_t *p_inst, uint16_t *p_out);
-
 current_sensor_status_t DEV_Current_Sensor_Get_Val(dev_current_sensor_t *p_inst, int16_t *p_out);
 
 current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_inst, current_state_t *p_out);
@@ -93,5 +91,7 @@ current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_ins
 current_sensor_status_t DEV_Current_Sensor_Get_Data_Diff(dev_current_sensor_t *p_inst, bool *p_out);
 
 current_sensor_status_t DEV_Current_Sensor_Get_Ready_Flag(dev_current_sensor_t *p_inst, bool *p_out);
+
+current_sensor_status_t DEV_Current_Sensor_Get_Timeout(dev_current_sensor_t *p_inst, uint32_t *p_out);
 
 #endif 
