@@ -78,15 +78,15 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
                     {
                         now_time = UTIL_Time_Get_Tick();
 
-                        /*
-                        Block commented out for hardware testing
-                        if(now_time - p_inst->start_time >= p_inst->current_timeout)
+                        if(p_inst->current_timeout)
                         {
-                            status = CURRENT_STATUS_ERROR_TIMEOUT;
+                            if(now_time - p_inst->start_time >= p_inst->current_timeout)
+                            {
+                                status = CURRENT_STATUS_ERROR_TIMEOUT;
 
-                            p_inst->state = CURRENT_STATE_ERROR;
+                                p_inst->state = CURRENT_STATE_ERROR;
+                            }
                         }
-                        */
                     }
 
                     break;
@@ -558,7 +558,7 @@ current_sensor_status_t DEV_Current_Sensor_Get_Timeout(dev_current_sensor_t *p_i
             status = CURRENT_STATUS_ERROR_NOT_INIT;
         }
 
-        p_out = timeout;
+        *p_out = timeout;
     }
     else
     {
@@ -567,5 +567,3 @@ current_sensor_status_t DEV_Current_Sensor_Get_Timeout(dev_current_sensor_t *p_i
 
     return status;
 }
-
-
