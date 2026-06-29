@@ -14,9 +14,10 @@
 typedef struct
 {
     // physical configuration
-    uint8_t cell_count;         // number of cells
-    uint8_t temp_count;         // number of pack thermistors
+    uint8_t module_cell_count;         // number of cells
+    uint8_t module_temp_count;         // number of pack thermistors
     uint8_t balance_ic_count;   // number of active balancing ics (typically number of cells - 1)
+    uint8_t module_count;
 
     // limits
     uint16_t uv_lim_mV;         // under-voltage limit
