@@ -31,7 +31,7 @@ typedef struct
 
 } util_irq_cfg_t;
 
-inline bool irq_is_init;
+extern bool irq_is_init;
 
 static inline irq_status_t UTIL_IRQ_Init(util_irq_cfg_t *p_cfg)
 {
