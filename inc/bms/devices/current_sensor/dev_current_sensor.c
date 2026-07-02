@@ -7,15 +7,16 @@
 
 #include "dev_current_sensor.h"
 
-current_sensor_status_t DEV_Current_Sensor_Init(dev_current_sensor_t *p_inst, const dev_current_sensor_cfg_t *p_cfg, const io_adc_t *p_adc_inst)
+current_sensor_status_t DEV_Current_Sensor_Init(dev_current_sensor_t *p_inst, const dev_current_sensor_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst)
 {
     current_sensor_status_t status = CURRENT_STATUS_ERROR_NOT_INIT;
 
-    if((p_inst != NULL) && (p_cfg != NULL) && (p_adc_inst != NULL))
+    if((p_inst != NULL) && (p_cfg != NULL) && (p_adc_inst != NULL) && (p_time_inst))
     {
         // Initialize instanced variables to safe values
         p_inst->cfg = p_cfg;
         p_inst->adc_inst = p_adc_inst;
+        p_inst->time_inst = p_time_inst;
 
         p_inst->cal_acc = 0U;
         p_inst->cal_count = 0U;
@@ -50,6 +51,7 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
     adc_status_t adc_status;
     bool adc_ready;
 
+    time_status_t time_status;
     uint32_t now_time;
 
     if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_inst->adc_inst != NULL))
@@ -76,16 +78,25 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
 
                     if(p_inst->start_time != 0)
                     {
-                        now_time = UTIL_Time_Get_Tick();
+                        time_status = UTIL_Time_Get_Tick(p_inst->time_inst, now_time);
 
-                        if(p_inst->current_timeout)
+                        if(time_status == TIME_STATUS_OK)
                         {
-                            if(now_time - p_inst->start_time >= p_inst->current_timeout)
+                            if(p_inst->current_timeout)
                             {
-                                status = CURRENT_STATUS_ERROR_TIMEOUT;
+                                if(now_time - p_inst->start_time >= p_inst->current_timeout)
+                                {
+                                    status = CURRENT_STATUS_ERROR_TIMEOUT;
 
-                                p_inst->state = CURRENT_STATE_ERROR;
+                                    p_inst->state = CURRENT_STATE_ERROR;
+                                }
                             }
+                        }
+                        else
+                        {
+                            status = CURRENT_STATUS_ERROR_TIME_ERROR;
+
+                            p_inst->state = CURRENT_STATE_ERROR;
                         }
                     }
 
@@ -105,9 +116,18 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
                             // Start ADC and switch states if no error
                             if(IO_ADC_Start(p_inst->adc_inst) == ADC_STATUS_OK)
                             {
-                                p_inst->start_time = UTIL_Time_Get_Tick();
+                                time_status = UTIL_Time_Get_Tick(p_inst->time_inst, p_inst->start_time);
 
-                                p_inst->state = CURRENT_STATE_WAIT;
+                                if(time_status == TIME_STATUS_OK)
+                                {
+                                    p_inst->state = CURRENT_STATE_WAIT;
+                                }
+                                else
+                                {
+                                    status = CURRENT_STATUS_ERROR_TIME_ERROR;
+
+                                    p_inst->state = CURRENT_STATE_ERROR;
+                                }
                             }
                             else 
                             {
@@ -135,19 +155,28 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
 
                 case CURRENT_STATE_WAIT:
                 {
-                    now_time = UTIL_Time_Get_Tick();
+                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, now_time);
 
-                    // Check if time elapsed is less than the ADC timeout 
-                    if(now_time - p_inst->start_time <= p_inst->adc_timeout_ms)
+                    if(time_status == TIME_STATUS_OK)
                     {
-                        adc_status = IO_ADC_Get_Ready_Flag(p_inst->adc_inst, &adc_ready);
-
-                        if(adc_status == ADC_STATUS_OK)
+                        // Check if time elapsed is less than the ADC timeout 
+                        if(now_time - p_inst->start_time <= p_inst->adc_timeout_ms)
                         {
-                            // Switches state if ADC returns ready
-                            if(adc_ready)
+                            adc_status = IO_ADC_Get_Ready_Flag(p_inst->adc_inst, &adc_ready);
+
+                            if(adc_status == ADC_STATUS_OK)
                             {
-                                p_inst->state = CURRENT_STATE_GET;
+                                // Switches state if ADC returns ready
+                                if(adc_ready)
+                                {
+                                    p_inst->state = CURRENT_STATE_GET;
+                                }
+                            }
+                            else 
+                            {
+                                status = CURRENT_STATUS_ERROR_ADC_ERROR;
+
+                                p_inst->state = CURRENT_STATE_ERROR;
                             }
                         }
                         else 
@@ -157,9 +186,9 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
                             p_inst->state = CURRENT_STATE_ERROR;
                         }
                     }
-                    else 
+                    else
                     {
-                        status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                        status = CURRENT_STATUS_ERROR_TIME_ERROR;
 
                         p_inst->state = CURRENT_STATE_ERROR;
                     }
@@ -200,9 +229,18 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
                     // Starts timer and switches state to IDLE
                     p_inst->is_ready = true;
 
-                    p_inst->start_time = UTIL_Time_Get_Tick();
+                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, p_inst->start_time);
 
-                    p_inst->state = CURRENT_STATE_IDLE;
+                    if(time_status == TIME_STATUS_OK)
+                    {
+                        p_inst->state = CURRENT_STATE_IDLE;
+                    }
+                    else
+                    {
+                        status = CURRENT_STATUS_ERROR_TIME_ERROR;
+
+                        p_inst->state = CURRENT_STATE_ERROR;
+                    }
 
                     break;
                 }
