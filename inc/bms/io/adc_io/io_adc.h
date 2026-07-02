@@ -17,7 +17,9 @@ typedef enum
     ADC_STATUS_ERROR_NOT_INIT,
     ADC_STATUS_ERROR_TIMEOUT,
     ADC_STATUS_ERROR_ADC_BUSY,
-    ADC_STATUS_ERROR_UNDEFINED_STATE
+    ADC_STATUS_ERROR_TIME_ERROR,
+    ADC_STATUS_ERROR_UNDEFINED_STATE,
+    ADC_STATUS_MAX
 } adc_status_t;
 
 typedef enum
@@ -58,11 +60,12 @@ typedef struct
     bool is_ready;
     adc_state_t state;                      // stores instanced state
     
+    const util_time_t *time_inst;
     const io_adc_cfg_t *cfg;
 
 } io_adc_t;
 
-adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg);
+adc_status_t IO_ADC_Init(io_adc_t *p_inst, const io_adc_cfg_t *p_cfg, const util_time_t *p_time_inst);
 
 adc_status_t IO_ADC_Task(io_adc_t *p_inst);
 
