@@ -54,7 +54,7 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
     time_status_t time_status;
     uint32_t now_time;
 
-    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_inst->adc_inst != NULL))
+    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_inst->adc_inst != NULL) && (p_inst->time_inst != NULL))
     {
         if(p_inst->is_init)
         {
