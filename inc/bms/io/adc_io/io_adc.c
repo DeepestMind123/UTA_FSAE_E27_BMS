@@ -7,11 +7,11 @@
 
 #include "io_adc.h"
 
-adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg)
+adc_status_t IO_ADC_Init(io_adc_t *p_inst, const io_adc_cfg_t *p_cfg, const util_time_t *p_time_inst)
 {
     adc_status_t status = ADC_STATUS_ERROR_NOT_INIT;
 
-    if((p_inst != NULL) && (p_cfg != NULL))
+    if((p_inst != NULL) && (p_cfg != NULL) && (p_time_inst != NULL))
     {
         if((p_cfg->ADC_channel_select != NULL) &&
             (p_cfg->ADC_start != NULL) &&
@@ -20,6 +20,7 @@ adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg)
             (p_cfg->ADC_stop != NULL))
         {
             p_inst->cfg = p_cfg;
+            p_inst->time_inst = p_time_inst;
 
             p_inst->start_time = 0U;
 
@@ -50,8 +51,10 @@ adc_status_t IO_ADC_Init(io_adc_t *p_inst, io_adc_cfg_t *p_cfg)
 adc_status_t IO_ADC_Task(io_adc_t *p_inst)
 {
     adc_status_t status = ADC_STATUS_OK;
+    time_status_t time_status;
+    uint32_t now_time = 0U;
 
-    if((p_inst != NULL) && (p_inst->cfg != NULL))
+    if((p_inst != NULL) && (p_inst->cfg != NULL) && (p_inst->time_inst != NULL))
     {
         if(p_inst->is_init)
         {
@@ -64,9 +67,7 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
             {
                 case ADC_STATE_IDLE:
                 {
-
-                // indicates that the adc is not busy
-
+                // indicates that the adc is not busy, intentionally left blank
                 break;
                 }
 
@@ -80,30 +81,50 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
 
                     p_inst->is_ready = false;
 
-                    p_inst->start_time = UTIL_Time_Get_Tick();
+                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, p_inst->start_time);
 
-                    p_inst->state = ADC_STATE_WAIT;
+                    if(time_status == TIME_STATUS_OK)
+                    {
+                        p_inst->state = ADC_STATE_WAIT;
+                    }
+                    else
+                    {
+                        status = ADC_STATUS_ERROR_TIME_ERROR;
+
+                        p_inst->state = ADC_STATE_ERROR;
+                    }
 
                     break;
                 }
 
                 case ADC_STATE_WAIT:
                 {
-                    if(UTIL_Time_Get_Tick() - p_inst->start_time <= p_inst->cfg->adc_timeout)
+                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, now_time);
+                    
+                    if(time_status == TIME_STATUS_OK)
                     {
-                        // wait for adc to finish measurement, comment out if selected mcu does not have support for this
-                        ///*
-                        if(p_inst->cfg->ADC_done()) 
+                        if(now_time - p_inst->start_time <= p_inst->cfg->adc_timeout)
                         {
-                            p_inst->state = ADC_STATE_GET;
+                            // wait for adc to finish measurement, comment out if selected mcu does not have support for this
+                            ///*
+                            if(p_inst->cfg->ADC_done()) 
+                            {
+                                p_inst->state = ADC_STATE_GET;
+                            }
+                            //*/
                         }
-                        //*/
+                        else
+                        {
+                            status = ADC_STATUS_ERROR_TIMEOUT;
+
+                            p_inst->state = ADC_STATE_IDLE;
+                        }
                     }
                     else
                     {
-                        status = ADC_STATUS_ERROR_TIMEOUT;
+                        status = ADC_STATUS_ERROR_TIME_ERROR;
 
-                        p_inst->state = ADC_STATE_IDLE;
+                        p_inst->state = ADC_STATE_ERROR;
                     }
 
                     break;
@@ -113,8 +134,6 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
                 {
                     // stores measurement
                     p_inst->last_raw = p_inst->cfg->ADC_get_result();
-
-                    p_inst->start_time = UTIL_Time_Get_Tick();
 
                     p_inst->state = ADC_STATE_READY;
 
@@ -132,6 +151,7 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
 
                 case ADC_STATE_ERROR:
                 {
+                    // indicates the adc has encountered an error, intentionally left blank
                     break;
                 }
 

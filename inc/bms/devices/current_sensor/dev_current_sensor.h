@@ -24,6 +24,7 @@ typedef enum
     CURRENT_STATUS_ERROR_NOT_INIT,
     CURRENT_STATUS_ERROR_TIMEOUT,
     CURRENT_STATUS_ERROR_ADC_ERROR,
+    CURRENT_STATUS_ERROR_TIME_ERROR,
     CURRENT_STATUS_ERROR_UNDEFINED_STATE,
     CURRENT_STATUS_ERROR_STATE_ALIGNMENT,
     CURRENT_STATUS_BUSY
@@ -66,11 +67,12 @@ typedef struct
     io_adc_t *adc_inst;
     current_sensor_status_t status;
     current_state_t state;
+    const util_time_t *time_inst;
     const dev_current_sensor_cfg_t *cfg;
 
 } dev_current_sensor_t;
 
-current_sensor_status_t DEV_Current_Sensor_Init(dev_current_sensor_t *p_inst, const dev_current_sensor_cfg_t *p_cfg, const io_adc_t *p_adc_inst);
+current_sensor_status_t DEV_Current_Sensor_Init(dev_current_sensor_t *p_inst, const dev_current_sensor_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst);
 
 current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst);    // state switch function
 
