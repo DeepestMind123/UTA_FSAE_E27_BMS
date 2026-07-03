@@ -260,6 +260,13 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
 
                    break;
                 }
+
+                default:
+                {
+                    /*no action required*/
+
+                    break;
+                }
             }
         }
         else 
