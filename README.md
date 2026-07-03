@@ -62,3 +62,4 @@ https://www.pjrc.com/teensy/package_teensy_index.json
 # External Libraries
 FlexCAN_T4: CAN library for Teensy 4.1 - https://github.com/tonton81/FlexCAN_T4
 Teensy 4.1 ADC by pedvide - https://github.com/pedvide/ADC
+ADS1115 by devicelib - https://github.com/libdriver/ads1115
