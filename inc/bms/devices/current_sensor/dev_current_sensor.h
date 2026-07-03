@@ -19,28 +19,29 @@
 
 typedef enum
 {
-    CURRENT_STATUS_OK = 0,
-    CURRENT_STATUS_ERROR_NULL_POINTER,
-    CURRENT_STATUS_ERROR_NOT_INIT,
-    CURRENT_STATUS_ERROR_TIMEOUT,
-    CURRENT_STATUS_ERROR_ADC_ERROR,
-    CURRENT_STATUS_ERROR_TIME_ERROR,
-    CURRENT_STATUS_ERROR_UNDEFINED_STATE,
-    CURRENT_STATUS_ERROR_STATE_ALIGNMENT,
-    CURRENT_STATUS_BUSY
+    CURRENT_SENSOR_OK = 0,
+    CURRENT_SENSOR_NULL_POINTER,
+    CURRENT_SENSOR_NOT_INIT,
+    CURRENT_SENSOR_TIMEOUT,
+    CURRENT_SENSOR_ADC_ERROR,
+    CURRENT_SENSOR_TIME_ERROR,
+    CURRENT_SENSOR_UNDEF_STATE,
+    CURRENT_SENSOR_STATE_MISMATCH,
+    CURRENT_SENSOR_BUSY,
+    CURRENT_SENSOR_STATUS_MAX
 } current_sensor_status_t;
 
 typedef enum
 {
-    CURRENT_STATE_UNDEFINED = 0,
-    CURRENT_STATE_IDLE,
-    CURRENT_STATE_START,
-    CURRENT_STATE_WAIT,
-    CURRENT_STATE_GET,
-    CURRENT_STATE_READY,
-    CURRENT_STATE_ERROR,
-    CURRENT_STATE_MAX
-} current_state_t;
+    CURRENT_SENSOR_STATE_UNDEF = 0,
+    CURRENT_SENSOR_IDLE,
+    CURRENT_SENSOR_START,
+    CURRENT_SENSOR_WAIT,
+    CURRENT_SENSOR_GET,
+    CURRENT_SENSOR_READY,
+    CURRENT_SENSOR_ERROR,
+    CURRENT_SENSOR_STATE_MAX
+} current_sensor_state_t;
 
 typedef struct
 {
@@ -66,7 +67,7 @@ typedef struct
 
     io_adc_t *adc_inst;
     current_sensor_status_t status;
-    current_state_t state;
+    current_sensor_state_t state;
     const util_time_t *time_inst;
     const dev_current_sensor_cfg_t *cfg;
 
@@ -88,7 +89,7 @@ current_sensor_status_t DEV_Current_Sensor_Get_Gain(dev_current_sensor_t *p_inst
 
 current_sensor_status_t DEV_Current_Sensor_Get_Val(dev_current_sensor_t *p_inst, int16_t *p_out);
 
-current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_inst, current_state_t *p_out);
+current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_inst, current_sensor_state_t *p_out);
 
 current_sensor_status_t DEV_Current_Sensor_Get_Data_Diff(dev_current_sensor_t *p_inst, bool *p_out);
 
