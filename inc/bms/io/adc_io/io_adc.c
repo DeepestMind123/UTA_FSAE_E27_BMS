@@ -163,6 +163,13 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
 
                     break;
                 }
+
+                default:
+                {
+                    /*no action required*/
+
+                    break;
+                }
     
             }
         }

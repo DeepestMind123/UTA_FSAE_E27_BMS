@@ -9,7 +9,7 @@
 
 current_sensor_status_t DEV_Current_Sensor_Init(dev_current_sensor_t *p_inst, const dev_current_sensor_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst)
 {
-    current_sensor_status_t status = CURRENT_STATUS_ERROR_NOT_INIT;
+    current_sensor_status_t status = CURRENT_SENSOR_NOT_INIT;
 
     if((p_inst != NULL) && (p_cfg != NULL) && (p_adc_inst != NULL) && (p_time_inst))
     {
@@ -26,18 +26,18 @@ current_sensor_status_t DEV_Current_Sensor_Init(dev_current_sensor_t *p_inst, co
         p_inst->adc_timeout_ms = p_inst->adc_inst->cfg->adc_timeout;
         p_inst->current_timeout = p_inst->adc_timeout_ms;
 
-        p_inst->state = CURRENT_STATE_IDLE;
+        p_inst->state = CURRENT_SENSOR_IDLE;
 
         p_inst->val_diff = false;
         p_inst->is_ready = false;
         p_inst->is_init = true;
 
         // Exit here if initialization is successful
-        status = CURRENT_STATUS_OK;
+        status = CURRENT_SENSOR_OK;
     }
     else
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     return status;
@@ -45,7 +45,7 @@ current_sensor_status_t DEV_Current_Sensor_Init(dev_current_sensor_t *p_inst, co
 
 current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
     adc_state_t adc_state;
     adc_status_t adc_status;
@@ -61,19 +61,19 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
 
             if(IO_ADC_Task(p_inst->adc_inst) != ADC_STATUS_OK)
             {
-                status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                status = CURRENT_SENSOR_ADC_ERROR;
 
-                p_inst->state = CURRENT_STATE_ERROR;
+                p_inst->state = CURRENT_SENSOR_ERROR;
             }
 
-            if(p_inst->state >= CURRENT_STATE_MAX)
+            if(p_inst->state >= CURRENT_SENSOR_STATE_MAX)
             {
-                p_inst->state = CURRENT_STATE_UNDEFINED;
+                p_inst->state = CURRENT_SENSOR_STATE_UNDEF;
             }
 
             switch(p_inst->state)
             {
-                case CURRENT_STATE_IDLE:
+                case CURRENT_SENSOR_IDLE:
                 {
 
                     if(p_inst->start_time != 0)
@@ -86,24 +86,24 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
                             {
                                 if(now_time - p_inst->start_time >= p_inst->current_timeout)
                                 {
-                                    status = CURRENT_STATUS_ERROR_TIMEOUT;
+                                    status = CURRENT_SENSOR_TIMEOUT;
 
-                                    p_inst->state = CURRENT_STATE_ERROR;
+                                    p_inst->state = CURRENT_SENSOR_ERROR;
                                 }
                             }
                         }
                         else
                         {
-                            status = CURRENT_STATUS_ERROR_TIME_ERROR;
+                            status = CURRENT_SENSOR_TIME_ERROR;
 
-                            p_inst->state = CURRENT_STATE_ERROR;
+                            p_inst->state = CURRENT_SENSOR_ERROR;
                         }
                     }
 
                     break;
                 }
 
-                case CURRENT_STATE_START:
+                case CURRENT_SENSOR_START:
                 {
                     p_inst->is_ready = false;
 
@@ -120,40 +120,40 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
 
                                 if(time_status == TIME_STATUS_OK)
                                 {
-                                    p_inst->state = CURRENT_STATE_WAIT;
+                                    p_inst->state = CURRENT_SENSOR_WAIT;
                                 }
                                 else
                                 {
-                                    status = CURRENT_STATUS_ERROR_TIME_ERROR;
+                                    status = CURRENT_SENSOR_TIME_ERROR;
 
-                                    p_inst->state = CURRENT_STATE_ERROR;
+                                    p_inst->state = CURRENT_SENSOR_ERROR;
                                 }
                             }
                             else 
                             {
-                                status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                                status = CURRENT_SENSOR_ADC_ERROR;
 
-                                p_inst->state = CURRENT_STATE_ERROR;
+                                p_inst->state = CURRENT_SENSOR_ERROR;
                             }
                         }
                         else 
                         {
-                            status = CURRENT_STATUS_ERROR_STATE_ALIGNMENT;
+                            status = CURRENT_SENSOR_STATE_MISMATCH;
 
-                            p_inst->state = CURRENT_STATE_ERROR;
+                            p_inst->state = CURRENT_SENSOR_ERROR;
                         }
                     }
                     else 
                     {
-                        status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                        status = CURRENT_SENSOR_ADC_ERROR;
 
-                        p_inst->state = CURRENT_STATE_ERROR;
+                        p_inst->state = CURRENT_SENSOR_ERROR;
                     }
 
                     break;
                 }
 
-                case CURRENT_STATE_WAIT:
+                case CURRENT_SENSOR_WAIT:
                 {
                     time_status = UTIL_Time_Get_Tick(p_inst->time_inst, now_time);
 
@@ -169,34 +169,34 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
                                 // Switches state if ADC returns ready
                                 if(adc_ready)
                                 {
-                                    p_inst->state = CURRENT_STATE_GET;
+                                    p_inst->state = CURRENT_SENSOR_GET;
                                 }
                             }
                             else 
                             {
-                                status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                                status = CURRENT_SENSOR_ADC_ERROR;
 
-                                p_inst->state = CURRENT_STATE_ERROR;
+                                p_inst->state = CURRENT_SENSOR_ERROR;
                             }
                         }
                         else 
                         {
-                            status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                            status = CURRENT_SENSOR_ADC_ERROR;
 
-                            p_inst->state = CURRENT_STATE_ERROR;
+                            p_inst->state = CURRENT_SENSOR_ERROR;
                         }
                     }
                     else
                     {
-                        status = CURRENT_STATUS_ERROR_TIME_ERROR;
+                        status = CURRENT_SENSOR_TIME_ERROR;
 
-                        p_inst->state = CURRENT_STATE_ERROR;
+                        p_inst->state = CURRENT_SENSOR_ERROR;
                     }
 
                     break;
                 }
 
-                case CURRENT_STATE_GET:
+                case CURRENT_SENSOR_GET:
                 {
                     adc_status = IO_ADC_Get_Ready_Flag(p_inst->adc_inst, &adc_ready);
 
@@ -204,27 +204,27 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
                     {
                         status = DEV_Current_Sensor_Process_Raw(p_inst);
 
-                        if(status == CURRENT_STATUS_OK)
+                        if(status == CURRENT_SENSOR_OK)
                         {
-                            p_inst->state = CURRENT_STATE_READY;
+                            p_inst->state = CURRENT_SENSOR_READY;
                         }
                         else 
                         {
-                            p_inst->state = CURRENT_STATE_ERROR;
+                            p_inst->state = CURRENT_SENSOR_ERROR;
                         }
                     }
                     else 
                     {
                         // ADC timing error has occured since ADC has to return ready to switch into this state
-                        status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                        status = CURRENT_SENSOR_ADC_ERROR;
 
-                        p_inst->state = CURRENT_STATE_ERROR;
+                        p_inst->state = CURRENT_SENSOR_ERROR;
                     }
 
                     break;
                 }
 
-                case CURRENT_STATE_READY:
+                case CURRENT_SENSOR_READY:
                 {
                     // Starts timer and switches state to IDLE
                     p_inst->is_ready = true;
@@ -233,43 +233,50 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
 
                     if(time_status == TIME_STATUS_OK)
                     {
-                        p_inst->state = CURRENT_STATE_IDLE;
+                        p_inst->state = CURRENT_SENSOR_IDLE;
                     }
                     else
                     {
-                        status = CURRENT_STATUS_ERROR_TIME_ERROR;
+                        status = CURRENT_SENSOR_TIME_ERROR;
 
-                        p_inst->state = CURRENT_STATE_ERROR;
+                        p_inst->state = CURRENT_SENSOR_ERROR;
                     }
 
                     break;
                 }
 
-                case CURRENT_STATE_ERROR:
+                case CURRENT_SENSOR_ERROR:
                 {
                     // Returns error state
                     break;
                 }
 
                 // Max enum for states required by standards
-                case CURRENT_STATE_UNDEFINED:
+                case CURRENT_SENSOR_STATE_UNDEF:
                 {
-                    status = CURRENT_STATUS_ERROR_UNDEFINED_STATE;
+                    status = CURRENT_SENSOR_UNDEF_STATE;
 
-                    p_inst->state = CURRENT_STATE_ERROR;
+                    p_inst->state = CURRENT_SENSOR_ERROR;
 
                    break;
+                }
+
+                default:
+                {
+                    /*no action required*/
+
+                    break;
                 }
             }
         }
         else 
         {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
+            status = CURRENT_SENSOR_NOT_INIT;
         }
     }
     else
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     return status;
@@ -277,9 +284,9 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
 
 current_sensor_status_t DEV_Current_Sensor_Start(dev_current_sensor_t *p_inst)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
-    current_state_t state;
+    current_sensor_state_t state;
 
     if(p_inst != NULL)
     {
@@ -288,26 +295,26 @@ current_sensor_status_t DEV_Current_Sensor_Start(dev_current_sensor_t *p_inst)
             // Checks if state is IDLE
             status = DEV_Current_Sensor_Get_State( p_inst, &state);
 
-            if(status == CURRENT_STATUS_OK)
+            if(status == CURRENT_SENSOR_OK)
             {
-                if(state == CURRENT_STATE_IDLE)
+                if(state == CURRENT_SENSOR_IDLE)
                 {
-                    p_inst->state = CURRENT_STATE_START;
+                    p_inst->state = CURRENT_SENSOR_START;
                 }
                 else 
                 {
-                    status = CURRENT_STATUS_BUSY;
+                    status = CURRENT_SENSOR_BUSY;
                 }
             }
         }
         else 
         {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
+            status = CURRENT_SENSOR_NOT_INIT;
         }
     }
     else 
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     return status;
@@ -316,7 +323,7 @@ current_sensor_status_t DEV_Current_Sensor_Start(dev_current_sensor_t *p_inst)
 
 current_sensor_status_t DEV_Current_Sensor_Process_Raw(dev_current_sensor_t *p_inst)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
     adc_status_t adc_status;
 
@@ -340,28 +347,28 @@ current_sensor_status_t DEV_Current_Sensor_Process_Raw(dev_current_sensor_t *p_i
 
             if(adc_status != ADC_STATUS_OK)
             {
-                status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                status = CURRENT_SENSOR_ADC_ERROR;
             }
 
             adc_status = IO_ADC_Get_Vref(p_inst->adc_inst, &vref);
 
             if(adc_status != ADC_STATUS_OK)
             {
-                status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                status = CURRENT_SENSOR_ADC_ERROR;
             }
 
             adc_status = IO_ADC_Get_Resolution(p_inst->adc_inst, &resolution);
 
             if(adc_status != ADC_STATUS_OK)
             {
-                status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                status = CURRENT_SENSOR_ADC_ERROR;
             }
 
             adc_status = IO_ADC_Get_Offset(p_inst->adc_inst, &offset);
             
             if(adc_status != ADC_STATUS_OK)
             {
-                status = CURRENT_STATUS_ERROR_ADC_ERROR;
+                status = CURRENT_SENSOR_ADC_ERROR;
             }
 
             status = DEV_Current_Sensor_Get_Gain(p_inst, &gain_uV);
@@ -385,7 +392,7 @@ current_sensor_status_t DEV_Current_Sensor_Process_Raw(dev_current_sensor_t *p_i
     }
     else 
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     return status;
@@ -393,7 +400,7 @@ current_sensor_status_t DEV_Current_Sensor_Process_Raw(dev_current_sensor_t *p_i
 
 current_sensor_status_t DEV_Current_Sensor_Set_Timeout(dev_current_sensor_t *p_inst, uint32_t new_val)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
     if(p_inst != NULL)
     {
@@ -406,12 +413,12 @@ current_sensor_status_t DEV_Current_Sensor_Set_Timeout(dev_current_sensor_t *p_i
         }
         else 
         {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
+            status = CURRENT_SENSOR_NOT_INIT;
         }
     }
     else 
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     return status;
@@ -419,7 +426,7 @@ current_sensor_status_t DEV_Current_Sensor_Set_Timeout(dev_current_sensor_t *p_i
 
 current_sensor_status_t DEV_Current_Sensor_Get_Wait(dev_current_sensor_t *p_inst, uint32_t *p_out)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
     uint32_t wait = 0U;
 
@@ -431,12 +438,12 @@ current_sensor_status_t DEV_Current_Sensor_Get_Wait(dev_current_sensor_t *p_inst
         }
         else
         {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
+            status = CURRENT_SENSOR_NOT_INIT;
         }
     }
     else 
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     *p_out = wait;
@@ -446,7 +453,7 @@ current_sensor_status_t DEV_Current_Sensor_Get_Wait(dev_current_sensor_t *p_inst
 
 current_sensor_status_t DEV_Current_Sensor_Get_Gain(dev_current_sensor_t *p_inst, int32_t *p_out)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
     int32_t gain = 0;
 
@@ -458,12 +465,12 @@ current_sensor_status_t DEV_Current_Sensor_Get_Gain(dev_current_sensor_t *p_inst
         }
         else 
         {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
+            status = CURRENT_SENSOR_NOT_INIT;
         }
     }
     else 
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     *p_out = gain;
@@ -473,7 +480,7 @@ current_sensor_status_t DEV_Current_Sensor_Get_Gain(dev_current_sensor_t *p_inst
 
 current_sensor_status_t DEV_Current_Sensor_Get_Val(dev_current_sensor_t *p_inst, int16_t *p_out)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
     int32_t val = 0;
 
@@ -485,12 +492,12 @@ current_sensor_status_t DEV_Current_Sensor_Get_Val(dev_current_sensor_t *p_inst,
         }
         else 
         {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
+            status = CURRENT_SENSOR_NOT_INIT;
         }
     }
     else
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     *p_out = val;
@@ -498,11 +505,11 @@ current_sensor_status_t DEV_Current_Sensor_Get_Val(dev_current_sensor_t *p_inst,
     return status;
 }
 
-current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_inst, current_state_t *p_out)
+current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_inst, current_sensor_state_t *p_out)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
-    current_state_t state = CURRENT_STATE_UNDEFINED;
+    current_sensor_state_t state = CURRENT_SENSOR_STATE_UNDEF;
 
     if((p_inst != NULL) && (p_inst->cfg != NULL))
     {
@@ -512,12 +519,12 @@ current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_ins
         }
         else 
         {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
+            status = CURRENT_SENSOR_NOT_INIT;
         }
     }
     else 
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     *p_out = state;
@@ -527,7 +534,7 @@ current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_ins
 
 current_sensor_status_t DEV_Current_Sensor_Get_Data_Diff(dev_current_sensor_t *p_inst, bool *p_out)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
     bool diff_flag = false;
 
@@ -539,14 +546,14 @@ current_sensor_status_t DEV_Current_Sensor_Get_Data_Diff(dev_current_sensor_t *p
         }
         else 
         {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
+            status = CURRENT_SENSOR_NOT_INIT;
         }
 
         *p_out = diff_flag; 
     }
     else 
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     return status;
@@ -554,7 +561,7 @@ current_sensor_status_t DEV_Current_Sensor_Get_Data_Diff(dev_current_sensor_t *p
 
 current_sensor_status_t DEV_Current_Sensor_Get_Ready_Flag(dev_current_sensor_t *p_inst, bool *p_out)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
     bool flag = false;
 
@@ -566,14 +573,14 @@ current_sensor_status_t DEV_Current_Sensor_Get_Ready_Flag(dev_current_sensor_t *
         }
         else
         {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
+            status = CURRENT_SENSOR_NOT_INIT;
         }
 
         *p_out = flag;
     }
     else
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     return status;
@@ -581,7 +588,7 @@ current_sensor_status_t DEV_Current_Sensor_Get_Ready_Flag(dev_current_sensor_t *
 
 current_sensor_status_t DEV_Current_Sensor_Get_Timeout(dev_current_sensor_t *p_inst, uint32_t *p_out)
 {
-    current_sensor_status_t status = CURRENT_STATUS_OK;
+    current_sensor_status_t status = CURRENT_SENSOR_OK;
 
     uint32_t timeout = 0U;
 
@@ -593,14 +600,14 @@ current_sensor_status_t DEV_Current_Sensor_Get_Timeout(dev_current_sensor_t *p_i
         }
         else
         {
-            status = CURRENT_STATUS_ERROR_NOT_INIT;
+            status = CURRENT_SENSOR_NOT_INIT;
         }
 
         *p_out = timeout;
     }
     else
     {
-        status = CURRENT_STATUS_ERROR_NULL_POINTER;
+        status = CURRENT_SENSOR_NULL_POINTER;
     }
 
     return status;
