@@ -209,7 +209,7 @@ bms_status_t BMS_Manager_Current_Sensor_Task(void)
 
     current_sensor_status = DEV_Current_Sensor_Task(&last_current_sensor);
 
-    if(current_sensor_status != CURRENT_STATUS_OK)
+    if(current_sensor_status != CURRENT_SENSOR_OK)
     {
         status = BMS_STATUS_ERROR_CURRENT_SENSOR_FAILURE;
     }
