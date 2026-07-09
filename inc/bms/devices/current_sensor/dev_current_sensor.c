@@ -489,6 +489,8 @@ current_sensor_status_t DEV_Current_Sensor_Get_Val(dev_current_sensor_t *p_inst,
         if(p_inst->is_init)
         {
             val = p_inst->last_val;
+
+            p_inst->is_ready = false;
         }
         else 
         {
