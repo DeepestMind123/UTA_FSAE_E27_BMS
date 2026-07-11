@@ -78,7 +78,7 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
 
                     if(p_inst->start_time != 0)
                     {
-                        time_status = UTIL_Time_Get_Tick(p_inst->time_inst, now_time);
+                        time_status = UTIL_Time_Get_Tick(p_inst->time_inst, &now_time);
 
                         if(time_status == TIME_STATUS_OK)
                         {
@@ -116,7 +116,7 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
                             // Start ADC and switch states if no error
                             if(IO_ADC_Start(p_inst->adc_inst) == ADC_STATUS_OK)
                             {
-                                time_status = UTIL_Time_Get_Tick(p_inst->time_inst, p_inst->start_time);
+                                time_status = UTIL_Time_Get_Tick(p_inst->time_inst, &p_inst->start_time);
 
                                 if(time_status == TIME_STATUS_OK)
                                 {
@@ -155,7 +155,7 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
 
                 case CURRENT_SENSOR_WAIT:
                 {
-                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, now_time);
+                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, &now_time);
 
                     if(time_status == TIME_STATUS_OK)
                     {
@@ -229,7 +229,7 @@ current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst)
                     // Starts timer and switches state to IDLE
                     p_inst->is_ready = true;
 
-                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, p_inst->start_time);
+                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, &p_inst->start_time);
 
                     if(time_status == TIME_STATUS_OK)
                     {

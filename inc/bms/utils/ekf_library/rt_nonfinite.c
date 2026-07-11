@@ -30,23 +30,23 @@ real32_T rtMinusInfF = -(real32_T)INFINITY;
 /* Test if value is infinite */
 boolean_T rtIsInf(real_T value)
 {
-  return (boolean_T)isinff(value);
+  return (boolean_T)rtIsInfF(value);
 }
 
 /* Test if single-precision value is infinite */
 boolean_T rtIsInfF(real32_T value)
 {
-  return (boolean_T)isinff(value);
+  return (boolean_T)rtIsInfF(value);
 }
 
 /* Test if value is not a number */
 boolean_T rtIsNaN(real_T value)
 {
-  return (boolean_T)(isnanf(value) != 0);
+  return (boolean_T)(rtIsNaNF(value) != 0);
 }
 
 /* Test if single-precision value is not a number */
 boolean_T rtIsNaNF(real32_T value)
 {
-  return (boolean_T)(isnanf(value) != 0);
+  return (boolean_T)(rtIsNaNF(value) != 0);
 }

@@ -45,7 +45,7 @@ pid_status_t UTIL_PID_Ctrl_Task(pid_ctrl_t *p_inst, float val, float *p_out)
         {
             p_inst->now_val = val;
 
-            time_status = UTIL_Time_Get_Tick(p_inst->time_inst, p_inst->now_time_ms);
+            time_status = UTIL_Time_Get_Tick(p_inst->time_inst, &p_inst->now_time_ms);
 
             if(time_status == TIME_STATUS_OK)
             {

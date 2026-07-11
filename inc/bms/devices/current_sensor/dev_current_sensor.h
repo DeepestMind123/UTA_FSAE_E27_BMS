@@ -81,8 +81,6 @@ current_sensor_status_t DEV_Current_Sensor_Start(dev_current_sensor_t *p_inst);
 
 current_sensor_status_t DEV_Current_Sensor_Process_Raw(dev_current_sensor_t *p_inst);      // process raw current value to get current in mA
 
-current_sensor_status_t DEV_Current_Sensor_Set_Timeout(dev_current_sensor_t *p_inst, uint32_t new_val);
-
 current_sensor_status_t DEV_Current_Sensor_Get_Wait(dev_current_sensor_t *p_inst, uint32_t *p_out);
 
 current_sensor_status_t DEV_Current_Sensor_Get_Gain(dev_current_sensor_t *p_inst, int32_t *p_out);
@@ -94,6 +92,8 @@ current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_ins
 current_sensor_status_t DEV_Current_Sensor_Get_Data_Diff(dev_current_sensor_t *p_inst, bool *p_out);
 
 current_sensor_status_t DEV_Current_Sensor_Get_Ready_Flag(dev_current_sensor_t *p_inst, bool *p_out);
+
+current_sensor_status_t DEV_Current_Sensor_Set_Timeout(dev_current_sensor_t *p_inst, uint32_t new_val);
 
 current_sensor_status_t DEV_Current_Sensor_Get_Timeout(dev_current_sensor_t *p_inst, uint32_t *p_out);
 
