@@ -6,6 +6,7 @@
  */
 
 #include "bms_task_manager.h"
+#include "bms_fault.h"
 
 static bms_state_t state;
 static bms_discharge_state_t discharge_state;

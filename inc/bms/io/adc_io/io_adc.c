@@ -81,7 +81,7 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
 
                     p_inst->is_ready = false;
 
-                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, p_inst->start_time);
+                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, &p_inst->start_time);
 
                     if(time_status == TIME_STATUS_OK)
                     {
@@ -99,7 +99,7 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
 
                 case ADC_STATE_WAIT:
                 {
-                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, now_time);
+                    time_status = UTIL_Time_Get_Tick(p_inst->time_inst, &now_time);
                     
                     if(time_status == TIME_STATUS_OK)
                     {

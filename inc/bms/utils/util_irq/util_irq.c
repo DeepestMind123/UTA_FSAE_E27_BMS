@@ -7,7 +7,7 @@
 
 #include "util_irq.h"
 
-irq_status_t UTIL_IRQ_Init(util_irq_t *p_irq, util_irq_cfg_t *p_cfg)
+irq_status_t UTIL_IRQ_Init(util_irq_t *p_irq, const util_irq_cfg_t *p_cfg)
 {
     irq_status_t status = IRQ_STATUS_ERROR_NOT_INIT;
 

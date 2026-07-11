@@ -2,35 +2,35 @@
 
 void BMS_Fault_Update(bms_fault_id_t id, bool is_error)
 {
-    if(id >= BMS_FAULT_MAX)
-    {
-        return; // ignore errors outside bounds
-    }
+    // if(id >= BMS_FAULT_MAX)
+    // {
+    //     return; // ignore errors outside bounds
+    // }
 
-    if(is_error)
-    {
-        if(bms_fault_table[id].counter == 0U)
-        {
-            bms_fault_table[id].start_time = UTIL_Time_Get_Tick();
-        }
+    // if(is_error)
+    // {
+    //     if(bms_fault_table[id].counter == 0U)
+    //     {
+    //         bms_fault_table[id].start_time = UTIL_Time_Get_Tick();
+    //     }
 
-        if(bms_fault_table[id].counter < bms_fault_table[id].threshold)
-        {
-            bms_fault_table[id].counter++; // increment counter
+    //     if(bms_fault_table[id].counter < bms_fault_table[id].threshold)
+    //     {
+    //         bms_fault_table[id].counter++; // increment counter
 
-            bms_fault_table[id].status = BMS_FAULT_STATUS_PENDING; // fault pending successful debounce
-        }
-        else 
-        {
-            bms_fault_table[id].status = BMS_FAULT_STATUS_ACTIVE;
-        }
-    }
-    else if((!is_error) || ((UTIL_Time_Get_Tick() - bms_fault_table[id].start_time) >= bms_fault_table[id].max_time))
-    {
-        bms_fault_table[id].counter = 0U;
+    //         bms_fault_table[id].status = BMS_FAULT_STATUS_PENDING; // fault pending successful debounce
+    //     }
+    //     else 
+    //     {
+    //         bms_fault_table[id].status = BMS_FAULT_STATUS_ACTIVE;
+    //     }
+    // }
+    // else if((!is_error) || ((UTIL_Time_Get_Tick() - bms_fault_table[id].start_time) >= bms_fault_table[id].max_time))
+    // {
+    //     bms_fault_table[id].counter = 0U;
 
-        bms_fault_table[id].status = BMS_FAULT_STATUS_CLEAR;
-    }
+    //     bms_fault_table[id].status = BMS_FAULT_STATUS_CLEAR;
+    // }
 }
 
 bms_fault_status_t BMS_Fault_Get_Status(bms_fault_id_t id)
