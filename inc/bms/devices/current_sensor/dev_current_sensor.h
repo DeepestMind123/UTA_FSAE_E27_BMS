@@ -73,28 +73,28 @@ typedef struct
 
 } isense_t;
 
-isense_status_t DEV_Isense_Sensor_Init(isense_t *p_inst, const isense_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst);
+isense_status_t DEV_Isense_Init(isense_t *p_inst, const isense_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst);
 
-isense_status_t DEV_Isense_Sensor_Task(isense_t *p_inst);    // state switch function
+isense_status_t DEV_Isense_Task(isense_t *p_inst);    // state switch function
 
-isense_status_t DEV_Isense_Sensor_Start(isense_t *p_inst);
+isense_status_t DEV_Isense_Start(isense_t *p_inst);
 
-isense_status_t DEV_Isense_Sensor_Process_Raw(isense_t *p_inst);      // process raw current value to get current in mA
+isense_status_t DEV_Isense_Process_Raw(isense_t *p_inst);      // process raw current value to get current in mA
 
-isense_status_t DEV_Isense_Sensor_Get_Wait(isense_t *p_inst, uint32_t *p_out);
+isense_status_t DEV_Isense_Get_Wait(isense_t *p_inst, uint32_t *p_out);
 
-isense_status_t DEV_Isense_Sensor_Get_Gain(isense_t *p_inst, int32_t *p_out);
+isense_status_t DEV_Isense_Get_Gain(isense_t *p_inst, int32_t *p_out);
 
-isense_status_t DEV_Isense_Sensor_Get_Val(isense_t *p_inst, int16_t *p_out);
+isense_status_t DEV_Isense_Get_Val(isense_t *p_inst, int16_t *p_out);
 
-isense_status_t DEV_Isense_Sensor_Get_State(isense_t *p_inst, isense_state_t *p_out);
+isense_status_t DEV_Isense_Get_State(isense_t *p_inst, isense_state_t *p_out);
 
-isense_status_t DEV_Isense_Sensor_Get_Data_Diff(isense_t *p_inst, bool *p_out);
+isense_status_t DEV_Isense_Get_Data_Diff(isense_t *p_inst, bool *p_out);
 
-isense_status_t DEV_Isense_Sensor_Get_Ready_Flag(isense_t *p_inst, bool *p_out);
+isense_status_t DEV_Isense_Get_Ready_Flag(isense_t *p_inst, bool *p_out);
 
-isense_status_t DEV_Isense_Sensor_Set_Timeout(isense_t *p_inst, uint32_t new_val);
+isense_status_t DEV_Isense_Set_Timeout(isense_t *p_inst, uint32_t new_val);
 
-isense_status_t DEV_Isense_Sensor_Get_Timeout(isense_t *p_inst, uint32_t *p_out);
+isense_status_t DEV_Isense_Get_Timeout(isense_t *p_inst, uint32_t *p_out);
 
 #endif 

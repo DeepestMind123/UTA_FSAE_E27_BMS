@@ -10,10 +10,10 @@
 
 static bms_state_t state;
 static bms_discharge_state_t discharge_state;
-static dev_current_sensor_t *current_sensor_high;
-static dev_current_sensor_t *current_sensor_low;
-static dev_current_sensor_t *last_current_sensor;
-static current_sensor_status_t current_sensor_status;
+static isense_t *current_sensor_high;
+static isense_t *current_sensor_low;
+static isense_t *last_current_sensor;
+static isense_status_t current_sensor_status;
 static bms_config_t *bms_cfg; 
 static bms_pack_state_t pack_state = {
     .last_current_mA = 0,
@@ -199,18 +199,18 @@ bms_status_t BMS_Manager_Current_Sensor_Task(void)
     {
         last_current_sensor = current_sensor_high;
 
-        current_sensor_status = DEV_Current_Sensor_Set_Timeout(&current_sensor_low, 0U);
+        current_sensor_status = DEV_Isense_Set_Timeout(&current_sensor_low, 0U);
     }
     else if(pack_state.last_current_mA <= SENSOR_HANDOFF_MIN)
     {
         last_current_sensor = current_sensor_low;
 
-        current_sensor_status = DEV_Current_Sensor_Set_Timeout(&current_sensor_high, 0U);
+        current_sensor_status = DEV_Isense_Set_Timeout(&current_sensor_high, 0U);
     }
 
-    current_sensor_status = DEV_Current_Sensor_Task(&last_current_sensor);
+    current_sensor_status = DEV_Isense_Task(&last_current_sensor);
 
-    if(current_sensor_status != CURRENT_SENSOR_OK)
+    if(current_sensor_status != ISENSE_OK)
     {
         status = BMS_STATUS_ERROR_CURRENT_SENSOR_FAILURE;
     }

@@ -7,7 +7,7 @@
 
 #include "dev_current_sensor.h"
 
-isense_status_t DEV_Isense_Sensor_Init(isense_t *p_inst, const isense_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst)
+isense_status_t DEV_Isense_Init(isense_t *p_inst, const isense_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst)
 {
     isense_status_t status = ISENSE_NOT_INIT;
 
@@ -43,7 +43,7 @@ isense_status_t DEV_Isense_Sensor_Init(isense_t *p_inst, const isense_cfg_t *p_c
     return status;
 }
 
-isense_status_t DEV_Isense_Sensor_Task(isense_t *p_inst)
+isense_status_t DEV_Isense_Task(isense_t *p_inst)
 {
     isense_status_t status = ISENSE_OK;
 
@@ -202,7 +202,7 @@ isense_status_t DEV_Isense_Sensor_Task(isense_t *p_inst)
 
                     if(adc_ready)
                     {
-                        status = DEV_Isense_Sensor_Process_Raw(p_inst);
+                        status = DEV_Isense_Process_Raw(p_inst);
 
                         if(status == ISENSE_OK)
                         {
@@ -282,7 +282,7 @@ isense_status_t DEV_Isense_Sensor_Task(isense_t *p_inst)
     return status;
 }
 
-isense_status_t DEV_Isense_Sensor_Start(isense_t *p_inst)
+isense_status_t DEV_Isense_Start(isense_t *p_inst)
 {
     isense_status_t status = ISENSE_OK;
 
@@ -293,7 +293,7 @@ isense_status_t DEV_Isense_Sensor_Start(isense_t *p_inst)
         if(p_inst->is_init)
         {
             // Checks if state is IDLE
-            status = DEV_Isense_Sensor_Get_State( p_inst, &state);
+            status = DEV_Isense_Get_State( p_inst, &state);
 
             if(status == ISENSE_OK)
             {
@@ -321,7 +321,7 @@ isense_status_t DEV_Isense_Sensor_Start(isense_t *p_inst)
 }
 
 
-isense_status_t DEV_Isense_Sensor_Process_Raw(isense_t *p_inst)
+isense_status_t DEV_Isense_Process_Raw(isense_t *p_inst)
 {
     isense_status_t status = ISENSE_OK;
 
@@ -371,7 +371,7 @@ isense_status_t DEV_Isense_Sensor_Process_Raw(isense_t *p_inst)
                 status = ISENSE_ADC_FAULT;
             }
 
-            status = DEV_Isense_Sensor_Get_Gain(p_inst, &gain_uV);
+            status = DEV_Isense_Get_Gain(p_inst, &gain_uV);
 
             if((resolution > 0U) && (gain_uV != 0))
             {
@@ -398,7 +398,7 @@ isense_status_t DEV_Isense_Sensor_Process_Raw(isense_t *p_inst)
     return status;
 }
 
-isense_status_t DEV_Isense_Sensor_Set_Timeout(isense_t *p_inst, uint32_t new_val)
+isense_status_t DEV_Isense_Set_Timeout(isense_t *p_inst, uint32_t new_val)
 {
     isense_status_t status = ISENSE_OK;
 
@@ -424,7 +424,7 @@ isense_status_t DEV_Isense_Sensor_Set_Timeout(isense_t *p_inst, uint32_t new_val
     return status;
 }
 
-isense_status_t DEV_Isense_Sensor_Get_Wait(isense_t *p_inst, uint32_t *p_out)
+isense_status_t DEV_Isense_Get_Wait(isense_t *p_inst, uint32_t *p_out)
 {
     isense_status_t status = ISENSE_OK;
 
@@ -451,7 +451,7 @@ isense_status_t DEV_Isense_Sensor_Get_Wait(isense_t *p_inst, uint32_t *p_out)
     return status;
 }
 
-isense_status_t DEV_Isense_Sensor_Get_Gain(isense_t *p_inst, int32_t *p_out)
+isense_status_t DEV_Isense_Get_Gain(isense_t *p_inst, int32_t *p_out)
 {
     isense_status_t status = ISENSE_OK;
 
@@ -478,7 +478,7 @@ isense_status_t DEV_Isense_Sensor_Get_Gain(isense_t *p_inst, int32_t *p_out)
     return status;
 }
 
-isense_status_t DEV_Isense_Sensor_Get_Val(isense_t *p_inst, int16_t *p_out)
+isense_status_t DEV_Isense_Get_Val(isense_t *p_inst, int16_t *p_out)
 {
     isense_status_t status = ISENSE_OK;
 
@@ -507,7 +507,7 @@ isense_status_t DEV_Isense_Sensor_Get_Val(isense_t *p_inst, int16_t *p_out)
     return status;
 }
 
-isense_status_t DEV_Isense_Sensor_Get_State(isense_t *p_inst, isense_state_t *p_out)
+isense_status_t DEV_Isense_Get_State(isense_t *p_inst, isense_state_t *p_out)
 {
     isense_status_t status = ISENSE_OK;
 
@@ -534,7 +534,7 @@ isense_status_t DEV_Isense_Sensor_Get_State(isense_t *p_inst, isense_state_t *p_
     return status;
 }
 
-isense_status_t DEV_Isense_Sensor_Get_Data_Diff(isense_t *p_inst, bool *p_out)
+isense_status_t DEV_Isense_Get_Data_Diff(isense_t *p_inst, bool *p_out)
 {
     isense_status_t status = ISENSE_OK;
 
@@ -561,7 +561,7 @@ isense_status_t DEV_Isense_Sensor_Get_Data_Diff(isense_t *p_inst, bool *p_out)
     return status;
 }
 
-isense_status_t DEV_Isense_Sensor_Get_Ready_Flag(isense_t *p_inst, bool *p_out)
+isense_status_t DEV_Isense_Get_Ready_Flag(isense_t *p_inst, bool *p_out)
 {
     isense_status_t status = ISENSE_OK;
 
@@ -588,7 +588,7 @@ isense_status_t DEV_Isense_Sensor_Get_Ready_Flag(isense_t *p_inst, bool *p_out)
     return status;
 }
 
-isense_status_t DEV_Isense_Sensor_Get_Timeout(isense_t *p_inst, uint32_t *p_out)
+isense_status_t DEV_Isense_Get_Timeout(isense_t *p_inst, uint32_t *p_out)
 {
     isense_status_t status = ISENSE_OK;
 
