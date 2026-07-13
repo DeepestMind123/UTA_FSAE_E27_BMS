@@ -19,8 +19,11 @@
 #include "dev_voltage_sensor.h"
 #include "bms_config.h"
 
-#define ISENSE_HANDOFF_MAX_MA 7500
-#define ISENSE_HANDOFF_MIN_MA 7000
+#define HANDOFF_MAX_MA_ISENSE 7500
+#define HANDOFF_MIN_MA_ISENSE 7000
+#define TASK_DELAY_ISENSE 2U
+#define TASK_DELAY_VSENSE 25U
+#define TASK_DELAY_TSENSE 100U
 
 typedef enum
 {
@@ -31,7 +34,11 @@ typedef enum
     DAQ_UNDEF_STATE,
     DAQ_NULL_PTR,
     DAQ_ISENSE_FAULT,
+    DAQ_ISENSE_TIMEOUT,
     DAQ_VSENSE_FAULT,
+    DAQ_ISENSE_TIMEOUT,
+    DAQ_TSENSE_FAULT,
+    DAQ_TSENSE_TIMEOUT,
     DAQ_TIME_FAULT,
     DAQ_STATUS_MAX
 } daq_status_t;
@@ -113,6 +120,8 @@ typedef struct
 daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg);
 
 daq_status_t BMS_DAQ_Task(void);
+
+daq_status_t BMS_DAQ_Idle_State(void);
 
 daq_status_t BMS_DAQ_Isense_State(void);
 

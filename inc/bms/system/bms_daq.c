@@ -135,12 +135,27 @@ daq_status_t BMS_DAQ_Task(void)
                 {
                     s_daq.state = DAQ_STATE_ERROR;
                 }
+                else
+                {
+                    s_daq.state = DAQ_STATE_IDLE;
+                }
 
                 break;
             }
 
             case DAQ_STATE_VSENSE:
             {
+                status = BMS_DAQ_Vsense_State();
+
+                if(status != DAQ_OK)
+                {
+                    s_daq.state = DAQ_STATE_ERROR;
+                }
+                else
+                {
+                    s_daq.state = DAQ_STATE_IDLE;
+                }
+
                 break;
             }
 
@@ -161,7 +176,8 @@ daq_status_t BMS_DAQ_Task(void)
 
             default:
             {
-                /*intentionally left blank*/
+                s_daq.state = DAQ_STATE_ERROR;
+
                 break;
             }
         }
@@ -169,6 +185,66 @@ daq_status_t BMS_DAQ_Task(void)
     else
     {
         status = DAQ_NOT_INIT;
+    }
+
+    return status;
+}
+
+daq_status_t BMS_DAQ_Idle_State(void)
+{
+    daq_status_t status = DAQ_OK;
+
+    if(!s_daq.is_init)
+    {
+        status = DAQ_NOT_INIT;
+    }
+    
+    if(status == DAQ_OK)
+    {
+        if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) == TIME_STATUS_OK)
+        {
+            if((s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp >= TASK_DELAY_ISENSE) &&
+                (s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp < s_daq.real_timeout.isense_ready_timeout))
+            {
+                s_daq.state = DAQ_STATE_ISENSE;
+            }
+            else if((s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= TASK_DELAY_VSENSE) &&
+                    (s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp < s_daq.real_timeout.vsense_ready_timeout))
+            {
+                s_daq.state = DAQ_STATE_VSENSE;
+            }
+            else if((s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= TASK_DELAY_TSENSE) &&
+                    (s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp < s_daq.real_timeout.tsense_ready_timeout))
+            {
+                s_daq.state = DAQ_STATE_TSENSE;
+            }
+            else if((s_daq.data_buffer.i_data.i_valid) || (s_daq.data_buffer.v_data.v_valid) || (s_daq.data_buffer.t_data.t_valid))
+            {
+                s_daq.state = DAQ_STATE_REPORT;
+            }
+            else if(s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp >= s_daq.real_timeout.isense_timeout)
+            {
+                status = DAQ_ISENSE_TIMEOUT;
+
+                s_daq.state = DAQ_STATE_ERROR;
+            }
+            else if(s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= s_daq.real_timeout.vsense_timeout)
+            {
+                status = DAQ_VSENSE_TIMEOUT;
+
+                s_daq.state = DAQ_STATE_ERROR;
+            }
+            else if(s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= s_daq.real_timeout.tsense_timeout)
+            {
+                status = DAQ_TSENSE_TIMEOUT;
+
+                s_daq.state = DAQ_STATE_ERROR;
+            }
+        }
+        else
+        {
+            status = DAQ_TIME_FAULT;
+        }
     }
 
     return status;
@@ -187,13 +263,13 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
         {
             if(s_daq.isense_state == ISENSE_STATE_IDLE)
             {
-                if(abs(s_daq.data_buffer.i_data.ival_mA) > ISENSE_HANDOFF_MAX_MA)
+                if(abs(s_daq.data_buffer.i_data.ival_mA) > HANDOFF_MAX_MA_ISENSE)
                 {
                     s_daq.p_last_isense = s_daq.p_isense_high;
 
                     isense_status = DEV_Isense_Set_Timeout(s_daq.p_isense_low, 0U);
                 }
-                else if(abs(s_daq.data_buffer.i_data.ival_mA) <= ISENSE_HANDOFF_MIN_MA)
+                else if(abs(s_daq.data_buffer.i_data.ival_mA) <= HANDOFF_MIN_MA_ISENSE)
                 {
                     s_daq.p_last_isense = s_daq.p_isense_low;
 
