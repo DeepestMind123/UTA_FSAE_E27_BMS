@@ -19,36 +19,36 @@
 
 typedef enum
 {
-    CURRENT_SENSOR_OK = 0,
-    CURRENT_SENSOR_NULL_POINTER,
-    CURRENT_SENSOR_NOT_INIT,
-    CURRENT_SENSOR_TIMEOUT,
-    CURRENT_SENSOR_ADC_ERROR,
-    CURRENT_SENSOR_TIME_ERROR,
-    CURRENT_SENSOR_UNDEF_STATE,
-    CURRENT_SENSOR_STATE_MISMATCH,
-    CURRENT_SENSOR_BUSY,
-    CURRENT_SENSOR_STATUS_MAX
-} current_sensor_status_t;
+    ISENSE_OK = 0,
+    ISENSE_NULL_PTR,
+    ISENSE_NOT_INIT,
+    ISENSE_TIMEOUT,
+    ISENSE_ADC_FAULT,
+    ISENSE_TIME_FAULT,
+    ISENSE_UNDEF_STATE,
+    ISENSE_MISMATCH_STATE,
+    ISENSE_BUSY,
+    ISENSE_STATUS_MAX
+} isense_status_t;
 
 typedef enum
 {
-    CURRENT_SENSOR_STATE_UNDEF = 0,
-    CURRENT_SENSOR_IDLE,
-    CURRENT_SENSOR_START,
-    CURRENT_SENSOR_WAIT,
-    CURRENT_SENSOR_GET,
-    CURRENT_SENSOR_READY,
-    CURRENT_SENSOR_ERROR,
-    CURRENT_SENSOR_STATE_MAX
-} current_sensor_state_t;
+    ISENSE_STATE_UNDEF = 0,
+    ISENSE_STATE_IDLE,
+    ISENSE_STATE_START,
+    ISENSE_STATE_WAIT,
+    ISENSE_STATE_GET,
+    ISENSE_STATE_READY,
+    ISENSE_STATE_ERROR,
+    ISENSE_STATE_MAX
+} isense_state_t;
 
 typedef struct
 {
-    int32_t current_gain_uV;                    // gain of sensor in uV / A
-    uint16_t current_raw_cutoff;                // clamp value for sensor calibration
+    int32_t isense_gain_uV;                    // gain of sensor in uV / A
+    uint16_t isense_raw_cutoff;                // clamp value for sensor calibration
 
-} dev_current_sensor_cfg_t;
+} isense_cfg_t;
 
 typedef struct
 {
@@ -56,7 +56,7 @@ typedef struct
     uint32_t cal_count;
     uint32_t raw_offset;                // calibrated offset value
     uint32_t adc_timeout_ms;            // time in ms before current wait times out
-    uint32_t current_timeout;           // timer in ms between current sensor checks
+    uint32_t isense_timeout_ms;           // timer in ms between current sensor checks
 
     int32_t last_val;
     uint32_t start_time;
@@ -66,35 +66,35 @@ typedef struct
     bool is_ready;
 
     io_adc_t *adc_inst;
-    current_sensor_status_t status;
-    current_sensor_state_t state;
+    isense_status_t status;
+    isense_state_t state;
     const util_time_t *time_inst;
-    const dev_current_sensor_cfg_t *cfg;
+    const isense_cfg_t *cfg;
 
-} dev_current_sensor_t;
+} isense_t;
 
-current_sensor_status_t DEV_Current_Sensor_Init(dev_current_sensor_t *p_inst, const dev_current_sensor_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst);
+isense_status_t DEV_Isense_Sensor_Init(isense_t *p_inst, const isense_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst);
 
-current_sensor_status_t DEV_Current_Sensor_Task(dev_current_sensor_t *p_inst);    // state switch function
+isense_status_t DEV_Isense_Sensor_Task(isense_t *p_inst);    // state switch function
 
-current_sensor_status_t DEV_Current_Sensor_Start(dev_current_sensor_t *p_inst);
+isense_status_t DEV_Isense_Sensor_Start(isense_t *p_inst);
 
-current_sensor_status_t DEV_Current_Sensor_Process_Raw(dev_current_sensor_t *p_inst);      // process raw current value to get current in mA
+isense_status_t DEV_Isense_Sensor_Process_Raw(isense_t *p_inst);      // process raw current value to get current in mA
 
-current_sensor_status_t DEV_Current_Sensor_Get_Wait(dev_current_sensor_t *p_inst, uint32_t *p_out);
+isense_status_t DEV_Isense_Sensor_Get_Wait(isense_t *p_inst, uint32_t *p_out);
 
-current_sensor_status_t DEV_Current_Sensor_Get_Gain(dev_current_sensor_t *p_inst, int32_t *p_out);
+isense_status_t DEV_Isense_Sensor_Get_Gain(isense_t *p_inst, int32_t *p_out);
 
-current_sensor_status_t DEV_Current_Sensor_Get_Val(dev_current_sensor_t *p_inst, int16_t *p_out);
+isense_status_t DEV_Isense_Sensor_Get_Val(isense_t *p_inst, int16_t *p_out);
 
-current_sensor_status_t DEV_Current_Sensor_Get_State(dev_current_sensor_t *p_inst, current_sensor_state_t *p_out);
+isense_status_t DEV_Isense_Sensor_Get_State(isense_t *p_inst, isense_state_t *p_out);
 
-current_sensor_status_t DEV_Current_Sensor_Get_Data_Diff(dev_current_sensor_t *p_inst, bool *p_out);
+isense_status_t DEV_Isense_Sensor_Get_Data_Diff(isense_t *p_inst, bool *p_out);
 
-current_sensor_status_t DEV_Current_Sensor_Get_Ready_Flag(dev_current_sensor_t *p_inst, bool *p_out);
+isense_status_t DEV_Isense_Sensor_Get_Ready_Flag(isense_t *p_inst, bool *p_out);
 
-current_sensor_status_t DEV_Current_Sensor_Set_Timeout(dev_current_sensor_t *p_inst, uint32_t new_val);
+isense_status_t DEV_Isense_Sensor_Set_Timeout(isense_t *p_inst, uint32_t new_val);
 
-current_sensor_status_t DEV_Current_Sensor_Get_Timeout(dev_current_sensor_t *p_inst, uint32_t *p_out);
+isense_status_t DEV_Isense_Sensor_Get_Timeout(isense_t *p_inst, uint32_t *p_out);
 
 #endif 
