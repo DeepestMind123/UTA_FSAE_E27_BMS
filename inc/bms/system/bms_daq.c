@@ -20,11 +20,12 @@ typedef struct
     daq_data_t data_buffer;
     daq_data_t *p_data_out;
     const util_time_t *p_time;
-    const dev_current_sensor_t *p_isense_high;
-    const dev_current_sensor_t *p_isense_low;
-    dev_current_sensor_t *p_last_isense;
-    current_sensor_state_t isense_state;
-    voltage_sensor_state_t vsense_state;
+    isense_t *p_isense_high;
+    isense_t *p_isense_low;
+    isense_t *p_last_isense;
+    vsense_t *p_vsense;
+    isense_state_t isense_state;
+    vsense_state_t vsense_state;
 } daq_t;
 
 static daq_t s_daq;
@@ -33,7 +34,7 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
 {
     daq_status_t status = DAQ_NOT_INIT;
 
-    if(s_daq.is_init)
+    if(!s_daq.is_init)
     {
         if(p_cfg != NULL)
         {
@@ -101,7 +102,7 @@ daq_status_t BMS_DAQ_Task(void)
 {
     daq_status_t status = DAQ_OK;
 
-    current_sensor_state_t isense_status;
+    isense_state_t isense_status;
     time_status_t time_status;
 
     if(s_daq.is_init)
@@ -128,7 +129,12 @@ daq_status_t BMS_DAQ_Task(void)
 
             case DAQ_STATE_ISENSE:
             {
-                status = BMS_DAQ_Isense_Switch_State();
+                status = BMS_DAQ_Isense_State();
+
+                if(status != DAQ_OK)
+                {
+                    s_daq.state = DAQ_STATE_ERROR;
+                }
 
                 break;
             }
@@ -171,34 +177,34 @@ daq_status_t BMS_DAQ_Task(void)
 daq_status_t BMS_DAQ_Isense_Switch_Task(void)
 {
     daq_status_t status = DAQ_OK;
-    current_sensor_state_t isense_status;
+    isense_state_t isense_status;
 
     if(s_daq.is_init)
     {
-        isense_status = DEV_Current_Sensor_Get_State(s_daq.p_last_isense, &s_daq.isense_state);
+        isense_status = DEV_Isense_Get_State(s_daq.p_last_isense, &s_daq.isense_state);
 
-        if(isense_status == CURRENT_SENSOR_OK)
+        if(isense_status == ISENSE_OK)
         {
-            if(s_daq.isense_state == CURRENT_SENSOR_IDLE)
+            if(s_daq.isense_state == ISENSE_STATE_IDLE)
             {
                 if(abs(s_daq.data_buffer.i_data.ival_mA) > ISENSE_HANDOFF_MAX_MA)
                 {
                     s_daq.p_last_isense = s_daq.p_isense_high;
 
-                    isense_status = DEV_Current_Sensor_Set_Timeout(s_daq.p_isense_low, 0U);
+                    isense_status = DEV_Isense_Set_Timeout(s_daq.p_isense_low, 0U);
                 }
                 else if(abs(s_daq.data_buffer.i_data.ival_mA) <= ISENSE_HANDOFF_MIN_MA)
                 {
                     s_daq.p_last_isense = s_daq.p_isense_low;
 
-                    isense_status = DEV_Current_Sensor_Set_Timeout(s_daq.p_isense_high, 0U);
+                    isense_status = DEV_Isense_Set_Timeout(s_daq.p_isense_high, 0U);
                 }
 
-                if(isense_status == CURRENT_SENSOR_OK)
+                if(isense_status == ISENSE_OK)
                 {
-                    isense_status = DEV_Current_Sensor_Task(s_daq.p_last_isense);
+                    isense_status = DEV_Isense_Task(s_daq.p_last_isense);
 
-                    if(isense_status != CURRENT_SENSOR_OK)
+                    if(isense_status != ISENSE_OK)
                     {
                         status = DAQ_ISENSE_FAULT;
                     }
@@ -210,9 +216,9 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
             }
             else
             {
-                isense_status = DEV_Current_Sensor_Task(s_daq.p_last_isense);
+                isense_status = DEV_Isense_Task(s_daq.p_last_isense);
 
-                if(isense_status != CURRENT_SENSOR_OK)
+                if(isense_status != ISENSE_OK)
                 {
                     status = DAQ_ISENSE_FAULT;
                 }
@@ -234,83 +240,202 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
 daq_status_t BMS_DAQ_Isense_State(void)
 {
     daq_status_t status = DAQ_OK;
-    current_sensor_state_t isense_status;
+    isense_state_t isense_status;
     time_status_t time_status;
+    bool isense_ready = false;
 
-    if(s_daq.is_init)
+    if(!s_daq.is_init)
     {
-        bool isense_ready = false;
+        status = DAQ_NOT_INIT;
+    }
 
-        isense_status = DEV_Current_Sensor_Get_State(s_daq.p_last_isense, &s_daq.isense_state);
+    if(status == DAQ_OK)
+    {
+        isense_status = DEV_Isense_Get_State(s_daq.p_last_isense, &s_daq.isense_state);
 
-        if(isense_status == CURRENT_SENSOR_OK)
-        {
-            if(s_daq.isense_state == CURRENT_SENSOR_IDLE)
-            {
-                isense_status = DEV_Current_Sensor_Get_Ready_Flag(s_daq.p_last_isense, &isense_ready);
-
-                if(isense_status == CURRENT_SENSOR_OK)
-                {
-                    time_status = UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time);
-
-                    if(time_status == TIME_STATUS_OK)
-                    {
-                        if(isense_ready)
-                        {
-                            /*
-                            need to add data integrity checking mechanism
-                            it is a single clock cycle read so its probably fine to brute force this
-                            buuut voltage measurements are a giant array so that wont work
-                            */
-
-                            int32_t temp_val = 0;
-
-                            isense_status = DEV_Current_Sensor_Get_Val(s_daq.p_last_isense, &temp_val);
-
-                            if(isense_status == CURRENT_SENSOR_OK)
-                            {
-                                s_daq.data_buffer.i_data.ival_mA = temp_val;
-
-                                s_daq.data_buffer.i_data.i_timestamp = s_daq.now_time;
-                            }
-                            else
-                            {
-                                status = DAQ_ISENSE_FAULT;
-                            }
-                        }
-                        else if(s_daq.now_time - s_daq.isense_start_time >= s_daq.real_timeout.isense_ready_timeout)
-                        {
-                            isense_status = DEV_Current_Sensor_Start(s_daq.p_last_isense);
-
-                            if(isense_status == CURRENT_SENSOR_OK)
-                            {
-                                s_daq.isense_start_time = s_daq.now_time;
-                            }
-                            else
-                            {
-                                status = DAQ_ISENSE_FAULT;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        status = DAQ_TIME_FAULT;
-                    }
-                }
-                else
-                {
-                    status = DAQ_ISENSE_FAULT;
-                }
-            }
-        }
-        else
+        if(isense_status != ISENSE_OK)
         {
             status = DAQ_ISENSE_FAULT;
         }
     }
-    else
+
+    if((status == DAQ_OK) && (s_daq.isense_state == ISENSE_STATE_IDLE))
+    {
+        isense_status = DEV_Isense_Get_Ready_Flag(s_daq.p_last_isense, &isense_ready);
+
+        if(isense_status != ISENSE_OK)
+        {
+            status = DAQ_ISENSE_FAULT;
+        }
+        else if(time_status = UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time))
+        {
+            status = DAQ_TIME_FAULT;
+        }
+        else if(isense_ready)
+        {
+            int32_t temp_val = 0;
+
+            isense_status = DEV_Isense_Get_Val(s_daq.p_last_isense, &temp_val);
+
+            if(isense_status == ISENSE_OK)
+            {
+                s_daq.data_buffer.i_data.ival_mA = temp_val;
+
+                s_daq.data_buffer.i_data.i_timestamp = s_daq.now_time;
+
+                s_daq.data_buffer.i_data.i_valid = true;
+            }
+            else
+            {
+                status = DAQ_ISENSE_FAULT;
+            }
+        }
+        else if((s_daq.now_time - s_daq.isense_start_time) >= s_daq.real_timeout.isense_ready_timeout)
+        {
+            isense_status = DEV_Isense_Start(s_daq.p_last_isense);
+
+            if(isense_status == ISENSE_OK)
+            {
+                s_daq.isense_start_time = s_daq.now_time;
+            }
+            else
+            {
+                status = DAQ_ISENSE_FAULT;
+            }
+        }
+        else
+        {
+            /* wait for sensor to be ready*/
+        }
+    }
+
+    return status;
+}
+
+daq_status_t BMS_DAQ_Vsense_State(void)
+{
+    daq_status_t status = DAQ_OK;
+    vsense_status_t vsense_status;
+    time_status_t time_status;
+    bool vsense_ready = false;
+
+    if(s_daq.is_init)
     {
         status = DAQ_NOT_INIT;
+    }
+
+    if(status == DAQ_OK)
+    {
+        vsense_status = DEV_Vsense_Get_State(s_daq.p_vsense, &s_daq.vsense_state);
+
+        if(vsense_status != VSENSE_OK)
+        {
+            status = DAQ_VSENSE_FAULT;
+        }
+    }
+
+    if((status == DAQ_OK) && (s_daq.vsense_state == VSENSE_STATE_IDLE))
+    {
+        vsense_status = DEV_Vsense_Get_Ready_Flag(s_daq.p_vsense, &vsense_ready);
+
+        if(vsense_status != VSENSE_OK)
+        {
+            status = DAQ_VSENSE_FAULT;
+        }
+        else if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) != TIME_STATUS_OK)
+        {
+            status = DAQ_TIME_FAULT;
+        }
+        else if(vsense_ready)
+        {
+            bool temp_valid = false;
+
+            /*
+            need to add data integrity checking mechanism
+            voltage measurements are a giant array
+            that being said, for 5 modules with 28 cells each its takes like 60 us
+            to index through each and update the values so i don't even think its that big a deal
+            turning off interrupts for that
+            */
+
+            /*this is a runtime defined non-variable sized array
+            thus it can be sized to actual number of ICs for efficiency*/
+
+            vsense_val_t temp_val[SMALL_ARR_32] = {0};
+            bool temp_valid = true;
+            
+            vsense_status = DEV_Vsense_Get_Val(s_daq.p_vsense, &temp_val);
+
+            //now need to cast to the array layout that bms_daq uses
+
+            if(vsense_status != VSENSE_OK)
+            {
+                status = DAQ_VSENSE_FAULT;
+            }
+            else if(temp_valid)
+            {
+                status = BMS_DAQ_Map_Vdata(&temp_val, &s_daq.data_buffer.v_data.modv);
+
+                if(status == DAQ_OK)
+                {
+                    s_daq.data_buffer.v_data.v_timestamp = s_daq.now_time;
+
+                    s_daq.data_buffer.v_data.v_valid = true;
+                }
+            }              
+        }
+        else if(s_daq.now_time - s_daq.vsense_start_time >= s_daq.real_timeout.vsense_ready_timeout)
+        {
+            vsense_status = DEV_Vsense_Start(s_daq.p_vsense);
+
+            if(vsense_status == VSENSE_OK)
+            {
+                s_daq.vsense_start_time = s_daq.now_time;
+            }
+            else
+            {
+                status = DAQ_VSENSE_FAULT;
+            }
+        }
+        else
+        {
+            /* wait for ready timeout*/
+        }
+    }
+
+    return status;
+}
+
+daq_status_t BMS_DAQ_Map_Vdata(const vsense_val_t (*p_in)[SMALL_ARR_32], vsense_data_t *p_out)
+{
+    daq_status_t status = DAQ_OK;
+
+    if((p_in != NULL) && (p_out != NULL))
+    {
+        if(s_daq.is_init)
+        {
+            for(uint8_t ic_idx = 0U; ic_idx < TOTAL_BMS_IC_NUM; ic_idx++)
+            {
+                uint8_t mod_idx = ic_idx / MOD_BMS_IC_NUM;
+                uint8_t cell_offset = (ic_idx % MOD_BMS_IC_NUM) * CELLS_PER_BMS_IC;
+
+                for (uint8_t cell_idx = 0U; cell_idx < CELLS_PER_BMS_IC; cell_idx++)
+                {
+                    p_out->modv[mod_idx].cell_val_mV[cell_offset + cell_idx] =
+                        (*p_in)[ic_idx].cells_mV[cell_idx];
+                }
+            }
+
+            // data validation performed in task function so is unecessary here 
+        }
+        else
+        {
+            status = DAQ_NOT_INIT;
+        }
+    }
+    else
+    {
+        status = DAQ_NULL_PTR;
     }
 
     return status;
