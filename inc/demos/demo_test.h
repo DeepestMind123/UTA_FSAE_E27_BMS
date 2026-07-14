@@ -16,7 +16,7 @@ void demo_watcher();
 #define DEMO_PWM
 #define DEMO_SPI
 
-// Devies
+// Devices
 #define DEMO_CURRENT_SENSOR
 // #define DEMO_FAN_CONTROL
 // #define DEMO_LTC6813
