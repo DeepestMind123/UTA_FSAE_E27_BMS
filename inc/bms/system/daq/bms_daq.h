@@ -106,16 +106,13 @@ typedef struct
 
 typedef struct
 {
-    daq_timeout_t new_timeout;
-} daq_ctx_t;
-
-typedef struct
-{
     daq_timeout_t timeout_cfg;
     daq_data_t *out_mem;
     const util_time_t *time_cfg;
     const isense_t *isense_high_cfg;
     const isense_t *isense_low_cfg;
+    const vsense_t *vsense_cfg;
+    const tsense_t *tsense_cfg;
 } daq_cfg_t;
 
 daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg);

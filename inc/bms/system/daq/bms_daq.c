@@ -9,25 +9,44 @@
 
 typedef struct
 {
-    uint32_t isense_start_time;
-    uint32_t vsense_start_time;
-    uint32_t tsense_start_time;
-    uint32_t now_time;
-    bool is_init;
-    daq_state_t state;
-    daq_timeout_t real_timeout;
-    daq_timeout_t init_timeout;
-    daq_data_t data_buffer;
-    daq_data_t *p_data_out;
-    const util_time_t *p_time;
     isense_t *p_isense_high;
     isense_t *p_isense_low;
     isense_t *p_last_isense;
-    vsense_t *p_vsense;
-    tsense_t *p_tsense;
+    uint32_t isense_start_time;
     isense_state_t isense_state;
+} daq_isense_ctx_t;
+
+typedef struct
+{
+    vsense_t *p_vsense;
+    uint32_t vsense_start_time;
     vsense_state_t vsense_state;
+} daq_vsense_ctx_t;
+
+typedef struct 
+{
+    tsense_t *p_tsense;
+    uint32_t tsense_start_time;
     tsense_state_t tsense_state;
+} daq_tsense_ctx_t;
+
+
+typedef struct
+{
+    bool is_init;
+    daq_state_t state;
+    uint32_t now_time;
+    const util_time_t *p_time;
+    
+    daq_timeout_t real_timeout;
+    daq_timeout_t init_timeout;
+
+    daq_data_t data_buffer;
+    daq_data_t *p_data_out;
+
+    daq_isense_ctx_t isense;
+    daq_vsense_ctx_t vsense;
+    daq_tsense_ctx_t tsense;
 } daq_t;
 
 static daq_t s_daq;
@@ -46,13 +65,15 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
             s_daq.init_timeout = p_cfg->timeout_cfg;
             s_daq.real_timeout = s_daq.init_timeout;
 
-            s_daq.p_isense_high = p_cfg->isense_high_cfg;
-            s_daq.p_isense_low = p_cfg->isense_low_cfg;
-            s_daq.p_last_isense = s_daq.p_isense_low;
+            s_daq.isense.p_isense_high = p_cfg->isense_high_cfg;
+            s_daq.isense.p_isense_low = p_cfg->isense_low_cfg;
+            s_daq.isense.p_last_isense = s_daq.isense.p_isense_low;
+            s_daq.vsense.p_vsense = p_cfg->vsense_cfg;
+            s_daq.tsense.p_tsense = p_cfg->tsense_cfg;
 
-            s_daq.isense_start_time = 0U;
-            s_daq.vsense_start_time = 0U;
-            s_daq.tsense_start_time = 0U;
+            s_daq.isense.isense_start_time = 0U;
+            s_daq.vsense.vsense_start_time = 0U;
+            s_daq.tsense.tsense_start_time = 0U;
             s_daq.now_time = 0U;
 
             s_daq.data_buffer.i_data.ival_mA = 0;
@@ -111,9 +132,9 @@ daq_status_t BMS_DAQ_Task(void)
     {
         status = BMS_DAQ_Isense_Switch_Task();
 
-        vsense_status = DEV_Vsense_Task(s_daq.p_vsense);
+        vsense_status = DEV_Vsense_Task(s_daq.vsense.p_vsense);
 
-        tsense_status = DEV_Tsense_Task(s_daq.p_tsense);
+        tsense_status = DEV_Tsense_Task(s_daq.tsense.p_tsense);
 
         if(status != DAQ_OK)
         {
@@ -303,28 +324,28 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
 
     if(!s_daq.is_init)
     {
-        isense_status = DEV_Isense_Get_State(s_daq.p_last_isense, &s_daq.isense_state);
+        isense_status = DEV_Isense_Get_State(s_daq.isense.p_last_isense, &s_daq.isense.isense_state);
 
         if(isense_status == ISENSE_OK)
         {
-            if(s_daq.isense_state == ISENSE_STATE_IDLE)
+            if(s_daq.isense.isense_state == ISENSE_STATE_IDLE)
             {
                 if(abs(s_daq.data_buffer.i_data.ival_mA) > HANDOFF_MAX_MA_ISENSE)
                 {
-                    s_daq.p_last_isense = s_daq.p_isense_high;
+                    s_daq.isense.p_last_isense = s_daq.isense.p_isense_high;
 
-                    isense_status = DEV_Isense_Set_Timeout(s_daq.p_isense_low, 0U);
+                    isense_status = DEV_Isense_Set_Timeout(s_daq.isense.p_isense_low, 0U);
                 }
                 else if(abs(s_daq.data_buffer.i_data.ival_mA) <= HANDOFF_MIN_MA_ISENSE)
                 {
-                    s_daq.p_last_isense = s_daq.p_isense_low;
+                    s_daq.isense.p_last_isense = s_daq.isense.p_isense_low;
 
-                    isense_status = DEV_Isense_Set_Timeout(s_daq.p_isense_high, 0U);
+                    isense_status = DEV_Isense_Set_Timeout(s_daq.isense.p_isense_high, 0U);
                 }
 
                 if(isense_status == ISENSE_OK)
                 {
-                    isense_status = DEV_Isense_Task(s_daq.p_last_isense);
+                    isense_status = DEV_Isense_Task(s_daq.isense.p_last_isense);
 
                     if(isense_status != ISENSE_OK)
                     {
@@ -338,7 +359,7 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
             }
             else
             {
-                isense_status = DEV_Isense_Task(s_daq.p_last_isense);
+                isense_status = DEV_Isense_Task(s_daq.isense.p_last_isense);
 
                 if(isense_status != ISENSE_OK)
                 {
@@ -373,7 +394,7 @@ daq_status_t BMS_DAQ_Isense_State(void)
 
     if(status == DAQ_OK)
     {
-        isense_status = DEV_Isense_Get_State(s_daq.p_last_isense, &s_daq.isense_state);
+        isense_status = DEV_Isense_Get_State(s_daq.isense.p_last_isense, &s_daq.isense.isense_state);
 
         if(isense_status != ISENSE_OK)
         {
@@ -381,9 +402,9 @@ daq_status_t BMS_DAQ_Isense_State(void)
         }
     }
 
-    if((status == DAQ_OK) && (s_daq.isense_state == ISENSE_STATE_IDLE))
+    if((status == DAQ_OK) && (s_daq.isense.isense_state == ISENSE_STATE_IDLE))
     {
-        isense_status = DEV_Isense_Get_Ready_Flag(s_daq.p_last_isense, &isense_ready);
+        isense_status = DEV_Isense_Get_Ready_Flag(s_daq.isense.p_last_isense, &isense_ready);
 
         if(isense_status != ISENSE_OK)
         {
@@ -397,7 +418,7 @@ daq_status_t BMS_DAQ_Isense_State(void)
         {
             int32_t temp_val = 0;
 
-            isense_status = DEV_Isense_Get_Val(s_daq.p_last_isense, &temp_val);
+            isense_status = DEV_Isense_Get_Val(s_daq.isense.p_last_isense, &temp_val);
 
             if(isense_status == ISENSE_OK)
             {
@@ -412,13 +433,13 @@ daq_status_t BMS_DAQ_Isense_State(void)
                 status = DAQ_ISENSE_FAULT;
             }
         }
-        else if((s_daq.now_time - s_daq.isense_start_time) >= s_daq.real_timeout.isense_ready_timeout)
+        else if((s_daq.now_time - s_daq.isense.isense_start_time) >= s_daq.real_timeout.isense_ready_timeout)
         {
-            isense_status = DEV_Isense_Start(s_daq.p_last_isense);
+            isense_status = DEV_Isense_Start(s_daq.isense.p_last_isense);
 
             if(isense_status == ISENSE_OK)
             {
-                s_daq.isense_start_time = s_daq.now_time;
+                s_daq.isense.isense_start_time = s_daq.now_time;
             }
             else
             {
@@ -448,7 +469,7 @@ daq_status_t BMS_DAQ_Vsense_State(void)
 
     if(status == DAQ_OK)
     {
-        vsense_status = DEV_Vsense_Get_State(s_daq.p_vsense, &s_daq.vsense_state);
+        vsense_status = DEV_Vsense_Get_State(s_daq.vsense.p_vsense, &s_daq.vsense.vsense_state);
 
         if(vsense_status != VSENSE_OK)
         {
@@ -456,9 +477,9 @@ daq_status_t BMS_DAQ_Vsense_State(void)
         }
     }
 
-    if((status == DAQ_OK) && (s_daq.vsense_state == VSENSE_STATE_IDLE))
+    if((status == DAQ_OK) && (s_daq.vsense.vsense_state == VSENSE_STATE_IDLE))
     {
-        vsense_status = DEV_Vsense_Get_Ready_Flag(s_daq.p_vsense, &vsense_ready);
+        vsense_status = DEV_Vsense_Get_Ready_Flag(s_daq.vsense.p_vsense, &vsense_ready);
 
         if(vsense_status != VSENSE_OK)
         {
@@ -486,7 +507,7 @@ daq_status_t BMS_DAQ_Vsense_State(void)
             vsense_val_t temp_val[SMALL_ARR_32] = {0};
             temp_valid = true;
             
-            vsense_status = DEV_Vsense_Get_Val(s_daq.p_vsense, &temp_val);
+            vsense_status = DEV_Vsense_Get_Val(s_daq.vsense.p_vsense, &temp_val);
 
             //now need to cast to the array layout that bms_daq uses
 
@@ -506,13 +527,13 @@ daq_status_t BMS_DAQ_Vsense_State(void)
                 }
             }              
         }
-        else if(s_daq.now_time - s_daq.vsense_start_time >= s_daq.real_timeout.vsense_ready_timeout)
+        else if(s_daq.now_time - s_daq.vsense.vsense_start_time >= s_daq.real_timeout.vsense_ready_timeout)
         {
-            vsense_status = DEV_Vsense_Start(s_daq.p_vsense);
+            vsense_status = DEV_Vsense_Start(s_daq.vsense.p_vsense);
 
             if(vsense_status == VSENSE_OK)
             {
-                s_daq.vsense_start_time = s_daq.now_time;
+                s_daq.vsense.vsense_start_time = s_daq.now_time;
             }
             else
             {
@@ -577,7 +598,7 @@ daq_status_t BMS_DAQ_Tsense_State(void)
 
     if(status == DAQ_OK)
     {
-        tsense_status = DEV_Tsense_Get_State(s_daq.p_tsense, &s_daq.tsense_state);
+        tsense_status = DEV_Tsense_Get_State(s_daq.tsense.p_tsense, &s_daq.tsense.tsense_state);
 
         if(tsense_status != TSENSE_OK)
         {
@@ -585,9 +606,9 @@ daq_status_t BMS_DAQ_Tsense_State(void)
         }
     }
 
-    if((status == DAQ_OK) && (s_daq.tsense_state == TSENSE_STATE_IDLE))
+    if((status == DAQ_OK) && (s_daq.tsense.tsense_state == TSENSE_STATE_IDLE))
     {
-        tsense_status = DEV_Tsense_Get_Ready_Flag(s_daq.p_tsense, &tsense_ready);
+        tsense_status = DEV_Tsense_Get_Ready_Flag(s_daq.tsense.p_tsense, &tsense_ready);
 
         if(tsense_status != TSENSE_OK)
         {
@@ -609,7 +630,7 @@ daq_status_t BMS_DAQ_Tsense_State(void)
             tsense_val_t temp_val[SMALL_ARR_32] = {0};
             temp_valid = true;
             
-            tsense_status = DEV_Tsense_Get_Val(s_daq.p_tsense, &temp_val);
+            tsense_status = DEV_Tsense_Get_Val(s_daq.tsense.p_tsense, &temp_val);
 
             //now need to cast to the array layout that bms_daq uses
 
@@ -629,13 +650,13 @@ daq_status_t BMS_DAQ_Tsense_State(void)
                 }
             }              
         }
-        else if(s_daq.now_time - s_daq.tsense_start_time >= s_daq.real_timeout.tsense_ready_timeout)
+        else if(s_daq.now_time - s_daq.tsense.tsense_start_time >= s_daq.real_timeout.tsense_ready_timeout)
         {
-            tsense_status = DEV_Tsense_Start(s_daq.p_tsense);
+            tsense_status = DEV_Tsense_Start(s_daq.tsense.p_tsense);
 
             if(tsense_status == TSENSE_OK)
             {
-                s_daq.tsense_start_time = s_daq.now_time;
+                s_daq.tsense.tsense_start_time = s_daq.now_time;
             }
             else
             {
