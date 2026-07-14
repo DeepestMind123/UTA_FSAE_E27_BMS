@@ -24,8 +24,10 @@ typedef struct
     isense_t *p_isense_low;
     isense_t *p_last_isense;
     vsense_t *p_vsense;
+    tsense_t *p_tsense;
     isense_state_t isense_state;
     vsense_state_t vsense_state;
+    tsense_state_t tsense_state;
 } daq_t;
 
 static daq_t s_daq;
@@ -59,7 +61,7 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
 
             for(uint8_t i = 0U; i < SMALL_ARR_32; i++)
             {
-                for(uint8_t j = 0U; j < LARGE_ARR_64; i++)
+                for(uint8_t j = 0U; j < LARGE_ARR_64; j++)
                 {
                     s_daq.data_buffer.v_data.modv[i].cell_val_mV[j] = 0;
                 }
@@ -72,7 +74,7 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
             {
                 for(uint8_t j = 0U; j < SMALL_ARR_32; j++)
                 {
-                    s_daq.data_buffer.t_data.modt[i].tsense_val_dC[j] = 0;
+                    s_daq.data_buffer.t_data.modt[i].tsense_val_C[j] = 0;
                 }
             }
 
@@ -101,84 +103,128 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
 daq_status_t BMS_DAQ_Task(void)
 {
     daq_status_t status = DAQ_OK;
-
-    isense_state_t isense_status;
-    time_status_t time_status;
+    
+    vsense_status_t vsense_status;
+    tsense_status_t tsense_status;
 
     if(s_daq.is_init)
     {
-
         status = BMS_DAQ_Isense_Switch_Task();
 
-        // add tsense task
-        // add vsense task
+        vsense_status = DEV_Vsense_Task(s_daq.p_vsense);
 
-        if(s_daq.state >= DAQ_STATE_MAX)
+        tsense_status = DEV_Tsense_Task(s_daq.p_tsense);
+
+        if(status != DAQ_OK)
         {
-            s_daq.state = DAQ_STATE_ERROR;
-
-            status = DAQ_UNDEF_STATE;
+            /* intentionally left blank*/
+        } 
+        else if(vsense_status != VSENSE_OK)
+        {
+            status = DAQ_VSENSE_FAULT;
         }
-
-        switch(s_daq.state)
+        else if(tsense_status == TSENSE_OK)
         {
-            case DAQ_STATE_IDLE:
-            {
-                break;
-            }
-
-            case DAQ_STATE_ISENSE:
-            {
-                status = BMS_DAQ_Isense_State();
-
-                if(status != DAQ_OK)
-                {
-                    s_daq.state = DAQ_STATE_ERROR;
-                }
-                else
-                {
-                    s_daq.state = DAQ_STATE_IDLE;
-                }
-
-                break;
-            }
-
-            case DAQ_STATE_VSENSE:
-            {
-                status = BMS_DAQ_Vsense_State();
-
-                if(status != DAQ_OK)
-                {
-                    s_daq.state = DAQ_STATE_ERROR;
-                }
-                else
-                {
-                    s_daq.state = DAQ_STATE_IDLE;
-                }
-
-                break;
-            }
-
-            case DAQ_STATE_TSENSE:
-            {
-                break;
-            }
-
-            case DAQ_STATE_REPORT:
-            {
-                break;
-            }
-
-            case DAQ_STATE_ERROR:
-            {
-                break;
-            }
-
-            default:
+            status = DAQ_TSENSE_FAULT;
+        }
+        else
+        {
+            if(s_daq.state >= DAQ_STATE_MAX)
             {
                 s_daq.state = DAQ_STATE_ERROR;
 
-                break;
+                status = DAQ_UNDEF_STATE;
+            }
+
+            switch(s_daq.state)
+            {
+                case DAQ_STATE_IDLE:
+                {
+                    status = BMS_DAQ_Idle_State();
+
+                    if(status != DAQ_OK)
+                    {
+                        s_daq.state = DAQ_STATE_ERROR;
+                    }
+
+                    break;
+                }
+
+                case DAQ_STATE_ISENSE:
+                {
+                    status = BMS_DAQ_Isense_State();
+
+                    if(status != DAQ_OK)
+                    {
+                        s_daq.state = DAQ_STATE_ERROR;
+                    }
+                    else
+                    {
+                        s_daq.state = DAQ_STATE_IDLE;
+                    }
+
+                    break;
+                }
+
+                case DAQ_STATE_VSENSE:
+                {
+                    status = BMS_DAQ_Vsense_State();
+
+                    if(status != DAQ_OK)
+                    {
+                        s_daq.state = DAQ_STATE_ERROR;
+                    }
+                    else
+                    {
+                        s_daq.state = DAQ_STATE_IDLE;
+                    }
+
+                    break;
+                }
+
+                case DAQ_STATE_TSENSE:
+                {
+                    status = BMS_DAQ_Tsense_State();
+
+                    if(status != DAQ_OK)
+                    {
+                        s_daq.state = DAQ_STATE_ERROR;
+                    }
+                    else
+                    {
+                        s_daq.state = DAQ_STATE_IDLE;
+                    }
+
+                    break;
+                }
+
+                case DAQ_STATE_REPORT:
+                {
+                    status = BMS_DAQ_Report_State();
+
+                    if(status != DAQ_OK)
+                    {
+                        s_daq.state = DAQ_STATE_ERROR;
+                    }
+                    else
+                    {
+                        s_daq.state = DAQ_STATE_IDLE;
+                    }
+
+                    break;
+                }
+
+                case DAQ_STATE_ERROR:
+                {
+                    break;
+                }
+
+                default:
+                {
+                    s_daq.state = DAQ_STATE_ERROR;
+
+                    break;
+                }
             }
         }
     }
@@ -255,7 +301,7 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
     daq_status_t status = DAQ_OK;
     isense_state_t isense_status;
 
-    if(s_daq.is_init)
+    if(!s_daq.is_init)
     {
         isense_status = DEV_Isense_Get_State(s_daq.p_last_isense, &s_daq.isense_state);
 
@@ -343,7 +389,7 @@ daq_status_t BMS_DAQ_Isense_State(void)
         {
             status = DAQ_ISENSE_FAULT;
         }
-        else if(time_status = UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time))
+        else if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) != TIME_STATUS_OK)
         {
             status = DAQ_TIME_FAULT;
         }
@@ -395,7 +441,7 @@ daq_status_t BMS_DAQ_Vsense_State(void)
     time_status_t time_status;
     bool vsense_ready = false;
 
-    if(s_daq.is_init)
+    if(!s_daq.is_init)
     {
         status = DAQ_NOT_INIT;
     }
@@ -438,7 +484,7 @@ daq_status_t BMS_DAQ_Vsense_State(void)
             thus it can be sized to actual number of ICs for efficiency*/
 
             vsense_val_t temp_val[SMALL_ARR_32] = {0};
-            bool temp_valid = true;
+            temp_valid = true;
             
             vsense_status = DEV_Vsense_Get_Val(s_daq.p_vsense, &temp_val);
 
@@ -512,6 +558,189 @@ daq_status_t BMS_DAQ_Map_Vdata(const vsense_val_t (*p_in)[SMALL_ARR_32], vsense_
     else
     {
         status = DAQ_NULL_PTR;
+    }
+
+    return status;
+}
+
+daq_status_t BMS_DAQ_Tsense_State(void)
+{
+    daq_status_t status = DAQ_OK;
+    tsense_status_t tsense_status;
+    time_status_t time_status;
+    bool tsense_ready = false;
+
+    if(!s_daq.is_init)
+    {
+        status = DAQ_NOT_INIT;
+    }
+
+    if(status == DAQ_OK)
+    {
+        tsense_status = DEV_Tsense_Get_State(s_daq.p_tsense, &s_daq.tsense_state);
+
+        if(tsense_status != TSENSE_OK)
+        {
+            status = DAQ_TSENSE_FAULT;
+        }
+    }
+
+    if((status == DAQ_OK) && (s_daq.tsense_state == TSENSE_STATE_IDLE))
+    {
+        tsense_status = DEV_Tsense_Get_Ready_Flag(s_daq.p_tsense, &tsense_ready);
+
+        if(tsense_status != TSENSE_OK)
+        {
+            status = DAQ_TSENSE_FAULT;
+        }
+        else if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) != TIME_STATUS_OK)
+        {
+            status = DAQ_TIME_FAULT;
+        }
+        else if(tsense_ready)
+        {
+            bool temp_valid = false;
+
+            // need data valid check
+
+            /*this is a runtime defined non-variable sized array
+            thus it can be sized to actual number of ICs for efficiency*/
+
+            tsense_val_t temp_val[SMALL_ARR_32] = {0};
+            temp_valid = true;
+            
+            tsense_status = DEV_Tsense_Get_Val(s_daq.p_tsense, &temp_val);
+
+            //now need to cast to the array layout that bms_daq uses
+
+            if(tsense_status != TSENSE_OK)
+            {
+                status = DAQ_TSENSE_FAULT;
+            }
+            else if(temp_valid)
+            {
+                status = BMS_DAQ_Map_Tdata(&temp_val, &s_daq.data_buffer.t_data.modt);
+
+                if(status == DAQ_OK)
+                {
+                    s_daq.data_buffer.t_data.t_timestamp = s_daq.now_time;
+
+                    s_daq.data_buffer.t_data.t_valid = true;
+                }
+            }              
+        }
+        else if(s_daq.now_time - s_daq.tsense_start_time >= s_daq.real_timeout.tsense_ready_timeout)
+        {
+            tsense_status = DEV_Tsense_Start(s_daq.p_tsense);
+
+            if(tsense_status == TSENSE_OK)
+            {
+                s_daq.tsense_start_time = s_daq.now_time;
+            }
+            else
+            {
+                status = DAQ_TSENSE_FAULT;
+            }
+        }
+        else
+        {
+            /* wait for ready timeout*/
+        }
+    }
+
+    return status;
+
+}
+
+daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_32], tsense_data_t *p_out)
+{
+    daq_status_t status = DAQ_OK;
+
+    if((p_in != NULL) && (p_out != NULL))
+    {
+        if(s_daq.is_init)
+        {
+            for(uint8_t ic_idx = 0U; ic_idx < TOTAL_BMS_IC_NUM; ic_idx++)
+            {
+                uint8_t mod_idx = ic_idx / MOD_BMS_IC_NUM;
+                uint8_t cell_offset = (ic_idx % MOD_BMS_IC_NUM) * CELLS_PER_BMS_IC;
+
+                for (uint8_t cell_idx = 0U; cell_idx < CELLS_PER_BMS_IC; cell_idx++)
+                {
+                    p_out->modt[mod_idx].tsense_val_C[cell_offset + cell_idx] =
+                        (*p_in)[ic_idx].temps_C[cell_idx];
+                }
+            }
+
+            // data validation performed in task function so is unecessary here 
+        }
+        else
+        {
+            status = DAQ_NOT_INIT;
+        }
+    }
+    else
+    {
+        status = DAQ_NULL_PTR;
+    }
+
+    return status;
+}
+
+daq_status_t BMS_DAQ_Report_State(void)
+{
+    daq_status_t status = DAQ_OK;
+
+    if(!s_daq.is_init)
+    {
+        status = DAQ_NOT_INIT;
+    }
+
+    if(s_daq.p_data_out == NULL)
+    {
+        status = DAQ_NULL_PTR;
+    }
+
+    if(status == DAQ_OK)
+    {
+        if(s_daq.data_buffer.i_data.i_valid)
+        {
+            //need to add enter critical read/write
+            s_daq.p_data_out->i_data = s_daq.data_buffer.i_data;
+            //need to add exit critical read/write
+
+            s_daq.data_buffer.i_data.i_valid = false;
+        }
+        
+        if(s_daq.data_buffer.v_data.v_valid)
+        {
+            for(uint8_t i = 0U; i < MOD_NUM; i++)
+            {
+                //need to add enter critical read/write
+                s_daq.p_data_out->v_data.modv[i] = s_daq.data_buffer.v_data.modv[i];
+                //need to add exit critical read/write
+            }
+
+            s_daq.p_data_out->v_data.v_timestamp = s_daq.data_buffer.v_data.v_timestamp;
+            s_daq.p_data_out->v_data.v_valid = s_daq.data_buffer.v_data.v_valid;
+
+            s_daq.data_buffer.v_data.v_valid = false;
+        }
+
+        if(s_daq.data_buffer.t_data.t_valid)
+        {
+            for(uint8_t i = 0U; i < MOD_NUM; i++)
+            {
+                //need to add enter critical read/write
+                s_daq.p_data_out->t_data.modt[i] = s_daq.data_buffer.t_data.modt[i];
+                //need to add exit critical read/write
+            }
+
+            s_daq.p_data_out->t_data.t_timestamp = s_daq.data_buffer.t_data.t_timestamp;
+            s_daq.p_data_out->t_data.t_valid = s_daq.data_buffer.t_data.t_valid;
+
+            s_daq.data_buffer.t_data.t_valid = false;
+        }
     }
 
     return status;

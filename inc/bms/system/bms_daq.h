@@ -17,6 +17,7 @@
 #include "util_const.h"
 #include "dev_current_sensor.h"
 #include "dev_voltage_sensor.h"
+#include "dev_temp_sensor.h"
 #include "bms_config.h"
 
 #define HANDOFF_MAX_MA_ISENSE 7500
@@ -36,7 +37,7 @@ typedef enum
     DAQ_ISENSE_FAULT,
     DAQ_ISENSE_TIMEOUT,
     DAQ_VSENSE_FAULT,
-    DAQ_ISENSE_TIMEOUT,
+    DAQ_VSENSE_TIMEOUT,
     DAQ_TSENSE_FAULT,
     DAQ_TSENSE_TIMEOUT,
     DAQ_TIME_FAULT,
@@ -76,7 +77,7 @@ typedef struct
 
 typedef struct
 {
-    int16_t tsense_val_dC[SMALL_ARR_32];
+    float tsense_val_C[SMALL_ARR_32];
 } tsense_mod_val_t;
 
 typedef struct
@@ -130,5 +131,11 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void);
 daq_status_t BMS_DAQ_Vsense_State(void);
 
 daq_status_t BMS_DAQ_Map_Vdata(const vsense_val_t (*p_in)[SMALL_ARR_32], vsense_data_t *p_out);
+
+daq_status_t BMS_DAQ_Tsense_State(void);
+
+daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_32], tsense_data_t *p_out);
+
+daq_status_t BMS_DAQ_Report_State(void);
 
 #endif
