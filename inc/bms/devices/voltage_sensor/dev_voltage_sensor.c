@@ -37,9 +37,9 @@ vsense_status_t DEV_Vsense_Init(vsense_t *p_inst,
         {
             for(uint8_t j = 0U; j < LARGE_ARR_64; j++)
             {
-                p_inst->sensor.sensor_raw_vals[i].cells_mV[j] = 0;
+                p_inst->sensor.vsense_raw_vals[i].cells_mV[j] = 0;
             
-                p_inst->sensor.sensor_process_vals[i].cells_mV[j] = 0;
+                p_inst->sensor.vsense_process_vals[i].cells_mV[j] = 0;
             }
         }
 
@@ -68,6 +68,9 @@ vsense_status_t DEV_Vsense_Init(vsense_t *p_inst,
 vsense_status_t DEV_Vsense_Task(vsense_t *p_inst)
 {
     vsense_status_t status = VSENSE_OK;
+    adc_status_t adc_status;
+    time_status_t time_status;
+    uint32_t now_time = 0U;
 
     if((p_inst != NULL) &&
         (p_inst->sensor.cfg != NULL) &&
@@ -76,6 +79,16 @@ vsense_status_t DEV_Vsense_Task(vsense_t *p_inst)
     {
         if(p_inst->is_init)
         {
+            if(!p_inst->sensor.cfg->gives_real_val)
+            {
+                adc_status = IO_ADC_Task(p_inst->adc);
+
+                if(adc_status != ADC_STATUS_OK)
+                {
+                    status = VSENSE_ADC_FAULT;
+                }
+            }
+
             if(p_inst->state >= VSENSE_STATE_MAX)
             {
                 status = VSENSE_UNDEF_STATE;
@@ -87,6 +100,30 @@ vsense_status_t DEV_Vsense_Task(vsense_t *p_inst)
             {
                 case VSENSE_STATE_IDLE:
                 {
+                    if(p_inst->start_time != 0)
+                    {
+                        time_status = UTIL_Time_Get_Tick(p_inst->time, &now_time);
+
+                        if(time_status == TIME_STATUS_OK)
+                        {
+                            if(p_inst->vsense_timeout_ms)
+                            {
+                                if(now_time - p_inst->start_time >= p_inst->vsense_timeout_ms)
+                                {
+                                    status = VSENSE_TIMEOUT;
+
+                                    p_inst->state = VSENSE_STATE_ERROR;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            status = VSENSE_TIME_FAULT;
+
+                            p_inst->state = VSENSE_STATE_ERROR;
+                        }
+                    }
+
                     break;
                 }
 
@@ -142,8 +179,8 @@ vsense_status_t DEV_Vsense_Task(vsense_t *p_inst)
                             {
                                 for(uint8_t j = 0U; j < p_inst->sensor.cfg->cell_num; j++)
                                 {
-                                    status = DEV_Vsense_Process_Raw(p_inst, p_inst->sensor.sensor_raw_vals[i].cells_mV[j],
-                                                                             p_inst->sensor.sensor_process_vals[i].cells_mV[j]);
+                                    status = DEV_Vsense_Process_Raw(p_inst, p_inst->sensor.vsense_raw_vals[i].cells_mV[j],
+                                                                             p_inst->sensor.vsense_process_vals[i].cells_mV[j]);
 
                                     if(status != VSENSE_OK)
                                     {
@@ -161,8 +198,8 @@ vsense_status_t DEV_Vsense_Task(vsense_t *p_inst)
                             {
                                 for(uint8_t j = 0U; j < p_inst->sensor.cfg->cell_num; j++)
                                 {
-                                    p_inst->sensor.sensor_raw_vals[i].cells_mV[j] =
-                                    p_inst->sensor.sensor_process_vals[i].cells_mV[j];
+                                    p_inst->sensor.vsense_raw_vals[i].cells_mV[j] =
+                                    p_inst->sensor.vsense_process_vals[i].cells_mV[j];
                                 }
                             }
                             
@@ -197,7 +234,8 @@ vsense_status_t DEV_Vsense_Task(vsense_t *p_inst)
 
                 default:
                 {
-                    /*intentionally left blank*/
+                    p_inst->state = VSENSE_STATE_ERROR;
+
                     break;
                 }
             }
@@ -231,7 +269,7 @@ vsense_status_t DEV_Vsense_Start(vsense_t *p_inst)
             {
                 if(state == VSENSE_STATE_IDLE)
                 {
-                    p_inst->state = ADC_STATE_START;
+                    p_inst->state = VSENSE_STATE_START;
                 }
                 else
                 {
@@ -264,20 +302,11 @@ vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, int32_t val, uint16_t *
     {
         if(p_inst->is_init)
         {
-            uint16_t raw = 0U;
-
             uint16_t vref = 0U;
 
             uint16_t resolution = 0U;
 
             int16_t offset = 0;
-
-            adc_status = IO_ADC_Get_Val(p_inst->adc, &raw);
-
-            if(adc_status != ADC_STATUS_OK)
-            {
-                status = VSENSE_ADC_FAULT;
-            }
 
             adc_status = IO_ADC_Get_Vref(p_inst->adc, &vref);
 
@@ -302,7 +331,7 @@ vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, int32_t val, uint16_t *
 
             if((resolution > 0U))
             {
-                int16_t voltage_mV = ((int16_t)raw * (int16_t)vref) / (int16_t)resolution;
+                int16_t voltage_mV = ((int16_t)val * (int16_t)vref) / (int16_t)resolution;
 
                 voltage_mV -= (int16_t)offset;
             }
@@ -356,7 +385,7 @@ vsense_status_t DEV_Vsense_Get_Val(vsense_t *p_inst, vsense_val_t (*p_out)[SMALL
         {
             for(uint8_t i = 0U; i < p_inst->sensor.cfg->ic_num; i++)
             {
-                (*p_out)[i] = p_inst->sensor.sensor_process_vals[i];
+                (*p_out)[i] = p_inst->sensor.vsense_process_vals[i];
             }
         }
         else
@@ -378,7 +407,7 @@ vsense_status_t DEV_Vsense_Get_State(vsense_t *p_inst, vsense_state_t *p_out)
 
     vsense_state_t state = VSENSE_STATE_ERROR;
 
-    if(p_inst != NULL)
+    if((p_inst != NULL) && (p_out != NULL))
     {
         if(p_inst->is_init)
         {
@@ -390,7 +419,6 @@ vsense_status_t DEV_Vsense_Get_State(vsense_t *p_inst, vsense_state_t *p_out)
         }
 
         *p_out = state;
-
     }
     else
     {
@@ -406,7 +434,7 @@ vsense_status_t DEV_Vsense_Get_Ready_Flag(vsense_t *p_inst, bool *p_out)
 
     bool flag = false;
 
-    if(p_inst != NULL)
+    if((p_inst != NULL) && (p_out))
     {
         if(p_inst->is_init)
         {

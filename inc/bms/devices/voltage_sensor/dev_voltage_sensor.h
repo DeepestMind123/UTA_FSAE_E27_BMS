@@ -61,8 +61,8 @@ typedef struct
 typedef struct
 {
     const vsense_cfg_t *cfg;
-    vsense_val_t sensor_raw_vals[SMALL_ARR_32];
-    vsense_val_t sensor_process_vals[SMALL_ARR_32];
+    vsense_val_t vsense_raw_vals[SMALL_ARR_32];
+    vsense_val_t vsense_process_vals[SMALL_ARR_32];
 } vsense_system_t;
 
 typedef struct
@@ -76,7 +76,7 @@ typedef struct
 typedef struct
 {
     uint32_t start_time;
-    uint32_t isense_timeout_ms;
+    uint32_t vsense_timeout_ms;
 
     bool is_init;
     bool is_ready;
@@ -91,10 +91,10 @@ typedef struct
 } vsense_t;
 
 vsense_status_t DEV_Vsense_Init(vsense_t *p_inst,
-                                                const vsense_cfg_t *p_cfg,
-                                                const vsense_func_t *p_func,
-                                                const io_adc_t *p_adc,
-                                                const util_time_t *p_time);
+                                const vsense_cfg_t *p_cfg,
+                                const vsense_func_t *p_func,
+                                const io_adc_t *p_adc,
+                                const util_time_t *p_time);
 
 vsense_status_t DEV_Vsense_Task(vsense_t *p_inst);
 
