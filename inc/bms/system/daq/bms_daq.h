@@ -12,9 +12,11 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdarg.h>
+#include <stdlib.h>
 
 #include "util_time.h"
 #include "util_const.h"
+#include "util_irq.h"
 #include "dev_current_sensor.h"
 #include "dev_voltage_sensor.h"
 #include "dev_temp_sensor.h"
@@ -41,6 +43,7 @@ typedef enum
     DAQ_TSENSE_FAULT,
     DAQ_TSENSE_TIMEOUT,
     DAQ_TIME_FAULT,
+    DAQ_IRQ_FAULT,
     DAQ_STATUS_MAX
 } daq_status_t;
 
@@ -113,6 +116,7 @@ typedef struct
     const isense_t *isense_low_cfg;
     const vsense_t *vsense_cfg;
     const tsense_t *tsense_cfg;
+    const util_irq_t *irq_cfg;
 } daq_cfg_t;
 
 daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg);
@@ -134,5 +138,7 @@ daq_status_t BMS_DAQ_Tsense_State(void);
 daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_32], tsense_data_t *p_out);
 
 daq_status_t BMS_DAQ_Report_State(void);
+
+daq_status_t BMS_DAQ_Get_Data(const daq_data_t *p_out);
 
 #endif

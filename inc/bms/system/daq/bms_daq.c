@@ -30,13 +30,13 @@ typedef struct
     tsense_state_t tsense_state;
 } daq_tsense_ctx_t;
 
-
 typedef struct
 {
     bool is_init;
     daq_state_t state;
     uint32_t now_time;
     const util_time_t *p_time;
+    const util_irq_t *p_irq;
     
     daq_timeout_t real_timeout;
     daq_timeout_t init_timeout;
@@ -61,6 +61,7 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
         {
             s_daq.p_data_out = p_cfg->out_mem;
             s_daq.p_time = p_cfg->time_cfg;
+            s_daq.p_irq = p_cfg->irq_cfg;
 
             s_daq.init_timeout = p_cfg->timeout_cfg;
             s_daq.real_timeout = s_daq.init_timeout;
@@ -416,7 +417,7 @@ daq_status_t BMS_DAQ_Isense_State(void)
         }
         else if(isense_ready)
         {
-            int32_t temp_val = 0;
+            int16_t temp_val = 0;
 
             isense_status = DEV_Isense_Get_Val(s_daq.isense.p_last_isense, &temp_val);
 
@@ -517,7 +518,7 @@ daq_status_t BMS_DAQ_Vsense_State(void)
             }
             else if(temp_valid)
             {
-                status = BMS_DAQ_Map_Vdata(&temp_val, &s_daq.data_buffer.v_data.modv);
+                status = BMS_DAQ_Map_Vdata(&temp_val, &s_daq.data_buffer.v_data);
 
                 if(status == DAQ_OK)
                 {
@@ -640,7 +641,7 @@ daq_status_t BMS_DAQ_Tsense_State(void)
             }
             else if(temp_valid)
             {
-                status = BMS_DAQ_Map_Tdata(&temp_val, &s_daq.data_buffer.t_data.modt);
+                status = BMS_DAQ_Map_Tdata(&temp_val, &s_daq.data_buffer.t_data);
 
                 if(status == DAQ_OK)
                 {
@@ -762,6 +763,53 @@ daq_status_t BMS_DAQ_Report_State(void)
 
             s_daq.data_buffer.t_data.t_valid = false;
         }
+    }
+
+    return status;
+}
+
+daq_status_t BMS_DAQ_Get_Data(const daq_data_t *p_out)
+{
+    daq_status_t status = DAQ_OK;
+
+    daq_data_t data = {0};
+
+    irq_status_t irq_status;
+
+    uint32_t interrupt_state;
+
+    if(s_daq.is_init)
+    {
+        if(p_out != NULL)
+        {
+            irq_status = UTIL_IRQ_Enter_Critical(s_daq.p_irq, &interrupt_state);
+
+            if(irq_status == IRQ_STATUS_OK)
+            {
+                data = *s_daq.p_data_out;
+            }
+            else
+            {
+                status = DAQ_IRQ_FAULT;
+            }
+
+            irq_status = UTIL_IRQ_Exit_Critical(s_daq.p_irq, interrupt_state);
+
+            if(irq_status != IRQ_STATUS_OK)
+            {
+                status = DAQ_IRQ_FAULT;
+            }
+
+            p_out = &data;
+        }
+        else
+        {
+            status = DAQ_NULL_PTR;
+        }
+    }
+    else
+    {
+        status = DAQ_NOT_INIT;
     }
 
     return status;
