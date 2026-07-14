@@ -75,7 +75,6 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
             {
                 case ISENSE_STATE_IDLE:
                 {
-
                     if(p_inst->start_time != 0)
                     {
                         time_status = UTIL_Time_Get_Tick(p_inst->time_inst, &now_time);
