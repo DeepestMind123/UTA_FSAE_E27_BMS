@@ -68,7 +68,7 @@ time_status_t UTIL_Time_Get_Tick(util_time_t *p_time, uint32_t *p_out)
 
             if(irq_status == IRQ_STATUS_OK)
             {
-                t = tick;
+                t = p_time->tick;
             }
             else
             {
