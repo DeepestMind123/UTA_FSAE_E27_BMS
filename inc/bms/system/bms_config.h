@@ -46,4 +46,9 @@ typedef struct
 #define OT_LIM_DC 600
 #define OC_LIM_MA 600000
 
+#define TEMP_BETA_VAL 3345
+#define TEMP_RS 10000
+#define TEMP_RN 10000
+#define TEMP_NOM_dK 29815
+
 #endif
