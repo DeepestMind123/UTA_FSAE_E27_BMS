@@ -14,14 +14,14 @@
 #include "demo_test.h"
 #define ISMAXINT(x) (x == UINT64_MAX || x == UINT32_MAX || x == UINT16_MAX || x == UINT8_MAX)
 
-extern uint32_t get_para_num_1;
-extern uint32_t get_para_num_2;
-extern uint32_t set_para_num_1;
-extern uint32_t set_para_num_2;
-extern bool get_para_bool_1;
+extern int64_t *get_para_num;
+extern int64_t *set_para_num;
+extern bool *not_null_bools;
 extern uint8_t test_id;
 char driver_name[15];
 
+bool* getBoolArrayDefault(int p_size, bool p_state);
+int64_t* getIntArrayDefault(int p_size, int64_t p_val);
 // This structure defines a driver demo
 typedef struct {
     const char **func_strings;   // Array of function names
@@ -30,14 +30,12 @@ typedef struct {
     const int get_state_func_id;
     
     // Generic wrapper for printing demo information
-    int (*execute_func)(int p_func_id, bool p_non_null_inst, bool p_non_null_conf, bool p_non_null_time_inst);
+    int (*execute_func)(int p_func_id, bool* p_non_null_inst);
 } driver_watcher_interface_t;
 
 // Purely generic testing engine functions
 void init_driver_watcher(char *p_driver_name, uint8_t p_test_id, driver_watcher_interface_t *p_driver);
-void watch_inst_conf(int p_func_id, int p_status_exp, bool p_not_null_inst, bool p_not_null_conf, bool p_not_null_time_inst);
-void watch_inst_conf_set(int p_func_id, int p_status_exp, int p_set_val, bool p_not_null_inst, bool p_not_null_conf, bool p_not_null_time_inst);
-void watch_inst_conf_set_2(int p_func_id, int p_status_exp, int p_set_val, int p_set_val_2, bool p_not_null_inst, bool p_not_null_conf, bool p_not_null_time_inst);
+void watch_inst_conf(int p_func_id, int p_status_exp, int64_t *p_set_val, int64_t *p_get_val, bool *p_not_null_inst);
 
 void demo_watcher();
 
@@ -66,9 +64,9 @@ void demo_watch_spi_funcs();
 #endif
 
 // Devies
-#ifdef DEMO_CURRENT_SENSOR
-void demo_watch_current_sensor_all();
-void demo_watch_current_sensor_funcs();
+#ifdef DEMO_ISENSE
+void demo_watch_isense_all();
+void demo_watch_isense_fault();
 #endif
 #ifdef DEMO_FAN_CONTROL
 void demo_watch_fan_control_all();
