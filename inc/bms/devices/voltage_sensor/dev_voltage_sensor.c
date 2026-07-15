@@ -8,13 +8,13 @@
 
 #include "dev_voltage_sensor.h"
 
-voltage_sensor_status_t DEV_Voltage_Sensor_Init(voltage_sensor_t *p_inst,
-                                                const voltage_sensor_cfg_t *p_cfg,
-                                                const voltage_sensor_func_t *p_func, 
+vsense_status_t DEV_Vsense_Init(vsense_t *p_inst,
+                                                const vsense_cfg_t *p_cfg,
+                                                const vsense_func_t *p_func, 
                                                 const io_adc_t *p_adc,
                                                 const util_time_t *p_time)
 {
-    voltage_sensor_status_t status = VOLTAGE_SENSOR_NOT_INIT;
+    vsense_status_t status = VSENSE_NOT_INIT;
 
     if((p_inst != NULL) &&
         (p_adc != NULL) &&
@@ -31,43 +31,46 @@ voltage_sensor_status_t DEV_Voltage_Sensor_Init(voltage_sensor_t *p_inst,
         p_inst->val_diff = false;
         p_inst->is_balance = false;
 
-        p_inst->state = VOLTAGE_SENSOR_STATE_IDLE;
+        p_inst->state = VSENSE_STATE_IDLE;
 
-        for(uint8_t i = 0U; i < IC_NUM_MAX; i++)
+        for(uint8_t i = 0U; i < SMALL_ARR_32; i++)
         {
-            for(uint8_t j = 0U; j < CELL_NUM_MAX; j++)
+            for(uint8_t j = 0U; j < LARGE_ARR_64; j++)
             {
-                p_inst->sensor.sensor_raw_vals[i].cells_mV[j] = 0;
+                p_inst->sensor.vsense_raw_vals[i].cells_mV[j] = 0;
             
-                p_inst->sensor.sensor_process_vals[i].cells_mV[j] = 0;
+                p_inst->sensor.vsense_process_vals[i].cells_mV[j] = 0;
             }
         }
 
         if((p_inst->func->voltage_start_open_wire != NULL) &&
             (p_inst->func->voltage_start_closed_wire != NULL) &&
-            (p_inst->func->voltage_sensor_get_result != NULL))
+            (p_inst->func->vsense_get_result != NULL))
         {
             p_inst->is_init = true;
 
-            status = VOLTAGE_SENSOR_OK;
+            status = VSENSE_OK;
         }
         else
         {
-            status = VOLTAGE_SENSOR_NULL_FUNC;
+            status = VSENSE_NULL_FUNC;
         }
 
     }
     else
     {
-        status = VOLTAGE_SENSOR_NULL_POINTER;
+        status = VSENSE_NULL_PTR;
     }
 
     return status;
 }
 
-voltage_sensor_status_t DEV_Voltage_Sensor_Task(voltage_sensor_t *p_inst)
+vsense_status_t DEV_Vsense_Task(vsense_t *p_inst)
 {
-    voltage_sensor_status_t status = VOLTAGE_SENSOR_OK;
+    vsense_status_t status = VSENSE_OK;
+    adc_status_t adc_status;
+    time_status_t time_status;
+    uint32_t now_time = 0U;
 
     if((p_inst != NULL) &&
         (p_inst->sensor.cfg != NULL) &&
@@ -76,65 +79,99 @@ voltage_sensor_status_t DEV_Voltage_Sensor_Task(voltage_sensor_t *p_inst)
     {
         if(p_inst->is_init)
         {
-            if(p_inst->state >= VOLTAGE_SENSOR_STATE_MAX)
+            if(!p_inst->sensor.cfg->gives_real_val)
             {
-                status = VOLTAGE_SENSOR_UNDEF_STATE;
+                adc_status = IO_ADC_Task(p_inst->adc);
 
-                p_inst->state = VOLTAGE_SENSOR_STATE_ERROR;
+                if(adc_status != ADC_STATUS_OK)
+                {
+                    status = VSENSE_ADC_FAULT;
+                }
+            }
+
+            if(p_inst->state >= VSENSE_STATE_MAX)
+            {
+                status = VSENSE_UNDEF_STATE;
+
+                p_inst->state = VSENSE_STATE_ERROR;
             }
 
             switch(p_inst->state)
             {
-                case VOLTAGE_SENSOR_STATE_IDLE:
+                case VSENSE_STATE_IDLE:
                 {
+                    if(p_inst->start_time != 0)
+                    {
+                        time_status = UTIL_Time_Get_Tick(p_inst->time, &now_time);
+
+                        if(time_status == TIME_STATUS_OK)
+                        {
+                            if(p_inst->vsense_timeout_ms)
+                            {
+                                if(now_time - p_inst->start_time >= p_inst->vsense_timeout_ms)
+                                {
+                                    status = VSENSE_TIMEOUT;
+
+                                    p_inst->state = VSENSE_STATE_ERROR;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            status = VSENSE_TIME_FAULT;
+
+                            p_inst->state = VSENSE_STATE_ERROR;
+                        }
+                    }
+
                     break;
                 }
 
-                case VOLTAGE_SENSOR_STATE_START:
+                case VSENSE_STATE_START:
                 {
                     if(p_inst->is_balance)
                     {
                         if(p_inst->func->voltage_start_open_wire(&p_inst->sensor))
                         {
-                            p_inst->state = VOLTAGE_SENSOR_STATE_WAIT;
+                            p_inst->state = VSENSE_STATE_WAIT;
                         }
                         else
                         {
-                            status = VOLTAGE_SENSOR_CONVERSION_FAIL;
+                            status = VSENSE_CONVERSION_FAIL;
 
-                            p_inst->state = VOLTAGE_SENSOR_STATE_ERROR;
+                            p_inst->state = VSENSE_STATE_ERROR;
                         }
                     }
                     else
                     {
                         if(p_inst->func->voltage_start_closed_wire(&p_inst->sensor))
                         {
-                            p_inst->state = VOLTAGE_SENSOR_STATE_WAIT;
+                            p_inst->state = VSENSE_STATE_WAIT;
                         }
                         else
                         {
-                            status = VOLTAGE_SENSOR_CONVERSION_FAIL;
+                            status = VSENSE_CONVERSION_FAIL;
 
-                            p_inst->state = VOLTAGE_SENSOR_STATE_ERROR;
+                            p_inst->state = VSENSE_STATE_ERROR;
                         }
                     }
 
                     break;
                 }
 
-                case VOLTAGE_SENSOR_STATE_WAIT:
+                case VSENSE_STATE_WAIT:
                 {
                     if(p_inst->func->voltage_state(&p_inst->sensor))
                     {
-                        p_inst->state = VOLTAGE_SENSOR_STATE_GET;
+                        p_inst->state = VSENSE_STATE_GET;
                     }
 
                     break;
                 }
 
-                case VOLTAGE_SENSOR_STATE_GET:
+                case VSENSE_STATE_GET:
                 {
-                    if(p_inst->func->voltage_sensor_get_result(&p_inst->sensor))
+                    if(p_inst->func->vsense_get_result(&p_inst->sensor))
                     {
                         if(!p_inst->sensor.cfg->gives_real_val)
                         {
@@ -142,17 +179,17 @@ voltage_sensor_status_t DEV_Voltage_Sensor_Task(voltage_sensor_t *p_inst)
                             {
                                 for(uint8_t j = 0U; j < p_inst->sensor.cfg->cell_num; j++)
                                 {
-                                    status = DEV_Voltage_Sensor_Process_Raw(p_inst, p_inst->sensor.sensor_raw_vals[i].cells_mV[j],
-                                                                             p_inst->sensor.sensor_process_vals[i].cells_mV[j]);
+                                    status = DEV_Vsense_Process_Raw(p_inst, p_inst->sensor.vsense_raw_vals[i].cells_mV[j],
+                                                                             &p_inst->sensor.vsense_process_vals[i].cells_mV[j]);
 
-                                    if(status != VOLTAGE_SENSOR_OK)
+                                    if(status != VSENSE_OK)
                                     {
-                                        p_inst->state = VOLTAGE_SENSOR_STATE_ERROR;
+                                        p_inst->state = VSENSE_STATE_ERROR;
                                     }
                                 }
                             }
                             
-                            p_inst->state = VOLTAGE_SENSOR_STATE_READY;
+                            p_inst->state = VSENSE_STATE_READY;
 
                         }
                         else
@@ -161,35 +198,35 @@ voltage_sensor_status_t DEV_Voltage_Sensor_Task(voltage_sensor_t *p_inst)
                             {
                                 for(uint8_t j = 0U; j < p_inst->sensor.cfg->cell_num; j++)
                                 {
-                                    p_inst->sensor.sensor_raw_vals[i].cells_mV[j] =
-                                    p_inst->sensor.sensor_process_vals[i].cells_mV[j];
+                                    p_inst->sensor.vsense_raw_vals[i].cells_mV[j] =
+                                    p_inst->sensor.vsense_process_vals[i].cells_mV[j];
                                 }
                             }
                             
-                            p_inst->state = VOLTAGE_SENSOR_STATE_READY;
+                            p_inst->state = VSENSE_STATE_READY;
 
                         }
                     }
                     else
                     {
-                        status = VOLTAGE_SENSOR_CONVERSION_FAIL;
+                        status = VSENSE_CONVERSION_FAIL;
 
-                        p_inst->state = VOLTAGE_SENSOR_STATE_READY;
+                        p_inst->state = VSENSE_STATE_READY;
                     }
                     
                     break;
                 }
 
-                case VOLTAGE_SENSOR_STATE_READY:
+                case VSENSE_STATE_READY:
                 {
                     p_inst->is_ready = true;
 
-                    p_inst->state = VOLTAGE_SENSOR_STATE_IDLE;
+                    p_inst->state = VSENSE_STATE_IDLE;
 
                     break;
                 }
 
-                case VOLTAGE_SENSOR_STATE_ERROR:
+                case VSENSE_STATE_ERROR:
                 {
                     /*intentionally left blank*/
                     break;
@@ -197,64 +234,65 @@ voltage_sensor_status_t DEV_Voltage_Sensor_Task(voltage_sensor_t *p_inst)
 
                 default:
                 {
-                    /*intentionally left blank*/
+                    p_inst->state = VSENSE_STATE_ERROR;
+
                     break;
                 }
             }
         }
         else
         {
-            status = VOLTAGE_SENSOR_NOT_INIT;
+            status = VSENSE_NOT_INIT;
         }
     }
     else
     {
-        status = VOLTAGE_SENSOR_NULL_POINTER;
+        status = VSENSE_NULL_PTR;
     }
 
     return status;
 }
 
-voltage_sensor_status_t DEV_Voltage_Sensor_Start(voltage_sensor_t *p_inst)
+vsense_status_t DEV_Vsense_Start(vsense_t *p_inst)
 {
-    voltage_sensor_status_t status = VOLTAGE_SENSOR_OK;
+    vsense_status_t status = VSENSE_OK;
 
     if((p_inst != NULL))
     {
         if(p_inst->is_init)
         {
-            voltage_sensor_state_t state = VOLTAGE_SENSOR_STATE_ERROR;
+            vsense_state_t state = VSENSE_STATE_ERROR;
 
-            status = DEV_Voltage_Sensor_Get_State(p_inst, &state);
+            status = DEV_Vsense_Get_State(p_inst, &state);
 
-            if(status == VOLTAGE_SENSOR_OK)
+            if(status == VSENSE_OK)
             {
-                if(state == VOLTAGE_SENSOR_STATE_IDLE)
+                if(state == VSENSE_STATE_IDLE)
                 {
-                    p_inst->state = ADC_STATE_START;
+                    p_inst->state = VSENSE_STATE_START;
                 }
                 else
                 {
-                    status = VOLTAGE_SENSOR_MISMATCH_STATE;
+                    status = VSENSE_MISMATCH_STATE;
                 }
             }
         }
         else
         {
-            status = VOLTAGE_SENSOR_NOT_INIT;
+            status = VSENSE_NOT_INIT;
         }
     }
     else
     {
-        status = VOLTAGE_SENSOR_NULL_POINTER;
+        status = VSENSE_NULL_PTR;
     }
 
     return status;
 }
 
-voltage_sensor_status_t DEV_Voltage_Sensor_Process_Raw(voltage_sensor_t *p_inst, int32_t val, uint16_t *p_out)
+vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, int32_t val, uint16_t *p_out)
 {
-    voltage_sensor_status_t status = VOLTAGE_SENSOR_OK;
+    vsense_status_t status = VSENSE_OK;
 
     adc_status_t adc_status;
 
@@ -264,52 +302,43 @@ voltage_sensor_status_t DEV_Voltage_Sensor_Process_Raw(voltage_sensor_t *p_inst,
     {
         if(p_inst->is_init)
         {
-            uint16_t raw = 0U;
-
             uint16_t vref = 0U;
 
             uint16_t resolution = 0U;
 
             int16_t offset = 0;
 
-            adc_status = IO_ADC_Get_Val(p_inst->adc, &raw);
-
-            if(adc_status != ADC_STATUS_OK)
-            {
-                status = VOLTAGE_SENSOR_ADC_ERROR;
-            }
-
             adc_status = IO_ADC_Get_Vref(p_inst->adc, &vref);
 
             if(adc_status != ADC_STATUS_OK)
             {
-                status = VOLTAGE_SENSOR_ADC_ERROR;
+                status = VSENSE_ADC_FAULT;
             }
 
             adc_status = IO_ADC_Get_Resolution(p_inst->adc, &resolution);
 
             if(adc_status != ADC_STATUS_OK)
             {
-                status = VOLTAGE_SENSOR_ADC_ERROR;
+                status = VSENSE_ADC_FAULT;
             }
 
             adc_status = IO_ADC_Get_Offset(p_inst->adc, &offset);
             
             if(adc_status != ADC_STATUS_OK)
             {
-                status = VOLTAGE_SENSOR_ADC_ERROR;
+                status = VSENSE_ADC_FAULT;
             }
 
             if((resolution > 0U))
             {
-                int16_t voltage_mV = ((int16_t)raw * (int16_t)vref) / (int16_t)resolution;
+                int16_t voltage_mV = ((int16_t)val * (int16_t)vref) / (int16_t)resolution;
 
                 voltage_mV -= (int16_t)offset;
             }
         }
         else
         {
-            status = VOLTAGE_SENSOR_NOT_INIT;
+            status = VSENSE_NOT_INIT;
         }
 
         *p_out = voltage_mV;
@@ -317,15 +346,15 @@ voltage_sensor_status_t DEV_Voltage_Sensor_Process_Raw(voltage_sensor_t *p_inst,
     }
     else
     {
-        status = VOLTAGE_SENSOR_NULL_POINTER;
+        status = VSENSE_NULL_PTR;
     }
 
     return status;
 }
 
-voltage_sensor_status_t DEV_Voltage_Sensor_Set_Balance(voltage_sensor_t *p_inst, bool val)
+vsense_status_t DEV_Vsense_Set_Balance(vsense_t *p_inst, bool val)
 {
-    voltage_sensor_status_t status = VOLTAGE_SENSOR_OK;
+    vsense_status_t status = VSENSE_OK;
 
     if((p_inst != NULL))
     {
@@ -335,24 +364,50 @@ voltage_sensor_status_t DEV_Voltage_Sensor_Set_Balance(voltage_sensor_t *p_inst,
         }
         else
         {
-            status = VOLTAGE_SENSOR_NOT_INIT;
+            status = VSENSE_NOT_INIT;
         }
     }
     else
     {
-        status = VOLTAGE_SENSOR_NULL_POINTER;
+        status = VSENSE_NULL_PTR;
     }
 
     return status;
 }
 
-voltage_sensor_status_t DEV_Voltage_Sensor_Get_State(voltage_sensor_t *p_inst, voltage_sensor_state_t *p_out)
+vsense_status_t DEV_Vsense_Get_Val(vsense_t *p_inst, vsense_val_t (*p_out)[SMALL_ARR_32])
 {
-    voltage_sensor_status_t status = VOLTAGE_SENSOR_OK;
+    vsense_status_t status = VSENSE_OK;
 
-    voltage_sensor_state_t state = VOLTAGE_SENSOR_STATE_ERROR;
+    if((p_inst != NULL) && (p_inst->sensor.cfg != NULL) && (p_out != NULL))
+    {
+        if(p_inst->is_init)
+        {
+            for(uint8_t i = 0U; i < p_inst->sensor.cfg->ic_num; i++)
+            {
+                (*p_out)[i] = p_inst->sensor.vsense_process_vals[i];
+            }
+        }
+        else
+        {
+            status = VSENSE_NOT_INIT;
+        }
+    }
+    else
+    {
+        status = VSENSE_NULL_PTR;
+    }
 
-    if((p_inst != NULL))
+    return status;
+}
+
+vsense_status_t DEV_Vsense_Get_State(vsense_t *p_inst, vsense_state_t *p_out)
+{
+    vsense_status_t status = VSENSE_OK;
+
+    vsense_state_t state = VSENSE_STATE_ERROR;
+
+    if((p_inst != NULL) && (p_out != NULL))
     {
         if(p_inst->is_init)
         {
@@ -360,15 +415,42 @@ voltage_sensor_status_t DEV_Voltage_Sensor_Get_State(voltage_sensor_t *p_inst, v
         }
         else
         {
-            status = VOLTAGE_SENSOR_NOT_INIT;
+            status = VSENSE_NOT_INIT;
         }
 
         *p_out = state;
+    }
+    else
+    {
+        status = VSENSE_NULL_PTR;
+    }
+
+    return status;
+}
+
+vsense_status_t DEV_Vsense_Get_Ready_Flag(vsense_t *p_inst, bool *p_out)
+{
+    vsense_status_t status = VSENSE_OK;
+
+    bool flag = false;
+
+    if((p_inst != NULL) && (p_out))
+    {
+        if(p_inst->is_init)
+        {
+            flag = p_inst->is_ready;
+        }
+        else
+        {
+            status = VSENSE_NOT_INIT;
+        }
+
+        *p_out = flag;
 
     }
     else
     {
-        status = VOLTAGE_SENSOR_NULL_POINTER;
+        status = VSENSE_NULL_PTR;
     }
 
     return status;

@@ -12,14 +12,21 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdarg.h>
+#include <stdlib.h>
 
 #include "util_time.h"
 #include "util_const.h"
+#include "util_irq.h"
 #include "dev_current_sensor.h"
 #include "dev_voltage_sensor.h"
+#include "dev_temp_sensor.h"
+#include "bms_config.h"
 
-#define ISENSE_HANDOFF_MAX_MA 7500
-#define ISENSE_HANDOFF_MIN_MA 7000
+#define HANDOFF_MAX_MA_ISENSE 7500
+#define HANDOFF_MIN_MA_ISENSE 7000
+#define TASK_DELAY_ISENSE 2U
+#define TASK_DELAY_VSENSE 25U
+#define TASK_DELAY_TSENSE 100U
 
 typedef enum
 {
@@ -30,7 +37,13 @@ typedef enum
     DAQ_UNDEF_STATE,
     DAQ_NULL_PTR,
     DAQ_ISENSE_FAULT,
+    DAQ_ISENSE_TIMEOUT,
+    DAQ_VSENSE_FAULT,
+    DAQ_VSENSE_TIMEOUT,
+    DAQ_TSENSE_FAULT,
+    DAQ_TSENSE_TIMEOUT,
     DAQ_TIME_FAULT,
+    DAQ_IRQ_FAULT,
     DAQ_STATUS_MAX
 } daq_status_t;
 
@@ -67,7 +80,7 @@ typedef struct
 
 typedef struct
 {
-    int16_t tsense_val_dC[SMALL_ARR_32];
+    float tsense_val_C[SMALL_ARR_32];
 } tsense_mod_val_t;
 
 typedef struct
@@ -96,24 +109,36 @@ typedef struct
 
 typedef struct
 {
-    daq_timeout_t new_timeout;
-} daq_ctx_t;
-
-typedef struct
-{
     daq_timeout_t timeout_cfg;
     daq_data_t *out_mem;
     const util_time_t *time_cfg;
-    const dev_current_sensor_t *isense_high_cfg;
-    const dev_current_sensor_t *isense_low_cfg;
+    const isense_t *isense_high_cfg;
+    const isense_t *isense_low_cfg;
+    const vsense_t *vsense_cfg;
+    const tsense_t *tsense_cfg;
+    const util_irq_t *irq_cfg;
 } daq_cfg_t;
 
 daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg);
 
 daq_status_t BMS_DAQ_Task(void);
 
-daq_status_t DMS_DAQ_Isense_State(void);
+daq_status_t BMS_DAQ_Idle_State(void);
+
+daq_status_t BMS_DAQ_Isense_State(void);
 
 daq_status_t BMS_DAQ_Isense_Switch_Task(void);
+
+daq_status_t BMS_DAQ_Vsense_State(void);
+
+daq_status_t BMS_DAQ_Map_Vdata(const vsense_val_t (*p_in)[SMALL_ARR_32], vsense_data_t *p_out);
+
+daq_status_t BMS_DAQ_Tsense_State(void);
+
+daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_32], tsense_data_t *p_out);
+
+daq_status_t BMS_DAQ_Report_State(void);
+
+daq_status_t BMS_DAQ_Get_Data(const daq_data_t *p_out);
 
 #endif

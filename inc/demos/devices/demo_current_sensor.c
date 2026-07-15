@@ -14,8 +14,8 @@
 #ifdef DEMO_CURRENT_SENSOR
 // Initialization
 static dev_current_cfg_t config = {
-    .current_gain_uV            = 3300000,
-    .current_raw_cutoff         = 5000000,
+    .isense_gain_uV            = 3300000,
+    .isense_raw_cutoff         = 5000000,
     
 };
 static dev_current_t inst;
@@ -69,18 +69,18 @@ int get_func(int p_func_id, bool p_not_inst_null, bool p_not_conf_null) {
     io_current_sensor_cfg_t *_config = p_not_conf_null ? &config : NULL;
     
     switch(p_func_id) {
-        case 0: return (uint64_t)DEV_Current_Process_Init(_inst, _config);      break;
-        case 1: return (uint64_t)DEV_Current_Process_Task(_inst);               break;
-        case 2: return (uint64_t)DEV_Current_Process_Start(_inst);              break;
-        case 3: return (uint64_t)DEV_Current_Process_Raw(_inst);                break;
-        case 4: return (uint64_t)DEV_Current_Get_Wait(_inst, &get_val);         break;
-        case 5: return (uint64_t)DEV_Current_Get_Gain(_inst, set_val);          break;
-        case 6: return (uint64_t)DEV_Current_Get_Raw(_inst, &get_val);          break;
-        case 7: return (uint64_t)DEV_Current_Get_Val(_inst, &get_val);          break;
-        case 8: return (uint64_t)DEV_Current_Get_State(_inst, &get_val);        break;
-        case 9: return (uint64_t)DEV_Current_Get_Data_Diff(_inst, &get_val);    break;
-        case 10: return (uint64_t)DEV_Current_Set_Timeout(_inst, &get_val);     break;
-        case 11: return (uint64_t)DEV_Current_Get_Timeout(_inst, set_val);      break;
+        case 0: return (uint64_t)DEV_Isense_Process_Init(_inst, _config);      break;
+        case 1: return (uint64_t)DEV_Isense_Process_Task(_inst);               break;
+        case 2: return (uint64_t)DEV_Isense_Process_Start(_inst);              break;
+        case 3: return (uint64_t)DEV_Isense_Process_Raw(_inst);                break;
+        case 4: return (uint64_t)DEV_Isense_Get_Wait(_inst, &get_val);         break;
+        case 5: return (uint64_t)DEV_Isense_Get_Gain(_inst, set_val);          break;
+        case 6: return (uint64_t)DEV_Isense_Get_Raw(_inst, &get_val);          break;
+        case 7: return (uint64_t)DEV_Isense_Get_Val(_inst, &get_val);          break;
+        case 8: return (uint64_t)DEV_Isense_Get_State(_inst, &get_val);        break;
+        case 9: return (uint64_t)DEV_Isense_Get_Data_Diff(_inst, &get_val);    break;
+        case 10: return (uint64_t)DEV_Isense_Set_Timeout(_inst, &get_val);     break;
+        case 11: return (uint64_t)DEV_Isense_Get_Timeout(_inst, set_val);      break;
         //!NOTE! Add new functions here
         //case #: return (uint64_t)IO_New_Func(&_inst, &get_val);      break;
     }

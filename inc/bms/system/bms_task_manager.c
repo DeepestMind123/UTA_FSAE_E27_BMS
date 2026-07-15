@@ -8,66 +8,68 @@
 #include "bms_task_manager.h"
 #include "bms_fault.h"
 
-static bms_state_t state;
-static bms_discharge_state_t discharge_state;
-static dev_current_sensor_t *current_sensor_high;
-static dev_current_sensor_t *current_sensor_low;
-static dev_current_sensor_t *last_current_sensor;
-static current_sensor_status_t current_sensor_status;
-static bms_config_t *bms_cfg; 
-static bms_pack_state_t pack_state = {
-    .last_current_mA = 0,
-    .last_time_ms = 0U
-};
-
-static bool is_init;
-
-bms_status_t BMS_Manager_Init(void)
+typedef struct
 {
-    bms_status_t status = BMS_STATUS_ERROR_NOT_INIT;
+    tm_state_t state;
+    bool is_init;
 
-    /*
-        put configs for bms here
-    */
-    if((current_sensor_high != NULL) && (current_sensor_low != NULL) && (last_current_sensor != NULL) && (bms_cfg != NULL))
+    daq_timeout_t timeout;
+    util_time_t *p_time;
+} bms_tm_t;
+
+static bms_tm_t s_tm;
+
+tm_status_t BMS_Manager_Init(const tm_cfg_t *p_cfg)
+{
+    tm_status_t status = TM_NOT_INIT;
+
+    if(!s_tm.is_init) // this is ok to check at init due to is_init being static member of struct
     {
-        last_current_sensor = current_sensor_low;
+        if(p_cfg != NULL)
+        {
+            s_tm.p_time = p_cfg->time_cfg;
 
-        is_init = true;
+            s_tm.state = TM_STATE_IDLE;
 
-        status = BMS_STATUS_OK;
+            // after all linkages are finished
+            s_tm.is_init = true;
+            status = TM_OK;
+        }
+        else
+        {
+            status = TM_NULL_PTR;
+        }
     }
     else
     {
-        status = BMS_STATUS_ERROR_NULL_POINTER;
+        status = TM_DBL_INIT;
     }
 
     return status;
 }
 
-bms_status_t BMS_Manager_Task(void)
+tm_status_t BMS_Manager_Task(void)
 {
-    bms_status_t status = BMS_STATUS_OK;
+    tm_status_t status = TM_OK;
 
-    if(is_init)
+    if(s_tm.is_init)
     {
         if(BMS_Is_Fault())
         {
-            status = BMS_STATUS_ERROR_FAULT;
+            status = TM_UNDEF_STATE;
 
-            state = BMS_STATE_FAULT;
-
-            // call error handler
+            
+            s_tm.state = TM_STATE_ERROR;
         }
 
-        if(state >= BMS_STATE_MAX)
+        if(s_tm.state >= TM_STATE_MAX)
         {
-            state = BMS_STATE_UNDEFINED;
+
         }
 
-        switch(state)
+        switch(s_tm.state)
         {
-            case BMS_STATE_IDLE:
+            case TM_STATE_IDLE:
             {
                 break;
             }
@@ -76,7 +78,7 @@ bms_status_t BMS_Manager_Task(void)
             need to change sensor waits to idle time
             */
 
-            case BMS_STATE_CHARGE:
+            case TM_STATE_CHARGE:
             {
                 break;
             }
@@ -85,19 +87,12 @@ bms_status_t BMS_Manager_Task(void)
             current/volt/temp measurement periods are same for discharge
             */
 
-            case BMS_STATE_DISCHARGE:
+            case TM_STATE_DISCHARGE:
             {
-                status = BMS_Manager_Discharge_Task();
-
-                if(status != BMS_STATUS_OK)
-                {
-                    state = BMS_STATE_FAULT;
-                }
-
                 break;
             }
 
-            case BMS_STATE_BALANCE:
+            case TM_STATE_BALANCE:
             {
                 break;
             }
@@ -108,112 +103,25 @@ bms_status_t BMS_Manager_Task(void)
             so there should probably be a new wait period for this
             */
 
-            case BMS_STATE_UNDEFINED:
-            {
-                status = BMS_STATUS_ERROR_UNDEFINED_STATE;
-
-                state = BMS_STATE_FAULT;
-
-                break;
-            }
-
-            case BMS_STATE_FAULT:
+            case TM_STATE_ERROR:
             {
                 break;
             }
 
-            /*
-            measurements still need to happen while battery is latched
-            so period will be the same as charge/discharge
-            */
+            default:
+            {
+                s_tm.state = TM_STATE_ERROR;
+
+                break;
+            }
+
         }
     }
     else 
     {
-        status = BMS_STATUS_ERROR_NOT_INIT;
+        status = TM_NOT_INIT;
     }
 
     return status;
 }
 
-bms_status_t BMS_Manager_Discharge_Task(void)
-{
-    bms_status_t status = BMS_STATUS_OK;
-
-    if(is_init)
-    {
-        if(discharge_state >= BMS_DISCHARGE_STATE_MAX)
-        {
-            discharge_state = BMS_DISCHARGE_STATE_UNDEFINED;
-        }
-
-        switch(discharge_state)
-        {
-            case BMS_DISCHARGE_STATE_IDLE:
-            {
-                status = BMS_Manager_Current_Sensor_Task();
-
-                if(status != BMS_STATUS_OK)
-                {
-                    discharge_state = BMS_DISCHARGE_STATE_ERROR;
-                }
-
-                // need to add bms ic task as well
-
-                break;
-            }
-
-            case BMS_DISCHARGE_STATE_REPORT:
-            {
-                break;
-            }
-
-            case BMS_DISCHARGE_STATE_UNDEFINED:
-            {
-                status = BMS_STATUS_ERROR_UNDEFINED_STATE;
-
-                discharge_state = BMS_DISCHARGE_STATE_ERROR;
-
-                break;
-            }
-
-            case BMS_DISCHARGE_STATE_ERROR:
-            {
-                break;
-            }
-        }
-    }
-    else
-    {
-        status = BMS_STATUS_ERROR_NOT_INIT;
-    }
-
-    return status;
-}
-
-bms_status_t BMS_Manager_Current_Sensor_Task(void)
-{
-    bms_status_t status = BMS_STATUS_OK;
-
-    if(pack_state.last_current_mA > SENSOR_HANDOFF_MAX)
-    {
-        last_current_sensor = current_sensor_high;
-
-        current_sensor_status = DEV_Current_Sensor_Set_Timeout(&current_sensor_low, 0U);
-    }
-    else if(pack_state.last_current_mA <= SENSOR_HANDOFF_MIN)
-    {
-        last_current_sensor = current_sensor_low;
-
-        current_sensor_status = DEV_Current_Sensor_Set_Timeout(&current_sensor_high, 0U);
-    }
-
-    current_sensor_status = DEV_Current_Sensor_Task(&last_current_sensor);
-
-    if(current_sensor_status != CURRENT_SENSOR_OK)
-    {
-        status = BMS_STATUS_ERROR_CURRENT_SENSOR_FAILURE;
-    }
-
-    return status;
-}
