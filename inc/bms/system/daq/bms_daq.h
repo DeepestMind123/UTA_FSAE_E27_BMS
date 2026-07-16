@@ -21,7 +21,6 @@
 #include "dev_voltage_sensor.h"
 #include "dev_temp_sensor.h"
 #include "bms_config.h"
-#include "bms_data.h"
 
 #define HANDOFF_MAX_MA_ISENSE 7500
 #define HANDOFF_MIN_MA_ISENSE 7000
@@ -59,6 +58,44 @@ typedef enum
     DAQ_STATE_ERROR,
     DAQ_STATE_MAX
 } daq_state_t;
+
+typedef struct
+{
+    int32_t ival_mA;
+    uint32_t i_timestamp;
+    bool i_valid;
+} isense_data_t;
+
+typedef struct
+{
+    int16_t cell_val_mV[LARGE_ARR_64];
+} vsense_mod_val_t;
+
+typedef struct
+{
+    vsense_mod_val_t modv[SMALL_ARR_32];
+    uint32_t v_timestamp;
+    bool v_valid;
+} vsense_data_t;
+
+typedef struct
+{
+    float tsense_val_C[SMALL_ARR_32];
+} tsense_mod_val_t;
+
+typedef struct
+{
+    tsense_mod_val_t modt[SMALL_ARR_32];
+    uint32_t t_timestamp;
+    bool t_valid;
+} tsense_data_t;
+
+typedef struct 
+{
+    isense_data_t i_data;
+    vsense_data_t v_data;
+    tsense_data_t t_data;
+} daq_data_t;
 
 typedef struct
 {
@@ -101,8 +138,6 @@ daq_status_t BMS_DAQ_Tsense_State(void);
 daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_32], tsense_data_t *p_out);
 
 daq_status_t BMS_DAQ_Report_State(void);
-
-daq_status_t BMS_DAQ_Set_Timeout(const daq_timeout_t *p_in);
 
 daq_status_t BMS_DAQ_Get_Data(const daq_data_t *p_out);
 
