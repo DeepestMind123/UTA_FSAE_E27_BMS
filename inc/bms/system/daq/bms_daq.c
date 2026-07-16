@@ -768,25 +768,6 @@ daq_status_t BMS_DAQ_Report_State(void)
     return status;
 }
 
-daq_status_t BMS_DAQ_Set_Timeout(const daq_timeout_t *p_in)
-{
-    daq_status_t status = DAQ_OK;
-
-    if(s_daq.is_init)
-    {
-        if(p_in != NULL)
-        {
-            s_daq.real_timeout = *p_in;
-        }
-    }
-    else
-    {
-        status = DAQ_NOT_INIT;
-    }
-
-    return status;
-}
-
 daq_status_t BMS_DAQ_Get_Data(const daq_data_t *p_out)
 {
     daq_status_t status = DAQ_OK;
