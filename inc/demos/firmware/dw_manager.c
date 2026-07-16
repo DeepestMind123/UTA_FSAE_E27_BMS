@@ -50,10 +50,9 @@ void init_driver_watcher(char *p_driver_name, uint8_t p_test_id, driver_watcher_
     active_driver = p_driver;
 }
 // Magic watch method
-void watch_inst_conf(int p_func_id, int p_status_exp, int64_t *p_set_val, int64_t *p_get_val, bool* p_not_null_inst) {
+void watch_inst_conf(int p_func_id, int p_status_exp, bool* p_not_null_inst) {
     if (active_driver == NULL || p_not_null_inst == NULL) return;
-    
-    const size_t _not_null_size = sizeof(p_not_null_inst) / sizeof(p_not_null_inst[0]);
+    const size_t _not_null_size = sizeof(*p_not_null_inst) / sizeof(p_not_null_inst[0]);
     int state_idx = active_driver->execute_func(active_driver->get_state_func_id, getBoolArrayDefault(_not_null_size, true));
     
     // Run driver function
@@ -75,22 +74,22 @@ void watch_inst_conf(int p_func_id, int p_status_exp, int64_t *p_set_val, int64_
     
     size_t _set_para_size = 0;
     size_t _get_para_size = 0;
-    if(p_set_val != NULL) _set_para_size = sizeof(p_set_val) / sizeof(p_set_val[0]);
-    if(p_get_val != NULL) _get_para_size = sizeof(p_get_val) / sizeof(p_get_val[0]);
+    if(set_para_num != NULL) _set_para_size = sizeof(set_para_num) / sizeof(set_para_num[0]);
+    if(get_para_num != NULL) _get_para_size = sizeof(get_para_num) / sizeof(get_para_num[0]);
     for(size_t i = 0; i < _set_para_size || i < _get_para_size; i++) {
-        if(p_set_val != NULL && i < _set_para_size && p_get_val != NULL && i < _get_para_size) {
-            if (!ISMAXINT(p_set_val[i]) && !ISMAXINT(p_get_val[i]) && len < sizeof(watch)) {
-                len += snprintf(watch + len, sizeof(watch) - len, "Set(%zu):%lld|Get(%zu):%lld|", i, p_set_val[i], i, p_get_val[i]);
+        if(set_para_num != NULL && i < _set_para_size && get_para_num != NULL && i < _get_para_size) {
+            if (!ISMAXINT(set_para_num[i]) && !ISMAXINT(get_para_num[i]) && len < sizeof(watch)) {
+                len += snprintf(watch + len, sizeof(watch) - len, "Set(%zu):%lld|Get(%zu):%lld|", i, set_para_num[i], i, get_para_num[i]);
             }
         }
-        else if(p_set_val != NULL && i < _set_para_size) {
-            if (!ISMAXINT(p_set_val[i]) && len < sizeof(watch)) {
-                len += snprintf(watch + len, sizeof(watch) - len, "Set(%zu):%lld|", i, p_set_val[i]);
+        else if(set_para_num != NULL && i < _set_para_size) {
+            if (!ISMAXINT(set_para_num[i]) && len < sizeof(watch)) {
+                len += snprintf(watch + len, sizeof(watch) - len, "Set(%zu):%lld|", i, set_para_num[i]);
             }
         }
-        else if(p_get_val != NULL && i < _get_para_size) {
-            if (!ISMAXINT(p_get_val[i]) && len < sizeof(watch)) {
-                len += snprintf(watch + len, sizeof(watch) - len, "Get(%zu):%lld|", i, p_get_val[i]);
+        else if(get_para_num != NULL && i < _get_para_size) {
+            if (!ISMAXINT(get_para_num[i]) && len < sizeof(watch)) {
+                len += snprintf(watch + len, sizeof(watch) - len, "Get(%zu):%lld|", i, get_para_num[i]);
             }
         }
     }

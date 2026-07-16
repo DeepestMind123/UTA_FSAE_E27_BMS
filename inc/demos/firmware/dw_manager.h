@@ -14,8 +14,8 @@
 #include "demo_test.h"
 #define ISMAXINT(x) (x == UINT64_MAX || x == UINT32_MAX || x == UINT16_MAX || x == UINT8_MAX)
 
-extern int64_t *get_para_num;
 extern int64_t *set_para_num;
+extern int64_t *get_para_num;
 extern bool *not_null_bools;
 extern uint8_t test_id;
 char driver_name[15];
@@ -35,7 +35,7 @@ typedef struct {
 
 // Purely generic testing engine functions
 void init_driver_watcher(char *p_driver_name, uint8_t p_test_id, driver_watcher_interface_t *p_driver);
-void watch_inst_conf(int p_func_id, int p_status_exp, int64_t *p_set_val, int64_t *p_get_val, bool *p_not_null_inst);
+void watch_inst_conf(int p_func_id, int p_status_exp, bool *p_not_null_inst);
 
 void demo_watcher();
 
