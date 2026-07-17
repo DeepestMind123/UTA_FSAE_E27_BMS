@@ -36,13 +36,13 @@ adc_status_t IO_ADC_Init(io_adc_t *p_inst, const io_adc_cfg_t *p_cfg, const util
         }
         else 
         {
-            status = ADC_STATUS_ERROR_NULL_POINTER;
+            status = ADC_STATUS_NULL_PTR;
         }
         
     }
     else
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     return status;
@@ -159,7 +159,7 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
                 {
                     p_inst->state = ADC_STATE_ERROR;
 
-                    status = ADC_STATUS_ERROR_UNDEFINED_STATE;
+                    status = ADC_STATUS_ERROR_UNDEF_STATE;
 
                     break;
                 }
@@ -181,7 +181,7 @@ adc_status_t IO_ADC_Task(io_adc_t *p_inst)
     }
     else 
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     return status;
@@ -205,7 +205,7 @@ adc_status_t IO_ADC_Start(io_adc_t *p_inst)
     }
     else 
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     return status;
@@ -233,7 +233,7 @@ adc_status_t IO_ADC_Get_Val(io_adc_t *p_inst, uint16_t *p_out)
     }
     else
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     return status;
@@ -260,7 +260,7 @@ adc_status_t IO_ADC_Get_Resolution(io_adc_t *p_inst, uint16_t *p_out)
     }
     else
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     return status;
@@ -287,7 +287,7 @@ adc_status_t IO_ADC_Get_Offset(io_adc_t *p_inst, int16_t *p_out)
     } 
     else
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     return status;  
@@ -310,7 +310,7 @@ adc_status_t IO_ADC_Set_Offset(io_adc_t *p_inst, int16_t new_val)
     }
     else 
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     return status;
@@ -337,7 +337,7 @@ adc_status_t IO_ADC_Get_Vref(io_adc_t *p_inst, uint16_t *p_out)
     }
     else
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     return status;
@@ -364,7 +364,7 @@ adc_status_t IO_ADC_Get_State(io_adc_t *p_inst, adc_state_t *p_out)
     }
     else 
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     return status;
@@ -391,7 +391,7 @@ adc_status_t IO_ADC_Get_Timeout(io_adc_t *p_inst, uint32_t *p_out)
     }
     else 
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     return status;
@@ -416,7 +416,7 @@ adc_status_t IO_ADC_Get_Ready_Flag(io_adc_t *p_inst, bool *p_out)
     }
     else
     {
-        status = ADC_STATUS_ERROR_NULL_POINTER;
+        status = ADC_STATUS_NULL_PTR;
     }
 
     *p_out = flag;

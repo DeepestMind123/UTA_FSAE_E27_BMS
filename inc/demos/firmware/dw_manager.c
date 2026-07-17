@@ -4,9 +4,9 @@
  * @date 2026-06-03
  * @brief demo watch manager <SF>
  */
-
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "dw_manager.h"
 
@@ -17,19 +17,29 @@ void demo_watcher() {
     demo_watch_pwm_all();
     demo_watch_spi_all();
     
-    demo_watch_current_sensor_all();
+    demo_watch_isense_all();
     // demo_watch_fan_control_all();
     // demo_watch_ltc6813_all();
 }
 
+bool* getBoolArrayDefault(int p_size, bool p_state) {
+    bool *all_true = malloc(p_size * sizeof(bool));
+    for (int i = 0; i < p_size; i++) {
+        all_true[i] = p_state;
+    }
+    return all_true;
+}
+int64_t* getIntArrayDefault(int p_size, int64_t p_val) {
+    int64_t *all_true = malloc(p_size * sizeof(int64_t));
+    for (int i = 0; i < p_size; i++) {
+        all_true[i] = p_val;
+    }
+    return all_true;
+}
+
 // Global variables used in demos
 char watch[100];     //watch the 'watch' variable to debug
-uint32_t get_para_num_1     = UINT32_MAX;
-uint32_t get_para_num_2     = UINT32_MAX;
-uint32_t set_para_num_1     = UINT32_MAX;
-uint32_t set_para_num_2     = UINT32_MAX;
-bool get_para_bool_1        = false;
-uint8_t test_id             = 0;
+uint8_t test_id = 0;
 static driver_watcher_interface_t *active_driver = NULL;
 
 void init_driver_watcher(char *p_driver_name, uint8_t p_test_id, driver_watcher_interface_t *p_driver) {
@@ -39,28 +49,14 @@ void init_driver_watcher(char *p_driver_name, uint8_t p_test_id, driver_watcher_
     test_id = p_test_id;
     active_driver = p_driver;
 }
-// Watch method wrapper
-void watch_inst_conf(int p_func_id, int p_status_exp, bool p_not_null_inst, bool p_not_null_conf, bool p_not_null_time_inst) {
-    watch_inst_conf_set(p_func_id, p_status_exp, UINT64_MAX, p_not_null_inst, p_not_null_conf, p_not_null_time_inst);
-}
-void watch_inst_conf_set(int p_func_id, int p_status_exp, int p_set_val, bool p_not_null_inst, bool p_not_null_conf, bool p_not_null_time_inst) {
-    watch_inst_conf_set_2(p_func_id, p_status_exp, p_set_val, UINT64_MAX, p_not_null_inst, p_not_null_conf, p_not_null_time_inst);
-}
-
 // Magic watch method
-void watch_inst_conf_set_2(int p_func_id, int p_status_exp, int p_set_val, int p_set_val_2, bool p_not_null_inst, bool p_not_null_conf, bool p_not_null_time_inst) {
-    if (active_driver == NULL) return;
-
-    set_para_num_1 = p_set_val;
-    uint32_t _set_val = set_para_num_1;
-    set_para_num_2 = p_set_val_2;
-    uint32_t _set_val_2 = set_para_num_2;
-    
-    // Run driver state function
-    int state_idx = active_driver->execute_func(active_driver->get_state_func_id, true, true, true);
+void watch_inst_conf(int p_func_id, int p_status_exp, bool* p_not_null_inst) {
+    if (active_driver == NULL || p_not_null_inst == NULL) return;
+    const size_t _not_null_size = sizeof(*p_not_null_inst) / sizeof(p_not_null_inst[0]);
+    int state_idx = active_driver->execute_func(active_driver->get_state_func_id, getBoolArrayDefault(_not_null_size, true));
     
     // Run driver function
-    int status_idx = active_driver->execute_func(p_func_id, p_not_null_inst, p_not_null_conf, p_not_null_time_inst);
+    int status_idx = active_driver->execute_func(p_func_id, getBoolArrayDefault(_not_null_size, true));
     
     const char *_func_str       = active_driver->func_strings[p_func_id];
     const char *_status_exp_str = active_driver->status_strings[p_status_exp];
@@ -76,20 +72,26 @@ void watch_inst_conf_set_2(int p_func_id, int p_status_exp, int p_set_val, int p
         len += snprintf(watch + len, sizeof(watch) - len, "State:%s|", _state_str);
     }
     
-    if (!ISMAXINT(_set_val) && len < sizeof(watch)) {
-        len += snprintf(watch + len, sizeof(watch) - len, "Set:%u|", _set_val);
-    }
-    
-    if (!ISMAXINT(_set_val_2) && len < sizeof(watch)) {
-        len += snprintf(watch + len, sizeof(watch) - len, "Set(2):%u|", _set_val_2);
-    }
-
-    if (!ISMAXINT(get_para_num_1) && len < sizeof(watch)) {
-        len += snprintf(watch + len, sizeof(watch) - len, "Get:%u|", get_para_num_1);
-    }
-    
-    if (!ISMAXINT(get_para_num_2) && len < sizeof(watch)) {
-        len += snprintf(watch + len, sizeof(watch) - len, "Get(2):%u|", get_para_num_2);
+    size_t _set_para_size = 0;
+    size_t _get_para_size = 0;
+    if(set_para_num != NULL) _set_para_size = sizeof(set_para_num) / sizeof(set_para_num[0]);
+    if(get_para_num != NULL) _get_para_size = sizeof(get_para_num) / sizeof(get_para_num[0]);
+    for(size_t i = 0; i < _set_para_size || i < _get_para_size; i++) {
+        if(set_para_num != NULL && i < _set_para_size && get_para_num != NULL && i < _get_para_size) {
+            if (!ISMAXINT(set_para_num[i]) && !ISMAXINT(get_para_num[i]) && len < sizeof(watch)) {
+                len += snprintf(watch + len, sizeof(watch) - len, "Set(%zu):%lld|Get(%zu):%lld|", i, set_para_num[i], i, get_para_num[i]);
+            }
+        }
+        else if(set_para_num != NULL && i < _set_para_size) {
+            if (!ISMAXINT(set_para_num[i]) && len < sizeof(watch)) {
+                len += snprintf(watch + len, sizeof(watch) - len, "Set(%zu):%lld|", i, set_para_num[i]);
+            }
+        }
+        else if(get_para_num != NULL && i < _get_para_size) {
+            if (!ISMAXINT(get_para_num[i]) && len < sizeof(watch)) {
+                len += snprintf(watch + len, sizeof(watch) - len, "Get(%zu):%lld|", i, get_para_num[i]);
+            }
+        }
     }
     asm("NOP"); //!BREAK! Use this as breakpoint
 }

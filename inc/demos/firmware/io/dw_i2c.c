@@ -33,10 +33,10 @@ static io_i2c_t inst;
 
 // Watch strings
 static const char *func_str[] = {
-    "I2C INIT",
-    "I2C SET CLOCK",
-    "I2C TRANSMIT",
-    "I2C RECIEVE"
+    "INIT",
+    "SET CLOCK",
+    "TRANSMIT",
+    "RECIEVE"
     //!NOTE! Add func name here
     //"NEW FUNC NAME"
 };
@@ -60,23 +60,21 @@ typedef enum {
     //"NEW FUNC ID"
 } func_id;
 // Get func output to compare non-null vs. null
-static int get_func(int p_func_id, bool p_not_inst_null, bool p_not_conf_null, bool p_not_null_time_inst) {
-    get_para_num_1              = UINT32_MAX;
-    get_para_num_2              = UINT32_MAX;
-    get_para_bool_1             = false;
-    io_i2c_t *_inst             = p_not_inst_null ? &inst : NULL;
-    io_i2c_cfg_t *_config       = p_not_conf_null ? &config : NULL;
+int get_func(int p_func_id, bool* p_not_inst_null) {
+    get_para_num                = getIntArrayDefault(1, UINT64_MAX);
+    not_null_bools              = getBoolArrayDefault(1, false);
+    io_i2c_t *_inst             = p_not_inst_null[0] ? &inst : NULL;
+    io_i2c_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
     
     switch(p_func_id) {
-        case 0: return (uint32_t)IO_I2C_Init(_inst, _config, set_para_num_1);      break;
-        case 1: return (uint32_t)IO_I2C_Set_Clock(_inst, set_para_num_1);               break;
-        case 2: return (uint32_t)IO_I2C_Transmit(_inst, &msg);                          break;
-        case 3: return (uint32_t)IO_I2C_Receive(_inst, &msg);                           break;
+        case 0: return (int64_t)IO_I2C_Init(_inst, _config, set_para_num[0]);      break;
+        case 1: return (int64_t)IO_I2C_Set_Clock(_inst, set_para_num[0]);               break;
+        case 2: return (int64_t)IO_I2C_Transmit(_inst, &msg);                          break;
+        case 3: return (int64_t)IO_I2C_Receive(_inst, &msg);                           break;
         //!NOTE! Add new functions here
-        //case #: return (uint32_t)IO_New_Func(&_inst, &get_para_num_1);                              break;
+        //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);      break;
     }
-    set_para_num_1 = UINT32_MAX;
-    set_para_num_2 = UINT32_MAX;
+    set_para_num = getIntArrayDefault(1, UINT64_MAX);
 }
 static driver_watcher_interface_t drive_watcher = {
     .func_strings       = func_str,
@@ -90,33 +88,45 @@ static driver_watcher_interface_t drive_watcher = {
 void demo_watch_i2c_all() {
     demo_watch_i2c_funcs();
 }
+#define NULL_COUNT 2
 // Tests the i2c fault system to ensure its accurate
 void demo_watch_i2c_funcs() {
     init_driver_watcher("I2C", 1, &drive_watcher); //!BREAK! Use this as breakpoint
     
     // Action Methods
     // [0] I2C INIT
-    watch_inst_conf(I2C_INIT, I2C_STATUS_OK, true, true, true);
-    watch_inst_conf(I2C_INIT, I2C_STATUS_ERROR_NULL_POINTER, true, false, true);
-    watch_inst_conf(I2C_INIT, I2C_STATUS_ERROR_NULL_POINTER, false, true, true);
-    watch_inst_conf(I2C_INIT, I2C_STATUS_ERROR_NULL_POINTER, false, false, true);
+    watch_inst_conf(I2C_INIT, I2C_STATUS_OK,
+        (bool[NULL_COUNT]) {true, true, true});
+    watch_inst_conf(I2C_INIT, I2C_STATUS_ERROR_NULL_POINTER,
+        (bool[NULL_COUNT]) {false, true, true});
+    watch_inst_conf(I2C_INIT, I2C_STATUS_ERROR_NULL_POINTER,
+        (bool[NULL_COUNT]) {true, false, true});
+    watch_inst_conf(I2C_INIT, I2C_STATUS_ERROR_NULL_POINTER,
+        (bool[NULL_COUNT]) {false, false, false});
     
+    set_para_num[0] = 100;
     // I/O Methods
     // [1] I2C SET CLOCK
-    watch_inst_conf_set(I2C_SET_CLOCK, I2C_STATUS_OK, 100, true, true, true);
-    watch_inst_conf_set(I2C_SET_CLOCK, I2C_STATUS_ERROR_NULL_POINTER, 100, false, false, true);
+    watch_inst_conf(I2C_SET_CLOCK, I2C_STATUS_OK,
+        (bool[NULL_COUNT]) {true, true, true, true});
+    watch_inst_conf(I2C_SET_CLOCK, I2C_STATUS_ERROR_NULL_POINTER,
+        (bool[NULL_COUNT]) {true, true, true, true});
 
     // [2] I2C TRANSMIT
-    watch_inst_conf(I2C_TRANSMIT, I2C_STATUS_OK, true, true, true);
-    watch_inst_conf(I2C_TRANSMIT, I2C_STATUS_ERROR_NULL_POINTER, false, false, true);
+    watch_inst_conf(I2C_TRANSMIT, I2C_STATUS_OK,
+        (bool[NULL_COUNT]) {true, true, true, true});
+    watch_inst_conf(I2C_TRANSMIT, I2C_STATUS_ERROR_NULL_POINTER,
+        (bool[NULL_COUNT]) {false, false, true, true});
     
     // [3] I2C RECEIVE
-    watch_inst_conf(I2C_RECIEVE, I2C_STATUS_OK, true, true, true);
-    watch_inst_conf(I2C_RECIEVE, I2C_STATUS_ERROR_NULL_POINTER, false, false, true);
+    watch_inst_conf(I2C_RECIEVE, I2C_STATUS_OK,
+        (bool[NULL_COUNT]) {true, true, true, true});
+    watch_inst_conf(I2C_RECIEVE, I2C_STATUS_ERROR_NULL_POINTER,
+        (bool[NULL_COUNT]) {false, false, true, true});
     
     //!NOTE! Add new function to track here
-    //// [#] ADC NEW FUNC
-    //track_inst_conf(ADC_FUNC_ID, ADC_STATUS_ID, false, false);
+    //// [#] NEW FUNC
+    //track_inst_conf(FUNC_ID, STATUS_ID, NULL, NULL, NULL);
     
     asm("NOP"); //!BREAK! Use this as breakpoint
 }
