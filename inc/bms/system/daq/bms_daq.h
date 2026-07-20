@@ -109,6 +109,11 @@ typedef struct
 
 typedef struct
 {
+    daq_timeout_t new_timeout;
+} daq_ctx_t;
+
+typedef struct
+{
     daq_timeout_t timeout_cfg;
     daq_data_t *out_mem;
     const util_time_t *time_cfg;
@@ -121,7 +126,7 @@ typedef struct
 
 daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg);
 
-daq_status_t BMS_DAQ_Task(void);
+daq_status_t BMS_DAQ_Task(const daq_ctx_t *p_in);
 
 daq_status_t BMS_DAQ_Idle_State(void);
 
@@ -140,5 +145,7 @@ daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_32], tsense_
 daq_status_t BMS_DAQ_Report_State(void);
 
 daq_status_t BMS_DAQ_Get_Data(const daq_data_t *p_out);
+
+daq_status_t BMS_DAQ_Get_Ready_Flag(bool *p_out);
 
 #endif
