@@ -3,7 +3,7 @@
  * @author notwe
  * @date 2026-05-03
  * @brief current sensor device driver header
- * @todo 
+ * @todo rework timeout faults
  */
 
 #ifndef DEV_CURRENT_H

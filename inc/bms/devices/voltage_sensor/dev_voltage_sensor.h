@@ -3,7 +3,7 @@
  * @author notwe
  * @date 2026-07-03
  * @brief generic voltage sensor device driver wrapper header
- * @todo 
+ * @todo rework timeout faults
 */
 
 #ifndef DEV_VSENSE_H
