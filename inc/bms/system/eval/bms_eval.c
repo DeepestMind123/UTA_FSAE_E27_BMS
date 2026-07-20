@@ -9,7 +9,7 @@
 
 typedef struct
 {
-    eval_con_t pack_con;
+    eval_con_t con;
     daq_data_t data;
 } eval_t;
 
@@ -23,15 +23,15 @@ eval_status_t BMS_Eval_Task(const daq_data_t *p_data_in, eval_con_t *p_out)
     {
         s_eval.data = *p_data_in;
 
-        status = BMS_Eval_Icon(p_data_in, &s_eval.pack_con);
+        status = BMS_Eval_Icon(p_data_in, &s_eval.con);
 
         if(status == EVAL_OK)
         {
-            status = BMS_Eval_Vcon(p_data_in, &s_eval.pack_con);
+            status = BMS_Eval_Vcon(p_data_in, &s_eval.con);
 
             if(status == EVAL_OK)
             {
-                status = BMS_Eval_Tcon(p_data_in, &s_eval.pack_con);
+                status = BMS_Eval_Tcon(p_data_in, &s_eval.con);
             }
         }
     }
@@ -50,48 +50,48 @@ eval_status_t BMS_Eval_Icon(const daq_data_t *p_data_in, eval_con_t *p_out)
     if((p_data_in != NULL) && (p_out != NULL))
     {
         s_eval.data = *p_data_in;
-        s_eval.pack_con = *p_out;
+        s_eval.con = *p_out;
 
         if(s_eval.data.i_data.i_valid)
         {
             if(s_eval.data.i_data.ival_mA > 0)
             {
-                s_eval.pack_con.batt_state = BATT_STATE_DCHG;
+                s_eval.con.batt_state = BATT_STATE_DCHG;
 
                 if(s_eval.data.i_data.ival_mA > OC_DCHG_LIM_MA)
                 {
-                    s_eval.pack_con.icon.ipack_fault = true;
-                    s_eval.pack_con.icon.icon = EVAL_ICON_DCHG_OC;
+                    s_eval.con.icon.ipack_fault = true;
+                    s_eval.con.icon.icon = EVAL_ICON_DCHG_OC;
                 }
                 else
                 {
-                    s_eval.pack_con.icon.ipack_fault = false;
-                    s_eval.pack_con.icon.icon = EVAL_ICON_OK;
+                    s_eval.con.icon.ipack_fault = false;
+                    s_eval.con.icon.icon = EVAL_ICON_OK;
                 }
             }
             else if(s_eval.data.i_data.ival_mA < 0)
             {
-                s_eval.pack_con.batt_state = BATT_STATE_CHG;
+                s_eval.con.batt_state = BATT_STATE_CHG;
 
                 if(labs(s_eval.data.i_data.ival_mA) > OC_CHG_LIM_MA)
                 {
-                    s_eval.pack_con.icon.ipack_fault = true;
-                    s_eval.pack_con.icon.icon = EVAL_ICON_CHG_OC;
+                    s_eval.con.icon.ipack_fault = true;
+                    s_eval.con.icon.icon = EVAL_ICON_CHG_OC;
                 }
                 else
                 {
-                    s_eval.pack_con.icon.ipack_fault = false;
-                    s_eval.pack_con.icon.icon = EVAL_ICON_OK;
+                    s_eval.con.icon.ipack_fault = false;
+                    s_eval.con.icon.icon = EVAL_ICON_OK;
                 }
             }
             else
             {
-                s_eval.pack_con.batt_state = BATT_STATE_IDLE;
-                s_eval.pack_con.icon.ipack_fault = false;
-                s_eval.pack_con.icon.icon = EVAL_ICON_OK;
+                s_eval.con.batt_state = BATT_STATE_IDLE;
+                s_eval.con.icon.ipack_fault = false;
+                s_eval.con.icon.icon = EVAL_ICON_OK;
             }
 
-            *p_out = s_eval.pack_con;
+            *p_out = s_eval.con;
         }
         else
         {
@@ -114,11 +114,11 @@ eval_status_t BMS_Eval_Vcon(const daq_data_t *p_data_in, eval_con_t *p_out)
     {
         s_eval.data = *p_data_in;
         
-        s_eval.pack_con = *p_out;
+        s_eval.con = *p_out;
 
         if(s_eval.data.v_data.v_valid)
         {
-            s_eval.pack_con.vcon.vpack_fault = false;          
+            s_eval.con.vcon.vpack_fault = false;          
 
             for(uint8_t i = 0U; i < MOD_NUM; i++)
             {
@@ -126,22 +126,22 @@ eval_status_t BMS_Eval_Vcon(const daq_data_t *p_data_in, eval_con_t *p_out)
                 {
                     if(s_eval.data.v_data.vmod[i].cell_val_mV[j] > OV_LIM_MV)
                     {
-                        s_eval.pack_con.vcon.vpack_fault = true;
-                        s_eval.pack_con.vcon.vmod[i].cell_con[j] = EVAL_VCON_OV;
+                        s_eval.con.vcon.vpack_fault = true;
+                        s_eval.con.vcon.vmod[i].cell_con[j] = EVAL_VCON_OV;
                     }
                     else if(s_eval.data.v_data.vmod[i].cell_val_mV[j] < UV_LIM_MV)
                     {
-                        s_eval.pack_con.vcon.vpack_fault = true;
-                        s_eval.pack_con.vcon.vmod[i].cell_con[j] = EVAL_VCON_UV;                        
+                        s_eval.con.vcon.vpack_fault = true;
+                        s_eval.con.vcon.vmod[i].cell_con[j] = EVAL_VCON_UV;                        
                     }
                     else
                     {
-                        s_eval.pack_con.vcon.vmod[i].cell_con[j] = EVAL_VCON_OK;     
+                        s_eval.con.vcon.vmod[i].cell_con[j] = EVAL_VCON_OK;     
                     }
                 }
             }
 
-            *p_out = s_eval.pack_con;
+            *p_out = s_eval.con;
         }
         else
         {
@@ -166,11 +166,11 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
     if((p_data_in != NULL) && (p_out != NULL))
     {
         s_eval.data = *p_data_in;
-        s_eval.pack_con = *p_out;
+        s_eval.con = *p_out;
 
         if(s_eval.data.t_data.t_valid)
         {
-            s_eval.pack_con.tcon.tpack_fault = false;          
+            s_eval.con.tcon.tpack_fault = false;          
 
             for(uint8_t i = 0U; i < MOD_NUM; i++)
             {
@@ -186,26 +186,26 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
 
                 if(avg > OT_LIM_C)
                 {
-                    s_eval.pack_con.tcon.tpack_fault = true;
-                    s_eval.pack_con.tcon.tmod[i] = EVAL_TCON_OT;
+                    s_eval.con.tcon.tpack_fault = true;
+                    s_eval.con.tcon.tmod[i] = EVAL_TCON_OT;
                 }
                 else if(avg < UT_LIM_C)
                 {
-                    s_eval.pack_con.tcon.tpack_fault = true;
-                    s_eval.pack_con.tcon.tmod[i] = EVAL_TCON_UT;
+                    s_eval.con.tcon.tpack_fault = true;
+                    s_eval.con.tcon.tmod[i] = EVAL_TCON_UT;
                 }
-                else if((avg > (T_IDEAL_C + T_IDEAL_C_WIGGLE)) ||
-                    (avg < (T_IDEAL_C - T_IDEAL_C_WIGGLE)))
+                else if((avg > (T_IDEAL_C + T_WIGGLE_C)) ||
+                    (avg < (T_IDEAL_C - T_WIGGLE_C)))
                 {
-                    s_eval.pack_con.tcon.tmod[i] = EVAL_TCON_NOT_OPTIMAL;
+                    s_eval.con.tcon.tmod[i] = EVAL_TCON_NOT_OPTIMAL;
                 }
                 else
                 {
-                    s_eval.pack_con.tcon.tmod[i] = EVAL_TCON_OK;
+                    s_eval.con.tcon.tmod[i] = EVAL_TCON_OK;
                 }
             }
 
-            *p_out = s_eval.pack_con;
+            *p_out = s_eval.con;
         }
         else
         {
