@@ -17,9 +17,9 @@
 #include "util_time.h"
 #include "util_const.h"
 #include "util_irq.h"
-#include "dev_current_sensor.h"
-#include "dev_voltage_sensor.h"
-#include "dev_temp_sensor.h"
+#include "dev_isense.h"
+#include "dev_vsense.h"
+#include "dev_tsense.h"
 #include "bms_config.h"
 #include "bms_data.h"
 

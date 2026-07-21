@@ -331,7 +331,7 @@ daq_status_t BMS_DAQ_Idle_State(void)
 daq_status_t BMS_DAQ_Isense_Switch_Task(void)
 {
     daq_status_t status = DAQ_OK;
-    isense_state_t isense_status;
+    isense_status_t isense_status;
 
     if(s_daq.is_init)
     {
@@ -394,7 +394,7 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
 daq_status_t BMS_DAQ_Isense_State(void)
 {
     daq_status_t status = DAQ_OK;
-    isense_state_t isense_status;
+    isense_status_t isense_status;
     time_status_t time_status;
     bool isense_ready = false;
 
