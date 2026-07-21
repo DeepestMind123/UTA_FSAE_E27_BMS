@@ -47,7 +47,7 @@ typedef enum
 
 typedef struct 
 {
-    int16_t cells_mV[LARGE_ARR_32];
+    uint16_t cells_mV[LARGE_ARR_32];
 } vsense_val_t;
 
 typedef struct
@@ -100,7 +100,7 @@ vsense_status_t DEV_Vsense_Task(vsense_t *p_inst);
 
 vsense_status_t DEV_Vsense_Start(vsense_t *p_inst);
 
-vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, int32_t val, uint16_t *p_out);
+vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, uint16_t val, uint16_t *p_out);
 
 vsense_status_t DEV_Vsense_Get_Val(vsense_t *p_inst, vsense_val_t (*p_out)[SMALL_ARR_16]);
 
