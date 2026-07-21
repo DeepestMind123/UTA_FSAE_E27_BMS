@@ -5,8 +5,7 @@ This repository contains features for a custom BMS (Battery Management System).
 It supports:
 - Passive cell balancing
   - <Insert Tools & Utilization>
-- Active cell balancing
-  - <Insert Tools & Utilization>
+- <Insert Other Featuers>
 
 ## Notes
 You either need the MPLab software to autogenerate .vscode & cmake or MPLab extension in VSCode.
