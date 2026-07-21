@@ -5,7 +5,7 @@
  * @brief current sensor device driver source
  */
 
-#include "dev_current_sensor.h"
+#include "dev_isense.h"
 
 isense_status_t DEV_Isense_Init(isense_t *p_inst, const isense_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst)
 {
@@ -477,7 +477,7 @@ isense_status_t DEV_Isense_Get_Gain(isense_t *p_inst, int32_t *p_out)
     return status;
 }
 
-isense_status_t DEV_Isense_Get_Val(isense_t *p_inst, int16_t *p_out)
+isense_status_t DEV_Isense_Get_Val(isense_t *p_inst, int32_t *p_out)
 {
     isense_status_t status = ISENSE_OK;
 
