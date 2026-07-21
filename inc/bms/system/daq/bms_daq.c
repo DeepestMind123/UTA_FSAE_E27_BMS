@@ -82,22 +82,22 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
             s_daq.data_buffer.i_data.i_timestamp = 0U;
             s_daq.data_buffer.i_data.i_valid = true;   
 
-            for(uint8_t i = 0U; i < SMALL_ARR_32; i++)
+            for(uint8_t i = 0U; i < SMALL_ARR_16; i++)
             {
-                for(uint8_t j = 0U; j < LARGE_ARR_64; j++)
+                for(uint8_t j = 0U; j < LARGE_ARR_32; j++)
                 {
-                    s_daq.data_buffer.v_data.modv[i].cell_val_mV[j] = 0;
+                    s_daq.data_buffer.v_data.vmod[i].cell_val_mV[j] = 0;
                 }
             }
 
             s_daq.data_buffer.v_data.v_timestamp = 0U;
             s_daq.data_buffer.v_data.v_valid = true;
 
-            for(uint8_t i = 0U; i < SMALL_ARR_32; i++)
+            for(uint8_t i = 0U; i < SMALL_ARR_16; i++)
             {
-                for(uint8_t j = 0U; j < SMALL_ARR_32; j++)
+                for(uint8_t j = 0U; j < SMALL_ARR_16; j++)
                 {
-                    s_daq.data_buffer.t_data.modt[i].tsense_val_C[j] = 0;
+                    s_daq.data_buffer.t_data.tmod[i].tsense_val_C[j] = 0;
                 }
             }
 
@@ -515,7 +515,7 @@ daq_status_t BMS_DAQ_Vsense_State(void)
             /*this is a runtime defined non-variable sized array
             thus it can be sized to actual number of ICs for efficiency*/
 
-            vsense_val_t temp_val[SMALL_ARR_32] = {0};
+            vsense_val_t temp_val[SMALL_ARR_16] = {0};
             temp_valid = true;
             
             vsense_status = DEV_Vsense_Get_Val(s_daq.vsense.p_vsense, &temp_val);
@@ -560,7 +560,7 @@ daq_status_t BMS_DAQ_Vsense_State(void)
     return status;
 }
 
-daq_status_t BMS_DAQ_Map_Vdata(const vsense_val_t (*p_in)[SMALL_ARR_32], vsense_data_t *p_out)
+daq_status_t BMS_DAQ_Map_Vdata(const vsense_val_t (*p_in)[SMALL_ARR_16], vsense_data_t *p_out)
 {
     daq_status_t status = DAQ_OK;
 
@@ -575,7 +575,7 @@ daq_status_t BMS_DAQ_Map_Vdata(const vsense_val_t (*p_in)[SMALL_ARR_32], vsense_
 
                 for (uint8_t cell_idx = 0U; cell_idx < CELLS_PER_BMS_IC; cell_idx++)
                 {
-                    p_out->modv[mod_idx].cell_val_mV[cell_offset + cell_idx] =
+                    p_out->vmod[mod_idx].cell_val_mV[cell_offset + cell_idx] =
                         (*p_in)[ic_idx].cells_mV[cell_idx];
                 }
             }
@@ -638,7 +638,7 @@ daq_status_t BMS_DAQ_Tsense_State(void)
             /*this is a runtime defined non-variable sized array
             thus it can be sized to actual number of ICs for efficiency*/
 
-            tsense_val_t temp_val[SMALL_ARR_32] = {0};
+            tsense_val_t temp_val[SMALL_ARR_16] = {0};
             temp_valid = true;
             
             tsense_status = DEV_Tsense_Get_Val(s_daq.tsense.p_tsense, &temp_val);
@@ -684,7 +684,7 @@ daq_status_t BMS_DAQ_Tsense_State(void)
 
 }
 
-daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_32], tsense_data_t *p_out)
+daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_16], tsense_data_t *p_out)
 {
     daq_status_t status = DAQ_OK;
 
@@ -699,7 +699,7 @@ daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_32], tsense_
 
                 for (uint8_t cell_idx = 0U; cell_idx < CELLS_PER_BMS_IC; cell_idx++)
                 {
-                    p_out->modt[mod_idx].tsense_val_C[cell_offset + cell_idx] =
+                    p_out->tmod[mod_idx].tsense_val_C[cell_offset + cell_idx] =
                         (*p_in)[ic_idx].temps_C[cell_idx];
                 }
             }
@@ -749,7 +749,7 @@ daq_status_t BMS_DAQ_Report_State(void)
             for(uint8_t i = 0U; i < MOD_NUM; i++)
             {
                 //need to add enter critical read/write
-                s_daq.p_data_out->v_data.modv[i] = s_daq.data_buffer.v_data.modv[i];
+                s_daq.p_data_out->v_data.vmod[i] = s_daq.data_buffer.v_data.vmod[i];
                 //need to add exit critical read/write
             }
 
@@ -764,7 +764,7 @@ daq_status_t BMS_DAQ_Report_State(void)
             for(uint8_t i = 0U; i < MOD_NUM; i++)
             {
                 //need to add enter critical read/write
-                s_daq.p_data_out->t_data.modt[i] = s_daq.data_buffer.t_data.modt[i];
+                s_daq.p_data_out->t_data.tmod[i] = s_daq.data_buffer.t_data.tmod[i];
                 //need to add exit critical read/write
             }
 
