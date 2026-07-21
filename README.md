@@ -1,4 +1,4 @@
-# LV_BMS_V0.2
+# UTA FSAE E27 BMS
 
 ## Summary
 This repository contains features for a custom BMS (Battery Management System).
