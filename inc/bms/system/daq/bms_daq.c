@@ -80,7 +80,7 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
 
             s_daq.data_buffer.i_data.ival_mA = 0;
             s_daq.data_buffer.i_data.i_timestamp = 0U;
-            s_daq.data_buffer.i_data.i_valid = true;   
+            s_daq.data_buffer.i_data.i_valid = false;   
 
             for(uint8_t i = 0U; i < SMALL_ARR_16; i++)
             {
@@ -91,7 +91,7 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
             }
 
             s_daq.data_buffer.v_data.v_timestamp = 0U;
-            s_daq.data_buffer.v_data.v_valid = true;
+            s_daq.data_buffer.v_data.v_valid = false;
 
             for(uint8_t i = 0U; i < SMALL_ARR_16; i++)
             {
@@ -102,7 +102,7 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
             }
 
             s_daq.data_buffer.t_data.t_timestamp = 0U;
-            s_daq.data_buffer.t_data.t_valid = true;
+            s_daq.data_buffer.t_data.t_valid = false;
 
             s_daq.state = DAQ_STATE_IDLE;
             
@@ -281,18 +281,18 @@ daq_status_t BMS_DAQ_Idle_State(void)
     {
         if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) == TIME_STATUS_OK)
         {
-            if((s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp >= TASK_DELAY_ISENSE) &&
-                (s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp < s_daq.real_timeout.isense_ready_timeout))
+            if((s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp >= s_daq.real_timeout.isense_task_delay) &&
+                (s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp <= s_daq.real_timeout.isense_timeout))
             {
                 s_daq.state = DAQ_STATE_ISENSE;
             }
-            else if((s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= TASK_DELAY_VSENSE) &&
-                    (s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp < s_daq.real_timeout.vsense_ready_timeout))
+            else if((s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= s_daq.real_timeout.vsense_task_delay) &&
+                    (s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp <= s_daq.real_timeout.vsense_timeout))
             {
                 s_daq.state = DAQ_STATE_VSENSE;
             }
-            else if((s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= TASK_DELAY_TSENSE) &&
-                    (s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp < s_daq.real_timeout.tsense_ready_timeout))
+            else if((s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= s_daq.real_timeout.tsense_task_delay) &&
+                    (s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp < s_daq.real_timeout.tsense_timeout))
             {
                 s_daq.state = DAQ_STATE_TSENSE;
             }
@@ -333,7 +333,7 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
     daq_status_t status = DAQ_OK;
     isense_state_t isense_status;
 
-    if(!s_daq.is_init)
+    if(s_daq.is_init)
     {
         isense_status = DEV_Isense_Get_State(s_daq.isense.p_last_isense, &s_daq.isense.isense_state);
 
@@ -444,7 +444,7 @@ daq_status_t BMS_DAQ_Isense_State(void)
                 status = DAQ_ISENSE_FAULT;
             }
         }
-        else if((s_daq.now_time - s_daq.isense.isense_start_time) >= s_daq.real_timeout.isense_ready_timeout)
+        else if((s_daq.now_time - s_daq.isense.isense_start_time) >= s_daq.real_timeout.isense_task_delay)
         {
             isense_status = DEV_Isense_Start(s_daq.isense.p_last_isense);
 
@@ -538,7 +538,7 @@ daq_status_t BMS_DAQ_Vsense_State(void)
                 }
             }              
         }
-        else if(s_daq.now_time - s_daq.vsense.vsense_start_time >= s_daq.real_timeout.vsense_ready_timeout)
+        else if(s_daq.now_time - s_daq.vsense.vsense_start_time >= s_daq.real_timeout.vsense_task_delay)
         {
             vsense_status = DEV_Vsense_Start(s_daq.vsense.p_vsense);
 
@@ -661,7 +661,7 @@ daq_status_t BMS_DAQ_Tsense_State(void)
                 }
             }              
         }
-        else if(s_daq.now_time - s_daq.tsense.tsense_start_time >= s_daq.real_timeout.tsense_ready_timeout)
+        else if(s_daq.now_time - s_daq.tsense.tsense_start_time >= s_daq.real_timeout.tsense_task_delay)
         {
             tsense_status = DEV_Tsense_Start(s_daq.tsense.p_tsense);
 
@@ -774,9 +774,9 @@ daq_status_t BMS_DAQ_Report_State(void)
             s_daq.data_buffer.t_data.t_valid = false;
         }
 
-        if((s_daq.data_buffer.i_data.i_valid) && 
-            (s_daq.data_buffer.v_data.v_valid) && 
-            (s_daq.data_buffer.t_data.t_valid))
+        if((s_daq.p_data_out->i_data.i_valid) && 
+            (s_daq.p_data_out->v_data.v_valid) && 
+            (s_daq.p_data_out->t_data.t_valid))
         {
             s_daq.is_ready = true;
         }
@@ -789,7 +789,7 @@ daq_status_t BMS_DAQ_Report_State(void)
     return status;
 }
 
-daq_status_t BMS_DAQ_Get_Data(const daq_data_t *p_out)
+daq_status_t BMS_DAQ_Get_Data(daq_data_t *p_out)
 {
     daq_status_t status = DAQ_OK;
 
@@ -821,7 +821,7 @@ daq_status_t BMS_DAQ_Get_Data(const daq_data_t *p_out)
                 status = DAQ_IRQ_FAULT;
             }
 
-            p_out = &data;
+            *p_out = data;
         }
         else
         {

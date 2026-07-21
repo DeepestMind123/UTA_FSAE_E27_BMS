@@ -63,11 +63,11 @@ typedef enum
 typedef struct
 {
     uint32_t isense_timeout;
-    uint32_t isense_ready_timeout;
+    uint32_t isense_task_delay;
     uint32_t vsense_timeout;
-    uint32_t vsense_ready_timeout;
+    uint32_t vsense_task_delay;
     uint32_t tsense_timeout;
-    uint32_t tsense_ready_timeout;
+    uint32_t tsense_task_delay;
 } daq_timeout_t;
 
 typedef struct
@@ -80,10 +80,10 @@ typedef struct
     daq_timeout_t timeout_cfg;
     daq_data_t *out_mem;
     const util_time_t *time_cfg;
-    const isense_t *isense_high_cfg;
-    const isense_t *isense_low_cfg;
-    const vsense_t *vsense_cfg;
-    const tsense_t *tsense_cfg;
+    isense_t *isense_high_cfg;
+    isense_t *isense_low_cfg;
+    vsense_t *vsense_cfg;
+    tsense_t *tsense_cfg;
     const util_irq_t *irq_cfg;
 } daq_cfg_t;
 
@@ -107,7 +107,7 @@ daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_16], tsense_
 
 daq_status_t BMS_DAQ_Report_State(void);
 
-daq_status_t BMS_DAQ_Get_Data(const daq_data_t *p_out);
+daq_status_t BMS_DAQ_Get_Data(daq_data_t *p_out);
 
 daq_status_t BMS_DAQ_Get_Ready_Flag(bool *p_out);
 
