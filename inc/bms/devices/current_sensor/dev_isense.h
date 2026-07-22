@@ -3,7 +3,7 @@
  * @author notwe
  * @date 2026-05-03
  * @brief current sensor device driver header
- * @todo 
+ * @todo rework timeout faults
  */
 
 #ifndef DEV_CURRENT_H
@@ -85,7 +85,7 @@ isense_status_t DEV_Isense_Get_Wait(isense_t *p_inst, uint32_t *p_out);
 
 isense_status_t DEV_Isense_Get_Gain(isense_t *p_inst, int32_t *p_out);
 
-isense_status_t DEV_Isense_Get_Val(isense_t *p_inst, int16_t *p_out);
+isense_status_t DEV_Isense_Get_Val(isense_t *p_inst, int32_t *p_out);
 
 isense_status_t DEV_Isense_Get_State(isense_t *p_inst, isense_state_t *p_out);
 

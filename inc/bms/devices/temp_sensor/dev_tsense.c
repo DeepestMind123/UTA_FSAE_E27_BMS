@@ -32,9 +32,9 @@ tsense_status_t DEV_Tsense_Init(tsense_t *p_inst,
         
         p_inst->state = TSENSE_STATE_IDLE;
 
-        for(uint8_t i = 0U; i < SMALL_ARR_32; i++)
+        for(uint8_t i = 0U; i < SMALL_ARR_16; i++)
         {
-            for(uint8_t j = 0U; j < LARGE_ARR_64; j++)
+            for(uint8_t j = 0U; j < LARGE_ARR_32; j++)
             {
                 p_inst->sensor.tsense_raw_vals[i].temps_C[j] = 0.0f;
 
@@ -340,7 +340,7 @@ tsense_status_t DEV_Tsense_Process_Raw(tsense_t *p_inst, uint16_t p_in, float *p
     return status;
 }
 
-tsense_status_t DEV_Tsense_Get_Val(tsense_t *p_inst, tsense_val_t (*p_out)[SMALL_ARR_32])
+tsense_status_t DEV_Tsense_Get_Val(tsense_t *p_inst, tsense_val_t (*p_out)[SMALL_ARR_16])
 {
     tsense_status_t status = TSENSE_OK;
 

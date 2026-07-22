@@ -6,7 +6,7 @@
  * @todo 
 */
 
-#include "dev_voltage_sensor.h"
+#include "dev_vsense.h"
 
 vsense_status_t DEV_Vsense_Init(vsense_t *p_inst,
                                                 const vsense_cfg_t *p_cfg,
@@ -33,9 +33,9 @@ vsense_status_t DEV_Vsense_Init(vsense_t *p_inst,
 
         p_inst->state = VSENSE_STATE_IDLE;
 
-        for(uint8_t i = 0U; i < SMALL_ARR_32; i++)
+        for(uint8_t i = 0U; i < SMALL_ARR_16; i++)
         {
-            for(uint8_t j = 0U; j < LARGE_ARR_64; j++)
+            for(uint8_t j = 0U; j < LARGE_ARR_32; j++)
             {
                 p_inst->sensor.vsense_raw_vals[i].cells_mV[j] = 0;
             
@@ -198,8 +198,8 @@ vsense_status_t DEV_Vsense_Task(vsense_t *p_inst)
                             {
                                 for(uint8_t j = 0U; j < p_inst->sensor.cfg->cell_num; j++)
                                 {
-                                    p_inst->sensor.vsense_raw_vals[i].cells_mV[j] =
-                                    p_inst->sensor.vsense_process_vals[i].cells_mV[j];
+                                    p_inst->sensor.vsense_process_vals[i].cells_mV[j] = 
+                                    p_inst->sensor.vsense_raw_vals[i].cells_mV[j];
                                 }
                             }
                             
@@ -375,7 +375,7 @@ vsense_status_t DEV_Vsense_Set_Balance(vsense_t *p_inst, bool val)
     return status;
 }
 
-vsense_status_t DEV_Vsense_Get_Val(vsense_t *p_inst, vsense_val_t (*p_out)[SMALL_ARR_32])
+vsense_status_t DEV_Vsense_Get_Val(vsense_t *p_inst, vsense_val_t (*p_out)[SMALL_ARR_16])
 {
     vsense_status_t status = VSENSE_OK;
 

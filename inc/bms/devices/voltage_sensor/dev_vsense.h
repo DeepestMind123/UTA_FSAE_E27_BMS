@@ -3,7 +3,7 @@
  * @author notwe
  * @date 2026-07-03
  * @brief generic voltage sensor device driver wrapper header
- * @todo 
+ * @todo rework timeout faults
 */
 
 #ifndef DEV_VSENSE_H
@@ -47,7 +47,7 @@ typedef enum
 
 typedef struct 
 {
-    int16_t cells_mV[LARGE_ARR_64];
+    uint16_t cells_mV[LARGE_ARR_32];
 } vsense_val_t;
 
 typedef struct
@@ -61,8 +61,8 @@ typedef struct
 typedef struct
 {
     const vsense_cfg_t *cfg;
-    vsense_val_t vsense_raw_vals[SMALL_ARR_32];
-    vsense_val_t vsense_process_vals[SMALL_ARR_32];
+    vsense_val_t vsense_raw_vals[SMALL_ARR_16];
+    vsense_val_t vsense_process_vals[SMALL_ARR_16];
 } vsense_system_t;
 
 typedef struct
@@ -100,9 +100,9 @@ vsense_status_t DEV_Vsense_Task(vsense_t *p_inst);
 
 vsense_status_t DEV_Vsense_Start(vsense_t *p_inst);
 
-vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, int32_t val, uint16_t *p_out);
+vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, uint16_t val, uint16_t *p_out);
 
-vsense_status_t DEV_Vsense_Get_Val(vsense_t *p_inst, vsense_val_t (*p_out)[SMALL_ARR_32]);
+vsense_status_t DEV_Vsense_Get_Val(vsense_t *p_inst, vsense_val_t (*p_out)[SMALL_ARR_16]);
 
 vsense_status_t DEV_Vsense_Get_State(vsense_t *p_inst, vsense_state_t *p_out);
 
