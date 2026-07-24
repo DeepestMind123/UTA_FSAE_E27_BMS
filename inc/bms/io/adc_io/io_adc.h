@@ -21,6 +21,7 @@ typedef enum
     ADC_BUSY,
     ADC_TIME_FAULT,
     ADC_UNDEF_STATE,
+    ADC_INVALID_CFG,
     ADC_STATUS_MAX
 } adc_status_t;
 
@@ -41,7 +42,7 @@ typedef struct
     void(*ADC_channel_select)(uint8_t channel); // function for setting current sensor pin
     void(*ADC_start)(void);                     // function for starting adc
     uint8_t(*ADC_done)(void);                   // function for adc state; returns 1 for done, 0 for not done
-    uint32_t(*ADC_get_result)(void);            // function for getting adc result
+    uint16_t(*ADC_get_result)(void);            // function for getting adc result
     void(*ADC_stop)(void);                      // function for stopping adc
     // need to add channel switching
 } adc_func_t;
@@ -59,15 +60,15 @@ typedef struct
 typedef struct
 {  
     adc_func_t adc_func_cfg;
-    const adc_ctx_t ctx_cfg;
-    const util_time_t *time_cfg;
+    adc_ctx_t ctx_cfg;
+    util_time_t *time_cfg;
 } adc_cfg_t;
 
 typedef struct
 {
-    uint32_t last_raw;                      // store last value so other modules can read
-    int16_t set_offset;                     // basically just the calibrated value of offset
     uint32_t start_time;
+    uint16_t last_raw;                      // store last value so other modules can read
+    int16_t set_offset;                     // basically just the calibrated value of offset
     bool is_init;
     bool is_ready;
     adc_state_t state;                      // stores instanced state

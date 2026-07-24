@@ -13,25 +13,43 @@ adc_status_t IO_ADC_Init(adc_t *p_inst, const adc_cfg_t *p_cfg)
 
     if((p_inst != NULL) && (p_cfg != NULL))
     {
-        if(p_inst->is_init)
+        if(!p_inst->is_init)
         {
             if(&p_cfg->adc_func_cfg != NULL)
             {
-                if(!((&p_cfg->adc_func_cfg.ADC_channel_select != NULL) &&
-                    (&p_cfg->adc_func_cfg.ADC_start != NULL) &&
-                    (&p_cfg->adc_func_cfg.ADC_done != NULL) &&
-                    (&p_cfg->adc_func_cfg.ADC_get_result != NULL) &&
-                    (&p_cfg->adc_func_cfg.ADC_stop != NULL)))
+                if(!((p_cfg->adc_func_cfg.ADC_channel_select == NULL) &&
+                    (p_cfg->adc_func_cfg.ADC_start == NULL) &&
+                    (p_cfg->adc_func_cfg.ADC_done == NULL) &&
+                    (p_cfg->adc_func_cfg.ADC_get_result == NULL) &&
+                    (p_cfg->adc_func_cfg.ADC_stop == NULL)))
                 {
                     status = ADC_NULL_FUNC;
                 }
-
-                if(status != ADC_NULL_FUNC)
+                else
                 {
-                    p_inst->adc_ctx = p_cfg->ctx_cfg;
                     p_inst->adc_func = p_cfg->adc_func_cfg;
-                    p_inst->p_time_inst = p_cfg->time_cfg;
+                }
 
+                if(p_cfg->time_cfg != NULL)
+                {
+                    status = ADC_NULL_PTR;
+                }
+                else
+                {
+                    p_inst->p_time_inst = p_cfg->time_cfg;
+                }
+
+                p_inst->adc_ctx = p_cfg->ctx_cfg;
+
+                if((p_inst->adc_ctx.adc_wait_ms >= p_inst->adc_ctx.adc_timeout) ||
+                    (p_inst->adc_ctx.adc_resolution == 0U) ||
+                    (p_inst->adc_ctx.adc_vref_mV == 0U))
+                {
+                    status = ADC_INVALID_CFG;
+                }
+
+                if((status != ADC_NULL_FUNC) && (status != ADC_NULL_PTR) && (status != ADC_INVALID_CFG))
+                {
                     p_inst->start_time = 0U;
 
                     p_inst->set_offset = p_inst->adc_ctx.adc_offset;
@@ -84,24 +102,7 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
             {
                 case ADC_STATE_IDLE:
                 {
-                    time_status = UTIL_Time_Get_Tick(p_inst->p_time_inst, &now_time);
-
-                    if(time_status == TIME_STATUS_OK)
-                    {
-                        if(p_inst->start_time)
-                        {
-                            if(now_time - p_inst->start_time > p_inst->adc_ctx.adc_timeout)
-                            {
-                                status = ADC_TIMEOUT;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        status = ADC_TIME_FAULT;
-
-                        p_inst->state = ADC_STATE_ERROR;
-                    }
+                    // intentionally left blank
 
                     break;
                 }
@@ -113,8 +114,6 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
 
                     // start adc measurement on selected channel
                     p_inst->adc_func.ADC_start();
-
-                    p_inst->is_ready = false;
 
                     time_status = UTIL_Time_Get_Tick(p_inst->p_time_inst, &p_inst->start_time);
 
@@ -138,7 +137,7 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
                     
                     if(time_status == TIME_STATUS_OK)
                     {
-                        if(now_time - p_inst->start_time <= p_inst->adc_ctx.adc_timeout)
+                        if((now_time - p_inst->start_time <= p_inst->adc_ctx.adc_timeout) || (p_inst->adc_ctx.adc_timeout == 0U))
                         {
                             if(!p_inst->adc_ctx.adc_wait_ms)
                             {
@@ -149,15 +148,11 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
                                     p_inst->state = ADC_STATE_GET;
                                 }
                             }
-                            else if(now_time - p_inst->start_time < p_inst->adc_ctx.adc_wait_ms)
+                            else if(now_time - p_inst->start_time >= p_inst->adc_ctx.adc_wait_ms)
                             {
                                 p_inst->start_time = now_time;
 
                                 p_inst->state = ADC_STATE_GET;
-                            }
-                            else
-                            {
-                                status = ADC_BUSY;
                             }
                         }
                         else
@@ -183,7 +178,7 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
 
                     if(time_status == TIME_STATUS_OK)
                     {
-                        if(now_time - p_inst->start_time > p_inst->adc_ctx.adc_timeout)
+                        if((now_time - p_inst->start_time <= p_inst->adc_ctx.adc_timeout) || (p_inst->adc_ctx.adc_timeout == 0U))
                         {
                             status = ADC_TIMEOUT;
 
@@ -211,31 +206,9 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
 
                 case ADC_STATE_READY:
                 {
-                    time_status = UTIL_Time_Get_Tick(p_inst->p_time_inst, &now_time);
+                    p_inst->is_ready = true;
 
-                    if(time_status == TIME_STATUS_OK)
-                    {
-                        if(now_time - p_inst->start_time > p_inst->adc_ctx.adc_timeout)
-                        {
-                            status = ADC_TIMEOUT;
-
-                            p_inst->state = ADC_STATE_ERROR;
-                        }
-                        else
-                        {
-                            p_inst->is_ready = true;
-
-                            p_inst->start_time = now_time;
-
-                            p_inst->state = ADC_STATE_IDLE;
-                        }
-                    }
-                    else
-                    {
-                        status = ADC_TIME_FAULT;
-
-                        p_inst->state = ADC_STATE_ERROR;
-                    }
+                    p_inst->state = ADC_STATE_IDLE;
 
                     break;
                 }
@@ -312,6 +285,8 @@ adc_status_t IO_ADC_Get_Val(adc_t *p_inst, uint16_t *p_out)
         {
             // stores adc measurement in temp value accessible by external functions
             val = p_inst->last_raw;
+
+            p_inst->is_ready = false;
         }
         else 
         {
@@ -436,7 +411,7 @@ adc_status_t IO_ADC_Get_State(adc_t *p_inst, adc_state_t *p_out)
 {
     adc_status_t status = ADC_OK;
 
-    adc_state_t state;
+    adc_state_t state = ADC_UNDEF_STATE;
 
     if((p_inst != NULL) && (p_out != NULL))
     {
@@ -502,13 +477,13 @@ adc_status_t IO_ADC_Get_Ready_Flag(adc_t *p_inst, bool *p_out)
         {
             status = ADC_NOT_INIT;
         }
+
+        *p_out = flag;
     }
     else
     {
         status = ADC_NULL_PTR;
     }
-
-    *p_out = flag;
 
     return status;
 }
