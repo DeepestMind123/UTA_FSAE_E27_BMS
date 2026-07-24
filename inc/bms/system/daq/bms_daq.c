@@ -281,40 +281,46 @@ daq_status_t BMS_DAQ_Idle_State(void)
     {
         if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) == TIME_STATUS_OK)
         {
+            if((s_daq.data_buffer.i_data.i_valid) || (s_daq.data_buffer.v_data.v_valid) || (s_daq.data_buffer.t_data.t_valid))
+            {
+                s_daq.state = DAQ_STATE_REPORT;
+            }
+         
+            if((s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= s_daq.real_timeout.tsense_task_delay) &&
+                    (s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp < s_daq.real_timeout.tsense_timeout))
+            {
+                s_daq.state = DAQ_STATE_TSENSE;
+            }
+
+            if((s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= s_daq.real_timeout.vsense_task_delay) &&
+            (s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp <= s_daq.real_timeout.vsense_timeout))
+            {
+                s_daq.state = DAQ_STATE_VSENSE;
+            }
+
             if((s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp >= s_daq.real_timeout.isense_task_delay) &&
                 (s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp <= s_daq.real_timeout.isense_timeout))
             {
                 s_daq.state = DAQ_STATE_ISENSE;
             }
-            else if((s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= s_daq.real_timeout.vsense_task_delay) &&
-                    (s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp <= s_daq.real_timeout.vsense_timeout))
+            
+            if(s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= s_daq.real_timeout.tsense_timeout)
             {
-                s_daq.state = DAQ_STATE_VSENSE;
-            }
-            else if((s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= s_daq.real_timeout.tsense_task_delay) &&
-                    (s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp < s_daq.real_timeout.tsense_timeout))
-            {
-                s_daq.state = DAQ_STATE_TSENSE;
-            }
-            else if((s_daq.data_buffer.i_data.i_valid) || (s_daq.data_buffer.v_data.v_valid) || (s_daq.data_buffer.t_data.t_valid))
-            {
-                s_daq.state = DAQ_STATE_REPORT;
-            }
-            else if(s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp >= s_daq.real_timeout.isense_timeout)
-            {
-                status = DAQ_ISENSE_TIMEOUT;
+                status = DAQ_TSENSE_TIMEOUT;
 
                 s_daq.state = DAQ_STATE_ERROR;
             }
-            else if(s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= s_daq.real_timeout.vsense_timeout)
+
+            if(s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= s_daq.real_timeout.vsense_timeout)
             {
                 status = DAQ_VSENSE_TIMEOUT;
 
                 s_daq.state = DAQ_STATE_ERROR;
             }
-            else if(s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= s_daq.real_timeout.tsense_timeout)
+            
+            if(s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp >= s_daq.real_timeout.isense_timeout)
             {
-                status = DAQ_TSENSE_TIMEOUT;
+                status = DAQ_ISENSE_TIMEOUT;
 
                 s_daq.state = DAQ_STATE_ERROR;
             }
