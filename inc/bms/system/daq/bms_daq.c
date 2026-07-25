@@ -281,40 +281,46 @@ daq_status_t BMS_DAQ_Idle_State(void)
     {
         if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) == TIME_STATUS_OK)
         {
+            if((s_daq.data_buffer.i_data.i_valid) || (s_daq.data_buffer.v_data.v_valid) || (s_daq.data_buffer.t_data.t_valid))
+            {
+                s_daq.state = DAQ_STATE_REPORT;
+            }
+         
+            if((s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= s_daq.real_timeout.tsense_task_delay) &&
+                    (s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp < s_daq.real_timeout.tsense_timeout))
+            {
+                s_daq.state = DAQ_STATE_TSENSE;
+            }
+
+            if((s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= s_daq.real_timeout.vsense_task_delay) &&
+            (s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp <= s_daq.real_timeout.vsense_timeout))
+            {
+                s_daq.state = DAQ_STATE_VSENSE;
+            }
+
             if((s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp >= s_daq.real_timeout.isense_task_delay) &&
                 (s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp <= s_daq.real_timeout.isense_timeout))
             {
                 s_daq.state = DAQ_STATE_ISENSE;
             }
-            else if((s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= s_daq.real_timeout.vsense_task_delay) &&
-                    (s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp <= s_daq.real_timeout.vsense_timeout))
+            
+            if(s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= s_daq.real_timeout.tsense_timeout)
             {
-                s_daq.state = DAQ_STATE_VSENSE;
-            }
-            else if((s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= s_daq.real_timeout.tsense_task_delay) &&
-                    (s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp < s_daq.real_timeout.tsense_timeout))
-            {
-                s_daq.state = DAQ_STATE_TSENSE;
-            }
-            else if((s_daq.data_buffer.i_data.i_valid) || (s_daq.data_buffer.v_data.v_valid) || (s_daq.data_buffer.t_data.t_valid))
-            {
-                s_daq.state = DAQ_STATE_REPORT;
-            }
-            else if(s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp >= s_daq.real_timeout.isense_timeout)
-            {
-                status = DAQ_ISENSE_TIMEOUT;
+                status = DAQ_TSENSE_TIMEOUT;
 
                 s_daq.state = DAQ_STATE_ERROR;
             }
-            else if(s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= s_daq.real_timeout.vsense_timeout)
+
+            if(s_daq.now_time - s_daq.data_buffer.v_data.v_timestamp >= s_daq.real_timeout.vsense_timeout)
             {
                 status = DAQ_VSENSE_TIMEOUT;
 
                 s_daq.state = DAQ_STATE_ERROR;
             }
-            else if(s_daq.now_time - s_daq.data_buffer.t_data.t_timestamp >= s_daq.real_timeout.tsense_timeout)
+            
+            if(s_daq.now_time - s_daq.data_buffer.i_data.i_timestamp >= s_daq.real_timeout.isense_timeout)
             {
-                status = DAQ_TSENSE_TIMEOUT;
+                status = DAQ_ISENSE_TIMEOUT;
 
                 s_daq.state = DAQ_STATE_ERROR;
             }
@@ -356,6 +362,7 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
 
                 if(isense_status == ISENSE_OK)
                 {
+                    /* Update to pass in context struct or something bc this sucks*/
                     isense_status = DEV_Isense_Task(s_daq.isense.p_last_isense);
 
                     if(isense_status != ISENSE_OK)
@@ -370,6 +377,7 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
             }
             else
             {
+                /* Update to pass in context struct or something bc this sucks*/
                 isense_status = DEV_Isense_Task(s_daq.isense.p_last_isense);
 
                 if(isense_status != ISENSE_OK)
@@ -695,16 +703,14 @@ daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_16], tsense_
             for(uint8_t ic_idx = 0U; ic_idx < TOTAL_BMS_IC_NUM; ic_idx++)
             {
                 uint8_t mod_idx = ic_idx / MOD_BMS_IC_NUM;
-                uint8_t cell_offset = (ic_idx % MOD_BMS_IC_NUM) * CELLS_PER_BMS_IC;
+                uint8_t cell_offset = (ic_idx % MOD_BMS_IC_NUM) * TEMPS_PER_BMS_IC;
 
-                for (uint8_t cell_idx = 0U; cell_idx < CELLS_PER_BMS_IC; cell_idx++)
+                for (uint8_t cell_idx = 0U; cell_idx < TEMPS_PER_BMS_IC; cell_idx++)
                 {
                     p_out->tmod[mod_idx].tsense_val_C[cell_offset + cell_idx] =
                         (*p_in)[ic_idx].temps_C[cell_idx];
                 }
             }
-
-            // data validation performed in task function so is unecessary here 
         }
         else
         {
