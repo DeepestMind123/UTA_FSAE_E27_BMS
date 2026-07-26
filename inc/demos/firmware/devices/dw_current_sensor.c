@@ -25,7 +25,7 @@ static util_time_t time_inst = {
     .tick = 0U,
     .irq = NULL
 };
-static io_adc_t adc_inst;
+static adc_t adc_inst;
 
 // Watch strings
 const char *func_str[] = {
@@ -88,12 +88,12 @@ typedef enum {
     //"NEW FUNC ID"
 } func_id;
 // Get func output to compare non-null vs. null
-int get_func(int p_func_id, bool* p_not_inst_null) {
-    get_para_num = getIntArrayDefault(1, UINT64_MAX);
-    not_null_bools = getBoolArrayDefault(1, false);
+static int get_func(int p_func_id, bool* p_not_inst_null) {
+    setIntArrayDefault(get_para_num, 1, UINT8_MAX);
+    setBoolArrayDefault(not_null_bools, 1, false);
     isense_t *_inst             = p_not_inst_null[0] ? &inst : NULL;
     isense_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
-    io_adc_t *_adc_inst         = p_not_inst_null[2] ? &adc_inst : NULL;
+    adc_t *_adc_inst            = p_not_inst_null[2] ? &adc_inst : NULL;
     util_time_t *_time_inst     = p_not_inst_null[3] ? &time_inst : NULL;
     
     switch(p_func_id) {
@@ -102,18 +102,18 @@ int get_func(int p_func_id, bool* p_not_inst_null) {
         case 1: return (int64_t)DEV_Isense_Task(_inst);                                    break;
         case 2: return (int64_t)DEV_Isense_Start(_inst);                                   break;
         case 3: return (int64_t)DEV_Isense_Process_Raw(_inst);                              break;
-        case 4: return (int64_t)DEV_Isense_Get_Wait(_inst, &get_para_num[0]);           break;
-        case 5: return (int64_t)DEV_Isense_Get_Gain(_inst, &get_para_num[0]);           break;
-        case 6: return (int64_t)DEV_Isense_Get_Val(_inst, &get_para_num[0]);            break;
-        case 7: return (int64_t)DEV_Isense_Get_State(_inst, &get_para_num[0]);          break;
-        case 8: return (int64_t)DEV_Isense_Get_Data_Diff(_inst, &get_para_num[0]);      break;
-        case 9: return (int64_t)DEV_Isense_Get_Ready_Flag(_inst, &get_para_num[0]);    break;
-        case 10: return (int64_t)DEV_Isense_Set_Timeout(_inst, set_para_num[0]);        break;
-        case 11: return (int64_t)DEV_Isense_Get_Timeout(_inst, &get_para_num[0]);       break;
+        case 4: return (int64_t)DEV_Isense_Get_Wait(_inst, (uint32_t*)&get_para_num[0]);           break;
+        case 5: return (int64_t)DEV_Isense_Get_Gain(_inst, (uint32_t*)&get_para_num[0]);           break;
+        case 6: return (int64_t)DEV_Isense_Get_Val(_inst, (uint16_t*)&get_para_num[0]);            break;
+        case 7: return (int64_t)DEV_Isense_Get_State(_inst, (isense_state_t*)&get_para_num[0]);          break;
+        case 8: return (int64_t)DEV_Isense_Get_Data_Diff(_inst, (bool*)&get_para_num[0]);      break;
+        case 9: return (int64_t)DEV_Isense_Get_Ready_Flag(_inst, (bool*)&get_para_num[0]);    break;
+        case 10: return (int64_t)DEV_Isense_Set_Timeout(_inst, (uint32_t)set_para_num[0]);        break;
+        case 11: return (int64_t)DEV_Isense_Get_Timeout(_inst, (uint32_t*)&get_para_num[0]);       break;
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);      break;
     }
-    set_para_num = getIntArrayDefault(1, UINT64_MAX);
+    setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }
 static driver_watcher_interface_t isense_test_interface = {
     .func_strings   = func_str,
@@ -132,7 +132,6 @@ void demo_watch_isense_all() {
 // General ISense test method that goes through every function
 void demo_watch_isense_fault() {
     init_driver_watcher("ISense", 1, &isense_test_interface);
-    bool *_get_para_bool = getBoolArrayDefault(1, false);
 
     // Action Methods
     // [0] ISense INIT

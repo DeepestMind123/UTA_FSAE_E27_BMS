@@ -44,20 +44,20 @@ typedef enum {
     //"NEW FUNC ID"
 } func_id;
 // Get func output to compare non-null vs. null
-int get_func(int p_func_id, bool* p_not_inst_null) {
-    get_para_num                = getIntArrayDefault(1, UINT64_MAX);
-    not_null_bools              = getBoolArrayDefault(1, false);
+static int get_func(int p_func_id, bool* p_not_inst_null) {
+    setIntArrayDefault(get_para_num, 1, UINT8_MAX);
+    setBoolArrayDefault(not_null_bools, 1, false);
     io_pwm_t *_inst             = p_not_inst_null[0] ? &inst : NULL;
     io_pwm_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
     
     switch(p_func_id) {
         case 0: return (int64_t)IO_PWM_Init(_inst, _config);                           break;
-        case 1: return (int64_t)IO_PWM_Set_Duty_Cycle(_inst, set_para_num[0]);     break;
-        case 2: return (int64_t)IO_PWM_Get_Duty_Cycle(_inst, &get_para_num[0]);         break;
+        case 1: return (int64_t)IO_PWM_Set_Duty_Cycle(_inst, (uint16_t)set_para_num[0]);     break;
+        case 2: return (int64_t)IO_PWM_Get_Duty_Cycle(_inst, (uint16_t*)&get_para_num[0]);         break;
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);                              break;
     }
-    set_para_num = getIntArrayDefault(1, UINT64_MAX);
+    setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }
 static driver_watcher_interface_t drive_watcher = {
     .func_strings       = func_str,

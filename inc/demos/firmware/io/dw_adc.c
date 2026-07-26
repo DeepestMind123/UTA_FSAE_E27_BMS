@@ -8,7 +8,7 @@
 #include <stddef.h>
 #include <stdbool.h>
  
- #include "io_adc.h"
+#include "io_adc.h"
 #include "dw_manager.h"
 
 #ifdef DEMO_ADC
@@ -16,27 +16,32 @@
 static void ADC_channel_select(uint8_t channel) {};
 static void ADC_start(void)                     {};
 static uint8_t ADC_done(void)                   {};
-static uint32_t ADC_get_result(void)            {};
+static uint16_t ADC_get_result(void)            {};
 static void ADC_stop(void)                      {};
-static io_adc_cfg_t config = {
-    .adc_timeout            = 1000,
-    .adc_resolution         = 8,
-    .adc_offset             = 0,
-    .adc_vref_mV            = 3300,
-    .channel_id             = 0,
-
-    .ADC_channel_select     = ADC_channel_select,
-    .ADC_start              = ADC_start,
-    .ADC_done               = ADC_done,
-    .ADC_get_result         = ADC_get_result,
-    .ADC_stop               = ADC_stop
-};
 static util_time_t time_inst = {
     .is_init = false,
     .tick = 0U,
     .irq = NULL
 };
-static io_adc_t inst;
+static adc_cfg_t config = {
+    .adc_func_cfg = {
+        .ADC_channel_select = ADC_channel_select,
+        .ADC_start = ADC_start,
+        .ADC_done = ADC_done,
+        .ADC_get_result = ADC_get_result,
+        .ADC_stop = ADC_stop
+    },
+    .ctx_cfg = {
+        .adc_timeout = 1000,
+        .adc_wait_ms = 10,
+        .adc_resolution = 8,
+        .adc_vref_mV = 3300,
+        .adc_offset = 0,
+        .channel_id = 0
+    },
+    .time_cfg = &time_inst
+};
+static adc_t inst;
 
 // Watch strings
 static const char *func_str[] = {
@@ -74,7 +79,7 @@ static const char *states_str[] = {
     "GET",
     "READY",
     "ERROR",
-    "UNDEFINED"
+    "MAX"
     //!NOTE! Add state here
     //"NEW STATE"
 };
@@ -95,29 +100,28 @@ typedef enum {
     //"NEW FUNC ID"
 } func_id;
 // Get func output to compare non-null vs. null
-int get_func(int p_func_id, bool* p_not_inst_null) {
-    get_para_num = getIntArrayDefault(1, UINT64_MAX);
-    not_null_bools = getBoolArrayDefault(1, false);
-    io_adc_t *_inst             = p_not_inst_null[0] ? &inst : NULL;
-    io_adc_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
+static int get_func(int p_func_id, bool* p_not_inst_null) {
+    setIntArrayDefault(get_para_num, 1, UINT8_MAX);
+    setBoolArrayDefault(not_null_bools, 1, false);
+    adc_t *_inst             = p_not_inst_null[0] ? &inst : NULL;
+    adc_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
     util_time_t *_time_inst     = p_not_inst_null[2] ? &time_inst : NULL;
-    
     switch(p_func_id) {
-        case 0: return (uint64_t)IO_ADC_Init(_inst, _config, _time_inst);       break;
+        case 0: return (uint64_t)IO_ADC_Init(_inst, _config);       break;
         case 1: return (uint64_t)IO_ADC_Task(_inst);                                               break;
         case 2: return (uint64_t)IO_ADC_Start(_inst);                                              break;
-        case 3: return (uint64_t)IO_ADC_Get_Val(_inst, &get_para_num[0]);                    break;
-        case 4: return (uint64_t)IO_ADC_Get_Resolution(_inst, &get_para_num[0]);             break;
-        case 5: return (uint64_t)IO_ADC_Set_Offset(_inst, set_para_num[0]);                break;
-        case 6: return (uint64_t)IO_ADC_Get_Offset(_inst, &get_para_num[0]);                 break;
-        case 7: return (uint64_t)IO_ADC_Get_Vref(_inst, &get_para_num[0]);                   break;
-        case 8: return (uint64_t)IO_ADC_Get_State(_inst, &get_para_num[0]);                  break;
-        case 9: return (uint64_t)IO_ADC_Get_Timeout(_inst, &get_para_num[0]);                break;
-        case 10: return (uint64_t)IO_ADC_Get_Ready_Flag(_inst, &not_null_bools[0]);           break;
+        case 3: return (uint64_t)IO_ADC_Get_Val(_inst, (uint16_t*)&get_para_num[0]);                    break;
+        case 4: return (uint64_t)IO_ADC_Get_Resolution(_inst, (uint16_t*)&get_para_num[0]);             break;
+        case 5: return (uint64_t)IO_ADC_Set_Offset(_inst, (uint16_t)set_para_num[0]);                break;
+        case 6: return (uint64_t)IO_ADC_Get_Offset(_inst, (int16_t*)&get_para_num[0]);                 break;
+        case 7: return (uint64_t)IO_ADC_Get_Vref(_inst, (uint16_t*)&get_para_num[0]);                   break;
+        case 8: return (uint64_t)IO_ADC_Get_State(_inst, (adc_state_t*)&get_para_num[0]);                  break;
+        case 9: return (uint64_t)IO_ADC_Get_Timeout(_inst, (uint32_t*)&get_para_num[0]);                break;
+        case 10: return (uint64_t)IO_ADC_Get_Ready_Flag(_inst, (bool*)&not_null_bools[0]);           break;
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);      break;
     }
-    set_para_num = getIntArrayDefault(1, UINT64_MAX);
+    setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }
 static driver_watcher_interface_t drive_watcher = {
     .func_strings       = func_str,
@@ -141,76 +145,76 @@ void demo_watch_adc_funcs() {
     
     // Action Methods
     // [0] ADC INIT
-    watch_inst_conf(ADC_INIT, ADC_STATUS_OK,
+    watch_inst_conf(ADC_INIT, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(ADC_INIT, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_INIT, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, true, true});
-    watch_inst_conf(ADC_INIT, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_INIT, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {true, false, true});
-    watch_inst_conf(ADC_INIT, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_INIT, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {true, true, false});
-    watch_inst_conf(ADC_INIT, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_INIT, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {true, false, false});
-    watch_inst_conf(ADC_INIT, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_INIT, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, true, false});
-    watch_inst_conf(ADC_INIT, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_INIT, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});
-    watch_inst_conf(ADC_INIT, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_INIT, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, false});
     
     // [1] ADC TASK
-    watch_inst_conf(ADC_TASK, ADC_STATUS_OK,
+    watch_inst_conf(ADC_TASK, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(ADC_TASK, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_TASK, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});
     
     // [2] ADC START
-    watch_inst_conf(ADC_START, ADC_STATUS_OK,
+    watch_inst_conf(ADC_START, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(ADC_START, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_START, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});
     
     // [3] ADC GET VAL
-    watch_inst_conf(ADC_GET_VAL, ADC_STATUS_OK,
+    watch_inst_conf(ADC_GET_VAL, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(ADC_GET_VAL, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_GET_VAL, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});
     
     // [4] ADC GET RES
-    watch_inst_conf(ADC_GET_RES, ADC_STATUS_OK,
+    watch_inst_conf(ADC_GET_RES, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(ADC_GET_RES, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_GET_RES, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});
     
     set_para_num[0] = 100;
     // [5] ADC SET OFFSET
-    watch_inst_conf(ADC_SET_OFFSET, ADC_STATUS_OK,
+    watch_inst_conf(ADC_SET_OFFSET, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(ADC_SET_OFFSET, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_SET_OFFSET, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});
     
     // [6] ADC GET OFFSET
-    watch_inst_conf(ADC_GET_OFFSET, ADC_STATUS_OK,
+    watch_inst_conf(ADC_GET_OFFSET, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(ADC_GET_OFFSET, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_GET_OFFSET, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});
     
     // [7] ADC GET VREF
-    watch_inst_conf(ADC_GET_VREF, ADC_STATUS_OK,
+    watch_inst_conf(ADC_GET_VREF, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(ADC_GET_VREF, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_GET_VREF, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});
     
     // [8] ADC GET STATE
-    watch_inst_conf(ADC_GET_STATE, ADC_STATUS_OK,
+    watch_inst_conf(ADC_GET_STATE, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(ADC_GET_STATE, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_GET_STATE, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});
     
     // [9] ADC GET TIMEOUT
-    watch_inst_conf(ADC_GET_TIMEOUT, ADC_STATUS_OK,
+    watch_inst_conf(ADC_GET_TIMEOUT, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(ADC_GET_TIMEOUT, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_GET_TIMEOUT, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});
     
     //!NOTE! Add new function to track here
@@ -225,15 +229,15 @@ void demo_watch_adc_null() {
     init_driver_watcher("ADC", 2, &drive_watcher); //!BREAK! Use this as breakpoint
     
     // [1] ADC TASK
-    watch_inst_conf(ADC_TASK, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_TASK, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {true, true, true});    // State: NULL_POINTER
     
     // [0] ADC INIT
-    watch_inst_conf(ADC_INIT, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_INIT, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {true, true, true});    //
     
     // [1] ADC TASK
-    watch_inst_conf(ADC_TASK, ADC_STATUS_NULL_PTR,
+    watch_inst_conf(ADC_TASK, ADC_NULL_PTR,
         (bool[NULL_COUNT]) {false, false, true});  // State: NULL_POINTER
 }
  
@@ -242,27 +246,27 @@ void demo_watch_adc_task() {
     init_driver_watcher("ADC", 3, &drive_watcher); //!BREAK! Use this as breakpoint
     
     // [0] ADC INIT
-    watch_inst_conf(ADC_INIT, ADC_STATUS_OK,
+    watch_inst_conf(ADC_INIT, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
     
     // [1] ADC TASK
-    watch_inst_conf(ADC_TASK, ADC_STATUS_OK,
+    watch_inst_conf(ADC_TASK, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
     
     // [2] ADC START
-    watch_inst_conf(ADC_START, ADC_STATUS_OK,
+    watch_inst_conf(ADC_START, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});
     
     // [1] ADC TASK
-    watch_inst_conf(ADC_TASK, ADC_STATUS_OK,
+    watch_inst_conf(ADC_TASK, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});  // State: START>>>WAIT
-    watch_inst_conf(ADC_TASK, ADC_STATUS_OK,
+    watch_inst_conf(ADC_TASK, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});  // State: WAIT>>>GET
-    watch_inst_conf(ADC_TASK, ADC_STATUS_OK,
+    watch_inst_conf(ADC_TASK, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});  // State: GET>>>READY
-    watch_inst_conf(ADC_TASK, ADC_STATUS_OK,
+    watch_inst_conf(ADC_TASK, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});  // State: READY>>>IDLE
-    watch_inst_conf(ADC_TASK, ADC_STATUS_OK,
+    watch_inst_conf(ADC_TASK, ADC_OK,
         (bool[NULL_COUNT]) {true, true, true});  // State: IDLE
 }
 #endif
