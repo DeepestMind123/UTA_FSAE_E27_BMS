@@ -86,14 +86,14 @@ typedef struct
     vsense_system_t sensor;
     const vsense_func_t *func;
     vsense_state_t state;
-    const io_adc_t *adc;
+    const adc_t *adc;
     const util_time_t *time;
 } vsense_t;
 
 vsense_status_t DEV_Vsense_Init(vsense_t *p_inst,
                                 const vsense_cfg_t *p_cfg,
                                 const vsense_func_t *p_func,
-                                const io_adc_t *p_adc,
+                                const adc_t *p_adc,
                                 const util_time_t *p_time);
 
 vsense_status_t DEV_Vsense_Task(vsense_t *p_inst);

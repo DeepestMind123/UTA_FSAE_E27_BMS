@@ -44,7 +44,7 @@ typedef enum
 
 typedef struct
 {
-   daq_timeout_t timeout_cfg;
+   daq_system_ctx_t timeout_cfg;
    util_time_t *time_cfg;
 } bms_tm_cfg_t;
 

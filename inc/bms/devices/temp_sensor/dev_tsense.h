@@ -90,14 +90,14 @@ typedef struct
     tsense_system_t sensor;
     const tsense_func_t *func;
     tsense_state_t state;
-    const io_adc_t *adc;
+    const adc_t *adc;
     const util_time_t *time;
 } tsense_t;
 
 tsense_status_t DEV_Tsense_Init(tsense_t *p_inst, 
                                 const tsense_cfg_t *p_cfg,
                                 const tsense_func_t *p_func,
-                                const io_adc_t *p_adc,
+                                const adc_t *p_adc,
                                 const util_time_t *p_time);
 
 tsense_status_t DEV_Tsense_Task(tsense_t *p_inst);

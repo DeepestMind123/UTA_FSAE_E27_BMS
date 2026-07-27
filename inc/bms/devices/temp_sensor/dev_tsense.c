@@ -6,12 +6,12 @@
  * @todo 
 */
 
-#include "dev_temp_sensor.h"
+#include "dev_tsense.h"
 
 tsense_status_t DEV_Tsense_Init(tsense_t *p_inst, 
                                 const tsense_cfg_t *p_cfg,
                                 const tsense_func_t *p_func,
-                                const io_adc_t *p_adc,
+                                const adc_t *p_adc,
                                 const util_time_t *p_time)
 {
     tsense_status_t status = TSENSE_NOT_INIT;
@@ -88,7 +88,7 @@ tsense_status_t DEV_Tsense_Task(tsense_t *p_inst)
             {
                 adc_status = IO_ADC_Task(p_inst->adc);
 
-                if(adc_status != ADC_STATUS_OK)
+                if(adc_status != ADC_OK)
                 {
                     status = TSENSE_ADC_FAULT;
                 }
@@ -286,7 +286,7 @@ tsense_status_t DEV_Tsense_Process_Raw(tsense_t *p_inst, uint16_t p_in, float *p
 
             if(status == TSENSE_OK)
             {
-                if(IO_ADC_Get_Vref(p_inst->adc, &vref) != ADC_STATUS_OK)
+                if(IO_ADC_Get_Vref(p_inst->adc, &vref) != ADC_OK)
                 {
                     status = TSENSE_ADC_FAULT;
                 } 
@@ -294,7 +294,7 @@ tsense_status_t DEV_Tsense_Process_Raw(tsense_t *p_inst, uint16_t p_in, float *p
 
             if(status == TSENSE_OK)
             {
-                if(IO_ADC_Get_Resolution(p_inst->adc, &resolution) != ADC_STATUS_OK)
+                if(IO_ADC_Get_Resolution(p_inst->adc, &resolution) != ADC_OK)
                 {
                     status = TSENSE_ADC_FAULT;
                 } 
@@ -302,7 +302,7 @@ tsense_status_t DEV_Tsense_Process_Raw(tsense_t *p_inst, uint16_t p_in, float *p
 
             if(status == TSENSE_OK)
             {
-                if(IO_ADC_Get_Offset(p_inst->adc, &offset) != ADC_STATUS_OK)
+                if(IO_ADC_Get_Offset(p_inst->adc, &offset) != ADC_OK)
                 {
                     status = TSENSE_ADC_FAULT;
                 } 

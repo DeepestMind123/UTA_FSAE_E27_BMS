@@ -9,10 +9,10 @@
 #include "dev_vsense.h"
 
 vsense_status_t DEV_Vsense_Init(vsense_t *p_inst,
-                                                const vsense_cfg_t *p_cfg,
-                                                const vsense_func_t *p_func, 
-                                                const io_adc_t *p_adc,
-                                                const util_time_t *p_time)
+                                const vsense_cfg_t *p_cfg,
+                                const vsense_func_t *p_func, 
+                                const adc_t *p_adc,
+                                const util_time_t *p_time)
 {
     vsense_status_t status = VSENSE_NOT_INIT;
 
@@ -83,7 +83,7 @@ vsense_status_t DEV_Vsense_Task(vsense_t *p_inst)
             {
                 adc_status = IO_ADC_Task(p_inst->adc);
 
-                if(adc_status != ADC_STATUS_OK)
+                if(adc_status != ADC_OK)
                 {
                     status = VSENSE_ADC_FAULT;
                 }
@@ -290,7 +290,7 @@ vsense_status_t DEV_Vsense_Start(vsense_t *p_inst)
     return status;
 }
 
-vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, int32_t val, uint16_t *p_out)
+vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, uint16_t val, uint16_t *p_out)
 {
     vsense_status_t status = VSENSE_OK;
 
@@ -310,30 +310,30 @@ vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, int32_t val, uint16_t *
 
             adc_status = IO_ADC_Get_Vref(p_inst->adc, &vref);
 
-            if(adc_status != ADC_STATUS_OK)
+            if(adc_status != ADC_OK)
             {
                 status = VSENSE_ADC_FAULT;
             }
 
             adc_status = IO_ADC_Get_Resolution(p_inst->adc, &resolution);
 
-            if(adc_status != ADC_STATUS_OK)
+            if(adc_status != ADC_OK)
             {
                 status = VSENSE_ADC_FAULT;
             }
 
             adc_status = IO_ADC_Get_Offset(p_inst->adc, &offset);
             
-            if(adc_status != ADC_STATUS_OK)
+            if(adc_status != ADC_OK)
             {
                 status = VSENSE_ADC_FAULT;
             }
 
             if((resolution > 0U))
             {
-                int16_t voltage_mV = ((int16_t)val * (int16_t)vref) / (int16_t)resolution;
+                uint16_t voltage_mV = ((uint16_t)val * (uint16_t)vref) / (uint16_t)resolution;
 
-                voltage_mV -= (int16_t)offset;
+                voltage_mV -= (uint16_t)offset;
             }
         }
         else

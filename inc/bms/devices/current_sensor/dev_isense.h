@@ -22,6 +22,7 @@ typedef enum
     ISENSE_OK = 0,
     ISENSE_NULL_PTR,
     ISENSE_NOT_INIT,
+    ISENSE_DBL_INIT,
     ISENSE_TIMEOUT,
     ISENSE_ADC_FAULT,
     ISENSE_TIME_FAULT,
@@ -45,35 +46,38 @@ typedef enum
 
 typedef struct
 {
-    int32_t isense_gain_uV;                    // gain of sensor in uV / A
+    uint32_t timeout_ms;
+    uint16_t isense_gain_uV;                    // gain of sensor in uV / A
     uint16_t isense_raw_cutoff;                // clamp value for sensor calibration
+} isense_ctx_t;
 
+typedef struct
+{
+    adc_t *adc_cfg;
+    const util_time_t *time_cfg;
+    const isense_ctx_t isense_fund_cfg;
 } isense_cfg_t;
 
 typedef struct
 {
-    uint32_t cal_acc;
-    uint32_t cal_count;
+    uint32_t start_time;
     uint32_t raw_offset;                // calibrated offset value
     uint32_t adc_timeout_ms;            // time in ms before current wait times out
-    uint32_t isense_timeout_ms;           // timer in ms between current sensor checks
-
+    uint32_t isense_timeout_ms;          // timer in ms allowed in a state
     int32_t last_val;
-    uint32_t start_time;
 
     bool is_init;
     bool val_diff;
     bool is_ready;
 
-    io_adc_t *adc_inst;
-    isense_status_t status;
     isense_state_t state;
-    const util_time_t *time_inst;
-    const isense_cfg_t *cfg;
 
+    adc_t *p_adc;
+    const util_time_t *p_time;
+    isense_ctx_t isense_ctx;
 } isense_t;
 
-isense_status_t DEV_Isense_Init(isense_t *p_inst, const isense_cfg_t *p_cfg, const io_adc_t *p_adc_inst, const util_time_t *p_time_inst);
+isense_status_t DEV_Isense_Init(isense_t *p_inst, const isense_cfg_t *p_cfg);
 
 isense_status_t DEV_Isense_Task(isense_t *p_inst);    // state switch function
 
@@ -81,7 +85,7 @@ isense_status_t DEV_Isense_Start(isense_t *p_inst);
 
 isense_status_t DEV_Isense_Process_Raw(isense_t *p_inst);      // process raw current value to get current in mA
 
-isense_status_t DEV_Isense_Get_Wait(isense_t *p_inst, uint32_t *p_out);
+isense_status_t DEV_Isense_Get_Wait(isense_t *p_inst, uint32_t *p_out); // no, this is dumb
 
 isense_status_t DEV_Isense_Get_Gain(isense_t *p_inst, int32_t *p_out);
 

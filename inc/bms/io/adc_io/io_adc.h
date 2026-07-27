@@ -41,7 +41,7 @@ typedef struct
 {
     void(*ADC_channel_select)(uint8_t channel); // function for setting current sensor pin
     void(*ADC_start)(void);                     // function for starting adc
-    uint8_t(*ADC_done)(void);                   // function for adc state; returns 1 for done, 0 for not done
+    bool(*ADC_done)(void);                   // function for adc state; returns 1 for done, 0 for not done
     uint16_t(*ADC_get_result)(void);            // function for getting adc result
     void(*ADC_stop)(void);                      // function for stopping adc
     // need to add channel switching

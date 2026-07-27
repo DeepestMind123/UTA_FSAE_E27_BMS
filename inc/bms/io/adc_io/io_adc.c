@@ -180,18 +180,19 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
                     {
                         if((now_time - p_inst->start_time <= p_inst->adc_ctx.adc_timeout) || (p_inst->adc_ctx.adc_timeout == 0U))
                         {
-                            status = ADC_TIMEOUT;
-
-                            p_inst->state = ADC_STATE_ERROR;
-                        }
-                        else
-                        {
                             // stores measurement
                             p_inst->last_raw = p_inst->adc_func.ADC_get_result();
 
                             p_inst->start_time = now_time;
 
                             p_inst->state = ADC_STATE_READY;
+                        }
+                        else
+                        {
+                            status = ADC_TIMEOUT;
+
+                            p_inst->state = ADC_STATE_ERROR;
+
                         }
                     }
                     else

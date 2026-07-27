@@ -59,24 +59,45 @@ typedef enum
     DAQ_STATE_MAX
 } daq_state_t;
 
-typedef struct
+typedef enum
 {
-    uint32_t isense_timeout;
-    uint32_t isense_task_delay;
-    uint32_t vsense_timeout;
-    uint32_t vsense_task_delay;
-    uint32_t tsense_timeout;
-    uint32_t tsense_task_delay;
-} daq_timeout_t;
+    // order these in order of priority
+    DAQ_SENSOR_MIN = 0U,
+    DAQ_ISENSE,
+    DAQ_VSENSE,
+    DAQ_TSENSE,
+    DAQ_SENSOR_MAX
+} daq_sensors_t;
 
 typedef struct
 {
-    daq_timeout_t new_timeout;
-} daq_ctx_t;
+    uint32_t timeout_ms;
+    uint32_t delay_ms;
+    uint32_t start_time;
+    bool data_valid;
+    daq_state_t dsd_state;
+    daq_status_t timeout_fault;
+} daq_sensor_ctx_t;
 
 typedef struct
 {
-    daq_timeout_t timeout_cfg;
+    daq_sensor_ctx_t sensor_ctx[DAQ_SENSOR_MAX];
+} daq_system_ctx_t;
+
+typedef struct
+{
+    uint32_t timeout_ms;
+    uint32_t delay_ms;
+} daq_sensor_ctx_in_t;
+
+typedef struct
+{
+    daq_sensor_ctx_in_t sensor_ctx_in[DAQ_SENSOR_MAX];
+} daq_system_ctx_in_t;
+
+typedef struct
+{
+    daq_system_ctx_t sensor_init_ctx;
     daq_data_t *out_mem;
     const util_time_t *time_cfg;
     isense_t *isense_high_cfg;
@@ -88,7 +109,9 @@ typedef struct
 
 daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg);
 
-daq_status_t BMS_DAQ_Task(const daq_ctx_t *p_in);
+daq_status_t BMS_DAQ_Task(const daq_system_ctx_in_t *p_in);
+
+daq_status_t BMS_DAQ_Map_Ctx(const daq_system_ctx_in_t *p_in);
 
 daq_status_t BMS_DAQ_Idle_State(void);
 
