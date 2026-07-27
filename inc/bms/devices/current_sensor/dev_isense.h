@@ -73,8 +73,9 @@ typedef struct
     isense_state_t state;
 
     adc_t *p_adc;
-    const util_time_t *p_time;
+    util_time_t *p_time;
     isense_ctx_t isense_ctx;
+    
 } isense_t;
 
 isense_status_t DEV_Isense_Init(isense_t *p_inst, const isense_cfg_t *p_cfg);
