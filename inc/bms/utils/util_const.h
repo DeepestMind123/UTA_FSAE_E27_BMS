@@ -8,7 +8,7 @@
 #ifndef UTIL_CONST_H
 #define UTIL_CONST_H
 
-#define LARGE_ARR_64 64
-#define SMALL_ARR_32 32
+#define LARGE_ARR_32 32U
+#define SMALL_ARR_16 16U
 
 #endif

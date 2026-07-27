@@ -284,6 +284,10 @@ daq_status_t BMS_DAQ_Map_Ctx(const daq_system_ctx_in_t *p_in)
                 s_daq.system_ctx.sensor_ctx[i].timeout_ms = p_in->sensor_ctx_in[i].timeout_ms;
             }
         }
+        else
+        {
+            status = DAQ_NULL_PTR;
+        }
     }
     else
     {
