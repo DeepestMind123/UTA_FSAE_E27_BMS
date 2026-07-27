@@ -10,107 +10,126 @@
 
 typedef struct
 {
-    tm_state_t state;
+    bms_tm_state_t state;
     bool is_init;
 
-    daq_timeout_t timeout;
+    daq_ctx_t daq_ctx;
     util_time_t *p_time;
+
+    daq_data_t pack_data;
+    eval_con_t pack_con;
 } bms_tm_t;
 
 static bms_tm_t s_tm;
 
-tm_status_t BMS_Manager_Init(const tm_cfg_t *p_cfg)
+bms_tm_status_t BMS_TM_Init(const bms_tm_cfg_t *p_cfg)
 {
-    tm_status_t status = TM_NOT_INIT;
+    bms_tm_status_t status = BMS_TM_NOT_INIT;
 
     if(!s_tm.is_init) // this is ok to check at init due to is_init being static member of struct
     {
         if(p_cfg != NULL)
         {
             s_tm.p_time = p_cfg->time_cfg;
+            s_tm.daq_ctx.new_timeout = p_cfg->timeout_cfg;
 
-            s_tm.state = TM_STATE_IDLE;
+            s_tm.state = BMS_TM_STATE_IDLE;
 
             // after all linkages are finished
             s_tm.is_init = true;
-            status = TM_OK;
+            status = BMS_TM_OK;
         }
         else
         {
-            status = TM_NULL_PTR;
+            status = BMS_TM_NULL_PTR;
         }
     }
     else
     {
-        status = TM_DBL_INIT;
+        status = BMS_TM_DBL_INIT;
     }
 
     return status;
 }
 
-tm_status_t BMS_Manager_Task(void)
+bms_tm_status_t BMS_TM_Task(void)
 {
-    tm_status_t status = TM_OK;
+    bms_tm_status_t status = BMS_TM_OK;
+    daq_status_t daq_status;
+    eval_status_t eval_status;
+
+    bool is_daq_ready = false;
 
     if(s_tm.is_init)
     {
-        if(BMS_Is_Fault())
-        {
-            status = TM_UNDEF_STATE;
+        daq_status = BMS_DAQ_Task(&s_tm.daq_ctx);
 
-            
-            s_tm.state = TM_STATE_ERROR;
+        if(daq_status != DAQ_OK)
+        {
+            status = BMS_TM_DAQ_FAULT;
         }
 
-        if(s_tm.state >= TM_STATE_MAX)
+        if(status == BMS_TM_OK)
         {
+            daq_status = BMS_DAQ_Get_Ready_Flag(&is_daq_ready);
+            
+            if((daq_status == EVAL_OK) && (is_daq_ready))
+            {
+                eval_status = BMS_Eval_Task(&s_tm.pack_data, &s_tm.pack_con);
 
+                if(eval_status != EVAL_OK)
+                {
+                    status = BMS_TM_EVAL_FAULT;
+                }
+            }
+        }
+
+        if(s_tm.state >= BMS_TM_STATE_MAX)
+        {
+            status = BMS_TM_UNDEF_STATE;
+
+            s_tm.state = BMS_TM_STATE_ERROR;
         }
 
         switch(s_tm.state)
         {
-            case TM_STATE_IDLE:
+            /* HV OFF*/
+            case BMS_TM_STATE_IDLE:
             {
                 break;
             }
 
-            /*
-            need to change sensor waits to idle time
-            */
-
-            case TM_STATE_CHARGE:
+            /* HV ON, before closing AIR*/
+            case BMS_TM_STATE_PRECHG:
             {
                 break;
             }
 
-            /*
-            current/volt/temp measurement periods are same for discharge
-            */
-
-            case TM_STATE_DISCHARGE:
+            case BMS_TM_STATE_CHG:
             {
                 break;
             }
 
-            case TM_STATE_BALANCE:
+            case BMS_TM_STATE_DCHG:
             {
                 break;
             }
 
-            /*
-            current measurements don't matter as much here since it enters this state periodically during charging
-            its mostly working off of the data from cell voltage measurements
-            so there should probably be a new wait period for this
-            */
+            /* Opens AIRs and reports state when possible*/
+            case BMS_TM_STATE_FAULT:
+            {
+                break;
+            }
 
-            case TM_STATE_ERROR:
+            /* This will likely kick into fault state in most cases but provides space for error handling*/
+            case BMS_TM_STATE_ERROR:
             {
                 break;
             }
 
             default:
             {
-                s_tm.state = TM_STATE_ERROR;
+                s_tm.state = BMS_TM_STATE_ERROR;
 
                 break;
             }
@@ -119,7 +138,7 @@ tm_status_t BMS_Manager_Task(void)
     }
     else 
     {
-        status = TM_NOT_INIT;
+        status = BMS_TM_NOT_INIT;
     }
 
     return status;
