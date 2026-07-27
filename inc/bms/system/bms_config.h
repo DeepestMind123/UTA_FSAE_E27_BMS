@@ -17,15 +17,20 @@
 #define TOTAL_BMS_IC_NUM (MOD_BMS_IC_NUM * MOD_NUM)
 #define TOTAL_CELL_NUM (MOD_CELL_NUM * MOD_NUM)
 #define CELLS_PER_BMS_IC (MOD_CELL_NUM / MOD_BMS_IC_NUM)
+#define TEMPS_PER_BMS_IC (MOD_TEMP_NUM / MOD_BMS_IC_NUM)
 
 #define UV_LIM_MV 2500
 #define OV_LIM_MV 4200
-#define OT_LIM_DC 600
-#define OC_LIM_MA 600000
+#define OT_LIM_C 60.0f
+#define UT_LIM_C 0.0f
+#define T_IDEAL_C 40.0f
+#define T_WIGGLE_C 2.0f
+#define OC_CHG_LIM_MA 5000
+#define OC_DCHG_LIM_MA 100000
 
 #define TEMP_BETA_VAL 3345
 #define TEMP_RS 10000
 #define TEMP_RN 10000
-#define TEMP_NOM_dK 29815
+#define TEMP_NOM_K 298.15f
 
 #endif
