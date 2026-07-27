@@ -11,16 +11,16 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
-#include <stdarg.h>
 #include <stdlib.h>
 
 #include "util_time.h"
 #include "util_const.h"
 #include "util_irq.h"
-#include "dev_current_sensor.h"
-#include "dev_voltage_sensor.h"
-#include "dev_temp_sensor.h"
+#include "dev_isense.h"
+#include "dev_vsense.h"
+#include "dev_tsense.h"
 #include "bms_config.h"
+#include "bms_data.h"
 
 #define HANDOFF_MAX_MA_ISENSE 7500
 #define HANDOFF_MIN_MA_ISENSE 7000
@@ -59,69 +59,59 @@ typedef enum
     DAQ_STATE_MAX
 } daq_state_t;
 
-typedef struct
+typedef enum
 {
-    int32_t ival_mA;
-    uint32_t i_timestamp;
-    bool i_valid;
-} isense_data_t;
+    // order these in order of priority
+    DAQ_SENSOR_MIN = 0U,
+    DAQ_ISENSE,
+    DAQ_VSENSE,
+    DAQ_TSENSE,
+    DAQ_SENSOR_MAX
+} daq_sensors_t;
 
 typedef struct
 {
-    int16_t cell_val_mV[LARGE_ARR_64];
-} vsense_mod_val_t;
+    uint32_t timeout_ms;
+    uint32_t delay_ms;
+    uint32_t start_time;
+    bool data_valid;
+    daq_state_t dsd_state;
+    daq_status_t timeout_fault;
+} daq_sensor_ctx_t;
 
 typedef struct
 {
-    vsense_mod_val_t modv[SMALL_ARR_32];
-    uint32_t v_timestamp;
-    bool v_valid;
-} vsense_data_t;
+    daq_sensor_ctx_t sensor_ctx[DAQ_SENSOR_MAX];
+} daq_system_ctx_t;
 
 typedef struct
 {
-    float tsense_val_C[SMALL_ARR_32];
-} tsense_mod_val_t;
+    uint32_t timeout_ms;
+    uint32_t delay_ms;
+} daq_sensor_ctx_in_t;
 
 typedef struct
 {
-    tsense_mod_val_t modt[SMALL_ARR_32];
-    uint32_t t_timestamp;
-    bool t_valid;
-} tsense_data_t;
-
-typedef struct 
-{
-    isense_data_t i_data;
-    vsense_data_t v_data;
-    tsense_data_t t_data;
-} daq_data_t;
+    daq_sensor_ctx_in_t sensor_ctx_in[DAQ_SENSOR_MAX];
+} daq_system_ctx_in_t;
 
 typedef struct
 {
-    uint32_t isense_timeout;
-    uint32_t isense_ready_timeout;
-    uint32_t vsense_timeout;
-    uint32_t vsense_ready_timeout;
-    uint32_t tsense_timeout;
-    uint32_t tsense_ready_timeout;
-} daq_timeout_t;
-
-typedef struct
-{
-    daq_timeout_t timeout_cfg;
+    daq_system_ctx_t sensor_init_ctx;
     daq_data_t *out_mem;
     const util_time_t *time_cfg;
-    const isense_t *isense_high_cfg;
-    const isense_t *isense_low_cfg;
-    const vsense_t *vsense_cfg;
-    const tsense_t *tsense_cfg;
+    isense_t *isense_high_cfg;
+    isense_t *isense_low_cfg;
+    vsense_t *vsense_cfg;
+    tsense_t *tsense_cfg;
     const util_irq_t *irq_cfg;
 } daq_cfg_t;
 
 daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg);
 
-daq_status_t BMS_DAQ_Task(void);
+daq_status_t BMS_DAQ_Task(const daq_system_ctx_in_t *p_in);
+
+daq_status_t BMS_DAQ_Map_Ctx(const daq_system_ctx_in_t *p_in);
 
 daq_status_t BMS_DAQ_Idle_State(void);
 
@@ -131,14 +121,16 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void);
 
 daq_status_t BMS_DAQ_Vsense_State(void);
 
-daq_status_t BMS_DAQ_Map_Vdata(const vsense_val_t (*p_in)[SMALL_ARR_32], vsense_data_t *p_out);
+daq_status_t BMS_DAQ_Map_Vdata(const vsense_val_t (*p_in)[SMALL_ARR_16], vsense_data_t *p_out);
 
 daq_status_t BMS_DAQ_Tsense_State(void);
 
-daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_32], tsense_data_t *p_out);
+daq_status_t BMS_DAQ_Map_Tdata(const tsense_val_t (*p_in)[SMALL_ARR_16], tsense_data_t *p_out);
 
 daq_status_t BMS_DAQ_Report_State(void);
 
-daq_status_t BMS_DAQ_Get_Data(const daq_data_t *p_out);
+daq_status_t BMS_DAQ_Get_Data(daq_data_t *p_out);
+
+daq_status_t BMS_DAQ_Get_Ready_Flag(bool *p_out);
 
 #endif
