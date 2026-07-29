@@ -286,7 +286,7 @@ daq_status_t BMS_DAQ_Map_Ctx(const daq_system_ctx_in_t *p_in)
         }
         else
         {
-            status = DAQ_NULL_PTR;
+            status = DAQ_NOT_INIT;
         }
     }
     else
