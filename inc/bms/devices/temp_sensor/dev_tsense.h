@@ -64,14 +64,6 @@ typedef struct
     float temp_nom_K;
 } tsense_ctx_t;
 
-typedef struct 
-{
-    adc_t *adc_cfg;
-    util_time_t *time_cfg;
-    tsense_func_t *func_cfg;
-    tsense_ctx_t *init_ctx;
-}tsense_cfg_t;
-
 typedef struct
 {
     tsense_val_t tsense_raw_vals[SMALL_ARR_16];
@@ -85,6 +77,14 @@ typedef struct
     bool(*temp_stop)(tsense_system_t *p_sys);
     bool(*temp_get_result)(tsense_system_t *p_sys);
 } tsense_func_t;
+
+typedef struct 
+{
+    adc_t *adc_cfg;
+    util_time_t *time_cfg;
+    tsense_func_t *func_cfg;
+    tsense_ctx_t *init_ctx;
+}tsense_cfg_t;
 
 typedef struct
 {
