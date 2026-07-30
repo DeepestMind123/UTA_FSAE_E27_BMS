@@ -30,7 +30,7 @@ adc_status_t IO_ADC_Init(adc_t *p_inst, const adc_cfg_t *p_cfg)
                     p_inst->adc_func = p_cfg->adc_func_cfg;
                 }
 
-                if(p_cfg->time_cfg != NULL)
+                if(p_cfg->time_cfg == NULL)
                 {
                     status = ADC_NULL_PTR;
                 }
@@ -48,7 +48,7 @@ adc_status_t IO_ADC_Init(adc_t *p_inst, const adc_cfg_t *p_cfg)
                     status = ADC_INVALID_CFG;
                 }
 
-                if((status != ADC_NULL_FUNC) && (status != ADC_NULL_PTR) && (status != ADC_INVALID_CFG))
+                if((status != ADC_NULL_FUNC) || (status != ADC_NULL_PTR) || (status != ADC_INVALID_CFG))
                 {
                     p_inst->start_time = 0U;
 
@@ -139,7 +139,7 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
                     {
                         if((now_time - p_inst->start_time <= p_inst->adc_ctx.adc_timeout) || (p_inst->adc_ctx.adc_timeout == 0U))
                         {
-                            if(!p_inst->adc_ctx.adc_wait_ms)
+                            if(p_inst->adc_ctx.adc_wait_ms == 0U)
                             {
                                 if(p_inst->adc_func.ADC_done()) 
                                 {

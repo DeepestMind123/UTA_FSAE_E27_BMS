@@ -13,23 +13,31 @@ isense_status_t DEV_Isense_Init(isense_t *p_inst, const isense_cfg_t *p_cfg)
 
     if((p_inst != NULL) && (p_cfg != NULL))
     {
-        // Initialize instanced variables to safe values
-        p_inst->p_adc = p_cfg->adc_cfg;
-        p_inst->p_time = p_cfg->time_cfg;
+        if(!p_inst->is_init)
+        {
+            // Initialize instanced variables to safe values
+            p_inst->p_adc = p_cfg->adc_cfg;
+            p_inst->p_time = p_cfg->time_cfg;
+            p_inst->isense_ctx = p_cfg->isense_fund_cfg;
 
-        p_inst->raw_offset = 0U;
-        p_inst->start_time = 0U;
+            p_inst->raw_offset = 0U;
+            p_inst->start_time = 0U;
 
-        p_inst->isense_timeout_ms = p_cfg->isense_fund_cfg.timeout_ms;
+            p_inst->isense_timeout_ms = p_cfg->isense_fund_cfg.timeout_ms;
 
-        p_inst->state = ISENSE_STATE_IDLE;
+            p_inst->state = ISENSE_STATE_IDLE;
 
-        p_inst->val_diff = false;
-        p_inst->is_ready = false;
-        p_inst->is_init = true;
+            p_inst->val_diff = false;
+            p_inst->is_ready = false;
+            p_inst->is_init = true;
 
-        // Exit here if initialization is successful
-        status = ISENSE_OK;
+            // Exit here if initialization is successful
+            status = ISENSE_OK;
+        }
+        else
+        {
+            status = ISENSE_DBL_INIT;
+        }
     }
     else
     {
@@ -93,6 +101,8 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
 
                                 if(time_status == TIME_STATUS_OK)
                                 {
+                                    p_inst->start_time = now_time;
+
                                     p_inst->state = ISENSE_STATE_WAIT;
                                 }
                                 else
@@ -133,15 +143,16 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
                     if(time_status == TIME_STATUS_OK)
                     {
                         // Check if time elapsed is less than the ADC timeout 
-                        if(now_time - p_inst->start_time <= p_inst->adc_timeout_ms)
+                        if((now_time - p_inst->start_time <= p_inst->isense_timeout_ms) || (p_inst->isense_timeout_ms = 0U))
                         {
                             adc_status = IO_ADC_Get_Ready_Flag(p_inst->p_adc, &adc_ready);
 
                             if(adc_status == ADC_OK)
                             {
-                                // Switches state if ADC returns ready
                                 if(adc_ready)
                                 {
+                                    p_inst->start_time = now_time;
+                                    
                                     p_inst->state = ISENSE_STATE_GET;
                                 }
                             }
@@ -154,7 +165,7 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
                         }
                         else 
                         {
-                            status = ISENSE_ADC_FAULT;
+                            status = ISENSE_TIMEOUT;
 
                             p_inst->state = ISENSE_STATE_ERROR;
                         }
@@ -171,25 +182,33 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
 
                 case ISENSE_STATE_GET:
                 {
-                    adc_status = IO_ADC_Get_Ready_Flag(p_inst->p_adc, &adc_ready);
+                    time_status = UTIL_Time_Get_Tick(p_inst->p_time, &now_time);
 
-                    if(adc_ready)
+                    if(time_status == TIME_STATUS_OK)
                     {
-                        status = DEV_Isense_Process_Raw(p_inst);
+                        if((now_time - p_inst->start_time <= p_inst->isense_timeout_ms) || (p_inst->isense_timeout_ms == 0U))
+                        {
+                            status = DEV_Isense_Process_Raw(p_inst);
 
-                        if(status == ISENSE_OK)
-                        {
-                            p_inst->state = ISENSE_STATE_READY;
+                            if(status == ISENSE_OK)
+                            {
+                                p_inst->state = ISENSE_STATE_READY;
+                            }
+                            else 
+                            {
+                                p_inst->state = ISENSE_STATE_ERROR;
+                            }
                         }
-                        else 
+                        else
                         {
+                            status = ISENSE_TIMEOUT;
+
                             p_inst->state = ISENSE_STATE_ERROR;
                         }
                     }
-                    else 
+                    else
                     {
-                        // ADC timing error has occured since ADC has to return ready to switch into this state
-                        status = ISENSE_ADC_FAULT;
+                        status = ISENSE_TIME_FAULT;
 
                         p_inst->state = ISENSE_STATE_ERROR;
                     }
@@ -202,18 +221,7 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
                     // Starts timer and switches state to IDLE
                     p_inst->is_ready = true;
 
-                    time_status = UTIL_Time_Get_Tick(p_inst->p_time, &p_inst->start_time);
-
-                    if(time_status == TIME_STATUS_OK)
-                    {
-                        p_inst->state = ISENSE_STATE_IDLE;
-                    }
-                    else
-                    {
-                        status = ISENSE_TIME_FAULT;
-
-                        p_inst->state = ISENSE_STATE_ERROR;
-                    }
+                    p_inst->state = ISENSE_STATE_IDLE;
 
                     break;
                 }
@@ -224,19 +232,9 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
                     break;
                 }
 
-                // Max enum for states required by standards
-                case ISENSE_STATE_UNDEF:
-                {
-                    status = ISENSE_UNDEF_STATE;
-
-                    p_inst->state = ISENSE_STATE_ERROR;
-
-                   break;
-                }
-
                 default:
                 {
-                    /*no action required*/
+                    p_inst->state = ISENSE_STATE_ERROR;
 
                     break;
                 }
@@ -440,6 +438,8 @@ isense_status_t DEV_Isense_Get_Gain(isense_t *p_inst, int32_t *p_out)
         {
             status = ISENSE_NOT_INIT;
         }
+
+        *p_out = gain;
     }
     else 
     {

@@ -286,7 +286,7 @@ daq_status_t BMS_DAQ_Map_Ctx(const daq_system_ctx_in_t *p_in)
         }
         else
         {
-            status = DAQ_NULL_PTR;
+            status = DAQ_NOT_INIT;
         }
     }
     else
@@ -483,7 +483,7 @@ daq_status_t BMS_DAQ_Isense_State(void)
 
             if(isense_status == ISENSE_OK)
             {
-                s_daq.isense.isense_start_time = s_daq.now_time;
+                s_daq.system_ctx.sensor_ctx[DAQ_ISENSE].start_time = s_daq.now_time;
             }
             else
             {
@@ -694,7 +694,7 @@ daq_status_t BMS_DAQ_Tsense_State(void)
                 }
             }              
         }
-        else if(s_daq.now_time - s_daq.system_ctx.sensor_ctx[DAQ_TSENSE].delay_ms >= s_daq.system_ctx.sensor_ctx[DAQ_TSENSE].delay_ms)
+        else if(s_daq.now_time - s_daq.system_ctx.sensor_ctx[DAQ_TSENSE].start_time >= s_daq.system_ctx.sensor_ctx[DAQ_TSENSE].delay_ms)
         {
             tsense_status = DEV_Tsense_Start(s_daq.tsense.p_tsense);
 

@@ -24,11 +24,11 @@ typedef enum
     VSENSE_NULL_FUNC,
     VSENSE_NOT_INIT,
     VSENSE_TIMEOUT,
+    VSENSE_BUSY,
     VSENSE_TIME_FAULT,
     VSENSE_ADC_FAULT,
     VSENSE_UNDEF_STATE,
     VSENSE_MISMATCH_STATE,
-    VSENSE_BUSY,
     VSENSE_CONVERSION_FAIL,
     VSENSE_STATUS_MAX
 } vsense_status_t;
@@ -52,15 +52,14 @@ typedef struct
 
 typedef struct
 {
-    uint32_t init_timeout;
+    uint32_t timeout_ms;
     uint8_t cell_num;
     uint8_t ic_num;
     bool gives_real_val;
-} vsense_cfg_t;
+} vsense_ctx_t;
 
 typedef struct
 {
-    const vsense_cfg_t *cfg;
     vsense_val_t vsense_raw_vals[SMALL_ARR_16];
     vsense_val_t vsense_process_vals[SMALL_ARR_16];
 } vsense_system_t;
@@ -75,26 +74,31 @@ typedef struct
 
 typedef struct
 {
+    adc_t *adc_cfg;
+    util_time_t *time_cfg;
+    vsense_func_t *func_cfg;
+    vsense_ctx_t *init_ctx;
+} vsense_cfg_t;
+
+typedef struct
+{
     uint32_t start_time;
-    uint32_t vsense_timeout_ms;
 
     bool is_init;
     bool is_ready;
     bool val_diff;
     bool is_balance;
 
+    vsense_ctx_t *p_ctx;
     vsense_system_t sensor;
-    const vsense_func_t *func;
+    vsense_func_t *p_func;
     vsense_state_t state;
-    const adc_t *adc;
-    const util_time_t *time;
+    adc_t *p_adc;
+    util_time_t *p_time;
 } vsense_t;
 
 vsense_status_t DEV_Vsense_Init(vsense_t *p_inst,
-                                const vsense_cfg_t *p_cfg,
-                                const vsense_func_t *p_func,
-                                const adc_t *p_adc,
-                                const util_time_t *p_time);
+                                const vsense_cfg_t *p_cfg);
 
 vsense_status_t DEV_Vsense_Task(vsense_t *p_inst);
 

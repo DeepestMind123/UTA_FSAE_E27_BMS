@@ -24,12 +24,13 @@ typedef enum
     TSENSE_NULL_PTR,
     TSENSE_NULL_FUNC,
     TSENSE_NOT_INIT,
+    TSENSE_DBL_INIT,
     TSENSE_TIMEOUT,
+    TSENSE_BUSY,
     TSENSE_TIME_FAULT,
     TSENSE_ADC_FAULT,
     TSENSE_UNDEF_STATE,
     TSENSE_MISMATCH_STATE,
-    TSENSE_BUSY,
     TSENSE_CONVERSION_FAIL,
     TSENSE_STATUS_MAX
 } tsense_status_t;
@@ -51,9 +52,9 @@ typedef struct
     float temps_C[LARGE_ARR_32];
 } tsense_val_t;
 
-typedef struct 
+typedef struct
 {
-    uint32_t init_timeout;
+    uint32_t timeout_ms;
     uint8_t temp_num;
     uint8_t ic_num;
     bool gives_real_val;
@@ -61,11 +62,10 @@ typedef struct
     float temp_rs;
     float temp_rn;
     float temp_nom_K;
-}tsense_cfg_t;
+} tsense_ctx_t;
 
 typedef struct
 {
-    const tsense_cfg_t *cfg;
     tsense_val_t tsense_raw_vals[SMALL_ARR_16];
     tsense_val_t tsense_process_vals[SMALL_ARR_16];
 } tsense_system_t;
@@ -78,6 +78,14 @@ typedef struct
     bool(*temp_get_result)(tsense_system_t *p_sys);
 } tsense_func_t;
 
+typedef struct 
+{
+    adc_t *adc_cfg;
+    util_time_t *time_cfg;
+    tsense_func_t *func_cfg;
+    tsense_ctx_t *init_ctx;
+}tsense_cfg_t;
+
 typedef struct
 {
     uint32_t start_time;
@@ -88,10 +96,11 @@ typedef struct
     bool val_diff;
     
     tsense_system_t sensor;
-    const tsense_func_t *func;
+    tsense_func_t *p_func;
     tsense_state_t state;
-    const adc_t *adc;
-    const util_time_t *time;
+    adc_t *p_adc;
+    util_time_t *p_time;
+    tsense_ctx_t *p_ctx;
 } tsense_t;
 
 tsense_status_t DEV_Tsense_Init(tsense_t *p_inst, 
