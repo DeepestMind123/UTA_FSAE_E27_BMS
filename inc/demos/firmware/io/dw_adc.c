@@ -15,7 +15,7 @@
 // Initialization
 static void ADC_channel_select(uint8_t channel) {};
 static void ADC_start(void)                     {};
-static uint8_t ADC_done(void)                   {};
+static bool ADC_done(void)                      {};
 static uint16_t ADC_get_result(void)            {};
 static void ADC_stop(void)                      {};
 static util_time_t time_inst = {

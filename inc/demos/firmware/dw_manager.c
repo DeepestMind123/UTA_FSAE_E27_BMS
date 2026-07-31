@@ -15,15 +15,17 @@ void demo_watcher() {
     setIntArrayDefault(get_para_num, 1, UINT64_MAX);
     setBoolArrayDefault(not_null_bools, 1, false);
 
-    demo_watch_adc_all();
-    demo_watch_can_all();
-    demo_watch_i2c_all();
-    demo_watch_pwm_all();
-    demo_watch_spi_all();
+    // demo_watch_adc_all();
+    // demo_watch_can_all();
+    // demo_watch_i2c_all();
+    // demo_watch_pwm_all();
+    // demo_watch_spi_all();
     
-    demo_watch_isense_all();
+    // demo_watch_isense_all();
     // demo_watch_fan_control_all();
     // demo_watch_ltc6813_all();
+
+    demo_watch_utils_all();
 }
 
 void setBoolArrayDefault(bool *p_arr, int p_size, bool p_state) {

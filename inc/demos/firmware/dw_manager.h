@@ -12,6 +12,7 @@
 #include <stdbool.h>
 
 #include "demo_test.h"
+
 #define IS_UPPER_DIRTY_16(x) (((uint64_t)(x) & 0xFFFFFFFFFFFF0000ULL) == 0xFFFFFFFFFFFF0000ULL)
 #define IS_UPPER_DIRTY_32(x) (((uint64_t)(x) & 0xFFFFFFFF00000000ULL) == 0xFFFFFFFF00000000ULL)
 #define ISMAXINT(x) ( \
@@ -85,6 +86,13 @@ void demo_watch_fan_control_funcs();
 #ifdef DEMO_LTC6813
 void demo_watch_ltc6813_all();
 void demo_watch_ltc6813_funcs();
+#endif
+#ifdef DEMO_UTILS
+void demo_watch_utils_all();
+void demo_watch_utils_funcs();
+void demo_watch_utils_irq_funcs();
+void demo_watch_utils_time_funcs();
+void demo_watch_utils_pid_ctrl_funcs();
 #endif
 
 #endif
