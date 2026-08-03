@@ -174,34 +174,29 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
 
             for(uint8_t i = 0U; i < MOD_NUM; i++)
             {
-                sum = 0.0f;
-                avg = 0.0f;
-
                 for(uint8_t j = 0U; j < MOD_TEMP_NUM; j++)
                 {
-                    sum += s_eval.data.t_data.tmod[i].tsense_val_C[j];
-                }
+                    float temp = s_eval.data.t_data.tmod[i].tsense_val_C[j];
 
-                avg = sum / MOD_TEMP_NUM;
-
-                if(avg > OT_LIM_C)
-                {
-                    s_eval.con.tcon.tpack_fault = true;
-                    s_eval.con.tcon.tmod[i] = EVAL_TCON_OT;
-                }
-                else if(avg < UT_LIM_C)
-                {
-                    s_eval.con.tcon.tpack_fault = true;
-                    s_eval.con.tcon.tmod[i] = EVAL_TCON_UT;
-                }
-                else if((avg > (T_IDEAL_C + T_WIGGLE_C)) ||
-                    (avg < (T_IDEAL_C - T_WIGGLE_C)))
-                {
-                    s_eval.con.tcon.tmod[i] = EVAL_TCON_NOT_OPTIMAL;
-                }
-                else
-                {
-                    s_eval.con.tcon.tmod[i] = EVAL_TCON_OK;
+                    if(temp > OT_LIM_C)
+                    {
+                        s_eval.con.tcon.tpack_fault = true;
+                        s_eval.con.tcon.tmod[i].temp_con[j] = EVAL_TCON_OT;
+                    }
+                    else if(temp < UT_LIM_C)
+                    {
+                        s_eval.con.tcon.tpack_fault = true;
+                        s_eval.con.tcon.tmod[i].temp_con[j] = EVAL_TCON_UT;
+                    }
+                    else if((temp > (T_IDEAL_C + T_WIGGLE_C)) ||
+                        (temp < (T_IDEAL_C - T_WIGGLE_C)))
+                    {
+                        s_eval.con.tcon.tmod[i].temp_con[j] = EVAL_TCON_NOT_OPTIMAL;
+                    }
+                    else
+                    {
+                        s_eval.con.tcon.tmod[i].temp_con[j] = EVAL_TCON_OK;
+                    }
                 }
             }
 
