@@ -8,24 +8,34 @@
 #include <stddef.h>
 #include <stdbool.h>
  
-#include "dev_current_sensor.h"
+#include "dev_isense.h"
 #include "io_adc.h"
 #include "dw_manager.h"
 
 #ifdef DEMO_ISENSE
+
+
+    // adc_t *adc_cfg;
+    // const util_time_t *time_cfg;
+    // const isense_ctx_t isense_fund_cfg;
 // Initialization
-static isense_cfg_t config = {
-    .isense_gain_uV            = 3300000,
-    .isense_raw_cutoff         = 5000000,
-    
+static isense_ctx_t ctx = {
+    .timeout_ms = 1000,
+    .isense_gain_uV = 500,
+    .isense_raw_cutoff = 100
 };
 static isense_t inst;
-static util_time_t time_inst = {
-    .is_init = false,
-    .tick = 0U,
-    .irq = NULL
+static adc_t adc_inst;
+static util_time_t time_inst;
+static isense_cfg_t config = {
+    .adc_cfg = &adc_inst,
+    .time_cfg = &time_inst,
+    .isense_fund_cfg = {
+        .timeout_ms = 1000,
+        .isense_gain_uV = 500,
+        .isense_raw_cutoff = 100
+    }
 };
-static io_adc_t adc_inst;
 
 // Watch strings
 const char *func_str[] = {
@@ -88,32 +98,29 @@ typedef enum {
     //"NEW FUNC ID"
 } func_id;
 // Get func output to compare non-null vs. null
-int get_func(int p_func_id, bool* p_not_inst_null) {
-    get_para_num = getIntArrayDefault(1, UINT64_MAX);
-    not_null_bools = getBoolArrayDefault(1, false);
+static int get_func(int p_func_id, bool* p_not_inst_null) {
+    setIntArrayDefault(get_para_num, 1, UINT8_MAX);
+    setBoolArrayDefault(not_null_bools, 1, false);
     isense_t *_inst             = p_not_inst_null[0] ? &inst : NULL;
     isense_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
-    io_adc_t *_adc_inst         = p_not_inst_null[2] ? &adc_inst : NULL;
-    util_time_t *_time_inst     = p_not_inst_null[3] ? &time_inst : NULL;
     
     switch(p_func_id) {
-        case 0: return (int64_t)DEV_Isense_Init(_inst, _config,
-             _adc_inst, _time_inst);                                       break;
+        case 0: return (int64_t)DEV_Isense_Init(_inst, _config);                                       break;
         case 1: return (int64_t)DEV_Isense_Task(_inst);                                    break;
         case 2: return (int64_t)DEV_Isense_Start(_inst);                                   break;
         case 3: return (int64_t)DEV_Isense_Process_Raw(_inst);                              break;
-        case 4: return (int64_t)DEV_Isense_Get_Wait(_inst, &get_para_num[0]);           break;
-        case 5: return (int64_t)DEV_Isense_Get_Gain(_inst, &get_para_num[0]);           break;
-        case 6: return (int64_t)DEV_Isense_Get_Val(_inst, &get_para_num[0]);            break;
-        case 7: return (int64_t)DEV_Isense_Get_State(_inst, &get_para_num[0]);          break;
-        case 8: return (int64_t)DEV_Isense_Get_Data_Diff(_inst, &get_para_num[0]);      break;
-        case 9: return (int64_t)DEV_Isense_Get_Ready_Flag(_inst, &get_para_num[0]);    break;
-        case 10: return (int64_t)DEV_Isense_Set_Timeout(_inst, set_para_num[0]);        break;
-        case 11: return (int64_t)DEV_Isense_Get_Timeout(_inst, &get_para_num[0]);       break;
+        case 4: return (int64_t)DEV_Isense_Get_Wait(_inst, (uint32_t*)&get_para_num[0]);           break;
+        case 5: return (int64_t)DEV_Isense_Get_Gain(_inst, (uint32_t*)&get_para_num[0]);           break;
+        case 6: return (int64_t)DEV_Isense_Get_Val(_inst, (int32_t*)&get_para_num[0]);            break;
+        case 7: return (int64_t)DEV_Isense_Get_State(_inst, (isense_state_t*)&get_para_num[0]);          break;
+        case 8: return (int64_t)DEV_Isense_Get_Data_Diff(_inst, (bool*)&get_para_num[0]);      break;
+        case 9: return (int64_t)DEV_Isense_Get_Ready_Flag(_inst, (bool*)&get_para_num[0]);    break;
+        case 10: return (int64_t)DEV_Isense_Set_Timeout(_inst, (uint32_t)set_para_num[0]);        break;
+        case 11: return (int64_t)DEV_Isense_Get_Timeout(_inst, (uint32_t*)&get_para_num[0]);       break;
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);      break;
     }
-    set_para_num = getIntArrayDefault(1, UINT64_MAX);
+    setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }
 static driver_watcher_interface_t isense_test_interface = {
     .func_strings   = func_str,
@@ -128,85 +135,84 @@ void demo_watch_isense_all() {
     demo_watch_isense_fault();
 }
 
-#define NULL_COUNT 4
+#define NULL_COUNT 2
 // General ISense test method that goes through every function
 void demo_watch_isense_fault() {
     init_driver_watcher("ISense", 1, &isense_test_interface);
-    bool *_get_para_bool = getBoolArrayDefault(1, false);
 
     // Action Methods
     // [0] ISense INIT
     watch_inst_conf(ISENSE_INIT, ISENSE_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_INIT, ISENSE_NULL_PTR, 
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
 
     // [1] ISense TASK
     watch_inst_conf(ISENSE_TASK, ISENSE_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_TASK, ISENSE_NULL_PTR, 
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     // [2] ISense START
     watch_inst_conf(ISENSE_START, ISENSE_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_START, ISENSE_NULL_PTR, 
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     // [3] ISense PROCESS RAW
     watch_inst_conf(ISENSE_PROCESS_RAW, ISENSE_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_PROCESS_RAW, ISENSE_NULL_PTR, 
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
 
     // [4] ISense GET WAIT
     watch_inst_conf(ISENSE_GET_WAIT, ISENSE_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_GET_WAIT, ISENSE_NULL_PTR,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     // [5] ISense GET GAIN
     watch_inst_conf(ISENSE_GET_GAIN, ISENSE_OK,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_GET_GAIN, ISENSE_NULL_PTR,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     // [6] ISense GET VAL
     watch_inst_conf(ISENSE_GET_VAL, ISENSE_OK,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_GET_VAL, ISENSE_NULL_PTR,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     // [7] ISense GET STATE
     watch_inst_conf(ISENSE_GET_STATE, ISENSE_OK,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_GET_STATE, ISENSE_NULL_PTR,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     // [8] ISense GET DATA DIFF
     watch_inst_conf(ISENSE_GET_DATA_DIFF, ISENSE_OK,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_GET_DATA_DIFF, ISENSE_NULL_PTR,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     // [9] ISense GET READY FLAG
     watch_inst_conf(ISENSE_GET_READY_FLAG, ISENSE_OK,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_GET_READY_FLAG, ISENSE_NULL_PTR,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     set_para_num[0] = 100;
     // [10] ISense SET TIMEOUT
     watch_inst_conf(ISENSE_SET_TIMEOUT, ISENSE_OK,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_SET_TIMEOUT, ISENSE_NULL_PTR,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     // [11] ISense GET TIMEOUT
     watch_inst_conf(ISENSE_GET_TIMEOUT, ISENSE_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(ISENSE_GET_TIMEOUT, ISENSE_NULL_PTR,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {false, false});
 
     //!NOTE! Add new function to track here
     //// [#] NEW FUNC

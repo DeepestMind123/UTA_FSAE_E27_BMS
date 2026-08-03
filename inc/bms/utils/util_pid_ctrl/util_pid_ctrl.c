@@ -1,5 +1,5 @@
 /**
- * @file util_pid_ctrl.h
+ * @file util_pid_ctrl.c
  * @author notwe
  * @date 2026-06-12
  * @brief generic pid control source
@@ -101,5 +101,26 @@ pid_status_t UTIL_PID_Ctrl_Task(pid_ctrl_t *p_inst, float val, float *p_out)
         status = PID_STATUS_ERROR_NULL_POINTER;
     }
 
+    return status;
+}
+
+
+pid_status_t UTIL_PID_Ctrl_Get_Val(pid_ctrl_t *p_inst, float *p_out) {
+    pid_status_t status = PID_STATUS_OK;
+    if((p_inst != NULL) && (p_out != NULL))
+    {
+        if(p_inst->is_init)
+        {
+            *p_out = p_inst->now_val;
+        }
+        else
+        {
+            status = PID_STATUS_ERROR_NOT_INIT;
+        }
+    }
+    else
+    {
+        status = PID_STATUS_ERROR_NULL_POINTER;
+    }
     return status;
 }

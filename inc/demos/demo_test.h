@@ -20,3 +20,6 @@ void demo_watcher();
 #define DEMO_ISENSE
 // #define DEMO_FAN_CONTROL
 // #define DEMO_LTC6813
+
+//Systems
+#define DEMO_UTILS

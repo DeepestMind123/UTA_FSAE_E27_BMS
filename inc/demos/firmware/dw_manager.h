@@ -12,16 +12,27 @@
 #include <stdbool.h>
 
 #include "demo_test.h"
-#define ISMAXINT(x) (x == UINT64_MAX || x == UINT32_MAX || x == UINT16_MAX || x == UINT8_MAX)
 
-extern int64_t *set_para_num;
-extern int64_t *get_para_num;
-extern bool *not_null_bools;
+#define IS_UPPER_DIRTY_16(x) (((uint64_t)(x) & 0xFFFFFFFFFFFF0000ULL) == 0xFFFFFFFFFFFF0000ULL)
+#define IS_UPPER_DIRTY_32(x) (((uint64_t)(x) & 0xFFFFFFFF00000000ULL) == 0xFFFFFFFF00000000ULL)
+#define ISMAXINT(x) ( \
+    (x) == UINT64_MAX || \
+    (x) == UINT32_MAX || \
+    (x) == UINT16_MAX || \
+    (x) == UINT8_MAX  || \
+    IS_UPPER_DIRTY_16(x) || \
+    IS_UPPER_DIRTY_32(x)   \
+)
+
 extern uint8_t test_id;
-char driver_name[15];
+extern uint8_t param_size;
+extern int64_t set_para_num[10];
+extern int64_t get_para_num[10];
+extern bool not_null_bools[10];
+extern char driver_name[15];
 
-bool* getBoolArrayDefault(int p_size, bool p_state);
-int64_t* getIntArrayDefault(int p_size, int64_t p_val);
+void setBoolArrayDefault(bool *p_arr, int p_size, bool p_state);
+void setIntArrayDefault(int64_t *p_arr, int p_size, int64_t p_val);
 // This structure defines a driver demo
 typedef struct {
     const char **func_strings;   // Array of function names
@@ -63,7 +74,7 @@ void demo_watch_spi_all();
 void demo_watch_spi_funcs();
 #endif
 
-// Devies
+// Devices
 #ifdef DEMO_ISENSE
 void demo_watch_isense_all();
 void demo_watch_isense_fault();
@@ -75,6 +86,13 @@ void demo_watch_fan_control_funcs();
 #ifdef DEMO_LTC6813
 void demo_watch_ltc6813_all();
 void demo_watch_ltc6813_funcs();
+#endif
+#ifdef DEMO_UTILS
+void demo_watch_utils_all();
+void demo_watch_utils_funcs();
+void demo_watch_utils_irq_funcs();
+void demo_watch_utils_time_funcs();
+void demo_watch_utils_pid_ctrl_funcs();
 #endif
 
 #endif

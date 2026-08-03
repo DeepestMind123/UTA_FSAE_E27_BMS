@@ -14,15 +14,14 @@
 
 #include "util_time.h"
 
-const float K_P = 10.0f;
-const float K_I = 1.0f;
-const float K_D = 1.0f;
-const float INTEGRAL_MAX = 100.0f;
-const float INTEGRAL_MIN = 0.0f;
-const float PWM_MAX = 100.0f;
-const float PWM_MIN = 0.0f;
-
-const uint16_t PWM_MAX_INT = 65535;
+#define K_P          (1.0f)
+#define K_I          (0.5f)
+#define K_D          (0.1f)
+#define INTEGRAL_MAX (100.0f)
+#define INTEGRAL_MIN (-100.0f)
+#define PWM_MAX      (255.0f)
+#define PWM_MIN      (0.0f)
+#define PWM_MAX_INT  (255)
 
 typedef enum
 {

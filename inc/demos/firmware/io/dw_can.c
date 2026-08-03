@@ -57,20 +57,20 @@ typedef enum {
     //"NEW FUNC ID"
 } func_id;
 // Get func output to compare non-null vs. null
-int get_func(int p_func_id, bool* p_not_inst_null) {
-    get_para_num                = getIntArrayDefault(1, UINT64_MAX);
-    not_null_bools              = getBoolArrayDefault(1, false);
+static int get_func(int p_func_id, bool* p_not_inst_null) {
+    setIntArrayDefault(get_para_num, 1, UINT8_MAX);
+    setBoolArrayDefault(not_null_bools, 1, false);
     io_can_t *_inst             = p_not_inst_null[0] ? &inst : NULL;
     io_can_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
     
     switch(p_func_id) {
-        case 0: return (int64_t)IO_CAN_Init(_inst, _config, set_para_num[0]);  break;
+        case 0: return (int64_t)IO_CAN_Init(_inst, _config, (uint32_t)set_para_num[0]);  break;
         case 1: return (int64_t)IO_CAN_Transmit(_inst, &msg);                          break;
         case 2: return (int64_t)IO_CAN_Receive(_inst, &msg);                           break;
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);      break;
     }
-    set_para_num = getIntArrayDefault(1, UINT64_MAX);
+    setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }
 static driver_watcher_interface_t drive_watcher = {
     .func_strings       = func_str,
@@ -94,26 +94,26 @@ void demo_watch_can_funcs() {
     // Action Methods
     // [0] CAN INIT
     watch_inst_conf(CAN_INIT, CAN_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(CAN_INIT, CAN_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {false, true, true, true});
+        (bool[NULL_COUNT]) {false, true});
     watch_inst_conf(CAN_INIT, CAN_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {true, false, true, true});
+        (bool[NULL_COUNT]) {true, false});
     watch_inst_conf(CAN_INIT, CAN_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {false, false, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     // I/O Methods
     // [1] CAN TRANSMIT
     watch_inst_conf(CAN_TRANSMIT, CAN_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(CAN_TRANSMIT, CAN_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {false, false, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     // [2] CAN RECEIVE
     watch_inst_conf(CAN_RECIEVE, CAN_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true});
+        (bool[NULL_COUNT]) {true, true});
     watch_inst_conf(CAN_RECIEVE, CAN_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {false, false, true, true});
+        (bool[NULL_COUNT]) {false, false});
     
     //!NOTE! Add new function to track here
     //// [#] NEW FUNC

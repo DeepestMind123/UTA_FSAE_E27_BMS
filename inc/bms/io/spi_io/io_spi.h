@@ -5,7 +5,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-const uint8_t DUMMY_BYTE = 0xFFU;
+#define DUMMY_BYTE (0xFF)
 
 typedef enum
 {
