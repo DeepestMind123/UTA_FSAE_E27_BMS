@@ -29,7 +29,6 @@ extern uint8_t param_size;
 extern int64_t set_para_num[10];
 extern int64_t get_para_num[10];
 extern bool not_null_bools[10];
-extern char driver_name[15];
 
 void setBoolArrayDefault(bool *p_arr, int p_size, bool p_state);
 void setIntArrayDefault(int64_t *p_arr, int p_size, int64_t p_val);
@@ -54,7 +53,7 @@ void demo_watcher();
 #ifdef DEMO_ADC
 void demo_watch_adc_all();
 void demo_watch_adc_funcs();
-void demo_watch_adc_null();
+void demo_watch_adc_init();
 void demo_watch_adc_task();
 #endif
 #ifdef DEMO_CAN
@@ -93,6 +92,9 @@ void demo_watch_utils_funcs();
 void demo_watch_utils_irq_funcs();
 void demo_watch_utils_time_funcs();
 void demo_watch_utils_pid_ctrl_funcs();
+
+void demo_watch_utils_init();
+void demo_watch_utils_task();
 #endif
 
 #endif

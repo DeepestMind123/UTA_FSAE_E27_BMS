@@ -61,8 +61,8 @@ char watch[200];     //watch the 'watch' variable to debug
 char driver_name_watch[20];
 char test_id_watch[20];
 char func_str_watch[20];
-char status_exp_watch[20];
-char status_str_watch[20];
+char status_exp_watch[30];
+char status_str_watch[30];
 char state_str_watch[20];
 
 char set_para_num_watch[50];
@@ -73,7 +73,7 @@ int64_t set_para_num[10];
 int64_t get_para_num[10];
 bool not_null_bools[10];
 
-char driver_name[15];
+char driver_name[20];
 uint8_t test_id = 0;
 static driver_watcher_interface_t *active_driver = NULL;
 

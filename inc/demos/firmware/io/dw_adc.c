@@ -107,19 +107,19 @@ static int get_func(int p_func_id, bool* p_not_inst_null) {
     adc_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
     util_time_t *_time_inst     = p_not_inst_null[2] ? &time_inst : NULL;
     switch(p_func_id) {
-        case 0: return (uint64_t)IO_ADC_Init(_inst, _config);       break;
-        case 1: return (uint64_t)IO_ADC_Task(_inst);                                               break;
-        case 2: return (uint64_t)IO_ADC_Start(_inst);                                              break;
-        case 3: return (uint64_t)IO_ADC_Get_Val(_inst, (uint16_t*)&get_para_num[0]);                    break;
-        case 4: return (uint64_t)IO_ADC_Get_Resolution(_inst, (uint16_t*)&get_para_num[0]);             break;
-        case 5: return (uint64_t)IO_ADC_Set_Offset(_inst, (uint16_t)set_para_num[0]);                break;
-        case 6: return (uint64_t)IO_ADC_Get_Offset(_inst, (int16_t*)&get_para_num[0]);                 break;
-        case 7: return (uint64_t)IO_ADC_Get_Vref(_inst, (uint16_t*)&get_para_num[0]);                   break;
-        case 8: return (uint64_t)IO_ADC_Get_State(_inst, (adc_state_t*)&get_para_num[0]);                  break;
-        case 9: return (uint64_t)IO_ADC_Get_Timeout(_inst, (uint32_t*)&get_para_num[0]);                break;
-        case 10: return (uint64_t)IO_ADC_Get_Ready_Flag(_inst, (bool*)&not_null_bools[0]);           break;
+        case 0: return (uint64_t)IO_ADC_Init(_inst, _config);
+        case 1: return (uint64_t)IO_ADC_Task(_inst);
+        case 2: return (uint64_t)IO_ADC_Start(_inst);
+        case 3: return (uint64_t)IO_ADC_Get_Val(_inst, (uint16_t*)&get_para_num[0]);
+        case 4: return (uint64_t)IO_ADC_Get_Resolution(_inst, (uint16_t*)&get_para_num[0]);
+        case 5: return (uint64_t)IO_ADC_Set_Offset(_inst, (uint16_t)set_para_num[0]);
+        case 6: return (uint64_t)IO_ADC_Get_Offset(_inst, (int16_t*)&get_para_num[0]);
+        case 7: return (uint64_t)IO_ADC_Get_Vref(_inst, (uint16_t*)&get_para_num[0]);
+        case 8: return (uint64_t)IO_ADC_Get_State(_inst, (adc_state_t*)&get_para_num[0]);
+        case 9: return (uint64_t)IO_ADC_Get_Timeout(_inst, (uint32_t*)&get_para_num[0]);
+        case 10: return (uint64_t)IO_ADC_Get_Ready_Flag(_inst, (bool*)&not_null_bools[0]);
         //!NOTE! Add new functions here
-        //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);      break;
+        //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);
     }
     setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }
@@ -134,7 +134,7 @@ static driver_watcher_interface_t drive_watcher = {
 // Tests all adc methods
 void demo_watch_adc_all() {
     demo_watch_adc_funcs();
-//    demo_watch_adc_null();
+//    demo_watch_adc_init();
 //    demo_watch_adc_task();
 }
 
@@ -225,7 +225,7 @@ void demo_watch_adc_funcs() {
 }
 
 // Demo to test when no init called
-void demo_watch_adc_null() {
+void demo_watch_adc_init() {
     init_driver_watcher("ADC", 2, &drive_watcher); //!BREAK! Use this as breakpoint
     
     // [1] ADC TASK
@@ -234,7 +234,7 @@ void demo_watch_adc_null() {
     
     // [0] ADC INIT
     watch_inst_conf(ADC_INIT, ADC_NULL_PTR,
-        (bool[NULL_COUNT]) {true, true, true});    //
+        (bool[NULL_COUNT]) {true, true, true});    // State: NULL_POINTER
     
     // [1] ADC TASK
     watch_inst_conf(ADC_TASK, ADC_NULL_PTR,

@@ -105,20 +105,20 @@ static int get_func(int p_func_id, bool* p_not_inst_null) {
     isense_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
     
     switch(p_func_id) {
-        case 0: return (int64_t)DEV_Isense_Init(_inst, _config);                                       break;
-        case 1: return (int64_t)DEV_Isense_Task(_inst);                                    break;
-        case 2: return (int64_t)DEV_Isense_Start(_inst);                                   break;
-        case 3: return (int64_t)DEV_Isense_Process_Raw(_inst);                              break;
-        case 4: return (int64_t)DEV_Isense_Get_Wait(_inst, (uint32_t*)&get_para_num[0]);           break;
-        case 5: return (int64_t)DEV_Isense_Get_Gain(_inst, (uint32_t*)&get_para_num[0]);           break;
-        case 6: return (int64_t)DEV_Isense_Get_Val(_inst, (int32_t*)&get_para_num[0]);            break;
-        case 7: return (int64_t)DEV_Isense_Get_State(_inst, (isense_state_t*)&get_para_num[0]);          break;
-        case 8: return (int64_t)DEV_Isense_Get_Data_Diff(_inst, (bool*)&get_para_num[0]);      break;
-        case 9: return (int64_t)DEV_Isense_Get_Ready_Flag(_inst, (bool*)&get_para_num[0]);    break;
-        case 10: return (int64_t)DEV_Isense_Set_Timeout(_inst, (uint32_t)set_para_num[0]);        break;
-        case 11: return (int64_t)DEV_Isense_Get_Timeout(_inst, (uint32_t*)&get_para_num[0]);       break;
+        case 0: return (int64_t)DEV_Isense_Init(_inst, _config);
+        case 1: return (int64_t)DEV_Isense_Task(_inst);
+        case 2: return (int64_t)DEV_Isense_Start(_inst);
+        case 3: return (int64_t)DEV_Isense_Process_Raw(_inst);
+        case 4: return (int64_t)DEV_Isense_Get_Wait(_inst, (uint32_t*)&get_para_num[0]);
+        case 5: return (int64_t)DEV_Isense_Get_Gain(_inst, (uint32_t*)&get_para_num[0]);
+        case 6: return (int64_t)DEV_Isense_Get_Val(_inst, (int32_t*)&get_para_num[0]);
+        case 7: return (int64_t)DEV_Isense_Get_State(_inst, (isense_state_t*)&get_para_num[0]);
+        case 8: return (int64_t)DEV_Isense_Get_Data_Diff(_inst, (bool*)&get_para_num[0]);
+        case 9: return (int64_t)DEV_Isense_Get_Ready_Flag(_inst, (bool*)&get_para_num[0]);
+        case 10: return (int64_t)DEV_Isense_Set_Timeout(_inst, (uint32_t)set_para_num[0]);
+        case 11: return (int64_t)DEV_Isense_Get_Timeout(_inst, (uint32_t*)&get_para_num[0]);
         //!NOTE! Add new functions here
-        //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);      break;
+        //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);
     }
     setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }
