@@ -51,11 +51,11 @@ static int get_func(int p_func_id, bool* p_not_inst_null) {
     io_pwm_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
     
     switch(p_func_id) {
-        case 0: return (int64_t)IO_PWM_Init(_inst, _config);                           break;
-        case 1: return (int64_t)IO_PWM_Set_Duty_Cycle(_inst, (uint16_t)set_para_num[0]);     break;
-        case 2: return (int64_t)IO_PWM_Get_Duty_Cycle(_inst, (uint16_t*)&get_para_num[0]);         break;
+        case 0: return (int64_t)IO_PWM_Init(_inst, _config);
+        case 1: return (int64_t)IO_PWM_Set_Duty_Cycle(_inst, (uint16_t)set_para_num[0]);
+        case 2: return (int64_t)IO_PWM_Get_Duty_Cycle(_inst, (uint16_t*)&get_para_num[0]);
         //!NOTE! Add new functions here
-        //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);                              break;
+        //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);
     }
     setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }

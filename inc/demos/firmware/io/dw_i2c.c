@@ -67,12 +67,12 @@ static int get_func(int p_func_id, bool* p_not_inst_null) {
     io_i2c_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
     
     switch(p_func_id) {
-        case 0: return (int64_t)IO_I2C_Init(_inst, _config, (uint8_t)set_para_num[0]);      break;
-        case 1: return (int64_t)IO_I2C_Set_Clock(_inst, (uint32_t)set_para_num[0]);               break;
-        case 2: return (int64_t)IO_I2C_Transmit(_inst, &msg);                          break;
-        case 3: return (int64_t)IO_I2C_Receive(_inst, &msg);                           break;
+        case 0: return (int64_t)IO_I2C_Init(_inst, _config, (uint8_t)set_para_num[0]);
+        case 1: return (int64_t)IO_I2C_Set_Clock(_inst, (uint32_t)set_para_num[0]);
+        case 2: return (int64_t)IO_I2C_Transmit(_inst, &msg);
+        case 3: return (int64_t)IO_I2C_Receive(_inst, &msg);
         //!NOTE! Add new functions here
-        //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);      break;
+        //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);
     }
     setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }

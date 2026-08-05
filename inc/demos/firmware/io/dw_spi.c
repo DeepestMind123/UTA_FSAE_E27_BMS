@@ -55,11 +55,11 @@ static int get_func(int p_func_id, bool* p_not_inst_null) {
     io_spi_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
     
     switch(p_func_id) {
-        case 0: return (int64_t)IO_SPI_Init(_inst, _config);                                                                                           break;
-        case 1: return (int64_t)IO_SPI_Transfer_Word(_inst, (uint8_t)set_para_num[0], (uint8_t*)&get_para_num[0], (uint8_t*)&get_para_num[1]);                             break;
-        case 2: return (int64_t)IO_SPI_Transfer_Sentence(_inst, (uint8_t)set_para_num[2], (uint8_t*)&get_para_num[0], (uint8_t*)&get_para_num[1], (uint8_t)set_para_num[1]);     break;
+        case 0: return (int64_t)IO_SPI_Init(_inst, _config);
+        case 1: return (int64_t)IO_SPI_Transfer_Word(_inst, (uint8_t)set_para_num[0], (uint8_t*)&get_para_num[0], (uint8_t*)&get_para_num[1]);
+        case 2: return (int64_t)IO_SPI_Transfer_Sentence(_inst, (uint8_t)set_para_num[2], (uint8_t*)&get_para_num[0], (uint8_t*)&get_para_num[1], (uint8_t)set_para_num[1]);
         //!NOTE! Add new functions here
-        //case #: return (int64_t)New_Func(&_inst, &get_para_num_1);                                                                                            break;
+        //case #: return (int64_t)New_Func(&_inst, &get_para_num_1);
     }
     setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }
