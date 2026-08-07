@@ -1,0 +1,24 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build MSYS2 Project",
+      "type": "shell",
+      "command": "C:\\msys64\\msys2_shell.cmd",
+      "args": [
+        "-ucrt64",
+        "-defterm",
+        "-no-start",
+        "-where",
+        ".",
+        "-c",
+        "make clean && make"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": ["$gcc"]
+    }
+  ]
+}
