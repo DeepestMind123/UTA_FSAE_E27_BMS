@@ -13,12 +13,16 @@
 
 #ifdef DEMO_UTILS
 
+static void Disable(void)    {};
+static void Enable(void)                {};
+static uint32_t Get_State(void)         {};
+static void Set_State(uint32_t state)   {};
 // Initialization
 static util_irq_cfg_t util_irq_cfg = {
-    .Disable = NULL,
-    .Enable = NULL,
-    .Get_State = NULL,
-    .Set_State = NULL
+    .Disable = Disable,
+    .Enable = Enable,
+    .Get_State = Get_State,
+    .Set_State = Set_State
 };
 static util_irq_t util_irq_inst = {
     .is_init = false,
@@ -95,16 +99,16 @@ typedef enum {
     //!NOTE! Add func id here
     //"NEW FUNC ID"
 } func_id;
+#define NULL_COUNT 5
 // Get func output to compare non-null vs. null
-static int get_func(int p_func_id, bool* p_not_inst_null) {
+static int get_func(int p_func_id) {
     setIntArrayDefault(get_para_num, 1, UINT8_MAX);
-    setBoolArrayDefault(not_null_bools, 1, false);
 
-    util_irq_t *_inst           = p_not_inst_null[0] ? &util_irq_inst : NULL;
-    util_irq_cfg_t *_config     = p_not_inst_null[1] ? &util_irq_cfg : NULL;
-    util_time_t *_time          = p_not_inst_null[2] ? &util_time_inst : NULL;
-    pid_ctrl_cfg_t *_cfg        = p_not_inst_null[3] ? &pid_ctrl_cfg : NULL;
-    pid_ctrl_t *_pid_ctrl       = p_not_inst_null[4] ? &pid_ctrl_inst : NULL;
+    util_irq_t *_inst           = not_null_bools[0] ? &util_irq_inst : NULL;
+    util_irq_cfg_t *_config     = not_null_bools[1] ? &util_irq_cfg : NULL;
+    util_time_t *_time          = not_null_bools[2] ? &util_time_inst : NULL;
+    pid_ctrl_cfg_t *_cfg        = not_null_bools[3] ? &pid_ctrl_cfg : NULL;
+    pid_ctrl_t *_pid_ctrl       = not_null_bools[4] ? &pid_ctrl_inst : NULL;
     
     switch(p_func_id) {
         case UTIL_IRQ_Init_ID: return (int64_t)UTIL_IRQ_Init(_inst, _config);
@@ -119,6 +123,7 @@ static int get_func(int p_func_id, bool* p_not_inst_null) {
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);
     }
+    setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
     setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }
 static driver_watcher_interface_t drive_watcher = {
@@ -131,10 +136,12 @@ static driver_watcher_interface_t drive_watcher = {
 
 // Tests all adc methods
 void demo_watch_utils_all() {
+    not_null_bools = malloc(sizeof(bool) * NULL_COUNT);
+    setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
     demo_watch_utils_funcs();
+    demo_watch_utils_init();
 }
 
-#define NULL_COUNT 5
 // General utils test method that goes through every function
 void demo_watch_utils_funcs() {
     init_driver_watcher("UTILS", 0, &drive_watcher);
@@ -154,22 +161,23 @@ void demo_watch_utils_irq_funcs() {
     init_driver_watcher("UTILS", 1, &drive_watcher);
     // UTIL IRQ
     // [0] UTILS IRQ INIT
-    watch_inst_conf(UTIL_IRQ_Init_ID, IRQ_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_IRQ_Init_ID, IRQ_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
+
+    SET_NULL_FLAGS(true, true, true, true, true);
+    watch_inst_conf(UTIL_IRQ_Init_ID, IRQ_STATUS_OK);
+    SET_NULL_FLAGS(false, false, false, false, false);
+    watch_inst_conf(UTIL_IRQ_Init_ID, IRQ_STATUS_ERROR_NULL_POINTER);
 
     // [1] UTILS IRQ ENTER CRITICAL
-    watch_inst_conf(UTIL_IRQ_Enter_Critical_ID, IRQ_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_IRQ_Enter_Critical_ID, IRQ_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
+    SET_NULL_FLAGS(true, true, true, true, true);
+    watch_inst_conf(UTIL_IRQ_Enter_Critical_ID, IRQ_STATUS_OK);
+    SET_NULL_FLAGS(false, false, false, false, false);
+    watch_inst_conf(UTIL_IRQ_Enter_Critical_ID, IRQ_STATUS_ERROR_NULL_POINTER);
     
     // [2] UTILS IRQ EXIT CRITICAL
-    watch_inst_conf(UTIL_IRQ_Exit_Critical_ID, IRQ_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_IRQ_Exit_Critical_ID, IRQ_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
+    SET_NULL_FLAGS(true, true, true, true, true);
+    watch_inst_conf(UTIL_IRQ_Exit_Critical_ID, IRQ_STATUS_OK);
+    SET_NULL_FLAGS(false, false, false, false, false);
+    watch_inst_conf(UTIL_IRQ_Exit_Critical_ID, IRQ_STATUS_ERROR_NULL_POINTER);
     
     asm("NOP"); //!BREAK! Use this as breakpoint
 }
@@ -178,22 +186,22 @@ void demo_watch_utils_time_funcs() {
     init_driver_watcher("UTILS", 2, &drive_watcher);
     // UTIL TIME
     // [3] UTILS TIME INIT
-    watch_inst_conf(UTIL_Time_Init_ID, TIME_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_Time_Init_ID, TIME_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
+    SET_NULL_FLAGS(true, true, true, true, true);
+    watch_inst_conf(UTIL_Time_Init_ID, TIME_STATUS_OK);
+    SET_NULL_FLAGS(false, false, false, false, false);
+    watch_inst_conf(UTIL_Time_Init_ID, TIME_STATUS_ERROR_NULL_POINTER);
 
     // [4] UTILS TIME TICK UP
-    watch_inst_conf(UTIL_Time_Tick_Up_ID, TIME_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_Time_Tick_Up_ID, TIME_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
+    SET_NULL_FLAGS(true, true, true, true, true);
+    watch_inst_conf(UTIL_Time_Tick_Up_ID, TIME_STATUS_OK);
+    SET_NULL_FLAGS(false, false, false, false, false);
+    watch_inst_conf(UTIL_Time_Tick_Up_ID, TIME_STATUS_ERROR_NULL_POINTER);
     
     // [5] UTILS TIME GET TICK
-    watch_inst_conf(UTIL_Time_Get_Tick_ID, TIME_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_Time_Get_Tick_ID, TIME_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
+    SET_NULL_FLAGS(true, true, true, true, true);
+    watch_inst_conf(UTIL_Time_Get_Tick_ID, TIME_STATUS_OK);
+    SET_NULL_FLAGS(false, false, false, false, false);
+    watch_inst_conf(UTIL_Time_Get_Tick_ID, TIME_STATUS_ERROR_NULL_POINTER);
     
     asm("NOP"); //!BREAK! Use this as breakpoint
 }
@@ -202,22 +210,25 @@ void demo_watch_utils_pid_ctrl_funcs() {
     init_driver_watcher("UTILS", 3, &drive_watcher);
     // UTIL PID CTRL
     // [6] UTILS PID CTRL INIT
-    watch_inst_conf(UTIL_PID_Ctrl_Init_ID, PID_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_PID_Ctrl_Init_ID, PID_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
+    SET_NULL_FLAGS(true, true, true, true, true);
+    watch_inst_conf(UTIL_PID_Ctrl_Init_ID, PID_STATUS_OK);
+    SET_NULL_FLAGS(false, false, false, false, false);
+    watch_inst_conf(UTIL_PID_Ctrl_Init_ID, PID_STATUS_ERROR_NULL_POINTER);
+    watch_inst_conf(UTIL_PID_Ctrl_Init_ID, PID_STATUS_OK);
+    SET_NULL_FLAGS(false, false, false, false, false);
+    watch_inst_conf(UTIL_PID_Ctrl_Init_ID, PID_STATUS_ERROR_NULL_POINTER);
         
     // [7] UTILS PID CTRL TASK
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
+    SET_NULL_FLAGS(true, true, true, true, true);
+    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_OK);
+    SET_NULL_FLAGS(false, false, false, false, false);
+    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_ERROR_NULL_POINTER);
     
     // [8] UTILS PID CTRL GET VAL
-    watch_inst_conf(UTIL_PID_Ctrl_Get_Val_ID, PID_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_PID_Ctrl_Get_Val_ID, PID_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
+    SET_NULL_FLAGS(true, true, true, true, true);
+    watch_inst_conf(UTIL_PID_Ctrl_Get_Val_ID, PID_STATUS_OK);
+    SET_NULL_FLAGS(false, false, false, false, false);
+    watch_inst_conf(UTIL_PID_Ctrl_Get_Val_ID, PID_STATUS_ERROR_NULL_POINTER);
     
     asm("NOP"); //!BREAK! Use this as breakpoint
 }
@@ -227,56 +238,17 @@ void demo_watch_utils_init() {
     init_driver_watcher("UTILS", 4, &drive_watcher); //!BREAK! Use this as breakpoint
     
     // [7] UTILS TASK
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {true, true, true, true, true});    // State: NULL_POINTER
+    memcpy(not_null_bools, (bool[]){ true, true, true, true, true }, sizeof(bool) * NULL_COUNT);
+    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_ERROR_NULL_POINTER);    // State: NULL_POINTER
     
     // [6] UTILS INIT
-    watch_inst_conf(UTIL_PID_Ctrl_Init_ID, PID_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true, true});    // State: NULL_POINTER
-    
-    // [7] UTILS TASK
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {false, false, false, false, true});  // State: NULL_POINTER
-}
- 
-// Demo to test different task states
-void demo_watch_utils_task() {
-    init_driver_watcher("UTILS", 5, &drive_watcher); //!BREAK! Use this as breakpoint
-    
-    // [0] UTILS IRQ INIT
-    watch_inst_conf(UTIL_IRQ_Init_ID, IRQ_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_IRQ_Init_ID, IRQ_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
-    // [3] UTILS TIME INIT
-    watch_inst_conf(UTIL_Time_Init_ID, TIME_STATUS_OK, 
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_Time_Init_ID, TIME_STATUS_ERROR_NULL_POINTER, 
-        (bool[NULL_COUNT]) {false, false, false, false, false});
-    // [7] UTILS TASK
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_ERROR_NOT_INIT,
-        (bool[NULL_COUNT]) {true, true, true, true, true});
+    memcpy(not_null_bools, (bool[]){ true, true, true, true, true }, sizeof(bool) * NULL_COUNT);
+    watch_inst_conf(UTIL_PID_Ctrl_Init_ID, PID_STATUS_OK);
+    memcpy(not_null_bools, (bool[]){ false, false, false, false, false }, sizeof(bool) * NULL_COUNT);
+    watch_inst_conf(UTIL_PID_Ctrl_Init_ID, PID_STATUS_ERROR_NULL_POINTER);
 
-    // [6] UTILS INIT
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true, true});
     // [7] UTILS TASK
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_ERROR_NOT_INIT,
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    
-    // [6] UTILS INIT
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    // [7] UTILS TASK
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true, true});
-    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true, true, true});
+    memcpy(not_null_bools, (bool[]){ true, true, true, true, true }, sizeof(bool) * NULL_COUNT);
+    watch_inst_conf(UTIL_PID_Ctrl_Task_ID, PID_STATUS_ERROR_NULL_POINTER);  // State: NULL_POINTER
 }
 #endif

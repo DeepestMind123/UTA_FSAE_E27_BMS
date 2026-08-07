@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
+#include <stdlib.h>
 
 #include "demo_test.h"
 
@@ -28,7 +30,10 @@ extern uint8_t test_id;
 extern uint8_t param_size;
 extern int64_t set_para_num[10];
 extern int64_t get_para_num[10];
-extern bool not_null_bools[10];
+
+#define SET_NULL_FLAGS(...) \
+    memcpy(not_null_bools, (bool[]){ __VA_ARGS__ }, sizeof((bool[]){ __VA_ARGS__ }))
+extern bool *not_null_bools;
 
 void setBoolArrayDefault(bool *p_arr, int p_size, bool p_state);
 void setIntArrayDefault(int64_t *p_arr, int p_size, int64_t p_val);
@@ -40,12 +45,12 @@ typedef struct {
     const int get_state_func_id;
     
     // Generic wrapper for printing demo information
-    int (*execute_func)(int p_func_id, bool* p_non_null_inst);
+    int (*execute_func)(int p_func_id);
 } driver_watcher_interface_t;
 
 // Purely generic testing engine functions
 void init_driver_watcher(char *p_driver_name, uint8_t p_test_id, driver_watcher_interface_t *p_driver);
-void watch_inst_conf(int p_func_id, int p_status_exp, bool *p_not_null_inst);
+void watch_inst_conf(int p_func_id, int p_status_exp);
 
 void demo_watcher();
 
@@ -94,7 +99,6 @@ void demo_watch_utils_time_funcs();
 void demo_watch_utils_pid_ctrl_funcs();
 
 void demo_watch_utils_init();
-void demo_watch_utils_task();
 #endif
 
 #endif

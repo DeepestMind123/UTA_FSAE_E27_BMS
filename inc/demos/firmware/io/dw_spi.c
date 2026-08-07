@@ -47,12 +47,12 @@ typedef enum {
     //!NOTE! Add func id here
     //"NEW FUNC ID"
 } func_id;
+#define NULL_COUNT 2
 // Get func output to compare non-null vs. null
-static int get_func(int p_func_id, bool* p_not_inst_null) {
+static int get_func(int p_func_id) {
     setIntArrayDefault(get_para_num, 1, UINT8_MAX);
-    setBoolArrayDefault(not_null_bools, 1, false);
-    io_spi_t *_inst             = p_not_inst_null[0] ? &inst : NULL;
-    io_spi_cfg_t *_config       = p_not_inst_null[1] ? &config : NULL;
+    io_spi_t *_inst             = not_null_bools[0] ? &inst : NULL;
+    io_spi_cfg_t *_config       = not_null_bools[1] ? &config : NULL;
     
     switch(p_func_id) {
         case 0: return (int64_t)IO_SPI_Init(_inst, _config);
@@ -61,6 +61,7 @@ static int get_func(int p_func_id, bool* p_not_inst_null) {
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num_1);
     }
+    setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
     setIntArrayDefault(set_para_num, 1, UINT8_MAX);
 }
 static driver_watcher_interface_t drive_watcher = {
@@ -73,36 +74,37 @@ static driver_watcher_interface_t drive_watcher = {
 
 // Tests all spi methods
 void demo_watch_spi_all() {
+    not_null_bools = malloc(sizeof(bool) * NULL_COUNT);
+    setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
     demo_watch_spi_funcs();
 }
-#define NULL_COUNT 2
 // Tests the spi fault system to ensure its accurate
 void demo_watch_spi_funcs() {
     init_driver_watcher("SPI", 1, &drive_watcher); //!BREAK! Use this as breakpoint
     
     // Action Methods
     // [0] SPI INIT
-    watch_inst_conf(SPI_INIT, SPI_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(SPI_INIT, SPI_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {true, false, true});
-    watch_inst_conf(SPI_INIT, SPI_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {false, true, true});
-    watch_inst_conf(SPI_INIT, SPI_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {false, false, true});
+    SET_NULL_FLAGS(true, true);
+    watch_inst_conf(SPI_INIT, SPI_STATUS_OK);
+    SET_NULL_FLAGS(true, true);
+    watch_inst_conf(SPI_INIT, SPI_STATUS_ERROR_NULL_POINTER);
+    SET_NULL_FLAGS(true, true);
+    watch_inst_conf(SPI_INIT, SPI_STATUS_ERROR_NULL_POINTER);
+    SET_NULL_FLAGS(true, true);
+    watch_inst_conf(SPI_INIT, SPI_STATUS_ERROR_NULL_POINTER);
     
     // I/O Methods
     // [1] SPI TRANSFER WORD
-    watch_inst_conf(SPI_TRANSFER_WORD, SPI_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(SPI_TRANSFER_WORD, SPI_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {false, false, true});
+    SET_NULL_FLAGS(true, true);
+    watch_inst_conf(SPI_TRANSFER_WORD, SPI_STATUS_OK);
+    SET_NULL_FLAGS(true, true);
+    watch_inst_conf(SPI_TRANSFER_WORD, SPI_STATUS_ERROR_NULL_POINTER);
 
     // [2] SPI TRANSFER SENTENCE
-    watch_inst_conf(SPI_TRANSFER_SENTENCE, SPI_STATUS_OK,
-        (bool[NULL_COUNT]) {true, true, true});
-    watch_inst_conf(SPI_TRANSFER_SENTENCE, SPI_STATUS_ERROR_NULL_POINTER,
-        (bool[NULL_COUNT]) {false, false, true});
+    SET_NULL_FLAGS(true, true);
+    watch_inst_conf(SPI_TRANSFER_SENTENCE, SPI_STATUS_OK);
+    SET_NULL_FLAGS(true, true);
+    watch_inst_conf(SPI_TRANSFER_SENTENCE, SPI_STATUS_ERROR_NULL_POINTER);
     
     //!NOTE! Add new function to track here
     //// [#] NEW FUNC

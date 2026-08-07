@@ -5,17 +5,14 @@
  * @brief demo watch manager <SF>
  */
 #include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 
 #include "dw_manager.h"
 
 void demo_watcher() {
     setIntArrayDefault(set_para_num, 1, UINT64_MAX);
     setIntArrayDefault(get_para_num, 1, UINT64_MAX);
-    setBoolArrayDefault(not_null_bools, 1, false);
 
-    // demo_watch_adc_all();
+    demo_watch_adc_all();
     // demo_watch_can_all();
     // demo_watch_i2c_all();
     // demo_watch_pwm_all();
@@ -25,7 +22,7 @@ void demo_watcher() {
     // demo_watch_fan_control_all();
     // demo_watch_ltc6813_all();
 
-    demo_watch_utils_all();
+    // demo_watch_utils_all();
 }
 
 void setBoolArrayDefault(bool *p_arr, int p_size, bool p_state) {
@@ -71,9 +68,9 @@ char get_para_num_watch[50];
 uint8_t param_size = 10;
 int64_t set_para_num[10];
 int64_t get_para_num[10];
-bool not_null_bools[10];
+bool *not_null_bools = NULL;
 
-char driver_name[20];
+char driver_name[15];
 uint8_t test_id = 0;
 static driver_watcher_interface_t *active_driver = NULL;
 
@@ -85,16 +82,16 @@ void init_driver_watcher(char *p_driver_name, uint8_t p_test_id, driver_watcher_
     active_driver = p_driver;
 }
 // Magic watch method
-void watch_inst_conf(int p_func_id, int p_status_exp, bool* p_not_null_inst) {
-    if (active_driver == NULL || p_not_null_inst == NULL) return;
+void watch_inst_conf(int p_func_id, int p_status_exp) {
+    if (active_driver == NULL) return;
 
     int state_idx = -1;
     if (active_driver->get_state_func_id >= 0)
-        state_idx = active_driver->execute_func(active_driver->get_state_func_id, p_not_null_inst);
+        state_idx = active_driver->execute_func(active_driver->get_state_func_id);
 
     // Run driver function with temporary allocated array
     bool *bool_copy = createTrueBoolArrayCopy(param_size);
-    int status_idx = active_driver->execute_func(p_func_id, bool_copy);
+    int status_idx = active_driver->execute_func(p_func_id);
     free(bool_copy);
 
     const char *_func_str       = active_driver->func_strings[p_func_id];
