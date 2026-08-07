@@ -9,38 +9,169 @@
 
 typedef struct
 {
+    bool icon_done;
+    bool vcon_done;
+    bool tcon_done;
+} eval_ctx_t;
+
+
+typedef struct
+{
+    bool is_init;
+    eval_ctx_t ctx;
     eval_con_t con;
     daq_data_t data;
+    eval_state_t state;
+    eval_status_t status;
 } eval_t;
 
 static eval_t s_eval;
 
+eval_status_t BMS_Eval_Init(void)
+{
+    eval_status_t status = EVAL_NOT_INIT;
+
+    if(!s_eval.is_init)
+    {
+        s_eval.state = EVAL_STATE_IDLE;
+
+        s_eval.ctx.icon_done = false;
+        s_eval.ctx.vcon_done = false;
+        s_eval.ctx.tcon_done = false;
+
+        s_eval.is_init = true;
+    }
+    else
+    {
+        status = EVAL_DBL_INIT;
+    }
+
+    return status;
+}
+
 eval_status_t BMS_Eval_Task(const daq_data_t *p_data_in, eval_con_t *p_out)
 {
-    eval_status_t status = EVAL_OK;
+    s_eval.status = EVAL_OK;
 
     if((p_data_in != NULL) && (p_out != NULL))
     {
-        s_eval.data = *p_data_in;
+        daq_data_t data = *p_data_in;
 
-        status = BMS_Eval_Icon(p_data_in, &s_eval.con);
-
-        if(status == EVAL_OK)
+        if(s_eval.is_init)
         {
-            status = BMS_Eval_Vcon(p_data_in, &s_eval.con);
-
-            if(status == EVAL_OK)
+            if((s_eval.state >= EVAL_STATE_MAX) || (s_eval.state == EVAL_STATE_UNDEF))
             {
-                status = BMS_Eval_Tcon(p_data_in, &s_eval.con);
+                s_eval.status = EVAL_UNDEF_STATE;
+
+                s_eval.state = EVAL_STATE_ERROR;
             }
+
+            switch(s_eval.state)
+            {
+                case EVAL_STATE_IDLE:
+                {
+                    if(!s_eval.ctx.icon_done)
+                    {
+                        s_eval.state = EVAL_STATE_ICON;
+                    }
+                    else if(!s_eval.ctx.vcon_done)
+                    {
+                        s_eval.state = EVAL_STATE_VCON;
+                    }
+                    else if(!s_eval.ctx.tcon_done)
+                    {
+                        s_eval.state = EVAL_STATE_TCON;
+                    }
+                    else
+                    {
+                        s_eval.state = EVAL_STATE_DONE;
+                    }
+
+                    break;
+                }
+
+                case EVAL_STATE_ICON:
+                {
+                    s_eval.status = BMS_Eval_Icon(&data, &p_out);
+
+                    if(s_eval.status == EVAL_OK)
+                    {
+                        s_eval.ctx.icon_done = true;
+
+                        s_eval.state = EVAL_STATE_IDLE;
+                    }
+                    else
+                    {
+                        s_eval.state = EVAL_STATE_ERROR;
+                    }
+
+                    break;
+                }
+
+                case EVAL_STATE_VCON:
+                {
+                    s_eval.status = BMS_Eval_Vcon(&data, &p_out);
+
+                    if(s_eval.status == EVAL_OK)
+                    {
+                        s_eval.ctx.vcon_done = true;
+
+                        s_eval.state = EVAL_STATE_IDLE;
+                    }
+                    else
+                    {
+                        s_eval.state = EVAL_STATE_ERROR;
+                    }
+
+                    break;
+                }
+
+                case EVAL_STATE_TCON:
+                {
+                    s_eval.status = BMS_Eval_Tcon(&data, &p_out);
+
+                    if(s_eval.status == EVAL_OK)
+                    {
+                        s_eval.ctx.tcon_done = true;
+
+                        s_eval.state = EVAL_STATE_IDLE;
+                    }
+                    else
+                    {
+                        s_eval.state = EVAL_STATE_ERROR;
+                    }
+
+                    break;
+                }
+
+                case EVAL_STATE_DONE:
+                {
+                    s_eval.ctx.icon_done = false;
+                    s_eval.ctx.vcon_done = false;
+                    s_eval.ctx.tcon_done = false;
+
+                    s_eval.state = EVAL_STATE_IDLE;
+
+                    break;
+                }
+
+                case EVAL_STATE_ERROR:
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            s_eval.status = EVAL_NOT_INIT;
         }
     }
     else
     {
-        status = EVAL_NULL_PTR;
+        s_eval.status = EVAL_NULL_PTR;
     }
 
-    return status;
+    return s_eval.status;
 }
 
 eval_status_t BMS_Eval_Icon(const daq_data_t *p_data_in, eval_con_t *p_out)
@@ -206,6 +337,33 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
         {
             status = EVAL_TDATA_INVALID;
         }
+    }
+    else
+    {
+        status = EVAL_NULL_PTR;
+    }
+
+    return status;
+}
+
+eval_status_t BMS_Eval_Get_State(eval_state_t *p_out)
+{
+    eval_status_t status = EVAL_OK;   
+
+    eval_state_t state = EVAL_STATE_UNDEF;
+
+    if(p_out != NULL)
+    {
+        if(s_eval.is_init)
+        {
+            state = s_eval.state;
+        }
+        else
+        {
+            status = EVAL_NOT_INIT;
+        }
+
+        *p_out = state;
     }
     else
     {
