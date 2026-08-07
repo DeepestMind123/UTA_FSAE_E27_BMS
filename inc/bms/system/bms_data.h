@@ -103,8 +103,13 @@ typedef struct
 
 typedef struct
 {
+    eval_tcon_t temp_con[SMALL_ARR_16];
+} eval_tmod_t;
+
+typedef struct
+{
     bool tpack_fault;
-    eval_tcon_t tmod[SMALL_ARR_16];
+    eval_tmod_t tmod[SMALL_ARR_16];
 } eval_tpack_t;
 
 typedef struct
