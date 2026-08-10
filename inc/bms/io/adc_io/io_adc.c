@@ -25,7 +25,7 @@ adc_status_t IO_ADC_Init(adc_t *p_inst, const adc_cfg_t *p_cfg)
             }
             else
             {
-                status = ADC_NULL_PTR;
+                status = ADC_NULL_FUNC;
             }
 
             if(p_cfg->time_cfg != NULL)
@@ -54,6 +54,8 @@ adc_status_t IO_ADC_Init(adc_t *p_inst, const adc_cfg_t *p_cfg)
 
                 p_inst->state = ADC_STATE_IDLE;
 
+                p_inst->status = ADC_OK;
+
                 p_inst->is_ready = false;
 
                 p_inst->last_raw = 0U;
@@ -61,10 +63,6 @@ adc_status_t IO_ADC_Init(adc_t *p_inst, const adc_cfg_t *p_cfg)
                 p_inst->is_init = true;
 
                 status = ADC_OK;
-            }
-            else 
-            {
-                status = ADC_NULL_PTR;
             }
         }
         else
@@ -82,7 +80,7 @@ adc_status_t IO_ADC_Init(adc_t *p_inst, const adc_cfg_t *p_cfg)
 
 adc_status_t IO_ADC_Task(adc_t *p_inst)
 {
-    p_inst->status = ADC_OK;
+    adc_status_t status;
     time_status_t time_status;
     uint32_t now_time = 0U;
 
@@ -151,6 +149,8 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
                             }
                             else if(now_time - p_inst->start_time >= p_inst->adc_ctx.adc_wait_ms)
                             {
+                                p_inst->adc_func.ADC_stop();
+
                                 p_inst->start_time = now_time;
 
                                 p_inst->state = ADC_STATE_GET;
@@ -158,6 +158,8 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
                         }
                         else
                         {
+                            p_inst->adc_func.ADC_stop();
+
                             p_inst->status = ADC_TIMEOUT;
 
                             p_inst->state = ADC_STATE_ERROR;
@@ -165,6 +167,8 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
                     }
                     else
                     {
+                        p_inst->adc_func.ADC_stop();
+
                         p_inst->status = ADC_TIME_FAULT;
 
                         p_inst->state = ADC_STATE_ERROR;
@@ -217,7 +221,11 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
 
                 case ADC_STATE_ERROR:
                 {
-                    // indicates the adc has encountered an error, intentionally left blank
+                    if(p_inst->status == ADC_OK)
+                    {
+                        p_inst->status = ADC_UNKNOWN_ERROR;
+                    }
+
                     break;
                 }
 
@@ -238,11 +246,15 @@ adc_status_t IO_ADC_Task(adc_t *p_inst)
     }
     else 
     {
-        p_inst->status = ADC_NULL_PTR;
+        status = ADC_NULL_PTR;
     }
 
-    return p_inst->status;
+    if(p_inst != NULL)
+    {
+        status = p_inst->status;
+    }
 
+    return status;
 }
 
 adc_status_t IO_ADC_Start(adc_t *p_inst)

@@ -22,6 +22,7 @@ typedef enum
     ADC_TIME_FAULT,
     ADC_UNDEF_STATE,
     ADC_INVALID_CFG,
+    ADC_UNKNOWN_ERROR,
     ADC_STATUS_MAX
 } adc_status_t;
 
