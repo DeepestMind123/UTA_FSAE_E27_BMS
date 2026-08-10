@@ -7,92 +7,106 @@
 
 #include "util_irq.h"
 
-irq_status_t UTIL_IRQ_Init(util_irq_t *p_irq, const util_irq_cfg_t *p_cfg)
+irq_status_t UTIL_IRQ_Init(util_irq_t *p_irq, const irq_func_t *p_func)
 {
-    irq_status_t status = IRQ_STATUS_ERROR_NOT_INIT;
+    irq_status_t status = IRQ_NOT_INIT;
 
-    if((p_irq != NULL) && (p_cfg != NULL))
+    if((p_irq != NULL) && (p_func != NULL))
     {
-        p_irq->cfg = p_cfg;
+        if(!p_irq->is_init)
+        {
+            p_irq->func = p_func;
 
-        if((p_irq->cfg->Disable != NULL) &&
-            (p_irq->cfg->Enable != NULL) &&
-            (p_irq->cfg->Get_State != NULL) &&
-            (p_irq->cfg->Set_State != NULL))
+            if((p_irq->func->Disable != NULL) &&
+                (p_irq->func->Enable != NULL) &&
+                (p_irq->func->Get_State != NULL) &&
+                (p_irq->func->Set_State != NULL))
             {
+                p_irq->has_saved_state = false;
+                
                 p_irq->is_init = true;
 
-                status = IRQ_STATUS_OK;
+                status = IRQ_OK;
             }
             else
             {
-                status = IRQ_STATUS_ERROR_NULL_POINTER;
+                status = IRQ_NULL_PTR;
             }
+        }
+        else
+        {
+            status = IRQ_DBL_INIT;
+        }
     }
     else
     {
-        status = IRQ_STATUS_ERROR_NULL_POINTER;
+        status = IRQ_NULL_PTR;
     }
 
     return status;
 }
 
-irq_status_t UTIL_IRQ_Enter_Critical(util_irq_t *p_irq, uint32_t *p_out)
+irq_status_t UTIL_IRQ_Enter_Critical(util_irq_t *p_irq)
 {
-    irq_status_t status = IRQ_STATUS_OK;
+    irq_status_t status = IRQ_OK;
 
-    uint32_t last_state;
-
-    if((p_irq != NULL) && 
-        (p_irq->cfg != NULL) && 
-        (p_irq->cfg->Get_State != NULL) &&
-        (p_irq->cfg->Disable) &&
-        (p_out != NULL))
+    if(p_irq != NULL)
     {
+        p_irq->last_state = 0U;;
+
         if(p_irq->is_init)
         {
-            last_state = p_irq->cfg->Get_State(); // fetch current intterupt state
+            p_irq->last_state = p_irq->func->Get_State(); // fetch current intterupt state
 
-            p_irq->cfg->Disable(); // disable interrupts
+            if(p_irq->last_state != 0U)
+            {
+                p_irq->has_saved_state = true;
+            }
+
+            p_irq->func->Disable(); // disable interrupts
         }
         else 
         {
-            status = IRQ_STATUS_ERROR_NOT_INIT;
+            status = IRQ_NOT_INIT;
         }
-
-        *p_out = last_state;
     }
     else 
     {
-        status = IRQ_STATUS_ERROR_NULL_POINTER;
+        status = IRQ_NULL_PTR;
     }
 
     return status;
 }
 
-irq_status_t UTIL_IRQ_Exit_Critical(util_irq_t *p_irq, uint32_t state)
+irq_status_t UTIL_IRQ_Exit_Critical(util_irq_t *p_irq)
 {
-    irq_status_t status = IRQ_STATUS_OK;
+    irq_status_t status = IRQ_OK;
 
-    if((p_irq != NULL) && 
-        (p_irq->cfg != NULL) &&
-        (p_irq->cfg->Set_State) &&
-        (p_irq->cfg->Enable))
+    if(p_irq != NULL)
     {
         if(p_irq->is_init)
         {
-            p_irq->cfg->Set_State(state); // set interrupt state to saved state
+            if(p_irq->has_saved_state)
+            {
+                p_irq->func->Set_State(p_irq->last_state); // set interrupt state to saved state
 
-            p_irq->cfg->Enable(); // enable interrupts
+                p_irq->func->Enable(); // enable interrupts
+
+                p_irq->has_saved_state = false;
+            }
+            else
+            {
+                status = IRQ_NO_SAVED_STATE;
+            }
         }
         else 
         {
-            status = IRQ_STATUS_ERROR_NOT_INIT;
+            status = IRQ_NOT_INIT;
         }
     }
     else 
     {
-        status = IRQ_STATUS_ERROR_NULL_POINTER;
+        status = IRQ_NULL_PTR;
     }
 
     return status;
