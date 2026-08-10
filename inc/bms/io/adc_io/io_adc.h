@@ -72,6 +72,7 @@ typedef struct
     bool is_init;
     bool is_ready;
     adc_state_t state;                      // stores instanced state
+    adc_status_t status;
 
     adc_ctx_t adc_ctx;
     adc_func_t adc_func;
