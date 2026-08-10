@@ -13,10 +13,12 @@
 
 typedef enum
 {
-    TIME_STATUS_OK = 0,
-    TIME_STATUS_ERROR_NULL_POINTER,
-    TIME_STATUS_ERROR_NOT_INIT,
-    TIME_STATUS_ERROR_IRQ_ERROR
+    TIME_OK = 0U,
+    TIME_NOT_INIT,
+    TIME_DBL_INIT,
+    TIME_NULL_PTR,
+    TIME_IRQ_FAULT,
+    TIME_STATUS_MAX,
 } time_status_t;
 
 typedef struct
@@ -24,11 +26,11 @@ typedef struct
     bool is_init;
     volatile uint32_t tick;
 
-    const util_irq_t *irq;
+    util_irq_t *irq;
 } util_time_t;
 
 
-time_status_t UTIL_Time_Init(util_time_t *p_time, const util_irq_t *p_irq);
+time_status_t UTIL_Time_Init(util_time_t *p_time, util_irq_t *p_irq);
 
 time_status_t UTIL_Time_Tick_Up(util_time_t *p_time);
 
