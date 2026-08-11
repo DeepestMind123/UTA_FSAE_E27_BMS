@@ -11,6 +11,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 #include "util_time.h"
 #include "io_adc.h"
@@ -28,7 +29,9 @@ typedef enum
     ISENSE_TIME_FAULT,
     ISENSE_UNDEF_STATE,
     ISENSE_MISMATCH_STATE,
+    ISENSE_INVALID_CFG,
     ISENSE_BUSY,
+    ISENSE_UNKNOWN_ERROR,
     ISENSE_STATUS_MAX
 } isense_status_t;
 
@@ -47,7 +50,7 @@ typedef enum
 typedef struct
 {
     uint32_t timeout_ms;
-    uint16_t isense_gain_uV;                    // gain of sensor in uV / A
+    uint16_t isense_gain_uV;                    // gain of sensor in uV / mA
     uint16_t isense_raw_cutoff;                // clamp value for sensor calibration
 } isense_ctx_t;
 
@@ -62,7 +65,6 @@ typedef struct
 {
     uint32_t start_time;
     uint32_t raw_offset;                // calibrated offset value
-    uint32_t adc_timeout_ms;            // time in ms before current wait times out
     uint32_t isense_timeout_ms;          // timer in ms allowed in a state
     int32_t last_val;
 
@@ -71,9 +73,10 @@ typedef struct
     bool is_ready;
 
     isense_state_t state;
+    isense_status_t status;
 
     adc_t *p_adc;
-    util_time_t *p_time;
+    const util_time_t *p_time;
     isense_ctx_t isense_ctx;
     
 } isense_t;

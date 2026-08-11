@@ -15,24 +15,37 @@ isense_status_t DEV_Isense_Init(isense_t *p_inst, const isense_cfg_t *p_cfg)
     {
         if(!p_inst->is_init)
         {
-            // Initialize instanced variables to safe values
-            p_inst->p_adc = p_cfg->adc_cfg;
-            p_inst->p_time = p_cfg->time_cfg;
-            p_inst->isense_ctx = p_cfg->isense_fund_cfg;
+            if((p_cfg->adc_cfg != NULL) && (p_cfg->time_cfg != NULL))
+            {
+                // Initialize instanced variables to safe values
+                p_inst->p_adc = p_cfg->adc_cfg;
+                p_inst->p_time = p_cfg->time_cfg;
+                p_inst->isense_ctx = p_cfg->isense_fund_cfg;
+            }
+            else
+            {
+                status = ISENSE_NULL_PTR;
+            }
 
-            p_inst->raw_offset = 0U;
-            p_inst->start_time = 0U;
+            if(status != ISENSE_NULL_PTR)
+            {
+                p_inst->raw_offset = 0U;
+                p_inst->start_time = 0U;
 
-            p_inst->isense_timeout_ms = p_cfg->isense_fund_cfg.timeout_ms;
+                p_inst->last_val = 0U;
 
-            p_inst->state = ISENSE_STATE_IDLE;
+                p_inst->isense_timeout_ms = p_cfg->isense_fund_cfg.timeout_ms;
 
-            p_inst->val_diff = false;
-            p_inst->is_ready = false;
-            p_inst->is_init = true;
+                p_inst->state = ISENSE_STATE_IDLE;
+                p_inst->status = ISENSE_OK;
 
-            // Exit here if initialization is successful
-            status = ISENSE_OK;
+                p_inst->val_diff = false;
+                p_inst->is_ready = false;
+                p_inst->is_init = true;
+
+                // Exit here if initialization is successful
+                status = ISENSE_OK;
+            }
         }
         else
         {
@@ -50,7 +63,6 @@ isense_status_t DEV_Isense_Init(isense_t *p_inst, const isense_cfg_t *p_cfg)
 isense_status_t DEV_Isense_Task(isense_t *p_inst)
 {
     isense_status_t status = ISENSE_OK;
-
     adc_state_t adc_state;
     adc_status_t adc_status;
     bool adc_ready;
@@ -62,17 +74,16 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
     {
         if(p_inst->is_init)
         {
-
             if(IO_ADC_Task(p_inst->p_adc) != ADC_OK)
             {
-                status = ISENSE_ADC_FAULT;
+                p_inst->status = ISENSE_ADC_FAULT;
 
                 p_inst->state = ISENSE_STATE_ERROR;
             }
 
-            if((p_inst->state >= ISENSE_STATE_MAX) || (p_inst->state == ISENSE_STATE_UNDEF))
+            if((p_inst->state >= ISENSE_STATE_MAX) || (p_inst->state <= ISENSE_STATE_UNDEF))
             {
-                status = ADC_UNDEF_STATE;
+                p_inst->status = ISENSE_UNDEF_STATE;
 
                 p_inst->state = ISENSE_STATE_ERROR;
             }
@@ -97,9 +108,9 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
                             // Start ADC and switch states if no error
                             if(IO_ADC_Start(p_inst->p_adc) == ADC_OK)
                             {
-                                time_status = UTIL_Time_Get_Tick(p_inst->p_time, &p_inst->start_time);
+                                time_status = UTIL_Time_Get_Tick(p_inst->p_time, &now_time);
 
-                                if(time_status == TIME_STATUS_OK)
+                                if(time_status == TIME_OK)
                                 {
                                     p_inst->start_time = now_time;
 
@@ -107,28 +118,28 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
                                 }
                                 else
                                 {
-                                    status = ISENSE_TIME_FAULT;
+                                    p_inst->status = ISENSE_TIME_FAULT;
 
                                     p_inst->state = ISENSE_STATE_ERROR;
                                 }
                             }
                             else 
                             {
-                                status = ISENSE_ADC_FAULT;
+                                p_inst->status = ISENSE_ADC_FAULT;
 
                                 p_inst->state = ISENSE_STATE_ERROR;
                             }
                         }
                         else 
                         {
-                            status = ISENSE_MISMATCH_STATE;
+                            p_inst->status = ISENSE_MISMATCH_STATE;
 
                             p_inst->state = ISENSE_STATE_ERROR;
                         }
                     }
                     else 
                     {
-                        status = ISENSE_ADC_FAULT;
+                        p_inst->status = ISENSE_ADC_FAULT;
 
                         p_inst->state = ISENSE_STATE_ERROR;
                     }
@@ -140,10 +151,10 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
                 {
                     time_status = UTIL_Time_Get_Tick(p_inst->p_time, &now_time);
 
-                    if(time_status == TIME_STATUS_OK)
+                    if(time_status == TIME_OK)
                     {
                         // Check if time elapsed is less than the ADC timeout 
-                        if((now_time - p_inst->start_time <= p_inst->isense_timeout_ms) || (p_inst->isense_timeout_ms = 0U))
+                        if((now_time - p_inst->start_time <= p_inst->isense_timeout_ms) || (p_inst->isense_timeout_ms == 0U))
                         {
                             adc_status = IO_ADC_Get_Ready_Flag(p_inst->p_adc, &adc_ready);
 
@@ -158,21 +169,21 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
                             }
                             else 
                             {
-                                status = ISENSE_ADC_FAULT;
+                                p_inst->status = ISENSE_ADC_FAULT;
 
                                 p_inst->state = ISENSE_STATE_ERROR;
                             }
                         }
                         else 
                         {
-                            status = ISENSE_TIMEOUT;
+                            p_inst->status = ISENSE_TIMEOUT;
 
                             p_inst->state = ISENSE_STATE_ERROR;
                         }
                     }
                     else
                     {
-                        status = ISENSE_TIME_FAULT;
+                        p_inst->status = ISENSE_TIME_FAULT;
 
                         p_inst->state = ISENSE_STATE_ERROR;
                     }
@@ -184,13 +195,13 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
                 {
                     time_status = UTIL_Time_Get_Tick(p_inst->p_time, &now_time);
 
-                    if(time_status == TIME_STATUS_OK)
+                    if(time_status == TIME_OK)
                     {
                         if((now_time - p_inst->start_time <= p_inst->isense_timeout_ms) || (p_inst->isense_timeout_ms == 0U))
                         {
-                            status = DEV_Isense_Process_Raw(p_inst);
+                            p_inst->status = DEV_Isense_Process_Raw(p_inst);
 
-                            if(status == ISENSE_OK)
+                            if(p_inst->status == ISENSE_OK)
                             {
                                 p_inst->state = ISENSE_STATE_READY;
                             }
@@ -201,14 +212,14 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
                         }
                         else
                         {
-                            status = ISENSE_TIMEOUT;
+                            p_inst->status = ISENSE_TIMEOUT;
 
                             p_inst->state = ISENSE_STATE_ERROR;
                         }
                     }
                     else
                     {
-                        status = ISENSE_TIME_FAULT;
+                        p_inst->status = ISENSE_TIME_FAULT;
 
                         p_inst->state = ISENSE_STATE_ERROR;
                     }
@@ -228,7 +239,11 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
 
                 case ISENSE_STATE_ERROR:
                 {
-                    // Returns error state
+                    if(p_inst->status == ISENSE_OK)
+                    {
+                        p_inst->status = ISENSE_UNKNOWN_ERROR;
+                    }
+
                     break;
                 }
 
@@ -242,12 +257,17 @@ isense_status_t DEV_Isense_Task(isense_t *p_inst)
         }
         else 
         {
-            status = ISENSE_NOT_INIT;
+            p_inst->status = ISENSE_NOT_INIT;
         }
     }
     else
     {
         status = ISENSE_NULL_PTR;
+    }
+
+    if(p_inst != NULL)
+    {
+        status = p_inst->status;
     }
 
     return status;
@@ -272,7 +292,11 @@ isense_status_t DEV_Isense_Start(isense_t *p_inst)
                 {
                     p_inst->state = ISENSE_STATE_START;
                 }
-                else 
+                else if((p_inst->state >= ISENSE_STATE_MAX) || (p_inst->state <= ISENSE_STATE_UNDEF))
+                {
+                    status = ISENSE_UNDEF_STATE;
+                }
+                else
                 {
                     status = ISENSE_BUSY;
                 }
@@ -342,23 +366,47 @@ isense_status_t DEV_Isense_Process_Raw(isense_t *p_inst)
                 status = ISENSE_ADC_FAULT;
             }
 
-            status = DEV_Isense_Get_Gain(p_inst, &gain_uV);
-
-            if((resolution > 0U) && (gain_uV != 0))
+            if(status != ISENSE_ADC_FAULT)
             {
-                uint32_t voltage_mV = (raw * vref) / resolution;
-
-                int32_t delta_mV = (int32_t)voltage_mV - (int32_t)offset;
-
-                current_mA = (delta_mV * MV_TO_UV) / gain_uV;
+                status = DEV_Isense_Get_Gain(p_inst, &gain_uV);
             }
 
-            if(current_mA != p_inst->last_val)
+            if(status == ISENSE_OK)
             {
-                p_inst->val_diff = true;
-            }
+                if((resolution > 0U) && (gain_uV != 0))
+                {
+                    uint64_t voltage_mV = ((uint64_t)raw * (uint64_t)vref) / (uint64_t)resolution;
 
-            p_inst->last_val = current_mA;
+                    int64_t delta_mV = (int64_t)voltage_mV - (int64_t)offset;
+
+                    int64_t int_val = ((int64_t)delta_mV * (int64_t)MV_TO_UV) / (int64_t)gain_uV;
+
+                    if(int_val > INT32_MAX)
+                    {
+                        current_mA = INT32_MAX;
+                    }
+                    else if(int_val < INT32_MIN)
+                    {
+                        current_mA = INT32_MIN;
+                    }
+                    else
+                    {
+                        current_mA = (int32_t)int_val;
+                    }
+
+                    p_inst->val_diff = (current_mA != p_inst->last_val) ? true : false;
+
+                    p_inst->last_val = current_mA;
+                }
+                else
+                {
+                    status = ISENSE_INVALID_CFG;
+                }
+            }
+        }
+        else
+        {
+            status = ISENSE_NOT_INIT;
         }
     }
     else 
@@ -377,10 +425,7 @@ isense_status_t DEV_Isense_Set_Timeout(isense_t *p_inst, uint32_t new_val)
     {
         if(p_inst->is_init)
         {
-            if(new_val) // checks if delay between samples is valid (not 0)
-            {
-                p_inst->isense_timeout_ms = new_val;
-            }
+            p_inst->isense_timeout_ms = new_val;
         }
         else 
         {
@@ -488,6 +533,11 @@ isense_status_t DEV_Isense_Get_State(isense_t *p_inst, isense_state_t *p_out)
     {
         if(p_inst->is_init)
         {
+            if((p_inst->state >= ISENSE_STATE_MAX) || (p_inst->state <= ISENSE_STATE_UNDEF))
+            {
+                status = ISENSE_UNDEF_STATE;
+            }
+
             state = p_inst->state;
         }
         else 
