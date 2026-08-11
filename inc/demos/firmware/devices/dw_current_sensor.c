@@ -100,7 +100,7 @@ typedef enum {
 #define NULL_COUNT 2
 // Get func output to compare non-null vs. null
 static int get_func(int p_func_id) {
-    setIntArrayDefault(get_para_num, 1, UINT8_MAX);
+    setIntArrayDefault(get_para_int, PARAMSSIZE, UINT8_MAX);
     isense_t *_inst             = not_null_bools[0] ? &inst : NULL;
     isense_cfg_t *_config       = not_null_bools[1] ? &config : NULL;
     
@@ -109,19 +109,19 @@ static int get_func(int p_func_id) {
         case 1: return (int64_t)DEV_Isense_Task(_inst);
         case 2: return (int64_t)DEV_Isense_Start(_inst);
         case 3: return (int64_t)DEV_Isense_Process_Raw(_inst);
-        case 4: return (int64_t)DEV_Isense_Get_Wait(_inst, (uint32_t*)&get_para_num[0]);
-        case 5: return (int64_t)DEV_Isense_Get_Gain(_inst, (uint32_t*)&get_para_num[0]);
-        case 6: return (int64_t)DEV_Isense_Get_Val(_inst, (int32_t*)&get_para_num[0]);
-        case 7: return (int64_t)DEV_Isense_Get_State(_inst, (isense_state_t*)&get_para_num[0]);
-        case 8: return (int64_t)DEV_Isense_Get_Data_Diff(_inst, (bool*)&get_para_num[0]);
-        case 9: return (int64_t)DEV_Isense_Get_Ready_Flag(_inst, (bool*)&get_para_num[0]);
-        case 10: return (int64_t)DEV_Isense_Set_Timeout(_inst, (uint32_t)set_para_num[0]);
-        case 11: return (int64_t)DEV_Isense_Get_Timeout(_inst, (uint32_t*)&get_para_num[0]);
+        case 4: return (int64_t)DEV_Isense_Get_Wait(_inst, (uint32_t*)&get_para_int[0]);
+        case 5: return (int64_t)DEV_Isense_Get_Gain(_inst, (uint32_t*)&get_para_int[0]);
+        case 6: return (int64_t)DEV_Isense_Get_Val(_inst, (int32_t*)&get_para_int[0]);
+        case 7: return (int64_t)DEV_Isense_Get_State(_inst, (isense_state_t*)&get_state);
+        case 8: return (int64_t)DEV_Isense_Get_Data_Diff(_inst, (bool*)&get_para_int[0]);
+        case 9: return (int64_t)DEV_Isense_Get_Ready_Flag(_inst, (bool*)&get_para_int[0]);
+        case 10: return (int64_t)DEV_Isense_Set_Timeout(_inst, (uint32_t)set_para_int[0]);
+        case 11: return (int64_t)DEV_Isense_Get_Timeout(_inst, (uint32_t*)&get_para_int[0]);
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);
     }
     setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
-    setIntArrayDefault(set_para_num, 1, UINT8_MAX);
+    setIntArrayDefault(set_para_int, PARAMSSIZE, UINT8_MAX);
 }
 static driver_watcher_interface_t isense_test_interface = {
     .func_strings   = func_str,
@@ -133,8 +133,7 @@ static driver_watcher_interface_t isense_test_interface = {
 
 // Tests all adc methods
 void demo_watch_isense_all() {
-    not_null_bools = malloc(sizeof(bool) * NULL_COUNT);
-    setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
+    demo_watcher_init(NULL_COUNT);
     demo_watch_isense_fault();
 }
 
@@ -203,7 +202,7 @@ void demo_watch_isense_fault() {
     SET_NULL_FLAGS(false, false);
     watch_inst_conf(ISENSE_GET_READY_FLAG, ISENSE_NULL_PTR);
     
-    set_para_num[0] = 100;
+    set_para_int[0] = 100;
     // [10] ISense SET TIMEOUT
     SET_NULL_FLAGS(true, true);
     watch_inst_conf(ISENSE_SET_TIMEOUT, ISENSE_OK);

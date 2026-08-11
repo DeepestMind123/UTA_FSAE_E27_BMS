@@ -15,8 +15,8 @@
 // Initialization
 static void ADC_channel_select(uint8_t channel) {};
 static void ADC_start(void)                     {};
-static bool ADC_done(void)                      {};
-static uint16_t ADC_get_result(void)            {};
+static bool ADC_done(void)                      { return 0; };
+static uint16_t ADC_get_result(void)            { return 0; };
 static void ADC_stop(void)                      {};
 static util_time_t time_inst = {
     .is_init = false,
@@ -26,18 +26,18 @@ static util_time_t time_inst = {
 static adc_cfg_t config = {
     .adc_func_cfg = {
         .ADC_channel_select = ADC_channel_select,
-        .ADC_start = ADC_start,
-        .ADC_done = ADC_done,
-        .ADC_get_result = ADC_get_result,
-        .ADC_stop = ADC_stop
+        .ADC_start          = ADC_start,
+        .ADC_done           = ADC_done,
+        .ADC_get_result     = ADC_get_result,
+        .ADC_stop           = ADC_stop
     },
     .ctx_cfg = {
-        .adc_timeout = 1000,
-        .adc_wait_ms = 10,
+        .adc_timeout    = 1000,
+        .adc_wait_ms    = 10,
         .adc_resolution = 8,
-        .adc_vref_mV = 3300,
-        .adc_offset = 0,
-        .channel_id = 0
+        .adc_vref_mV    = 3300,
+        .adc_offset     = 0,
+        .channel_id     = 0
     },
     .time_cfg = &time_inst
 };
@@ -105,28 +105,28 @@ typedef enum {
 #define NULL_COUNT 2
 // Get func output to compare non-null vs. null
 static int get_func(int p_func_id) {
-    setIntArrayDefault(get_para_num, 1, UINT8_MAX);
+    setIntArrayDefault(get_para_int, PARAMSSIZE, UINT8_MAX);
     
-    adc_t *_inst                = not_null_bools[0] ? &inst : NULL;
-    adc_cfg_t *_config          = not_null_bools[1] ? &config : NULL;
+    adc_t *_inst        = not_null_bools[0] ? &inst : NULL;
+    adc_cfg_t *_config  = not_null_bools[1] ? &config : NULL;
     
     switch(p_func_id) {
         case 0: return (uint64_t)IO_ADC_Init(_inst, _config);
         case 1: return (uint64_t)IO_ADC_Task(_inst);
         case 2: return (uint64_t)IO_ADC_Start(_inst);
-        case 3: return (uint64_t)IO_ADC_Get_Val(_inst, (uint16_t*)&get_para_num[0]);
-        case 4: return (uint64_t)IO_ADC_Get_Resolution(_inst, (uint16_t*)&get_para_num[0]);
-        case 5: return (uint64_t)IO_ADC_Set_Offset(_inst, (uint16_t)set_para_num[0]);
-        case 6: return (uint64_t)IO_ADC_Get_Offset(_inst, (int16_t*)&get_para_num[0]);
-        case 7: return (uint64_t)IO_ADC_Get_Vref(_inst, (uint16_t*)&get_para_num[0]);
-        case 8: return (uint64_t)IO_ADC_Get_State(_inst, (adc_state_t*)&get_para_num[0]);
-        case 9: return (uint64_t)IO_ADC_Get_Timeout(_inst, (uint32_t*)&get_para_num[0]);
+        case 3: return (uint64_t)IO_ADC_Get_Val(_inst, (uint16_t*)&get_para_int[0]);
+        case 4: return (uint64_t)IO_ADC_Get_Resolution(_inst, (uint16_t*)&get_para_int[0]);
+        case 5: return (uint64_t)IO_ADC_Set_Offset(_inst, (uint16_t)set_para_int[0]);
+        case 6: return (uint64_t)IO_ADC_Get_Offset(_inst, (int16_t*)&get_state);
+        case 7: return (uint64_t)IO_ADC_Get_Vref(_inst, (uint16_t*)&get_para_int[0]);
+        case 8: return (uint64_t)IO_ADC_Get_State(_inst, (adc_state_t*)&get_state);
+        case 9: return (uint64_t)IO_ADC_Get_Timeout(_inst, (uint32_t*)&get_para_int[0]);
         case 10: return (uint64_t)IO_ADC_Get_Ready_Flag(_inst, (bool*)&not_null_bools[0]);
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);
     }
     setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
-    setIntArrayDefault(set_para_num, 1, UINT8_MAX);
+    setIntArrayDefault(set_para_int, PARAMSSIZE, UINT8_MAX);
 }
 static driver_watcher_interface_t drive_watcher = {
     .func_strings       = func_str,
@@ -138,8 +138,7 @@ static driver_watcher_interface_t drive_watcher = {
 
 // Tests all adc methods
 void demo_watch_adc_all() {
-    not_null_bools = malloc(sizeof(bool) * NULL_COUNT);
-    setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
+    demo_watcher_init(NULL_COUNT);
     // demo_watch_adc_funcs();
 //    demo_watch_adc_init();
    demo_watch_adc_task();
@@ -183,7 +182,7 @@ void demo_watch_adc_funcs() {
     SET_NULL_FLAGS(false, false);
     watch_inst_conf(ADC_GET_RES, ADC_NULL_PTR);
     
-    set_para_num[0] = 100;
+    set_para_int[0] = 100;
     // [5] ADC SET OFFSET
     SET_NULL_FLAGS(true, true);
     watch_inst_conf(ADC_SET_OFFSET, ADC_OK);

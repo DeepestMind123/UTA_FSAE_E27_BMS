@@ -62,20 +62,20 @@ typedef enum {
 #define NULL_COUNT 2
 // Get func output to compare non-null vs. null
 static int get_func(int p_func_id) {
-    setIntArrayDefault(get_para_num, 1, UINT8_MAX);
+    setIntArrayDefault(get_para_int, PARAMSSIZE, UINT8_MAX);
     io_i2c_t *_inst             = not_null_bools[0] ? &inst : NULL;
     io_i2c_cfg_t *_config       = not_null_bools[1] ? &config : NULL;
     
     switch(p_func_id) {
-        case 0: return (int64_t)IO_I2C_Init(_inst, _config, (uint8_t)set_para_num[0]);
-        case 1: return (int64_t)IO_I2C_Set_Clock(_inst, (uint32_t)set_para_num[0]);
+        case 0: return (int64_t)IO_I2C_Init(_inst, _config, (uint8_t)set_para_int[0]);
+        case 1: return (int64_t)IO_I2C_Set_Clock(_inst, (uint32_t)set_para_int[0]);
         case 2: return (int64_t)IO_I2C_Transmit(_inst, &msg);
         case 3: return (int64_t)IO_I2C_Receive(_inst, &msg);
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num[0]);
     }
     setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
-    setIntArrayDefault(set_para_num, 1, UINT8_MAX);
+    setIntArrayDefault(set_para_int, PARAMSSIZE, UINT8_MAX);
 }
 static driver_watcher_interface_t drive_watcher = {
     .func_strings       = func_str,
@@ -87,8 +87,7 @@ static driver_watcher_interface_t drive_watcher = {
 
 // Tests all i2c methods
 void demo_watch_i2c_all() {
-    not_null_bools = malloc(sizeof(bool) * NULL_COUNT);
-    setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
+    demo_watcher_init(NULL_COUNT);
     demo_watch_i2c_funcs();
 }
 // Tests the i2c fault system to ensure its accurate
@@ -106,7 +105,7 @@ void demo_watch_i2c_funcs() {
     SET_NULL_FLAGS(false, false);
     watch_inst_conf(I2C_INIT, I2C_STATUS_ERROR_NULL_POINTER);
     
-    set_para_num[0] = 100;
+    set_para_int[0] = 100;
     // I/O Methods
     // [1] I2C SET CLOCK
     SET_NULL_FLAGS(true, true);

@@ -9,6 +9,7 @@
 #define DEMO_W_H
 
 #include <stdint.h>
+#include <float.h>
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
@@ -17,26 +18,38 @@
 
 #define IS_UPPER_DIRTY_16(x) (((uint64_t)(x) & 0xFFFFFFFFFFFF0000ULL) == 0xFFFFFFFFFFFF0000ULL)
 #define IS_UPPER_DIRTY_32(x) (((uint64_t)(x) & 0xFFFFFFFF00000000ULL) == 0xFFFFFFFF00000000ULL)
-#define ISMAXINT(x) ( \
-    (x) == UINT64_MAX || \
-    (x) == UINT32_MAX || \
-    (x) == UINT16_MAX || \
-    (x) == UINT8_MAX  || \
-    IS_UPPER_DIRTY_16(x) || \
-    IS_UPPER_DIRTY_32(x)   \
+#define ISMAXNUM(x) (   \
+    ISMAXINT(x)     ||  \
+    ISMAXFLOAT(x)       \
 )
+#define ISMAXINT(x) (           \
+    (x) == UINT64_MAX       ||  \
+    (x) == UINT32_MAX       ||  \
+    (x) == UINT16_MAX       ||  \
+    (x) == UINT8_MAX        ||  \
+    IS_UPPER_DIRTY_16(x)    ||  \
+    IS_UPPER_DIRTY_32(x)        \
+)
+#define ISMAXFLOAT(x) ( \
+    (x) == FLT_MAX      \
+)
+#define PARAMSSIZE 10
 
 extern uint8_t test_id;
-extern uint8_t param_size;
-extern int64_t set_para_num[10];
-extern int64_t get_para_num[10];
+extern int get_state;
+extern int64_t set_para_int[PARAMSSIZE];
+extern int64_t get_para_int[PARAMSSIZE];
+extern float set_para_float[PARAMSSIZE];
+extern float get_para_float[PARAMSSIZE];
 
 #define SET_NULL_FLAGS(...) \
     memcpy(not_null_bools, (bool[]){ __VA_ARGS__ }, sizeof((bool[]){ __VA_ARGS__ }))
 extern bool *not_null_bools;
 
+void demo_watcher_init(size_t p_size);
 void setBoolArrayDefault(bool *p_arr, int p_size, bool p_state);
 void setIntArrayDefault(int64_t *p_arr, int p_size, int64_t p_val);
+void setFloatArrayDefault(float *p_arr, int p_size, float p_val);
 // This structure defines a driver demo
 typedef struct {
     const char **func_strings;   // Array of function names

@@ -50,19 +50,19 @@ typedef enum {
 #define NULL_COUNT 2
 // Get func output to compare non-null vs. null
 static int get_func(int p_func_id) {
-    setIntArrayDefault(get_para_num, 1, UINT8_MAX);
+    setIntArrayDefault(get_para_int, PARAMSSIZE, UINT8_MAX);
     io_spi_t *_inst             = not_null_bools[0] ? &inst : NULL;
     io_spi_cfg_t *_config       = not_null_bools[1] ? &config : NULL;
     
     switch(p_func_id) {
         case 0: return (int64_t)IO_SPI_Init(_inst, _config);
-        case 1: return (int64_t)IO_SPI_Transfer_Word(_inst, (uint8_t)set_para_num[0], (uint8_t*)&get_para_num[0], (uint8_t*)&get_para_num[1]);
-        case 2: return (int64_t)IO_SPI_Transfer_Sentence(_inst, (uint8_t)set_para_num[2], (uint8_t*)&get_para_num[0], (uint8_t*)&get_para_num[1], (uint8_t)set_para_num[1]);
+        case 1: return (int64_t)IO_SPI_Transfer_Word(_inst, (uint8_t)set_para_int[0], (uint8_t*)&get_para_int[0], (uint8_t*)&get_para_int[1]);
+        case 2: return (int64_t)IO_SPI_Transfer_Sentence(_inst, (uint8_t)set_para_int[2], (uint8_t*)&get_para_int[0], (uint8_t*)&get_para_int[1], (uint8_t)set_para_int[1]);
         //!NOTE! Add new functions here
         //case #: return (int64_t)New_Func(&_inst, &get_para_num_1);
     }
     setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
-    setIntArrayDefault(set_para_num, 1, UINT8_MAX);
+    setIntArrayDefault(set_para_int, PARAMSSIZE, UINT8_MAX);
 }
 static driver_watcher_interface_t drive_watcher = {
     .func_strings       = func_str,
@@ -74,8 +74,7 @@ static driver_watcher_interface_t drive_watcher = {
 
 // Tests all spi methods
 void demo_watch_spi_all() {
-    not_null_bools = malloc(sizeof(bool) * NULL_COUNT);
-    setBoolArrayDefault(not_null_bools, NULL_COUNT, false);
+    demo_watcher_init(NULL_COUNT);
     demo_watch_spi_funcs();
 }
 // Tests the spi fault system to ensure its accurate
