@@ -282,7 +282,11 @@ vsense_status_t DEV_Vsense_Task(vsense_t *p_inst)
 
                 case VSENSE_STATE_ERROR:
                 {
-                    /*intentionally left blank*/
+                    if(p_inst->status == VSENSE_OK)
+                    {
+                        p_inst->status = VSENSE_UNKNOWN_ERROR;
+                    }
+
                     break;
                 }
 
@@ -330,7 +334,7 @@ vsense_status_t DEV_Vsense_Start(vsense_t *p_inst)
             }
             else
             {
-                status = VSENSE_MISMATCH_STATE;
+                status = VSENSE_BUSY;
             }
         }
         else
@@ -387,7 +391,7 @@ vsense_status_t DEV_Vsense_Process_Raw(vsense_t *p_inst, uint16_t val, uint16_t 
 
             if(status == VSENSE_OK)
             {
-                if((resolution > 0U))
+                if(resolution > 0U)
                 {
                     uint32_t int_val = ((uint32_t)val * (uint32_t)vref) / (uint32_t)resolution;
 
