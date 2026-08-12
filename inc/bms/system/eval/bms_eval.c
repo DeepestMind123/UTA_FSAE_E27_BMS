@@ -286,6 +286,10 @@ eval_status_t BMS_Eval_Vcon(const daq_data_t *p_data_in, eval_con_t *p_out)
             
             s_eval.con.vcon.high_cell = s_eval.data.v_data.vmod[0U].cell_val_mV[0U];
             s_eval.con.vcon.low_cell = s_eval.data.v_data.vmod[0U].cell_val_mV[0U];
+            s_eval.con.vcon.high_cell_loc.place[0U] = 0U;
+            s_eval.con.vcon.high_cell_loc.place[1U] = 0U;
+            s_eval.con.vcon.low_cell_loc.place[0U] = 0U;
+            s_eval.con.vcon.low_cell_loc.place[1U] = 0U;
 
             for(uint8_t i = 0U; i < MOD_NUM; i++)
             {
@@ -356,6 +360,10 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
             
             s_eval.con.tcon.high_temp = s_eval.data.t_data.tmod[0U].tsense_val_C[0U];
             s_eval.con.tcon.low_temp = s_eval.data.t_data.tmod[0U].tsense_val_C[0U];
+            s_eval.con.tcon.high_temp_loc.place[0U] = 0U;
+            s_eval.con.tcon.high_temp_loc.place[1U] = 0U;
+            s_eval.con.tcon.low_temp_loc.place[0U] = 0U;
+            s_eval.con.tcon.low_temp_loc.place[1U] = 0U;
 
             for(uint8_t i = 0U; i < MOD_NUM; i++)
             {
