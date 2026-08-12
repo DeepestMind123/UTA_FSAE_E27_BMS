@@ -44,12 +44,13 @@ typedef enum
     DAQ_TSENSE_TIMEOUT,
     DAQ_TIME_FAULT,
     DAQ_IRQ_FAULT,
+    DAQ_UNKNOWN_ERROR,
     DAQ_STATUS_MAX
 } daq_status_t;
 
 typedef enum
 {
-    DAQ_STATE_UNDEF = 0,
+    DAQ_STATE_UNDEF = 0U,
     DAQ_STATE_IDLE,
     DAQ_STATE_ISENSE,
     DAQ_STATE_VSENSE,

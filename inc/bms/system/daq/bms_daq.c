@@ -32,8 +32,12 @@ typedef struct
 {
     bool is_init;
     bool is_ready;
-    daq_state_t state;
+
     uint32_t now_time;
+
+    daq_state_t state;
+    daq_status_t status;
+
     const util_time_t *p_time;
     const util_irq_t *p_irq;
     
@@ -57,57 +61,71 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
     {
         if(p_cfg != NULL)
         {
-            s_daq.p_data_out = p_cfg->out_mem;
-            s_daq.p_time = p_cfg->time_cfg;
-            s_daq.p_irq = p_cfg->irq_cfg;
-
-            s_daq.system_ctx =p_cfg->sensor_init_ctx;
-
-            s_daq.isense.p_isense_high = p_cfg->isense_high_cfg;
-            s_daq.isense.p_isense_low = p_cfg->isense_low_cfg;
-            s_daq.isense.p_last_isense = s_daq.isense.p_isense_low;
-            s_daq.vsense.p_vsense = p_cfg->vsense_cfg;
-            s_daq.tsense.p_tsense = p_cfg->tsense_cfg;
-
-            for(uint8_t i = 0U; i < DAQ_SENSOR_MAX; i++)
+            if((p_cfg->out_mem != NULL) &&
+                (p_cfg->time_cfg != NULL) &&
+                (p_cfg->irq_cfg != NULL) &&
+                (p_cfg->isense_high_cfg != NULL) &&
+                (p_cfg->isense_low_cfg != NULL) &&
+                (p_cfg->vsense_cfg != NULL) &&
+                (p_cfg->tsense_cfg != NULL))
             {
-                s_daq.system_ctx.sensor_ctx[i].start_time = 0U;
-                s_daq.system_ctx.sensor_ctx[i].data_valid = false;
-            }
+                s_daq.p_data_out = p_cfg->out_mem;
+                s_daq.p_time = p_cfg->time_cfg;
+                s_daq.p_irq = p_cfg->irq_cfg;
 
-            s_daq.now_time = 0U;
+                s_daq.system_ctx =p_cfg->sensor_init_ctx;
 
-            s_daq.data_buffer.i_data.ival_mA = 0;
-            s_daq.data_buffer.i_data.i_timestamp = 0U;
-            s_daq.data_buffer.i_data.i_valid = false;   
+                s_daq.isense.p_isense_high = p_cfg->isense_high_cfg;
+                s_daq.isense.p_isense_low = p_cfg->isense_low_cfg;
+                s_daq.isense.p_last_isense = s_daq.isense.p_isense_low;
+                s_daq.vsense.p_vsense = p_cfg->vsense_cfg;
+                s_daq.tsense.p_tsense = p_cfg->tsense_cfg;
 
-            for(uint8_t i = 0U; i < SMALL_ARR_16; i++)
-            {
-                for(uint8_t j = 0U; j < LARGE_ARR_32; j++)
+                for(uint8_t i = 0U; i < DAQ_SENSOR_MAX; i++)
                 {
-                    s_daq.data_buffer.v_data.vmod[i].cell_val_mV[j] = 0;
+                    s_daq.system_ctx.sensor_ctx[i].start_time = 0U;
+                    s_daq.system_ctx.sensor_ctx[i].data_valid = false;
                 }
-            }
 
-            s_daq.data_buffer.v_data.v_timestamp = 0U;
-            s_daq.data_buffer.v_data.v_valid = false;
+                s_daq.now_time = 0U;
 
-            for(uint8_t i = 0U; i < SMALL_ARR_16; i++)
-            {
-                for(uint8_t j = 0U; j < SMALL_ARR_16; j++)
+                s_daq.data_buffer.i_data.ival_mA = 0;
+                s_daq.data_buffer.i_data.i_timestamp = 0U;
+                s_daq.data_buffer.i_data.i_valid = false;   
+
+                for(uint8_t i = 0U; i < SMALL_ARR_16; i++)
                 {
-                    s_daq.data_buffer.t_data.tmod[i].tsense_val_C[j] = 0;
+                    for(uint8_t j = 0U; j < LARGE_ARR_32; j++)
+                    {
+                        s_daq.data_buffer.v_data.vmod[i].cell_val_mV[j] = 0;
+                    }
                 }
+
+                s_daq.data_buffer.v_data.v_timestamp = 0U;
+                s_daq.data_buffer.v_data.v_valid = false;
+
+                for(uint8_t i = 0U; i < SMALL_ARR_16; i++)
+                {
+                    for(uint8_t j = 0U; j < SMALL_ARR_16; j++)
+                    {
+                        s_daq.data_buffer.t_data.tmod[i].tsense_val_C[j] = 0;
+                    }
+                }
+
+                s_daq.data_buffer.t_data.t_timestamp = 0U;
+                s_daq.data_buffer.t_data.t_valid = false;
+
+                s_daq.state = DAQ_STATE_IDLE;
+                s_daq.status = DAQ_OK;
+                
+                s_daq.is_init = true;
+
+                status = DAQ_OK;
             }
-
-            s_daq.data_buffer.t_data.t_timestamp = 0U;
-            s_daq.data_buffer.t_data.t_valid = false;
-
-            s_daq.state = DAQ_STATE_IDLE;
-            
-            s_daq.is_init = true;
-
-            status = DAQ_OK;
+            else
+            {
+                status = DAQ_NULL_PTR;
+            }
         }
         else
         {
@@ -124,8 +142,6 @@ daq_status_t BMS_DAQ_Init(const daq_cfg_t *p_cfg)
 
 daq_status_t BMS_DAQ_Task(const daq_system_ctx_in_t *p_in)
 {
-    daq_status_t status = DAQ_OK;
-    
     vsense_status_t vsense_status;
     tsense_status_t tsense_status;
 
@@ -133,45 +149,51 @@ daq_status_t BMS_DAQ_Task(const daq_system_ctx_in_t *p_in)
     {
         if(p_in != NULL)
         {
-            status = BMS_DAQ_Map_Ctx(p_in);
+            s_daq.status = BMS_DAQ_Map_Ctx(p_in);
 
-            if(status == DAQ_OK)
+            if(s_daq.status == DAQ_OK)
             {
-                status = BMS_DAQ_Isense_Switch_Task();
+                s_daq.status = BMS_DAQ_Isense_Switch_Task();
             }
 
-            vsense_status = DEV_Vsense_Task(s_daq.vsense.p_vsense);
+            if(s_daq.status == DAQ_OK)
+            {
+                vsense_status = DEV_Vsense_Task(s_daq.vsense.p_vsense);
+            }
 
-            tsense_status = DEV_Tsense_Task(s_daq.tsense.p_tsense);
+            if(s_daq.status == DAQ_OK)
+            {
+                tsense_status = DEV_Tsense_Task(s_daq.tsense.p_tsense);
+            }
 
-            if(status != DAQ_OK)
+            if(s_daq.status != DAQ_OK)
             {
                 /* intentionally left blank*/
             } 
             else if(vsense_status != VSENSE_OK)
             {
-                status = DAQ_VSENSE_FAULT;
+                s_daq.status = DAQ_VSENSE_FAULT;
             }
             else if(tsense_status != TSENSE_OK)
             {
-                status = DAQ_TSENSE_FAULT;
+                s_daq.status = DAQ_TSENSE_FAULT;
             }
             else
             {
-                if(s_daq.state >= DAQ_STATE_MAX)
+                if((s_daq.state >= DAQ_STATE_MAX) || (s_daq.state <= DAQ_STATE_UNDEF))
                 {
-                    s_daq.state = DAQ_STATE_ERROR;
+                    s_daq.status = DAQ_UNDEF_STATE;
 
-                    status = DAQ_UNDEF_STATE;
+                    s_daq.state = DAQ_STATE_ERROR;
                 }
 
                 switch(s_daq.state)
                 {
                     case DAQ_STATE_IDLE:
                     {
-                        status = BMS_DAQ_Idle_State();
+                        s_daq.status = BMS_DAQ_Idle_State();
 
-                        if(status != DAQ_OK)
+                        if(s_daq.status != DAQ_OK)
                         {
                             s_daq.state = DAQ_STATE_ERROR;
                         }
@@ -181,9 +203,9 @@ daq_status_t BMS_DAQ_Task(const daq_system_ctx_in_t *p_in)
 
                     case DAQ_STATE_ISENSE:
                     {
-                        status = BMS_DAQ_Isense_State();
+                        s_daq.status = BMS_DAQ_Isense_State();
 
-                        if(status != DAQ_OK)
+                        if(s_daq.status != DAQ_OK)
                         {
                             s_daq.state = DAQ_STATE_ERROR;
                         }
@@ -197,9 +219,9 @@ daq_status_t BMS_DAQ_Task(const daq_system_ctx_in_t *p_in)
 
                     case DAQ_STATE_VSENSE:
                     {
-                        status = BMS_DAQ_Vsense_State();
+                        s_daq.status = BMS_DAQ_Vsense_State();
 
-                        if(status != DAQ_OK)
+                        if(s_daq.status != DAQ_OK)
                         {
                             s_daq.state = DAQ_STATE_ERROR;
                         }
@@ -213,9 +235,9 @@ daq_status_t BMS_DAQ_Task(const daq_system_ctx_in_t *p_in)
 
                     case DAQ_STATE_TSENSE:
                     {
-                        status = BMS_DAQ_Tsense_State();
+                        s_daq.status = BMS_DAQ_Tsense_State();
 
-                        if(status != DAQ_OK)
+                        if(s_daq.status != DAQ_OK)
                         {
                             s_daq.state = DAQ_STATE_ERROR;
                         }
@@ -229,9 +251,9 @@ daq_status_t BMS_DAQ_Task(const daq_system_ctx_in_t *p_in)
 
                     case DAQ_STATE_REPORT:
                     {
-                        status = BMS_DAQ_Report_State();
+                        s_daq.status = BMS_DAQ_Report_State();
 
-                        if(status != DAQ_OK)
+                        if(s_daq.status != DAQ_OK)
                         {
                             s_daq.state = DAQ_STATE_ERROR;
                         }
@@ -245,6 +267,11 @@ daq_status_t BMS_DAQ_Task(const daq_system_ctx_in_t *p_in)
 
                     case DAQ_STATE_ERROR:
                     {
+                        if(s_daq.status == DAQ_OK)
+                        {
+                            s_daq.status = DAQ_UNKNOWN_ERROR;
+                        }
+
                         break;
                     }
 
@@ -259,15 +286,15 @@ daq_status_t BMS_DAQ_Task(const daq_system_ctx_in_t *p_in)
         }
         else
         {
-            status = DAQ_NULL_PTR;
+            s_daq.status = DAQ_NULL_PTR;
         }
     }
     else
     {
-        status = DAQ_NOT_INIT;
+        s_daq.status = DAQ_NOT_INIT;
     }
 
-    return status;
+    return s_daq.status;
 }
 
 daq_status_t BMS_DAQ_Map_Ctx(const daq_system_ctx_in_t *p_in)
@@ -310,7 +337,7 @@ daq_status_t BMS_DAQ_Idle_State(void)
     
     if(status == DAQ_OK)
     {
-        if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) == TIME_STATUS_OK)
+        if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) == TIME_OK)
         {
 
             for(uint8_t i = (DAQ_SENSOR_MAX - 1U); i > DAQ_SENSOR_MIN; i--)
@@ -372,14 +399,15 @@ daq_status_t BMS_DAQ_Isense_Switch_Task(void)
         {
             if(s_daq.isense.isense_state == ISENSE_STATE_IDLE)
             {
-                if(abs(s_daq.data_buffer.i_data.ival_mA) > HANDOFF_MAX_MA_ISENSE)
+                if((s_daq.data_buffer.i_data.ival_mA > HANDOFF_MAX_MA_ISENSE) || (s_daq.data_buffer.i_data.ival_mA < -(HANDOFF_MAX_MA_ISENSE)))
                 {
                     s_daq.isense.p_last_isense = s_daq.isense.p_isense_high;
 
                     isense_status = DEV_Isense_Set_Timeout(s_daq.isense.p_isense_low, 0U);
                 }
-                else if(abs(s_daq.data_buffer.i_data.ival_mA) <= HANDOFF_MIN_MA_ISENSE)
+                else if((s_daq.data_buffer.i_data.ival_mA <= HANDOFF_MIN_MA_ISENSE) || (s_daq.data_buffer.i_data.ival_mA >= -(HANDOFF_MIN_MA_ISENSE)))
                 {
+
                     s_daq.isense.p_last_isense = s_daq.isense.p_isense_low;
 
                     isense_status = DEV_Isense_Set_Timeout(s_daq.isense.p_isense_high, 0U);
@@ -454,7 +482,7 @@ daq_status_t BMS_DAQ_Isense_State(void)
         {
             status = DAQ_ISENSE_FAULT;
         }
-        else if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) != TIME_STATUS_OK)
+        else if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) != TIME_OK)
         {
             status = DAQ_TIME_FAULT;
         }
@@ -477,7 +505,7 @@ daq_status_t BMS_DAQ_Isense_State(void)
                 status = DAQ_ISENSE_FAULT;
             }
         }
-        else if((s_daq.now_time - s_daq.isense.isense_start_time) >= s_daq.system_ctx.sensor_ctx[DAQ_ISENSE].delay_ms)
+        else if((s_daq.now_time - s_daq.system_ctx.sensor_ctx[DAQ_ISENSE].start_time) >= s_daq.system_ctx.sensor_ctx[DAQ_ISENSE].delay_ms)
         {
             isense_status = DEV_Isense_Start(s_daq.isense.p_last_isense);
 
@@ -529,7 +557,7 @@ daq_status_t BMS_DAQ_Vsense_State(void)
         {
             status = DAQ_VSENSE_FAULT;
         }
-        else if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) != TIME_STATUS_OK)
+        else if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) != TIME_OK)
         {
             status = DAQ_TIME_FAULT;
         }
@@ -658,7 +686,7 @@ daq_status_t BMS_DAQ_Tsense_State(void)
         {
             status = DAQ_TSENSE_FAULT;
         }
-        else if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) != TIME_STATUS_OK)
+        else if(UTIL_Time_Get_Tick(s_daq.p_time, &s_daq.now_time) != TIME_OK)
         {
             status = DAQ_TIME_FAULT;
         }
@@ -754,12 +782,13 @@ daq_status_t BMS_DAQ_Report_State(void)
 {
     daq_status_t status = DAQ_OK;
 
+    uint8_t counter = 0U;
+
     if(!s_daq.is_init)
     {
         status = DAQ_NOT_INIT;
     }
-
-    if(s_daq.p_data_out == NULL)
+    else if(s_daq.p_data_out == NULL)
     {
         status = DAQ_NULL_PTR;
     }
@@ -773,6 +802,8 @@ daq_status_t BMS_DAQ_Report_State(void)
             //need to add exit critical read/write
 
             s_daq.data_buffer.i_data.i_valid = false;
+
+            counter++;
         }
         
         if(s_daq.data_buffer.v_data.v_valid)
@@ -788,6 +819,8 @@ daq_status_t BMS_DAQ_Report_State(void)
             s_daq.p_data_out->v_data.v_valid = s_daq.data_buffer.v_data.v_valid;
 
             s_daq.data_buffer.v_data.v_valid = false;
+
+            counter++;
         }
 
         if(s_daq.data_buffer.t_data.t_valid)
@@ -803,11 +836,11 @@ daq_status_t BMS_DAQ_Report_State(void)
             s_daq.p_data_out->t_data.t_valid = s_daq.data_buffer.t_data.t_valid;
 
             s_daq.data_buffer.t_data.t_valid = false;
+
+            counter++;
         }
 
-        if((s_daq.p_data_out->i_data.i_valid) && 
-            (s_daq.p_data_out->v_data.v_valid) && 
-            (s_daq.p_data_out->t_data.t_valid))
+        if(counter == 3U)
         {
             s_daq.is_ready = true;
         }
@@ -834,9 +867,9 @@ daq_status_t BMS_DAQ_Get_Data(daq_data_t *p_out)
     {
         if(p_out != NULL)
         {
-            irq_status = UTIL_IRQ_Enter_Critical(s_daq.p_irq, &interrupt_state);
+            irq_status = UTIL_IRQ_Enter_Critical(s_daq.p_irq);
 
-            if(irq_status == IRQ_STATUS_OK)
+            if(irq_status == IRQ_OK)
             {
                 data = *s_daq.p_data_out;
             }
@@ -845,9 +878,9 @@ daq_status_t BMS_DAQ_Get_Data(daq_data_t *p_out)
                 status = DAQ_IRQ_FAULT;
             }
 
-            irq_status = UTIL_IRQ_Exit_Critical(s_daq.p_irq, interrupt_state);
+            irq_status = UTIL_IRQ_Exit_Critical(s_daq.p_irq);
 
-            if(irq_status != IRQ_STATUS_OK)
+            if(irq_status != IRQ_OK)
             {
                 status = DAQ_IRQ_FAULT;
             }
