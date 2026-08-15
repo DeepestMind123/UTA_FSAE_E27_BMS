@@ -19,23 +19,26 @@
 
 typedef enum
 {
-    VSENSE_OK = 0,
+    VSENSE_OK = 0U,
     VSENSE_NULL_PTR,
     VSENSE_NULL_FUNC,
     VSENSE_NOT_INIT,
+    VSENSE_DBL_INIT,
     VSENSE_TIMEOUT,
     VSENSE_BUSY,
     VSENSE_TIME_FAULT,
     VSENSE_ADC_FAULT,
     VSENSE_UNDEF_STATE,
     VSENSE_MISMATCH_STATE,
+    VSENSE_INVALID_CFG,
     VSENSE_CONVERSION_FAIL,
+    VSENSE_UNKNOWN_ERROR,
     VSENSE_STATUS_MAX
 } vsense_status_t;
 
 typedef enum
 {
-    VSENSE_STATE_UNDEF = 0,
+    VSENSE_STATE_UNDEF = 0U,
     VSENSE_STATE_IDLE,
     VSENSE_STATE_START,
     VSENSE_STATE_WAIT,
@@ -69,15 +72,15 @@ typedef struct
     bool(*voltage_start_open_wire)(vsense_system_t *p_system);
     bool(*voltage_start_closed_wire)(vsense_system_t *p_system);
     bool(*voltage_state)(vsense_system_t *p_system);
-    bool(*vsense_get_result)(const vsense_system_t *p_system);
+    bool(*vsense_get_result)(vsense_system_t *p_system);
 } vsense_func_t;
 
 typedef struct
 {
-    adc_t *adc_cfg;
-    util_time_t *time_cfg;
-    vsense_func_t *func_cfg;
-    vsense_ctx_t *init_ctx;
+    const adc_t *adc_cfg;
+    const util_time_t *time_cfg;
+    const vsense_func_t *func_cfg;
+    const vsense_ctx_t *init_ctx;
 } vsense_cfg_t;
 
 typedef struct
@@ -89,12 +92,14 @@ typedef struct
     bool val_diff;
     bool is_balance;
 
-    vsense_ctx_t *p_ctx;
-    vsense_system_t sensor;
-    vsense_func_t *p_func;
     vsense_state_t state;
-    adc_t *p_adc;
-    util_time_t *p_time;
+    vsense_status_t status;
+
+    const vsense_ctx_t *p_ctx;
+    vsense_system_t sensor;
+    const vsense_func_t *p_func;
+    const adc_t *p_adc;
+    const util_time_t *p_time;
 } vsense_t;
 
 vsense_status_t DEV_Vsense_Init(vsense_t *p_inst,

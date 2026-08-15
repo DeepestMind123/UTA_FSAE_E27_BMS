@@ -40,7 +40,7 @@ typedef enum
 
 typedef enum
 {
-    BATT_STATE_IDLE = 0,
+    BATT_STATE_IDLE = 0U,
     BATT_STATE_CHG,
     BATT_STATE_DCHG,
     BATT_STATE_MAX
@@ -114,10 +114,17 @@ typedef struct
 
 typedef struct
 {
+    uint32_t dcl_mW;
+    uint32_t ccl_mW;
+} eval_pwr_lmt_t; 
+
+typedef struct
+{
     eval_ipack_t icon;
     eval_vpack_t vcon;
     eval_tpack_t tcon;
     eval_batt_state_t batt_state;
+    eval_pwr_lmt_t pwr_lim;
 } eval_con_t;
 
 #endif

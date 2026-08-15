@@ -33,4 +33,7 @@
 #define TEMP_RN 10000
 #define TEMP_NOM_K 298.15f
 
+#define DCL_W 80000000 /* cannot be 0*/
+#define CCL_W 10000000 /* cannot be 0*/
+
 #endif

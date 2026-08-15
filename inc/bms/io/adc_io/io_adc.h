@@ -22,6 +22,7 @@ typedef enum
     ADC_TIME_FAULT,
     ADC_UNDEF_STATE,
     ADC_INVALID_CFG,
+    ADC_UNKNOWN_ERROR,
     ADC_STATUS_MAX
 } adc_status_t;
 
@@ -72,6 +73,7 @@ typedef struct
     bool is_init;
     bool is_ready;
     adc_state_t state;                      // stores instanced state
+    adc_status_t status;
 
     adc_ctx_t adc_ctx;
     adc_func_t adc_func;

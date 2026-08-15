@@ -12,15 +12,18 @@ typedef struct
     bool icon_done;
     bool vcon_done;
     bool tcon_done;
+    bool plim_done;
 } eval_ctx_t;
 
 
 typedef struct
 {
     bool is_init;
+
     eval_ctx_t ctx;
     eval_con_t con;
     daq_data_t data;
+
     eval_state_t state;
     eval_status_t status;
 } eval_t;
@@ -38,8 +41,10 @@ eval_status_t BMS_Eval_Init(void)
         s_eval.ctx.icon_done = false;
         s_eval.ctx.vcon_done = false;
         s_eval.ctx.tcon_done = false;
+        s_eval.ctx.plim_done = false;
 
         s_eval.is_init = true;
+        status = EVAL_OK;
     }
     else
     {
@@ -82,6 +87,10 @@ eval_status_t BMS_Eval_Task(const daq_data_t *p_data_in, eval_con_t *p_out)
                     {
                         s_eval.state = EVAL_STATE_TCON;
                     }
+                    else if(!s_eval.ctx.plim_done)
+                    {
+                        s_eval.state = EVAL_STATE_PLIM;
+                    }
                     else
                     {
                         s_eval.state = EVAL_STATE_DONE;
@@ -92,7 +101,7 @@ eval_status_t BMS_Eval_Task(const daq_data_t *p_data_in, eval_con_t *p_out)
 
                 case EVAL_STATE_ICON:
                 {
-                    s_eval.status = BMS_Eval_Icon(&data, &p_out);
+                    s_eval.status = BMS_Eval_Icon(&data, p_out);
 
                     if(s_eval.status == EVAL_OK)
                     {
@@ -110,7 +119,7 @@ eval_status_t BMS_Eval_Task(const daq_data_t *p_data_in, eval_con_t *p_out)
 
                 case EVAL_STATE_VCON:
                 {
-                    s_eval.status = BMS_Eval_Vcon(&data, &p_out);
+                    s_eval.status = BMS_Eval_Vcon(&data, p_out);
 
                     if(s_eval.status == EVAL_OK)
                     {
@@ -128,11 +137,29 @@ eval_status_t BMS_Eval_Task(const daq_data_t *p_data_in, eval_con_t *p_out)
 
                 case EVAL_STATE_TCON:
                 {
-                    s_eval.status = BMS_Eval_Tcon(&data, &p_out);
+                    s_eval.status = BMS_Eval_Tcon(&data, p_out);
 
                     if(s_eval.status == EVAL_OK)
                     {
                         s_eval.ctx.tcon_done = true;
+
+                        s_eval.state = EVAL_STATE_IDLE;
+                    }
+                    else
+                    {
+                        s_eval.state = EVAL_STATE_ERROR;
+                    }
+
+                    break;
+                }
+
+                case EVAL_STATE_PLIM:
+                {
+                    s_eval.status = BMS_Eval_PLim(&data, p_out);
+
+                    if(s_eval.status == EVAL_OK)
+                    {
+                        s_eval.ctx.plim_done = true;
 
                         s_eval.state = EVAL_STATE_IDLE;
                     }
@@ -149,6 +176,7 @@ eval_status_t BMS_Eval_Task(const daq_data_t *p_data_in, eval_con_t *p_out)
                     s_eval.ctx.icon_done = false;
                     s_eval.ctx.vcon_done = false;
                     s_eval.ctx.tcon_done = false;
+                    s_eval.ctx.plim_done = false;
 
                     s_eval.state = EVAL_STATE_IDLE;
 
@@ -157,6 +185,11 @@ eval_status_t BMS_Eval_Task(const daq_data_t *p_data_in, eval_con_t *p_out)
 
                 case EVAL_STATE_ERROR:
                 {
+                    if(s_eval.status == EVAL_OK)
+                    {
+                        s_eval.status = EVAL_UNKNOWN_ERROR;
+                    }
+
                     break;
                 }
             }
@@ -249,7 +282,14 @@ eval_status_t BMS_Eval_Vcon(const daq_data_t *p_data_in, eval_con_t *p_out)
 
         if(s_eval.data.v_data.v_valid)
         {
-            s_eval.con.vcon.vpack_fault = false;          
+            s_eval.con.vcon.vpack_fault = false;   
+            
+            s_eval.con.vcon.high_cell = s_eval.data.v_data.vmod[0U].cell_val_mV[0U];
+            s_eval.con.vcon.low_cell = s_eval.data.v_data.vmod[0U].cell_val_mV[0U];
+            s_eval.con.vcon.high_cell_loc.place[0U] = 0U;
+            s_eval.con.vcon.high_cell_loc.place[1U] = 0U;
+            s_eval.con.vcon.low_cell_loc.place[0U] = 0U;
+            s_eval.con.vcon.low_cell_loc.place[1U] = 0U;
 
             for(uint8_t i = 0U; i < MOD_NUM; i++)
             {
@@ -268,6 +308,21 @@ eval_status_t BMS_Eval_Vcon(const daq_data_t *p_data_in, eval_con_t *p_out)
                     else
                     {
                         s_eval.con.vcon.vmod[i].cell_con[j] = EVAL_VCON_OK;     
+                    }
+
+                    if(s_eval.data.v_data.vmod[i].cell_val_mV[j] > s_eval.con.vcon.high_cell)
+                    {
+                        s_eval.con.vcon.high_cell = s_eval.data.v_data.vmod[i].cell_val_mV[j];
+
+                        s_eval.con.vcon.high_cell_loc.place[0U] = i;
+                        s_eval.con.vcon.high_cell_loc.place[1U] = j;
+                    }
+                    else if(s_eval.data.v_data.vmod[i].cell_val_mV[j] < s_eval.con.vcon.low_cell)
+                    {
+                        s_eval.con.vcon.low_cell = s_eval.data.v_data.vmod[i].cell_val_mV[j];
+
+                        s_eval.con.vcon.low_cell_loc.place[0U] = i;
+                        s_eval.con.vcon.low_cell_loc.place[1U] = j;
                     }
                 }
             }
@@ -301,7 +356,14 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
 
         if(s_eval.data.t_data.t_valid)
         {
-            s_eval.con.tcon.tpack_fault = false;          
+            s_eval.con.tcon.tpack_fault = false;   
+            
+            s_eval.con.tcon.high_temp = s_eval.data.t_data.tmod[0U].tsense_val_C[0U];
+            s_eval.con.tcon.low_temp = s_eval.data.t_data.tmod[0U].tsense_val_C[0U];
+            s_eval.con.tcon.high_temp_loc.place[0U] = 0U;
+            s_eval.con.tcon.high_temp_loc.place[1U] = 0U;
+            s_eval.con.tcon.low_temp_loc.place[0U] = 0U;
+            s_eval.con.tcon.low_temp_loc.place[1U] = 0U;
 
             for(uint8_t i = 0U; i < MOD_NUM; i++)
             {
@@ -328,6 +390,21 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
                     {
                         s_eval.con.tcon.tmod[i].temp_con[j] = EVAL_TCON_OK;
                     }
+
+                    if(s_eval.data.t_data.tmod[i].tsense_val_C[j] > s_eval.con.tcon.high_temp)
+                    {
+                        s_eval.con.tcon.high_temp = s_eval.data.t_data.tmod[i].tsense_val_C[j];
+
+                        s_eval.con.tcon.high_temp_loc.place[0U] = i;
+                        s_eval.con.tcon.high_temp_loc.place[1U] = j;
+                    }
+                    else if(s_eval.data.t_data.tmod[i].tsense_val_C[j] < s_eval.con.tcon.low_temp)
+                    {
+                        s_eval.con.tcon.low_temp = s_eval.data.t_data.tmod[i].tsense_val_C[j];
+
+                        s_eval.con.tcon.low_temp_loc.place[0U] = i;
+                        s_eval.con.tcon.low_temp_loc.place[1U] = j;
+                    }
                 }
             }
 
@@ -336,6 +413,85 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
         else
         {
             status = EVAL_TDATA_INVALID;
+        }
+    }
+    else
+    {
+        status = EVAL_NULL_PTR;
+    }
+
+    return status;
+}
+
+eval_status_t BMS_Eval_PLim(const daq_data_t *p_data_in, eval_con_t *p_out)
+{
+    eval_status_t status = EVAL_OK;
+
+    uint32_t limit_mA = 0U;
+    uint32_t plim_mW = 0U;
+
+    if((p_data_in != NULL) && (p_out != NULL))
+    {
+        s_eval.data = *p_data_in;
+        
+        s_eval.con = *p_out;
+
+        if(s_eval.is_init)
+        {
+            if((s_eval.con.batt_state == BATT_STATE_DCHG) || (s_eval.con.batt_state == BATT_STATE_IDLE))
+            {
+                plim_mW = DCL_W;
+            }
+            else if(s_eval.con.batt_state == BATT_STATE_CHG)
+            {
+                plim_mW = CCL_W;
+            }
+            else
+            {
+                status = EVAL_UNDEF_STATE;
+            }
+
+            if(status == EVAL_OK)
+            {
+                uint32_t pack_mV = 0U;
+
+                if(s_eval.data.v_data.v_valid)
+                {
+                    for(uint8_t i = 0U; i < MOD_NUM; i++)
+                    {
+                        for(uint8_t j = 0U; j < MOD_CELL_NUM; j++)
+                        {
+                            pack_mV += s_eval.data.v_data.vmod[i].cell_val_mV[j];
+                        }
+                    }
+                }
+                else
+                {
+                    status = EVAL_VDATA_INVALID;
+                }
+
+                if((pack_mV <= UINT32_MAX) && (pack_mV != 0U))
+                {
+                    limit_mA = plim_mW / pack_mV;
+                }
+                else
+                {
+                    status = EVAL_VDATA_INVALID;
+                }
+
+                if((s_eval.con.batt_state == BATT_STATE_DCHG) || (s_eval.con.batt_state == BATT_STATE_IDLE))
+                {
+                    p_out->pwr_lim.dcl_mW = limit_mA;
+                }
+                else if(s_eval.con.batt_state == BATT_STATE_CHG)
+                {
+                    p_out->pwr_lim.ccl_mW = limit_mA;
+                }
+            }
+        }
+        else
+        {
+            status = EVAL_NOT_INIT;
         }
     }
     else

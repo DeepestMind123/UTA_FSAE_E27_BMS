@@ -25,7 +25,9 @@ typedef enum
     EVAL_IDATA_INVALID,
     EVAL_VDATA_INVALID,
     EVAL_TDATA_INVALID,
+    EVAL_PLIM_INVALID,
     EVAL_UNDEF_STATE,
+    EVAL_UNKNOWN_ERROR,
     EVAL_STATUS_MAX
 } eval_status_t;
 
@@ -36,6 +38,8 @@ typedef enum
     EVAL_STATE_ICON,
     EVAL_STATE_VCON,
     EVAL_STATE_TCON,
+    EVAL_STATE_PLIM,
+    EVAL_STATE_DONE,
     EVAL_STATE_ERROR,
     EVAL_STATE_MAX
 } eval_state_t;
@@ -50,7 +54,7 @@ eval_status_t BMS_Eval_Vcon(const daq_data_t *p_data_in, eval_con_t *p_out);
 
 eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out);
 
-eval_status_t BMS_Eval_Find_Ready(const daq_data_t *p_data_in);
+eval_status_t BMS_Eval_PLim(const daq_data_t *p_data_in, eval_con_t *p_out);
 
 eval_status_t BMS_Eval_Get_State(eval_state_t *p_out);
 
