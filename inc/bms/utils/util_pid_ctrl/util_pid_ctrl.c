@@ -9,6 +9,7 @@
 
 pid_status_t UTIL_PID_Ctrl_Init(pid_ctrl_t *p_inst, const pid_ctrl_cfg_t *p_cfg, const util_time_t *p_time_inst)
 {
+<<<<<<< Updated upstream
     pid_status_t status = PID_STATUS_ERROR_NOT_INIT;
 
     if((p_inst != NULL) && (p_cfg != NULL) && (p_time_inst != NULL))
@@ -25,6 +26,31 @@ pid_status_t UTIL_PID_Ctrl_Init(pid_ctrl_t *p_inst, const pid_ctrl_cfg_t *p_cfg,
     else
     {
         status = PID_STATUS_ERROR_NULL_POINTER;
+=======
+    pid_status_t status = PID_NOT_INIT;
+
+    if((p_inst != NULL) && (p_cfg != NULL) && (p_time_inst != NULL))
+    {
+        if(!p_inst->is_init)
+        {
+            p_inst->cfg = p_cfg;
+            p_inst->time_inst = p_time_inst;
+
+            p_inst->now_val = 0.0f;
+            p_inst->last_time_ms = 0U;
+            p_inst->is_init = true;
+
+            status = PID_OK;
+        }
+        else
+        {
+            status = PID_DBL_INIT;
+        }
+    }
+    else
+    {
+        status = PID_NULL_PTR;
+>>>>>>> Stashed changes
     }
 
     return status;
@@ -32,7 +58,11 @@ pid_status_t UTIL_PID_Ctrl_Init(pid_ctrl_t *p_inst, const pid_ctrl_cfg_t *p_cfg,
 
 pid_status_t UTIL_PID_Ctrl_Task(pid_ctrl_t *p_inst, float val, float *p_out)
 {
+<<<<<<< Updated upstream
     pid_status_t status = PID_STATUS_OK;
+=======
+    pid_status_t status = PID_OK;
+>>>>>>> Stashed changes
     time_status_t time_status;
 
     float error = 0.0f;
@@ -48,7 +78,11 @@ pid_status_t UTIL_PID_Ctrl_Task(pid_ctrl_t *p_inst, float val, float *p_out)
 
             time_status = UTIL_Time_Get_Tick(p_inst->time_inst, &p_inst->now_time_ms);
 
+<<<<<<< Updated upstream
             if(time_status == TIME_STATUS_OK)
+=======
+            if(time_status == TIME_OK)
+>>>>>>> Stashed changes
             {
 
                 uint32_t dt = p_inst->now_time_ms - p_inst->last_time_ms;
@@ -86,12 +120,20 @@ pid_status_t UTIL_PID_Ctrl_Task(pid_ctrl_t *p_inst, float val, float *p_out)
             }
             else
             {
+<<<<<<< Updated upstream
                 status = PID_STATUS_ERROR_TIME_ERROR;
+=======
+                status = PID_TIME_FAULT;
+>>>>>>> Stashed changes
             }
         }
         else 
         {
+<<<<<<< Updated upstream
             status = PID_STATUS_ERROR_NOT_INIT;
+=======
+            status = PID_NOT_INIT;
+>>>>>>> Stashed changes
         }
 
         *p_out = output;
@@ -99,7 +141,11 @@ pid_status_t UTIL_PID_Ctrl_Task(pid_ctrl_t *p_inst, float val, float *p_out)
     }
     else 
     {
+<<<<<<< Updated upstream
         status = PID_STATUS_ERROR_NULL_POINTER;
+=======
+        status = PID_NULL_PTR;
+>>>>>>> Stashed changes
     }
 
     return status;
@@ -107,7 +153,11 @@ pid_status_t UTIL_PID_Ctrl_Task(pid_ctrl_t *p_inst, float val, float *p_out)
 
 
 pid_status_t UTIL_PID_Ctrl_Get_Val(pid_ctrl_t *p_inst, float *p_out) {
+<<<<<<< Updated upstream
     pid_status_t status = PID_STATUS_OK;
+=======
+    pid_status_t status = PID_OK;
+>>>>>>> Stashed changes
     if((p_inst != NULL) && (p_out != NULL))
     {
         if(p_inst->is_init)
@@ -116,12 +166,20 @@ pid_status_t UTIL_PID_Ctrl_Get_Val(pid_ctrl_t *p_inst, float *p_out) {
         }
         else
         {
+<<<<<<< Updated upstream
             status = PID_STATUS_ERROR_NOT_INIT;
+=======
+            status = PID_NOT_INIT;
+>>>>>>> Stashed changes
         }
     }
     else
     {
+<<<<<<< Updated upstream
         status = PID_STATUS_ERROR_NULL_POINTER;
+=======
+        status = PID_NULL_PTR;
+>>>>>>> Stashed changes
     }
     return status;
 }

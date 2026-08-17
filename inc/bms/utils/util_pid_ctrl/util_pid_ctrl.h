@@ -25,11 +25,20 @@
 
 typedef enum
 {
+<<<<<<< Updated upstream
     PID_STATUS_OK = 0,
     PID_STATUS_ERROR_NOT_INIT,
     PID_STATUS_ERROR_NULL_POINTER,
     PID_STATUS_ERROR_TIME_ERROR,
     PID_STATUS_MAX
+=======
+    PID_OK = 0,
+    PID_NOT_INIT,
+    PID_DBL_INIT,
+    PID_NULL_PTR,
+    PID_TIME_FAULT,
+    PID_MAX
+>>>>>>> Stashed changes
 } pid_status_t;
 
 typedef const struct
