@@ -60,6 +60,7 @@ static const char *func_str[] = {
     //"NEW FUNC NAME"
 };
 static const char *status_str[] = {
+<<<<<<< Updated upstream
     "OK",
     "NULL_POINTER",
     "NULL_FUNC",
@@ -71,10 +72,25 @@ static const char *status_str[] = {
     "UNDEF_STATE",
     "INVALID_CFG",
     "MAX"
+=======
+    "ADC_OK",
+    "ADC_NULL_PTR",
+    "ADC_NULL_FUNC",
+    "ADC_NOT_INIT",
+    "ADC_DBL_INIT",
+    "ADC_TIMEOUT",
+    "ADC_BUSY",
+    "ADC_TIME_FAULT",
+    "ADC_UNDEF_STATE",
+    "ADC_INVALID_CFG",
+    "ADC_UNKNOWN_ERROR",
+    "ADC_MAX"
+>>>>>>> Stashed changes
     //!NOTE! Add status here
     //"NEW STATUS"
 };
 static const char *states_str[] = {
+<<<<<<< Updated upstream
     "UNDEF",
     "IDLE",
     "START",
@@ -83,6 +99,16 @@ static const char *states_str[] = {
     "READY",
     "ERROR",
     "MAX"
+=======
+    "ADC_STATE_UNDEF",
+    "ADC_STATE_IDLE",
+    "ADC_STATE_START",
+    "ADC_STATE_WAIT",
+    "ADC_STATE_GET",
+    "ADC_STATE_READY",
+    "ADC_STATE_ERROR",
+    "ADC_STATE_MAX"
+>>>>>>> Stashed changes
     //!NOTE! Add state here
     //"NEW STATE"
 };
@@ -139,7 +165,11 @@ static driver_watcher_interface_t drive_watcher = {
 // Tests all adc methods
 void demo_watch_adc_all() {
     demo_watcher_init(NULL_COUNT);
+<<<<<<< Updated upstream
     // demo_watch_adc_funcs();
+=======
+    demo_watch_adc_funcs();
+>>>>>>> Stashed changes
 //    demo_watch_adc_init();
    demo_watch_adc_task();
 }
