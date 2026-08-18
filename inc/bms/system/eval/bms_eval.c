@@ -357,6 +357,8 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
         if(s_eval.data.t_data.t_valid)
         {
             s_eval.con.tcon.tpack_fault = false;   
+            s_eval.con.tcon.temp_avg = 0U;
+            uint8_t counter = 0U;
             
             s_eval.con.tcon.high_temp = s_eval.data.t_data.tmod[0U].tsense_val_C[0U];
             s_eval.con.tcon.low_temp = s_eval.data.t_data.tmod[0U].tsense_val_C[0U];
@@ -370,6 +372,8 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
                 for(uint8_t j = 0U; j < MOD_TEMP_NUM; j++)
                 {
                     float temp = s_eval.data.t_data.tmod[i].tsense_val_C[j];
+                    s_eval.con.tcon.temp_avg += temp;
+                    counter++;
 
                     if(temp > OT_LIM_C)
                     {
@@ -407,6 +411,8 @@ eval_status_t BMS_Eval_Tcon(const daq_data_t *p_data_in, eval_con_t *p_out)
                     }
                 }
             }
+
+            s_eval.con.tcon.temp_avg /= counter;            
 
             *p_out = s_eval.con;
         }
@@ -487,6 +493,8 @@ eval_status_t BMS_Eval_PLim(const daq_data_t *p_data_in, eval_con_t *p_out)
                 {
                     p_out->pwr_lim.ccl_mW = limit_mA;
                 }
+
+                s_eval.con.vcon.total_mV = pack_mV;
             }
         }
         else
