@@ -14,22 +14,31 @@
 
 #include "util_time.h"
 
-#define K_P          (1.0f)
-#define K_I          (0.5f)
-#define K_D          (0.1f)
+#define K_P          (10.0f)
+#define K_I          (1.0f)
+#define K_D          (1.0f)
 #define INTEGRAL_MAX (100.0f)
-#define INTEGRAL_MIN (-100.0f)
-#define PWM_MAX      (255.0f)
+#define INTEGRAL_MIN (0.0f)
+#define PWM_MAX      (100.0f)
 #define PWM_MIN      (0.0f)
-#define PWM_MAX_INT  (255)
+#define PWM_MAX_INT  (65535)
 
 typedef enum
 {
+<<<<<<< Updated upstream
     PID_STATUS_OK = 0,
     PID_STATUS_ERROR_NOT_INIT,
     PID_STATUS_ERROR_NULL_POINTER,
     PID_STATUS_ERROR_TIME_ERROR,
     PID_STATUS_MAX
+=======
+    PID_OK = 0,
+    PID_NOT_INIT,
+    PID_DBL_INIT,
+    PID_NULL_PTR,
+    PID_TIME_FAULT,
+    PID_MAX
+>>>>>>> Stashed changes
 } pid_status_t;
 
 typedef const struct
@@ -58,6 +67,8 @@ typedef struct
 } pid_ctrl_t;
 
 pid_status_t UTIL_PID_Ctrl_Init(pid_ctrl_t *p_inst, const pid_ctrl_cfg_t *p_cfg, const util_time_t *p_time_inst);
+
+pid_status_t UTIL_PID_Ctrl_Task(pid_ctrl_t *p_inst, float val, float *p_out);
 
 pid_status_t UTIL_PID_Ctrl_Get_Val(pid_ctrl_t *p_inst, float *p_out);
 

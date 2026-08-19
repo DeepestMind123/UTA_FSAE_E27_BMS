@@ -13,6 +13,8 @@
 
 #include "util_const.h"
 
+#define COORD_ARRAY_SIZE 2U
+
 typedef enum
 {
     EVAL_ICON_OK = 0U,       // current discharge/charge ok
@@ -86,7 +88,13 @@ typedef struct
 
 typedef struct
 {
+    uint8_t place[COORD_ARRAY_SIZE];
+} eval_loc_t;
+
+typedef struct
+{
     bool ipack_fault;
+    int32_t draw;
     eval_icon_t icon;
 } eval_ipack_t;
 
@@ -98,6 +106,11 @@ typedef struct
 typedef struct
 {
     bool vpack_fault;
+    int32_t total_mV;
+    uint16_t high_cell;
+    eval_loc_t high_cell_loc;
+    uint16_t low_cell;
+    eval_loc_t low_cell_loc;
     eval_vmod_t vmod[SMALL_ARR_16];
 } eval_vpack_t;
 
@@ -109,6 +122,11 @@ typedef struct
 typedef struct
 {
     bool tpack_fault;
+    float high_temp;
+    eval_loc_t high_temp_loc;
+    float low_temp;
+    eval_loc_t low_temp_loc;
+    float temp_avg;
     eval_tmod_t tmod[SMALL_ARR_16];
 } eval_tpack_t;
 
@@ -120,11 +138,19 @@ typedef struct
 
 typedef struct
 {
+    uint16_t soc;
+    uint16_t soe;
+} eval_chg_eng_t;
+
+typedef struct
+{
     eval_ipack_t icon;
     eval_vpack_t vcon;
     eval_tpack_t tcon;
     eval_batt_state_t batt_state;
     eval_pwr_lmt_t pwr_lim;
+    eval_chg_eng_t chg_eng;
+    uint32_t state;
 } eval_con_t;
 
 #endif

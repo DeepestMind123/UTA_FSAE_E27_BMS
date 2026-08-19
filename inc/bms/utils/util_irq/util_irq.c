@@ -52,7 +52,11 @@ irq_status_t UTIL_IRQ_Enter_Critical(util_irq_t *p_irq)
 
     if(p_irq != NULL)
     {
+<<<<<<< Updated upstream
         p_irq->last_state = 0U;;
+=======
+        p_irq->last_state = 0U;
+>>>>>>> Stashed changes
 
         if(p_irq->is_init)
         {
